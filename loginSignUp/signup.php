@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (mysqli_query($conn, $sql)) {
-            echo "<script>alert('✅ Signup Successful!'); window.location.href='../index.php';</script>";
+            echo "<script>alert('✅ Signup Successful!'); window.location.href='login.php';</script>";
             exit;
         } else {
             echo "<script>alert('❌ Error: " . mysqli_error($conn) . "');</script>";
