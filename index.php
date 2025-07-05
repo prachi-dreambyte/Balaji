@@ -91,7 +91,7 @@
 											<a class="link-checkout" title="checkout" href="#">Checkout</a>
 										</li>
 										<li>
-											<a class="login" title="Log in to your customer account" rel="nofollow" href="#">Log in</a>
+											<a class="login" title="Log in to your customer account" rel="nofollow" href="http://localhost/vonia/loginSignUp/signup.php">Log in</a>
 										</li>
 									</ul>
 								</div>

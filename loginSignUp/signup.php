@@ -1,7 +1,50 @@
 <?php
-include '../connect.php';
+session_start();
+include '../connect.php'; // your DB connection file
 
+$message = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $account_Type = $_POST['account_type'];
+    $name       = $_POST['name'];
+    $email      = $_POST['email'];
+    $phone      = $_POST['phone'];
+    $address    = $_POST['address'];
+    $password   = $_POST['password'];
+    $cpassword  = $_POST['cpassword'];
+   
+
+    // Check passwords match
+    if ($password !== $cpassword) {
+        $message = "❌ Passwords do not match.";
+        echo $message;
+        
+    } else {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        if ($account_Type === 'personal') {
+            $sql = "INSERT INTO signup (name, email, phone, address, password, account_type)
+                    VALUES ('$name', '$email', '$phone', '$address', '$hashed_password', '$account_Type')";
+        } elseif ($account_Type === 'commercial') {
+            $gst      = $_POST['gst'];
+            $pan      = $_POST['pan'];
+            $website  = $_POST['website'];
+            $company_name = $_POST['company_name'];
+
+            $sql = "INSERT INTO signup (company_name, name, email, phone, address, gst, pan, website, password, account_type)
+                    VALUES ('$company_name', '$name', '$email', '$phone', '$address', '$gst', '$pan', '$website', '$hashed_password', '$account_Type')";
+        }
+
+        if (mysqli_query($conn, $sql)) {
+            echo "<script>alert('✅ Signup Successful!'); window.location.href='../index.php';</script>";
+            exit;
+        } else {
+            echo "<script>alert('❌ Error: " . mysqli_error($conn) . "');</script>";
+        }
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -19,7 +62,8 @@ include '../connect.php';
         </div>
 
         <!-- Personal Signup Form -->
-        <form action="signup_process.php" method="POST" id="personalForm" class="signup-form active">
+        <form action="" method="POST" id="personalForm" class="signup-form active">
+
             <input type="hidden" name="account_type" value="personal">
 
             <div class="form-group">
@@ -58,7 +102,8 @@ include '../connect.php';
         </form>
 
         <!-- Commercial Signup Form -->
-        <form action="signup_process.php" method="POST" id="commercialForm" class="signup-form">
+        <form action="" method="POST" id="commercialForm" class="signup-form">
+
             <input type="hidden" name="account_type" value="commercial">
 
             <div class="form-group">
@@ -140,3 +185,5 @@ include '../connect.php';
 
 </body>
 </html>
+
+
