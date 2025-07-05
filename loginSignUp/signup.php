@@ -5,7 +5,7 @@ include '../connect.php'; // your DB connection file
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $account_Type = $_POST['account_type'];
+    $account_type = $_POST['account_type'];
     $name       = $_POST['name'];
     $email      = $_POST['email'];
     $phone      = $_POST['phone'];
@@ -13,6 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password   = $_POST['password'];
     $cpassword  = $_POST['cpassword'];
    
+    $check_email_query = "SELECT * FROM signup WHERE email = '$email' AND account_type = '$account_type'";
+    $check_result = mysqli_query($conn, $check_email_query);
+
+    if (mysqli_num_rows($check_result) > 0) {
+        echo "<script>alert('❌ Email already exists. Please use a different email.'); window.location.href='signup.php';</script>";
+        exit;
+    }
 
     // Check passwords match
     if ($password !== $cpassword) {
@@ -22,17 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        if ($account_Type === 'personal') {
+        if ($account_type === 'personal') {
             $sql = "INSERT INTO signup (name, email, phone, address, password, account_type)
-                    VALUES ('$name', '$email', '$phone', '$address', '$hashed_password', '$account_Type')";
-        } elseif ($account_Type === 'commercial') {
+                    VALUES ('$name', '$email', '$phone', '$address', '$hashed_password', '$account_type')";
+        } elseif ($account_type === 'commercial') {
             $gst      = $_POST['gst'];
             $pan      = $_POST['pan'];
             $website  = $_POST['website'];
             $company_name = $_POST['company_name'];
 
             $sql = "INSERT INTO signup (company_name, name, email, phone, address, gst, pan, website, password, account_type)
-                    VALUES ('$company_name', '$name', '$email', '$phone', '$address', '$gst', '$pan', '$website', '$hashed_password', '$account_Type')";
+                    VALUES ('$company_name', '$name', '$email', '$phone', '$address', '$gst', '$pan', '$website', '$hashed_password', '$account_type')";
         }
 
         if (mysqli_query($conn, $sql)) {

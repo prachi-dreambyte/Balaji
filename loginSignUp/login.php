@@ -12,37 +12,59 @@ if (isset($_SESSION['message'])) {
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
     $account_type = $_POST['account_type'];
     $email = trim($_POST['email']);
     $password = $_POST['password'];
-
+    
     if (!empty($account_type) && !empty($email) && !empty($password)) {
-        $query = "SELECT * FROM signup WHERE email='$email' AND account_type='$account_type' LIMIT 1";
-        $result = mysqli_query($conn, $query);
-
+        // Use prepared statement to prevent SQL injection
+        $query = "SELECT * FROM signup WHERE email=? AND account_type=? LIMIT 1";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "ss", $email, $account_type);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+       echo 'hello';
         if ($result && mysqli_num_rows($result) === 1) {
             $user = mysqli_fetch_assoc($result);
-
-            if (password_verify($password, $user['password'])) {
-                $_SESSION['user'] = $user;
-                echo "<script>alert('✅ Login successful!'); window.location.href='../index.php';</script>";
-                exit;
-            } else {
-                $_SESSION['message'] = "❌ Incorrect password.";
+           
+            // Debug: Check if password field exists and has value
+            if (isset($user['password']) && !empty($user['password'])) {
+                echo $password;
+                if (password_verify($password, $user['password'])) {
+                    echo 'princeraj908071@gmail.com';
+                    $_SESSION['user'] = $user;
+                    echo "<script>alert('✅ Login successful!'); window.location.href='../index.php';</script>";
+                    exit;
+                } 
+                else {
+                    $_SESSION['message'] = "❌ Incorrect password.";
+                    header("Location: login.php");
+                    exit;
+                }
+            } 
+            
+            else {
+                $_SESSION['message'] = "❌ Password field not found in database.";
                 header("Location: login.php");
                 exit;
             }
-        } else {
+        } 
+        else {
             $_SESSION['message'] = "❌ Account not found.";
             header("Location: login.php");
             exit;
         }
-    } else {
+    } 
+    else {
         $_SESSION['message'] = "❌ All fields are required.";
         header("Location: login.php");
         exit;
     }
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <input type="submit" value="Login">
         </div>
         <div style="text-align: center;">
-            <p>Don’t have an account? <a href="signup.php">Sign up here</a></p>
+            <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
         </div>
     </form>
 
@@ -94,10 +116,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <input type="password" name="password" required>
         </div>
         <div class="form-group">
-            <input type="submit" value="Login">
+            <input type="submit" name = 'submit' value="Login">
         </div>
         <div style="text-align: center;">
-            <p>Don’t have an account? <a href="signup.php">Sign up here</a></p>
+            <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
         </div>
     </form>
 </div>
