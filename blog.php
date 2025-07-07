@@ -110,7 +110,7 @@
 						</div>
 						<div class="col-md-4 col-sm-6 col-6">
 							<div class="pos-logo">
-								<a href="index11.php">
+								<a href="index.php">
 									<img class="logo img-responsive" src="img/logo.png" alt="" />
 								</a>
 							</div>
@@ -175,132 +175,67 @@
 			</div>
 			<!-- mainmenu-area-start -->
 			<div class="main-menu-area d-none d-lg-block">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="main-menu">
-								<nav>
-									<ul>
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-menu">
+									<nav>
+										<ul>
+											<li>
+												<a class="active" href="index.php">home</a>
+												
+											</li>
+												<li>
+    <a href="shop.php">CATEGORY</a>
+    <div class="mega-menu">
+        <span style="display: grid; grid-template-columns: 200px 200px; gap: 10px;">
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Executive Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Chair</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Mesh Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Table</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Staff Chairs</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Baby Chairs</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Visitor Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Stools</a>
+        </span>
+    </div>
+</li>
+
 										<li>
-											<a class="active" href="index11.php">home</a>
-											<!-- <div class="version">
-												<span>
-													<a href="index11.php">Homepage version-1</a>
-													<a href="index-2.php">Homepage version-2</a>
-													<a href="index-3.php">Homepage version-3</a>
-													<a href="index.php">Homepage version-4</a>
-												</span>
-											</div> -->
+											<a href="shop.php">OFFER</a>
+											
 										</li>
 										<li>
-											<a href="shop.php">furniture</a>
-											<div class="mega-menu">
-												<span>
-													<a class="mega-menu-title" href="#">Dresses</a>
-													<a href="#">Cocktail</a>
-													<a href="#">Day</a>
-													<a href="#">Evening</a>
-													<a href="#">Sports</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">Shoes</a>
-													<a href="#">Sports</a>
-													<a href="#">Run</a>
-													<a href="#">Sandals</a>
-													<a href="#">Books</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">Handbags</a>
-													<a href="#">Blazers</a>
-													<a href="#">Table</a>
-													<a href="#">Coats</a>
-													<a href="#">Kids</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">Clothing</a>
-													<a href="#">T-shirts</a>
-													<a href="#">Coats</a>
-													<a href="#">Jackets</a>
-													<a href="#">Jeans</a>
-												</span>
-											</div>
-										</li>
-										<li>
-											<a href="shop.php">kitchen & bar</a>
-											<div class="mega-menu sec-mega">
-												<span>
-													<a class="mega-menu-title" href="#">Bags</a>
-													<a href="#">Bootees Bags</a>
-													<a href="#">Blazers</a>
-													<a href="#">Sweaters</a>
-													<a href="#">Hoodies</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">Tops & Tees</a>
-													<a href="#">Long Sleeve</a>
-													<a href="#">Short Sleeve</a>
-													<a href="#">Polo Short Sleeve</a>
-													<a href="#">Short Sleeve</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">Lingerie</a>
-													<a href="#">Bands</a>
-													<a href="#">Furniture</a>
-													<a href="#">Wedges</a>
-													<a href="#">Vests</a>
-												</span>
-												<span>
-													<a class="mega-pic" href="#">
-														<img src="img/banner/block-menu.jpg" alt="" />
-													</a>
-												</span>
-											</div>
-										</li>
-										<li>
-											<a href="shop.php">mugs & cups</a>
-											<div class="mega-menu third-mega">
-												<span>
-													<a class="mega-menu-title" href="#">Footwear Man</a>
-													<a href="#">Gold Ring</a>
-													<a href="#">Platinum Rings</a>
-													<a href="#">Silver Ring</a>
-													<a href="#">Tungsten Ring</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">Footwear Womens</a>
-													<a href="#">Bands Gold</a>
-													<a href="#">Platinum Bands</a>
-													<a href="#">Silver Bands</a>
-													<a href="#">Tungsten Bands</a>
-												</span>
-											</div>
-										</li>
-										<li>
-											<a href="shop.php">bedding</a>
+											<a href="shop.php">CONTACT</a>
 										</li>
 										<li>
 											<a href="#">Pages</a>
 											<div class="version pages">
 												<span>
 													<a href="blog.php">Blog</a>
-													<a href="contact-us.php">Contact Us</a>
-													<a href="checkout.php">Checkout</a>
+													<!-- <a href="contact-us.php">Contact Us</a> -->
+													<a class="link-checkout" title="Checkout" href="http://localhost/vonia/checkout.php">Checkout</a>
 													<a href="my-account.php">My account</a>
 													<a href="product-details.php">Product details</a>
 													<a href="shop.php">Shop Page</a>
 													<a href="shopping-cart.php">Shoping Cart</a>
 													<a href="wishlist.php">Wishlist</a>
-													<a href="404.php">404 Error</a>
+													<!-- <a href="404.php">404 Error</a> -->
 												</span>
-											</div>
-										</li>
-									</ul>
-								</nav>
+										
+												</div>
+											</li>
+										</ul>
+									</nav>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 			<!-- mainmenu-area-end -->
 			<!-- mobile-menu-area-start -->
 			<div class="mobile-menu-area d-lg-none d-block">
@@ -310,7 +245,7 @@
 							<div class="mobile_menu">
 								<nav id="mobile_menu_active">
 									<ul>
-										<li><a href="index11.php">Home</a>
+										<li><a href="index.php">Home</a>
 											<!-- <ul>
 												<li><a href="index11.php">Home 1</a></li>
 												<li><a href="index-2.php">Home 2</a></li>
@@ -318,72 +253,29 @@
 												<li><a href="index.php">Home 4</a></li>
 											</ul> -->
 										</li>
-										<li><a href="shop.php">Furniture</a>
-											<ul>
-												<li><a href="#">Dresses</a>
-													<ul>
-														<li><a href="#">Cocktail</a></li>
-														<li><a href="#">Day</a></li>
-														<li><a href="#">Evening</a></li>
-														<li><a href="#">Sports</a></li>
-													</ul>											
-												</li>
-												<li><a href="#">Shoes</a>
-													<ul>
-														<li><a href="#">Sports</a></li>
-														<li><a href="#">Run</a></li>
-														<li><a href="#">Sandals</a></li>
-														<li><a href="#">Books</a></li>
-													</ul>											
-												</li>
-												<li><a href="#">Handbags</a>
-													<ul>
-														<li><a href="#">Blazers</a></li>
-														<li><a href="#">Table</a></li>
-														<li><a href="#">Coats</a></li>
-														<li><a href="#">Kids</a></li>
-													</ul>											
-												</li>
-												<li><a href="#">Clothing</a>
-													<ul>
-														<li><a href="#">T-shirt</a></li>
-														<li><a href="#">Coats</a></li>
-														<li><a href="#">jackets</a></li>
-														<li><a href="#">Jeans</a></li>
-													</ul>											
-												</li>
-											</ul>
-										</li>
-										<li><a href="shop.php">Kitchen & Bar</a>
-											<ul>
-												<li><a href="#">Bags</a>
-													<ul>
-														<li><a href="#">Boots Bags</a></li>
-														<li><a href="#">Blazers</a></li>
-														<li><a href="#">Sweaters</a></li>
-														<li><a href="#">Hoodies</a></li>
-													</ul>											
-												</li>
-												<li><a href="#">Tops & Tees</a>
-													<ul>
-														<li><a href="#">Long Sleeve</a></li>
-														<li><a href="#">Short sleeves</a></li>
-														<li><a href="#">Polo short sleeves</a></li>
-														<li><a href="#">Short Sleevs</a></li>
-													</ul>											
-												</li>
-												<li><a href="#">Lingerie</a>
-													<ul>
-														<li><a href="#">Bands</a></li>
-														<li><a href="#">Furniture</a></li>
-														<li><a href="#">Wedges</a></li>
-														<li><a href="#">Vests</a></li>
-													</ul>											
-												</li>
-											</ul>
-										</li>
-										<li><a href="shop.php">Mugs & Cups</a>
-											<ul>
+											<li>
+    <a href="shop.php">CATEGORY</a>
+    <div class="mega-menu">
+        <span style="display: grid; grid-template-columns: 200px 200px; gap: 10px;">
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Executive Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Chair</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Mesh Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Table</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Staff Chairs</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Baby Chairs</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Visitor Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Stools</a>
+        </span>
+    </div>
+</li>
+
+										
+										<li><a href="shop.php">OFFER</a>
+											<!-- <ul>
 												<li><a href="#">Footwear Man</a>
 													<ul>
 														<li><a href="#">Gold Ring</a></li>
@@ -400,9 +292,9 @@
 														<li><a href="#">Tungsten Bands</a></li>
 													</ul>											
 												</li>
-											</ul>
+											</ul> -->
 										</li>
-										<li><a href="shop.php">Bedding</a></li>
+										<li><a href="shop.php">CONTACT</a></li>
 										<li><a href="#">Pages</a>
 											<ul>
 												<li><a href="blog.php">Blog</a></li>
@@ -430,7 +322,7 @@
 		<div class="shop-2-area">
 			<div class="container">
 				<div class="breadcrumb">
-					<a href="index11.php" title="Return to Home">
+					<a href="index.php" title="Return to Home">
 						<i class="icon-home"></i>
 					</a>
 					<span class="navigation-pipe">></span>
@@ -719,7 +611,7 @@
 							<div class="tags">
 								<a href="#">new</a>
 								<a href="#">fashion</a>
-								<a href="#">furniture</a>
+								<a href="#">CATEGORY</a>
 								<a href="#">sale</a>
 								<a href="#">accessories</a>
 								<a href="#">lighting</a>

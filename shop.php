@@ -88,7 +88,7 @@
 										<a class="link-wishlist wishlist_block" title="My wishlist" href="#">My wishlist</a>
 									</li>
 									<li>
-										<a class="link-checkout" title="checkout" href="#">Checkout</a>
+										<a class="link-checkout" title="Checkout" href="http://localhost/vonia/checkout.php">Checkout</a>
 									</li>
 									<li>
 										<a class="login" title="Log in to your customer account" rel="nofollow" href="#">Log in</a>
@@ -110,7 +110,7 @@
 						</div>
 						<div class="col-md-4 col-sm-6 col-6">
 							<div class="pos-logo">
-								<a href="index11.php">
+								<a href="index.php">
 									<img class="logo img-responsive" src="img/logo.png" alt="" />
 								</a>
 							</div>
@@ -182,7 +182,7 @@
 								<nav>
 									<ul>
 										<li>
-											<a class="active" href="index11.php">home</a>
+											<a class="active" href="index.php">home</a>
 											<!-- <div class="version">
 												<span>
 													<a href="index11.php">Homepage version-1</a>
@@ -193,40 +193,26 @@
 											</div> -->
 										</li>
 										<li>
-											<a href="shop.php">furniture</a>
-											<div class="mega-menu">
-												<span>
-													<a class="mega-menu-title" href="#">SOFA</a>
-													<a href="#">Sectional Sofa</a>
-													<a href="#">Loveseat</a>
-													<a href="#">Recliner Sofa</a>
-													<a href="#">Sleeper Sofa (Sofa Bed)</a>
-													<a href="#">Chesterfield Sofa</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">TABLE</a>
-													<a href="#">Coffee Table</a>
-													<a href="#">Dining Table</a>
-													<a href="#">Study Table</a>
-													<a href="#">Side Table</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">DINNING</a>
-													<a href="#">Dining Table</a>
-													<a href="#">Dining Chairs</a>
-													<a href="#">Dining Bench</a>
-													<a href="#">Buffet / Sideboard</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">STORAGE FURNITURE</a>
-													<a href="#">Wardrobe</a>
-													<a href="#">Chest of Drawers</a>
-													<a href="#">Bookshelf</a>
-													<a href="#">Shoe Rack</a>
-												</span>
-											</div>
-										</li>
-										<!-- <li>
+    <a href="shop.php">CATEGORY</a>
+    <div class="mega-menu">
+        <span style="display: grid; grid-template-columns: 200px 200px; gap: 10px;">
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Executive Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Chair</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Mesh Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Table</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Staff Chairs</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Baby Chairs</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Visitor Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Stools</a>
+        </span>
+    </div>
+</li>
+
+<!-- <li>
 											<a href="shop.php">kitchen & bar</a>
 											<div class="mega-menu sec-mega">
 												<span>
@@ -246,7 +232,7 @@
 												<span>
 													<a class="mega-menu-title" href="#">Lingerie</a>
 													<a href="#">Bands</a>
-													<a href="#">Furniture</a>
+													<a href="#">CATEGORY</a>
 													<a href="#">Wedges</a>
 													<a href="#">Vests</a>
 												</span>
@@ -311,7 +297,7 @@
 							<div class="mobile_menu">
 								<nav id="mobile_menu_active">
 									<ul>
-										<li><a href="index11.php">Home</a>
+										<li><a href="index.php">Home</a>
 											<!-- <ul>
 												<li><a href="index11.php">Home 1</a></li>
 												<li><a href="index-2.php">Home 2</a></li>
@@ -320,40 +306,25 @@
 											</ul> -->
 										</li>
 										<li>
-											<a href="shop.php">furniture</a>
-											<div class="mega-menu">
-												<span>
-													<a class="mega-menu-title" href="#">SOFA</a>
-													<a href="#">Sectional Sofa</a>
-													<a href="#">Loveseat</a>
-													<a href="#">Recliner Sofa</a>
-													<a href="#">Sleeper Sofa (Sofa Bed)</a>
-													<a href="#">Chesterfield Sofa</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">TABLE</a>
-													<a href="#">Coffee Table</a>
-													<a href="#">Dining Table</a>
-													<a href="#">Study Table</a>
-													<a href="#">Side Table</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">DINNING</a>
-													<a href="#">Dining Table</a>
-													<a href="#">Dining Chairs</a>
-													<a href="#">Dining Bench</a>
-													<a href="#">Buffet / Sideboard</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">STORAGE FURNITURE</a>
-													<a href="#">Wardrobe</a>
-													<a href="#">Chest of Drawers</a>
-													<a href="#">Bookshelf</a>
-													<a href="#">Shoe Rack</a>
-												</span>
-											</div>
-										</li>
-										<!-- <li><a href="shop.php">Kitchen & Bar</a>
+    <a href="shop.php">CATEGORY</a>
+    <div class="mega-menu">
+        <span style="display: grid; grid-template-columns: 200px 200px; gap: 10px;">
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Executive Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Chair</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Mesh Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Table</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Staff Chairs</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Baby Chairs</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Visitor Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Stools</a>
+        </span>
+    </div>
+</li>
+<!-- <li><a href="shop.php">Kitchen & Bar</a>
 											<ul>
 												<li><a href="#">Bags</a>
 													<ul>
@@ -374,7 +345,7 @@
 												<li><a href="#">Lingerie</a>
 													<ul>
 														<li><a href="#">Bands</a></li>
-														<li><a href="#">Furniture</a></li>
+														<li><a href="#">CATEGORY</a></li>
 														<li><a href="#">Wedges</a></li>
 														<li><a href="#">Vests</a></li>
 													</ul>											
@@ -429,7 +400,7 @@
 		<div class="shop-2-area">
 			<div class="container">
 				<div class="breadcrumb">
-					<a href="index11.php" title="Return to Home">
+					<a href="index.php" title="Return to Home">
 						<i class="icon-home"></i>
 					</a>
 					<span class="navigation-pipe">></span>
@@ -730,7 +701,7 @@
 							<div class="tags">
 								<a href="#">new</a>
 								<a href="#">fashion</a>
-								<a href="#">furniture</a>
+								<a href="#">CATEGORY</a>
 								<a href="#">sale</a>
 								<a href="#">accessories</a>
 								<a href="#">lighting</a>
