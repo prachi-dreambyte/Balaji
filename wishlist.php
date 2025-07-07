@@ -184,25 +184,36 @@
 											<a class="active" href="index.php">home</a>
 											
 										</li>
-									<li>
+									<li style="position: relative;">
     <a href="shop.php">CATEGORY</a>
-    <div class="mega-menu">
-        <span style="display: grid; grid-template-columns: 200px 200px; gap: 10px;">
 
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Executive Chair</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Chair</a>
-
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Mesh Chair</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Table</a>
-
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Staff Chairs</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Baby Chairs</a>
-
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Visitor Chair</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Stools</a>
-        </span>
+    <div class="mega-menu" style="
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+        z-index: 999;
+        display: inline-block; /* width based on content */
+    ">
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 15px 40px;
+        ">
+            <a href="#">Executive Chair</a>
+            <a href="#">Plastic Chair</a>
+            <a href="#">Mesh Chair</a>
+            <a href="#">Plastic Table</a>
+            <a href="#">Staff Chairs</a>
+            <a href="#">Plastic Baby Chairs</a>
+            <a href="#">Visitor Chair</a>
+            <a href="#">Plastic Stools</a>
+        </div>
     </div>
 </li>
+
 	
 										
 										<li>

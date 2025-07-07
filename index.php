@@ -2,7 +2,6 @@
 include 'connect.php'; 
 ?>
 
-
 <!doctype html>
 <html class="no-js" lang="">
     
@@ -45,11 +44,9 @@ include 'connect.php';
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 		<!-- header-start -->
-		<div class="wrapper-box">
-			<?php
-			include 'header.php';
-			?>
-						<!-- header-end -->
+		<div class="wrapper">
+			<?php include 'header.php'; ?>
+			<!-- heade incr-end -->
 			<!-- slider-start -->
 			<div class="slider-container">
 				<div class="slider">
@@ -2059,3 +2056,4 @@ include 'connect.php';
 
 
 </html>
+ 
