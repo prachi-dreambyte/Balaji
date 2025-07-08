@@ -91,8 +91,8 @@
 										<a class="link-checkout" title="Checkout" href="http://localhost/vonia/checkout.php">Checkout</a>
 									</li>
 									<li>
-										<a class="login" title="Log in to your customer account" rel="nofollow" href="#">Log in</a>
-									</li>
+									<a class="login" title="Log in to your customer account" rel="nofollow" href="loginSignUp/login.php">Log in</a>
+                                    </li>
 								</ul>
 							</div>
 						</div>
@@ -419,7 +419,7 @@
 					</a>
 					<span class="navigation-pipe">></span>
 					<span class="navigation-page">
-						Kitchen & Bar
+						FURNITURE
 					</span>
 				</div>
 				<div class="row">
@@ -437,7 +437,7 @@
 												<input class="checkbox" type="checkbox">
 											</span>
 											<label class="check-label">
-												<a href="#">Bags (13)</a>
+												<a href="#">Executive Chair(2)</a>
 											</label>
 										</li>
 										<li>
@@ -445,7 +445,7 @@
 												<input class="checkbox" type="checkbox">
 											</span>
 											<label class="check-label">
-												<a href="#">Tops & Tees (13)</a>
+												<a href="#">Plastic Chair</a>
 											</label>
 										</li>
 										<li>
@@ -453,7 +453,47 @@
 												<input class="checkbox" type="checkbox">
 											</span>
 											<label class="check-label">
-												<a href="#">Lingerie (13)</a>
+												<a href="#">Mesh Chair(13)</a>
+											</label>
+										</li>
+										<li>
+											<span class="checkit">
+												<input class="checkbox" type="checkbox">
+											</span>
+											<label class="check-label">
+												<a href="#">Plastic Table(13)</a>
+											</label>
+										</li>
+										<li>
+											<span class="checkit">
+												<input class="checkbox" type="checkbox">
+											</span>
+											<label class="check-label">
+												<a href="#">Staff Chairs(13)</a>
+											</label>
+										</li>
+										<li>
+											<span class="checkit">
+												<input class="checkbox" type="checkbox">
+											</span>
+											<label class="check-label">
+												<a href="#">Plastic Baby Chairs(13)</a>
+											</label>
+										</li>
+										<li>
+											<span class="checkit">
+												<input class="checkbox" type="checkbox">
+											</span>
+											<label class="check-label">
+												<a href="#">Visitor Chair(20)</a>
+											</label>
+										</li>
+										<li>
+											<span class="checkit">
+												<input class="checkbox" type="checkbox">
+											</span>
+											<label class="check-label">
+												<a href="#">Plastic Stools(5)</a>
 											</label>
 										</li>
 									</ul>
@@ -515,7 +555,7 @@
 										</div>
 									</div>	
 								</div>
-								<div class="content-box">
+								<!-- <div class="content-box">
 									<h3 class="content-box-heading">Size</h3>
 									<ul>
 										<li>
@@ -597,8 +637,8 @@
 												<a href="#">Pink (2)</a>
 											</label>
 										</li>
-									</ul>
-								</div>
+									</ul>  
+								</div> -->
 								<div class="content-box">
 									<h3 class="content-box-heading">
 										Compositions
