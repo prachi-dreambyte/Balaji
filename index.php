@@ -100,6 +100,7 @@ include 'connect.php';
 							<div class="product-title">
 								<h2>
 									<span>Special Look</span>
+									12345678
 								</h2>
 							</div>
 							<div class="banner-content">
