@@ -219,14 +219,16 @@
 											
 										</li>
 										<li>
-											<a href="shop.php">CONTACT</a>
-										</li>
+                                          <a href="contact.php">CONTACT</a>
+                                         </li>
 										<li>
 											<a href="#">ABOUT</a>
 											<div class="version pages">
 												<span>
 													<a href="blog.php">Blog</a>
-													<a href="contact-us.php">Contact Us</a>
+													
+                                                    <a href="contact.php">CONTACT</a>
+
 													<a href="checkout.php">Checkout</a>
 													<a href="my-account.php">My account</a>
 													<a href="product-details.php">Product details</a>
@@ -296,8 +298,8 @@
 											
 										</li>
 										<li>
-											<a href="shop.php">CONTACT</a>
-										</li>
+                                        <a href="contact.php">CONTACT</a>
+                                         </li>
 										<li>
 											<a href="#">ABOUT</a>
 											<div class="version pages">

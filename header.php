@@ -192,8 +192,8 @@ if (!$result) {
 											
 										</li>
 										<li>
-											<a href="shop.php">CONTACT</a>
-										</li>
+                                          <a href="contact.php">CONTACT</a>
+                                        </li>
 										<li>
 											<a href="#">ABOUT</a>
 											<div class="version pages">
@@ -265,8 +265,8 @@ if (!$result) {
 											
 										</li>
 										<li>
-											<a href="shop.php">CONTACT</a>
-										</li>
+                                          <a href="contact.php">CONTACT</a>
+                                         </li>
 										<li>
 											<a href="#">ABOUT</a>
 											<div class="version pages">

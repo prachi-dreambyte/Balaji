@@ -222,8 +222,8 @@
 											
 										</li>
 										<li>
-											<a href="shop.php">CONTACT</a>
-										</li>
+                                         <a href="contact.php">CONTACT</a>
+                                         </li>
 										<li>
 											<a href="#">ABOUT</a>
 											<div class="version pages">
@@ -290,8 +290,8 @@
 											
 										</li>
 										<li>
-											<a href="shop.php">CONTACT</a>
-										</li>
+                                           <a href="contact.php">CONTACT</a>
+                                         </li>
 										<li>
 											<a href="#">ABOUT</a>
 											<div class="version pages">
@@ -544,8 +544,8 @@
 												<a title="Our stores" href="#">Our stores</a>
 											</li>
 											<li>
-												<a title="Contact us" href="#">Contact us</a>
-											</li>
+                                               <a href="contact.php">CONTACT</a>
+<                                            /li>
 											<li>
 												<a title="Sitemap" href="#">Sitemap</a>
 											</li>

@@ -210,8 +210,8 @@
 											
 										</li>
 										<li>
-											<a href="shop.php">CONTACT</a>
-										</li>
+                                          <a href="contact.php">CONTACT</a>
+                                        </li>
 										<li>
 											<a href="#">ABOUT</a>
 											<div class="version pages">
@@ -294,11 +294,15 @@
 												</li>
 											</ul> -->
 										</li>
-										<li><a href="shop.php">CONTACT</a></li>
+										<li>
+                                          <a href="contact.php">CONTACT</a>
+                                         </li>
 										<li><a href="#">ABOUT</a>
 											<ul>
 												<li><a href="blog.php">Blog</a></li>
-												<li><a href="contact-us.php">Contact Us</a></li>
+												<li>
+                                                   <a href="contact.php">CONTACT</a>
+                                             </li>
 												<li><a href="checkout.php">Checkout</a></li>
 												<li><a href="my-account.php">My account</a></li>
 												<li><a href="product-details.php">Product details</a></li>

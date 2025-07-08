@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../connect.php'; // your DB connection file
+include 'connect.php'; // your DB connection file
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name    = htmlspecialchars($_POST['name']);
@@ -16,9 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $adminNumber = "7291894699"; // Replace with your real WhatsApp number
         $adminName = "Balaji Store";
         $whatsappMessage = "Namaste $adminName,%0AName: $name%0AEmail: $email%0AMobile: $mobile%0AMessage: $message";
-        echo "<script>
+         echo "<script>
             alert('✅ Message sent successfully!');
-            window.open('https://wa.me/$adminNumber?text=$whatsappMessage', '_blank');
+            window.open('$whatsappURL', '_blank');
+            window.location.href = 'index.php';
         </script>";
     } else {
         echo "<script>alert('❌ Failed to send message.');</script>";
