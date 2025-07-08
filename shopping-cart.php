@@ -219,7 +219,7 @@
 											<a href="shop.php">CONTACT</a>
 										</li>
 										<li>
-											<a href="#">Pages</a>
+											<a href="#">ABOUT</a>
 											<div class="version pages">
 												<span>
 													<a href="blog.php">Blog</a>
@@ -286,7 +286,7 @@
 											<a href="shop.php">CONTACT</a>
 										</li>
 										<li>
-											<a href="#">Pages</a>
+											<a href="#">ABOUT</a>
 											<div class="version pages">
 												<span>
 													<a href="blog.php">Blog</a>

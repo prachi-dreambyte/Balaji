@@ -278,7 +278,7 @@
 											<a href="shop.php">bedding</a>
 										</li>
 										<li>
-											<a href="#">Pages</a>
+											<a href="#">ABOUT</a>
 											<div class="version pages">
 												<span>
 													<a href="blog.php">Blog</a>
@@ -402,7 +402,7 @@
 											</ul>
 										</li>
 										<li><a href="shop.php">Bedding</a></li>
-										<li><a href="#">Pages</a>
+										<li><a href="#">ABOUT</a>
 											<ul>
 												<li><a href="blog.php">Blog</a></li>
 												<li><a href="contact-us.php">Contact Us</a></li>
