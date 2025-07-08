@@ -15,15 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // WhatsApp link
         $adminNumber = "7291894699"; // Replace with your real WhatsApp number
         $adminName = "Balaji Store";
-        $whatsappMessage = "Namaste $adminName,%0AName: $name%0AEmail: $email%0AMobile: $mobile%0AMessage: $message";
-         echo "<script>
-            alert('✅ Message sent successfully!');
-            window.open('$whatsappURL', '_blank');
-            window.location.href = 'index.php';
-        </script>";
-    } else {
-        echo "<script>alert('❌ Failed to send message.');</script>";
-    }
+
+        $whatsappMessage = urlencode("Namaste $adminName,\nName: $name\nEmail: $email\nMobile: $mobile\nMessage: $message");
+        $whatsappURL = "https://wa.me/91$adminNumber?text=$whatsappMessage";
+
+         
+       echo $whatsappURL;
+    exit; // Important to stop PHP here
+} else {
+    echo "ERROR";
+    exit;
+}
 }
 ?>
 
@@ -94,7 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
   <h2>📩 Contact Balaji Store</h2>
 
-  <form method="POST" action="">
+  <form method="POST" id="contactForm">
+
     <label for="name">Your Name</label>
     <input type="text" name="name" required />
 
@@ -110,6 +113,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit">Send on WhatsApp</button>
   </form>
 </div>
+
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault(); // Stop default form submission
+
+  const form = e.target;
+  const formData = new FormData(form);
+
+  fetch('', {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.text())
+  .then(url => {
+    if (url.startsWith('https://wa.me')) {
+      window.open(url, '_blank'); // Open WhatsApp
+      window.location.href = 'index.php'; // Then redirect
+    } else {
+      alert('❌ Failed to send message.');
+    }
+  });
+});
+</script>
+
 
 </body>
 </html>
