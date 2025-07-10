@@ -45,7 +45,9 @@ include 'connect.php';
         <![endif]-->
 		<!-- header-start -->
 		<div class="wrapper">
+
 			<?php include 'header.php'; ?>
+			
 			<!-- heade incr-end -->
 			<!-- slider-start -->
 			<div class="slider-container">
@@ -100,7 +102,6 @@ include 'connect.php';
 							<div class="product-title">
 								<h2>
 									<span>Special Look</span>
-									12345678
 								</h2>
 							</div>
 							<div class="banner-content">
@@ -1792,7 +1793,7 @@ include 'connect.php';
 						<div class="container">
 							<div class="footer-logo">
 								<a href="#">
-									<img src="img/logo-footer.png" alt="" />
+									<img src="img/balaji-logo-top.png" alt="" />
 								</a>
 							</div>
 						</div>
@@ -1835,8 +1836,8 @@ include 'connect.php';
 													<a title="Our stores" href="#">Our stores</a>
 												</li>
 												<li>
-                                                    <a href="contact.php">CONTACT</a>
-                                                </li>
+													<a title="Contact us" href="#">Contact us</a>
+												</li>
 												<li>
 													<a title="Sitemap" href="#">Sitemap</a>
 												</li>
@@ -2057,4 +2058,3 @@ include 'connect.php';
 
 
 </html>
- 

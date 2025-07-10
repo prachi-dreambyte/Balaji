@@ -330,8 +330,9 @@ header .header-top nav {
 }
 .img-responsive {
   display: block;
-  height: auto;
-  max-width: 100%;
+  width: 300px;   /* Increase this value as needed */
+  height: 120px;  /* Increase this value as needed */
+  object-fit: contain; /* Ensures image scales without distortion */
 }
 .pos-logo img {
   height: 76px;

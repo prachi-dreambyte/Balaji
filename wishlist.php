@@ -42,6 +42,9 @@
 		<!-- header-start -->
 		<header>
 			<div class="header-top">
+
+			<?php include 'header.php'; ?>
+			
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6 col-sm-7 d-none d-sm-block">
@@ -110,7 +113,7 @@
 						<div class="col-md-4 col-sm-6 col-6">
 							<div class="pos-logo">
 								<a href="index11.php">
-									<img class="logo img-responsive" src="img/logo.png" alt="" />
+									<img class="logo img-responsive" src="img/balaji-TOP-LOGO.png" alt="" />
 								</a>
 							</div>
 						</div>						

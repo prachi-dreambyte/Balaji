@@ -42,6 +42,9 @@
 		<!-- header-start -->
 		<header>
 			<div class="header-top">
+
+			<?php include 'header.php'; ?>
+			
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6 col-sm-7 d-none d-sm-block">

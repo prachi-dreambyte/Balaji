@@ -1,5 +1,5 @@
 <?php
-include 'connect.php'; // replace with actual path if needed
+include 'connect.php';
 
 // Step 2: Write the query
 $sql = "SELECT * FROM categories";
@@ -7,7 +7,7 @@ $sql = "SELECT * FROM categories";
 // Step 3: Execute the query
 $result = mysqli_query($conn, $sql);
 
-// Step 4: Check for errors (optional but good practice)
+// Step 4: Check for errors 
 if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
@@ -86,7 +86,7 @@ if (!$result) {
 							<div class="col-md-4 col-sm-6 col-6">
 								<div class="pos-logo">
 									<a href="index.php">
-										<img class="logo img-responsive" src="img/logo-4.png" alt="" />
+										<img class="logo img-responsive" src="img/balaji-logo-top.png" alt=" style="width: 200px; height: 200px;" />
 									</a>
 								</div>
 							</div>						
