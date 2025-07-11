@@ -334,7 +334,7 @@ header .header-top nav {
   max-width: 100%;
 }
 .pos-logo img {
-  height: 76px;
+  height: 125px;
   width: 277px;
 }
 .lan-cur li img {
@@ -1560,8 +1560,8 @@ header .header-top nav {
 .footer-top{}
 .footer-logo {
   border-bottom: 1px solid #4a4a4a;
-  padding: 60px 0;
   text-align: center;
+  padding: 10px;
 }
 .footer-middle{
 	padding-top: 45px;
@@ -4210,4 +4210,374 @@ font-size: 18px;}
 .color-black h1{color:#444}
 .shop-category-product .single-product {
   margin-bottom: 30px;
+}
+
+
+
+
+/* ABOUT-US */
+/* .aboutUs-Heading{
+ font-family: Lato, sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 60px;
+    text-align: left;
+    color: #003974;
+    text-align: center;
+    padding-top: 10px;
+} */
+ .BalajiFamily{
+  min-height: 80% !important;
+ }
+.aboutHead{
+  font-family: Lato, sans-serif;
+    color: #003974;
+  
+}
+.aboutParagraph{
+    font-size: 16px;
+    font-family: Lato, sans-serif;
+    line-height: 35px !important;
+    color:black;
+}
+.AboutUs-Wrapper{
+  padding: 30px 45px;
+}
+.AboutUSwrapper{
+  padding: 66px 30px;
+}
+.AboutImage{
+ border-radius: 45px;
+    height: 50vh;
+    width: 100%;
+}
+.AboutWrapperButton{
+  font-family: Poppins, sans-serif;
+    font-weight: 400;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    padding: 10px 30px;
+    text-decoration: none;
+    background: #c06b81 ! important;
+	  color: white;
+    overflow: hidden;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 30px;
+}
+.AboutWrapperButton:hover{
+  background:#e393a7! important;
+  color: white;
+}
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.AboutwrapperImage {
+  width: 100%;
+  height: 40vh;
+  display: block;
+}
+
+.aboutUs-Heading {
+  position: absolute;
+  top: 50%; /* adjust this as per your design */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* optional for readability */
+}
+.AboutDivWrapper{
+   position: absolute;
+  top: 65%; /* adjust this as per your design */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* optional for readability */
+  display: flex;
+}
+.AboutHome{
+   color: white;
+  font-size: 15px;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* optional for readability */
+  text-decoration: none;
+  
+}
+.AboutNewHeading{
+  text-align: center;
+  padding: 50px;
+  color: #003974;
+}
+.AboutfirstPara{
+  font-size: 15px;
+  padding-top: 25px;
+}
+.AboutBackground{
+ color:black;
+}
+.BalajiAboutImage{
+  width: 100%;
+    height: 65%;
+    padding: 50px;
+}
+.happyAbout{
+padding: 40px 35px;
+}
+.aboutUniversal{
+text-align: center;
+font-family: Lato, sans-serif;
+color: #003974;
+
+}
+.aboutUniversalPara{
+font-family: Lato, sans-serif;
+font-size: 16px;
+line-height: 30px;
+}
+.DiscoveringImage{
+  text-align: center;
+  padding: 40px;
+}
+.discoverAboutImg{
+border-radius: 50%;
+    height: 90%;
+    width: 87%
+}
+.AboutSlide{
+  height: 120px;
+  width: 50%;
+}
+/* caursal */
+   .marqu{
+    background-color: #eaeded;
+    padding: 28px 20px;
+    box-shadow: 0px 4px 90px 0px rgba(0, 0, 0, 0.1);
+   height: 135px;
+    margin-bottom: 45px;
+  
+  }
+  .marq img{
+    height: 70px;
+    padding: 5px;
+    float:left;
+    padding-left: 50px;
+    object-fit: contain;
+    
+  }
+  /* testinomial */
+ .testimonials.section {
+  padding: 20px 0;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+.testimonials h1{
+  text-align: center;
+  color:#003974;
+  padding-bottom: 30px;
+}
+
+/* Carousel container */
+.carousel-wrappers {
+  max-width: 1000px;
+  margin: 0 auto;
+  border: none !important;
+  /* height: 40% !important; */
+  border-radius: 30px !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Testimonial cards */
+.AboutCard{
+  text-align: center;
+  padding: 20px 5px 0px 5px;
+   border: none !important;
+   height: 205px !important;
+}
+.AboutCard:hover {
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.1);
+ border: none !important;
+   border-radius: 30px !important;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Name */
+.AboutCard h1 {
+  font-size: 25px;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+/* Review Text */
+.AboutCard p {
+  font-size: 18px;
+  color: #666;
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+/* Rating stars placeholder */
+.checked {
+  color: orange;
+}
+
+  /* RESPONSIVE-----ABOUT-US------PAGE */
+  @media (min-width: 1921px) and (max-width: 2561px) {
+}
+
+@media (min-width: 1536px) and (max-width: 1920px) {
+}
+
+@media (max-width: 1650.98px) {
+
+}
+  @media (max-width: 1167.98px) {
+  .discoverAboutImg {
+    height: 70%;}
+}
+/* @media (max-width: 991.98px) {
+  .discoverAboutImg {
+    height:45%;
+  }
+    .DiscoveringImage {
+    padding: 130px 0px 0px 0px;
+    }
+    .BalajiAboutImage {
+    height: 90%;
+    padding: 80px 10px 10px 10px;
+    margin: top 98px;
+    }
+} */
+  @media (max-width: 991.98px) {
+.BalajiAboutImage {
+    margin-top: 98px;
+    }
+    .AboutImage{
+      margin-top: 60px;
+    }
+    .AboutUs-Wrapper {
+    padding: 30px 35px;
+  }
+}
+@media(max-width: 890.98px){
+  .AboutUs-Wrapper {
+    padding: 30px 26px;
+  }
+  .aboutParagraph {
+    line-height: 30px !important;
+  }
+  .DiscoveringImage {
+    padding: 40px 0px;
+}
+.BalajiAboutImage {
+    padding: 50px 0px;
+}
+.happyAbout {
+    padding: 40px 25px;
+}
+.aboutUniversalPara {
+    line-height: 25px;
+}
+.AboutCard p{
+  font-size: 17px;
+}
+.aboutUniversal {
+font-size: 29px;
+}
+}
+@media(max-width: 799.98px){
+  .AboutUs-Wrapper {
+    padding: 30px 22px;
+  }
+  .aboutParagraph {
+    line-height: 28px !important;
+  }
+  .aboutUniversal {
+        font-size: 26px;
+    }
+    .AboutUSwrapper {
+    padding: 65px 15px;
+}
+.discoverAboutImg {
+    height: 55%;
+}
+}
+@media(max-width: 799.98px){
+  .AboutUs-Wrapper {
+        padding: 30px 15px;
+    }
+        .aboutUniversal {
+        font-size: 21px;
+    }
+        .aboutParagraph {
+        line-height: 25px !important;}
+        .aboutParagraph {
+    font-size: 15px;
+        }
+        
+}
+@media(max-width: 799.98px){
+  .discoverAboutImg {
+        height: 90%;
+    }
+}
+@media(max-width: 575.98px){
+  .BalajiAboutImage {
+padding: 0px;
+height: auto;
+  }
+  .AboutImage{
+     height: auto;
+}
+
+}
+@media(max-width: 569.98px){
+   .aboutUniversalPara {
+    line-height: 23px;
+    font-size: 15px;
+}
+}
+@media(max-width: 474.98px){
+      .AboutUSwrapper {
+        padding: 35px 15px;
+    }
+    .discoverAboutImg {
+    border-radius: 45%;
+    width: 80%;}
+
+    .discoverAboutImg {
+    border-radius: 45%;
+    height: 90%;
+    width: 80%;
+    }
+    .marq img{
+      height:79px;
+      padding-left: 30px;
+    }
+.AboutNewHeading {
+    padding: 50px 20px 0px 20px;
+
+}
+.happyAbout {
+        padding: 40px 5px;
+    }
+    .AboutCard p{
+       font-size: 15px;
+    }
+    .aboutUs-Heading {
+  font-size: 2rem;
+    }
+    .AboutwrapperImage {
+    height: 30vh;
+    }
+}
+@media(max-width: 344.98px){
+  
 }

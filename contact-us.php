@@ -109,7 +109,7 @@
 						</div>
 						<div class="col-md-4 col-sm-6 col-6">
 							<div class="pos-logo">
-								<a href="index11.php">
+								<a href="index.html">
 									<img class="logo img-responsive" src="img/logo.png" alt="" />
 								</a>
 							</div>
@@ -181,18 +181,18 @@
 								<nav>
 									<ul>
 										<li>
-											<a class="active" href="index11.php">home</a>
-											<!-- <div class="version">
+											<a class="active" href="index.html">home</a>
+											<div class="version">
 												<span>
-													<a href="index11.php">Homepage version-1</a>
-													<a href="index-2.php">Homepage version-2</a>
-													<a href="index-3.php">Homepage version-3</a>
-													<a href="index.php">Homepage version-4</a>
+													<a href="index.html">Homepage version-1</a>
+													<a href="index-2.html">Homepage version-2</a>
+													<a href="index-3.html">Homepage version-3</a>
+													<a href="index-4.html">Homepage version-4</a>
 												</span>
-											</div> -->
+											</div>
 										</li>
 										<li>
-											<a href="shop.php">furniture</a>
+											<a href="shop.html">furniture</a>
 											<div class="mega-menu">
 												<span>
 													<a class="mega-menu-title" href="#">Dresses</a>
@@ -225,7 +225,7 @@
 											</div>
 										</li>
 										<li>
-											<a href="shop.php">kitchen & bar</a>
+											<a href="shop.html">kitchen & bar</a>
 											<div class="mega-menu sec-mega">
 												<span>
 													<a class="mega-menu-title" href="#">Bags</a>
@@ -256,7 +256,7 @@
 											</div>
 										</li>
 										<li>
-											<a href="shop.php">mugs & cups</a>
+											<a href="shop.html">mugs & cups</a>
 											<div class="mega-menu third-mega">
 												<span>
 													<a class="mega-menu-title" href="#">Footwear Man</a>
@@ -275,21 +275,21 @@
 											</div>
 										</li>
 										<li>
-											<a href="shop.php">bedding</a>
+											<a href="shop.html">bedding</a>
 										</li>
 										<li>
 											<a href="#">Pages</a>
 											<div class="version pages">
 												<span>
-													<a href="blog.php">Blog</a>
-													<a href="contact-us.php">Contact Us</a>
-													<a href="checkout.php">Checkout</a>
-													<a href="my-account.php">My account</a>
-													<a href="product-details.php">Product details</a>
-													<a href="shop.php">Shop Page</a>   
-													<a href="shopping-cart.php">Shoping Cart</a>
-													<a href="wishlist.php">Wishlist</a>
-													<a href="404.php">404 Error</a>
+													<a href="blog.html">Blog</a>
+													<a href="contact-us.html">Contact Us</a>
+													<a href="checkout.html">Checkout</a>
+													<a href="my-account.html">My account</a>
+													<a href="product-details.html">Product details</a>
+													<a href="shop.html">Shop Page</a>
+													<a href="shopping-cart.html">Shoping Cart</a>
+													<a href="wishlist.html">Wishlist</a>
+													<a href="404.html">404 Error</a>
 												</span>
 											</div>
 										</li>
@@ -309,122 +309,117 @@
 							<div class="mobile_menu">
 								<nav id="mobile_menu_active">
 									<ul>
-										<li><a href="index11.php">Home</a>
-											<!-- <ul>
-												<li><a href="index11.php">Home 1</a></li>
-												<li><a href="index-2.php">Home 2</a></li>
-												<li><a href="index-3.php">Home 3</a></li>
-												<li><a href="index.php">Home 4</a></li>
-											</ul> -->
+										<li><a href="index.html">Home</a>
+											<ul>
+												<li><a href="index.html">Home 1</a></li>
+												<li><a href="index-2.html">Home 2</a></li>
+												<li><a href="index-3.html">Home 3</a></li>
+												<li><a href="index-4.html">Home 4</a></li>
+											</ul>
 										</li>
-										<li>
-												<a href="shop.php">furniture</a>
-											<div class="mega-menu">
-												<span>
-													<a class="mega-menu-title" href="#">SOFA</a>
-													<a href="#">Sectional Sofa</a>
-													<a href="#">Loveseat</a>
-													<a href="#">Recliner Sofa</a>
-													<a href="#">Sleeper Sofa (Sofa Bed)</a>
-													<a href="#">Chesterfield Sofa</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">TABLE</a>
-													<a href="#">Coffee Table</a>
-													<a href="#">Dining Table</a>
-													<a href="#">Study Table</a>
-													<a href="#">Side Table</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">DINNING</a>
-													<a href="#">Dining Table</a>
-													<a href="#">Dining Chairs</a>
-													<a href="#">Dining Bench</a>
-													<a href="#">Buffet / Sideboard</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">STORAGE FURNITURE</a>
-													<a href="#">Wardrobe</a>
-													<a href="#">Chest of Drawers</a>
-													<a href="#">Bookshelf</a>
-													<a href="#">Shoe Rack</a>
-												</span>
-											</div>
+										<li><a href="shop.html">Furniture</a>
+											<ul>
+												<li><a href="#">Dresses</a>
+													<ul>
+														<li><a href="#">Cocktail</a></li>
+														<li><a href="#">Day</a></li>
+														<li><a href="#">Evening</a></li>
+														<li><a href="#">Sports</a></li>
+													</ul>											
+												</li>
+												<li><a href="#">Shoes</a>
+													<ul>
+														<li><a href="#">Sports</a></li>
+														<li><a href="#">Run</a></li>
+														<li><a href="#">Sandals</a></li>
+														<li><a href="#">Books</a></li>
+													</ul>											
+												</li>
+												<li><a href="#">Handbags</a>
+													<ul>
+														<li><a href="#">Blazers</a></li>
+														<li><a href="#">Table</a></li>
+														<li><a href="#">Coats</a></li>
+														<li><a href="#">Kids</a></li>
+													</ul>											
+												</li>
+												<li><a href="#">Clothing</a>
+													<ul>
+														<li><a href="#">T-shirt</a></li>
+														<li><a href="#">Coats</a></li>
+														<li><a href="#">jackets</a></li>
+														<li><a href="#">Jeans</a></li>
+													</ul>											
+												</li>
+											</ul>
 										</li>
-										<!-- <li>
-											<a href="shop.php">kitchen & bar</a>
-											<div class="mega-menu sec-mega">
-												<span>
-													<a class="mega-menu-title" href="#">Bags</a>
-													<a href="#">Bootees Bags</a>
-													<a href="#">Blazers</a>
-													<a href="#">Sweaters</a>
-													<a href="#">Hoodies</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">Tops & Tees</a>
-													<a href="#">Long Sleeve</a>
-													<a href="#">Short Sleeve</a>
-													<a href="#">Polo Short Sleeve</a>
-													<a href="#">Short Sleeve</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">Lingerie</a>
-													<a href="#">Bands</a>
-													<a href="#">Furniture</a>
-													<a href="#">Wedges</a>
-													<a href="#">Vests</a>
-												</span>
-												<span>
-													<a class="mega-pic" href="#">
-														<img src="img/banner/block-menu.jpg" alt="" />
-													</a>
-												</span>
-											</div>
-										</li> -->
-										<li>
-											<a href="shop.php">OFFER</a>
-											<!-- <div class="mega-menu third-mega">
-												<span>
-													<a class="mega-menu-title" href="#">Footwear Man</a>
-													<a href="#">Gold Ring</a>
-													<a href="#">Platinum Rings</a>
-													<a href="#">Silver Ring</a>
-													<a href="#">Tungsten Ring</a>
-												</span>
-												<span>
-													<a class="mega-menu-title" href="#">Footwear Womens</a>
-													<a href="#">Bands Gold</a>
-													<a href="#">Platinum Bands</a>
-													<a href="#">Silver Bands</a>
-													<a href="#">Tungsten Bands</a>
-												</span>
-											</div> -->
+										<li><a href="shop.html">Kitchen & Bar</a>
+											<ul>
+												<li><a href="#">Bags</a>
+													<ul>
+														<li><a href="#">Boots Bags</a></li>
+														<li><a href="#">Blazers</a></li>
+														<li><a href="#">Sweaters</a></li>
+														<li><a href="#">Hoodies</a></li>
+													</ul>											
+												</li>
+												<li><a href="#">Tops & Tees</a>
+													<ul>
+														<li><a href="#">Long Sleeve</a></li>
+														<li><a href="#">Short sleeves</a></li>
+														<li><a href="#">Polo short sleeves</a></li>
+														<li><a href="#">Short Sleevs</a></li>
+													</ul>											
+												</li>
+												<li><a href="#">Lingerie</a>
+													<ul>
+														<li><a href="#">Bands</a></li>
+														<li><a href="#">Furniture</a></li>
+														<li><a href="#">Wedges</a></li>
+														<li><a href="#">Vests</a></li>
+													</ul>											
+												</li>
+											</ul>
 										</li>
-										<li>
-											<a href="shop.php">CONTACT</a>
+										<li><a href="shop.html">Mugs & Cups</a>
+											<ul>
+												<li><a href="#">Footwear Man</a>
+													<ul>
+														<li><a href="#">Gold Ring</a></li>
+														<li><a href="#">Platinum Rings</a></li>
+														<li><a href="#">Silver Ring</a></li>
+														<li><a href="#">Tungsten Ring</a></li>
+													</ul>											
+												</li>
+												<li><a href="#">Footwear Womens</a>
+													<ul>
+														<li><a href="#">Bands Gold</a></li>
+														<li><a href="#">Platinum Bands</a></li>
+														<li><a href="#">Silver Bands</a></li>
+														<li><a href="#">Tungsten Bands</a></li>
+													</ul>											
+												</li>
+											</ul>
 										</li>
-										<li>
-											<a href="#">Pages</a>
-											<div class="version pages">
-												<span>
-													<a href="blog.php">Blog</a>
-													<!-- <a href="contact-us.php">Contact Us</a> -->
-													<a href="checkout.php">Checkout</a>
-													<a href="my-account.php">My account</a>
-													<a href="product-details.php">Product details</a>
-													<a href="shop.php">Shop Page</a>
-													<a href="shopping-cart.php">Shoping Cart</a>
-													<a href="wishlist.php">Wishlist</a>
-													<!-- <a href="404.php">404 Error</a> -->
-												</span>
-										
+										<li><a href="shop.html">Bedding</a></li>
+										<li><a href="#">Pages</a>
+											<ul>
+												<li><a href="blog.html">Blog</a></li>
+												<li><a href="contact-us.html">Contact Us</a></li>
+												<li><a href="checkout.html">Checkout</a></li>
+												<li><a href="my-account.html">My account</a></li>
+												<li><a href="product-details.html">Product details</a></li>
+												<li><a href="shop.html">Shop Page</a></li>
+												<li><a href="shopping-cart.html">Shoping Cart</a></li>
+												<li><a href="wishlist.html">Wishlist</a></li>
+												<li><a href="404.html">404 Error</a></li>
+											</ul>
 										</li>
 									</ul>
 								</nav>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</div>
 			</div>
 			<!-- mobile-menu-area-end -->
@@ -436,7 +431,7 @@
 				<div class="breadcrumb-area">
 					<div class="container">
 						<div class="breadcrumb">
-							<a href="index11.php" title="Return to Home">
+							<a href="index.html" title="Return to Home">
 								<i class="icon-home"></i>
 							</a>
 							<span class="navigation-pipe">></span>

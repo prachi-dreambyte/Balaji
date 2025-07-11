@@ -109,7 +109,7 @@
 						</div>
 						<div class="col-md-4 col-sm-6 col-6">
 							<div class="pos-logo">
-								<a href="index11.php">
+								<a href="index.html">
 									<img class="logo img-responsive" src="img/logo.png" alt="" />
 								</a>
 							</div>
@@ -181,18 +181,18 @@
 								<nav>
 									<ul>
 										<li>
-											<a class="active" href="index11.php">home</a>
-											<!-- <div class="version">
+											<a class="active" href="index.html">home</a>
+											<div class="version">
 												<span>
-													<a href="index11.php">Homepage version-1</a>
-													<a href="index-2.php">Homepage version-2</a>
-													<a href="index-3.php">Homepage version-3</a>
-													<a href="index.php">Homepage version-4</a>
+													<a href="index.html">Homepage version-1</a>
+													<a href="index-2.html">Homepage version-2</a>
+													<a href="index-3.html">Homepage version-3</a>
+													<a href="index-4.html">Homepage version-4</a>
 												</span>
-											</div> -->
+											</div>
 										</li>
 										<li>
-											<a href="shop.php">furniture</a>
+											<a href="shop.html">furniture</a>
 											<div class="mega-menu">
 												<span>
 													<a class="mega-menu-title" href="#">Dresses</a>
@@ -225,7 +225,7 @@
 											</div>
 										</li>
 										<li>
-											<a href="shop.php">kitchen & bar</a>
+											<a href="shop.html">kitchen & bar</a>
 											<div class="mega-menu sec-mega">
 												<span>
 													<a class="mega-menu-title" href="#">Bags</a>
@@ -256,7 +256,7 @@
 											</div>
 										</li>
 										<li>
-											<a href="shop.php">mugs & cups</a>
+											<a href="shop.html">mugs & cups</a>
 											<div class="mega-menu third-mega">
 												<span>
 													<a class="mega-menu-title" href="#">Footwear Man</a>
@@ -275,21 +275,21 @@
 											</div>
 										</li>
 										<li>
-											<a href="shop.php">bedding</a>
+											<a href="shop.html">bedding</a>
 										</li>
 										<li>
 											<a href="#">Pages</a>
 											<div class="version pages">
 												<span>
-													<a href="blog.php">Blog</a>
-													<a href="contact-us.php">Contact Us</a>
-													<a href="checkout.php">Checkout</a>
-													<a href="my-account.php">My account</a>
-													<a href="product-details.php">Product details</a>
-													<a href="shop.php">Shop Page</a>
-													<a href="shopping-cart.php">Shoping Cart</a>
-													<a href="wishlist.php">Wishlist</a>
-													<a href="404.php">404 Error</a>
+													<a href="blog.html">Blog</a>
+													<a href="contact-us.html">Contact Us</a>
+													<a href="checkout.html">Checkout</a>
+													<a href="my-account.html">My account</a>
+													<a href="product-details.html">Product details</a>
+													<a href="shop.html">Shop Page</a>
+													<a href="shopping-cart.html">Shoping Cart</a>
+													<a href="wishlist.html">Wishlist</a>
+													<a href="404.html">404 Error</a>
 												</span>
 											</div>
 										</li>
@@ -309,15 +309,15 @@
 							<div class="mobile_menu">
 								<nav id="mobile_menu_active">
 									<ul>
-										<li><a href="index11.php">Home</a>
-											<!-- <ul>
-												<li><a href="index11.php">Home 1</a></li>
-												<li><a href="index-2.php">Home 2</a></li>
-												<li><a href="index-3.php">Home 3</a></li>
-												<li><a href="index.php">Home 4</a></li>
-											</ul> -->
+										<li><a href="index.html">Home</a>
+											<ul>
+												<li><a href="index.html">Home 1</a></li>
+												<li><a href="index-2.html">Home 2</a></li>
+												<li><a href="index-3.html">Home 3</a></li>
+												<li><a href="index-4.html">Home 4</a></li>
+											</ul>
 										</li>
-										<li><a href="shop.php">Furniture</a>
+										<li><a href="shop.html">Furniture</a>
 											<ul>
 												<li><a href="#">Dresses</a>
 													<ul>
@@ -353,7 +353,7 @@
 												</li>
 											</ul>
 										</li>
-										<li><a href="shop.php">Kitchen & Bar</a>
+										<li><a href="shop.html">Kitchen & Bar</a>
 											<ul>
 												<li><a href="#">Bags</a>
 													<ul>
@@ -381,7 +381,7 @@
 												</li>
 											</ul>
 										</li>
-										<li><a href="shop.php">Mugs & Cups</a>
+										<li><a href="shop.html">Mugs & Cups</a>
 											<ul>
 												<li><a href="#">Footwear Man</a>
 													<ul>
@@ -401,18 +401,18 @@
 												</li>
 											</ul>
 										</li>
-										<li><a href="shop.php">Bedding</a></li>
+										<li><a href="shop.html">Bedding</a></li>
 										<li><a href="#">Pages</a>
 											<ul>
-												<li><a href="blog.php">Blog</a></li>
-												<li><a href="contact-us.php">Contact Us</a></li>
-												<li><a href="checkout.php">Checkout</a></li>
-												<li><a href="my-account.php">My account</a></li>
-												<li><a href="product-details.php">Product details</a></li>
-												<li><a href="shop.php">Shop Page</a></li>
-												<li><a href="shopping-cart.php">Shoping Cart</a></li>
-												<li><a href="wishlist.php">Wishlist</a></li>
-												<li><a href="404.php">404 Error</a></li>
+												<li><a href="blog.html">Blog</a></li>
+												<li><a href="contact-us.html">Contact Us</a></li>
+												<li><a href="checkout.html">Checkout</a></li>
+												<li><a href="my-account.html">My account</a></li>
+												<li><a href="product-details.html">Product details</a></li>
+												<li><a href="shop.html">Shop Page</a></li>
+												<li><a href="shopping-cart.html">Shoping Cart</a></li>
+												<li><a href="wishlist.html">Wishlist</a></li>
+												<li><a href="404.html">404 Error</a></li>
 											</ul>
 										</li>
 									</ul>
@@ -430,7 +430,7 @@
 			<div class="container">
 				<div class="breadcrumb-area">
 					<div class="breadcrumb">
-						<a href="index11.php" title="Return to Home">
+						<a href="index.html" title="Return to Home">
 							<i class="icon-home"></i>
 						</a>
 						<span class="navigation-pipe">></span>

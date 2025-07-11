@@ -55,7 +55,7 @@
 
 /* mouse grab icon */
 .grabbing { 
-    cursor:url(grabbing.php) 8 8, move;
+    cursor:url(grabbing.html) 8 8, move;
 }
 
 /* fix */
@@ -146,7 +146,7 @@
 /* preloading images */
 .owl-item.loading{
 	min-height: 150px;
-	background: url(AjaxLoader.php) no-repeat center center
+	background: url(AjaxLoader.html) no-repeat center center
 }
 
 /* 

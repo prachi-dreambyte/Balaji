@@ -120,9 +120,9 @@
 						var meanInner = function() {
 								// get last class name
 								if (jQuery($navreveal).is(".meanmenu-reveal.meanclose")) {
-										$navreveal.php(meanMenuClose);
+										$navreveal.html(meanMenuClose);
 								} else {
-										$navreveal.php(meanMenuOpen);
+										$navreveal.html(meanMenuOpen);
 								}
 						};
 
@@ -147,8 +147,8 @@
 									jQuery('.mean-container').prepend('<div class="mean-bar"><a href="#nav" class="meanmenu-reveal" style="'+meanStyles+'">Show Navigation</a><nav class="mean-nav"></nav></div>');
 
 									//push meanMenu navigation into .mean-nav
-									var meanMenuContents = jQuery(meanMenu).php();
-									jQuery('.mean-nav').php(meanMenuContents);
+									var meanMenuContents = jQuery(meanMenu).html();
+									jQuery('.mean-nav').html(meanMenuContents);
 
 									// remove all classes from EVERYTHING inside meanmenu nav
 									if(meanRemoveAttrs) {
@@ -172,7 +172,7 @@
 									jQuery(".meanmenu-reveal").show();
 
 									// turn 'X' on or off
-									jQuery(meanRevealClass).php(meanMenuOpen);
+									jQuery(meanRevealClass).html(meanMenuOpen);
 									$navreveal = jQuery(meanRevealClass);
 
 									//hide mean-nav ul
@@ -230,7 +230,7 @@
 										jQuery('.mean-nav ul > li > a:first-child').on( "click" , function () {
 											jQuery('.mean-nav ul:first').slideUp();
 											menuOn = false;
-											jQuery($navreveal).toggleClass("meanclose").php(meanMenuOpen);
+											jQuery($navreveal).toggleClass("meanclose").html(meanMenuOpen);
 										});
 									}
 							} else {

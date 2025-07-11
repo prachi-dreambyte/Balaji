@@ -1,6 +1,6 @@
 /* Normal desktop :992px. */
 @media (min-width: 992px) and (max-width: 1169px) {
-.container{width:1200px}
+.container{width:970px}
 .header-middle .search-box {
   left: -15px;
 }
@@ -137,14 +137,7 @@
  
 /* Tablet desktop :768px. */
 @media (min-width: 768px) and (max-width: 991px) {
-.container {
-  max-width: 750px;
-  width: 100%;
-  padding: 0 15px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-	
+.container{width:750px}	
 /* .shopping-cart {
   float: none;
   margin: 30px auto auto;
@@ -208,7 +201,7 @@
   top: -62px;
 }
 .header-2 .search-box .search-block-top {
-  margin-left: 45px;
+  margin-left: 15px;
   width: 330px;
 }
 .search-block-top .btn.button-search::before {

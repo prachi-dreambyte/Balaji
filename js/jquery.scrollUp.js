@@ -38,7 +38,7 @@
 
         // If not using an image display text
         if (!(o.scrollImg || o.scrollTrigger)) {
-            $self.php(o.scrollText);
+            $self.html(o.scrollText);
         }
 
         // Minimum CSS to make the magic happen
