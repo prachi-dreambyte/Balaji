@@ -38,10 +38,13 @@ $result = mysqli_query($conn, $sql);
 
 <div style="display:flex; flex-wrap: wrap; justify-content:center;">
     <?php while($row = mysqli_fetch_assoc($result)) { ?>
-        <div class="category-box">
-            <img src="uploads/<?php echo $row['category_image']; ?>" alt="<?php echo $row['category_name']; ?>">
-            <h3><?php echo $row['category_name']; ?></h3>
-        </div>
+        <a href="products.php?category=<?php echo urlencode($row['category_name']); ?>" style="text-decoration: none; color: inherit;">
+  <div class="category-box">
+      <img src="admin/uploads/<?php echo $row['category_image']; ?>" alt="<?php echo $row['category_name']; ?>">
+      <h3><?php echo $row['category_name']; ?></h3>
+  </div>
+</a>
+
     <?php } ?>
 </div>
 

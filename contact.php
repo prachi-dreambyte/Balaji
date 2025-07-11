@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="mb-3">
           <label for="message" class="form-label">Message</label>
-          <textarea name="message" class="form-control" rows="4" required style="border-radius: 6px;"></textarea>
+          <textarea name="message" class="form-control" rows="8" required style="border-radius: 6px;"></textarea>
         </div>
         <button type="submit" class="btn btn-dark w-100" style="border-radius: 6px;">Send via WhatsApp</button>
       </form>

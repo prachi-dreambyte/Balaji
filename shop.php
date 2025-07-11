@@ -1,3 +1,18 @@
+<?php
+include 'connect.php';
+
+
+
+$sql = "SELECT * FROM products";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+$allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
+
+
+?>
+
+
 <!doctype html>
 <html class="no-js" lang="">
     
@@ -41,7 +56,7 @@
         <![endif]-->
 		
 		<!-- header-start -->
-		<?php include 'header.php'; ?>
+		 <?php include 'header.php'; ?>
 			<!-- mainmenu-area-end -->
 			<!-- mobile-menu-area-start -->
 			<div class="mobile-menu-area d-lg-none d-block">
@@ -556,698 +571,77 @@
 									<div class="tab-content">
 										<div role="tabpanel" class="tab-pane active fade show" id="gried_view">
 											<div class="row">
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-chiffon-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																		Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 19.68 </span>
-																<span class="old-price"> £ 24.60 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/cooks.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																		Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 36.00 </span>
-																<span class="old-price"> £ 24.60 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-summer-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																		Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 34.78 </span>
-																<span class="old-price"> £ 36.61 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Dress">Printed Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 55.07 </span>
-																<span class="old-price"> £ 61.19 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/cup.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Dress">Printed Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																		Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 28.08 </span>
-																<span class="old-price"> £ 31.20 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-summer-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																		Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 34.78 </span>
-																<span class="old-price"> £ 36.61  </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/vass.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Dress">Printed Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 55.07 </span>
-																<span class="old-price"> £ 61.19 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/faded-short-sleeves-tshirt.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																		Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 28.08 </span>
-																<span class="old-price"> £ 31.20 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/cooks.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Dress">Printed Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																	Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 28.08 </span>
-																<span class="old-price"> £ 31.20 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-chiffon-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																		Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 19.68 </span>
-																<span class="old-price"> £ 24.60 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/lamp.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 36.60 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 col-sm-6 col-xs-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-summer-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																		Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 34.78 </span>
-																<span class="old-price"> £ 36.61 </span>
-															</div>
-														</div>
-													</div>
-												</div>
+
+	<?php foreach ($allRows as $row) {
+		
+		// Get image
+		$images = json_decode($row['images']);
+        $firstImage = $images[0];
+	?>
+		<div class="col-md-4 col-sm-6 col-xs-12">
+			<div class="single-product">
+				<div class="product-img">
+					<a href="#">
+						<img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
+					</a>
+					<span class="new">new</span>
+					<!-- <?php if ($row['old_price'] > $row['price']) { ?>
+						<span class="sale">sale!</span>
+					<?php } ?> -->
+					<div class="product-action">
+						<div class="add-to-links">
+							<ul>
+								<li>
+									<a href="#" title="Add to cart">
+										<i class="fa fa-shopping-cart"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#" title="Add to wishlist">
+										<i class="fa fa-heart" aria-hidden="true"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#" title="Add to compare">
+										<i class="fa fa-bar-chart" aria-hidden="true"></i>
+									</a>
+								</li>
+							</ul>
+							<div class="quick-view">
+								<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
+									<span>Quick view</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-content">
+					<h5 class="product-name">
+						<a href="#" title="<?php echo htmlspecialchars($row['product_name']); ?>">
+							<?php echo htmlspecialchars($row['product_name']); ?>
+						</a>
+					</h5>
+					<div class="reviews">
+						<div class="star-content clearfix">
+							<?php for ($i = 0; $i < 5; $i++) : ?>
+								<span class="star star-on"></span>
+							<?php endfor; ?>
+						</div>
+						<div class="comment">
+							<span class="reviewcount">1</span> Review(s)
+						</div>
+					</div>
+					<div class="price-box">
+						<span class="price">₹ <?php echo $row['price']; ?></span>
+						<?php if (!empty($row['old_price']) && $row['old_price'] > $row['price']) { ?>
+							<span class="old-price">₹ <?php echo $row['old_price']; ?></span>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php } ?>
+
 											</div>
 										</div>
 										<div role="tabpanel" class="tab-pane fade" id="list_view">

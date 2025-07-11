@@ -293,17 +293,17 @@
 										<li>
 											<a href="#">ABOUT</a>
 											<div class="version pages">
-												<span>
+												<!-- <span>
 													<a href="blog.php">Blog</a>
-													<!-- <a href="contact-us.php">Contact Us</a> -->
+													<a href="contact-us.php">Contact Us</a>
 													<a href="checkout.php">Checkout</a>
 													<a href="my-account.php">My account</a>
 													<a href="product-details.php">Product details</a>
 													<a href="shop.php">Shop Page</a>
 													<a href="shopping-cart.php">Shoping Cart</a>
 													<a href="wishlist.php">Wishlist</a>
-													<!-- <a href="404.php">404 Error</a> -->
-												</span>
+													<a href="404.php">404 Error</a>
+												</span> -->
 											
 										</li>
 									</ul>

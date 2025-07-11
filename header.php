@@ -168,9 +168,10 @@ if (!$result) {
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)) {
     ?>
-        <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-            <?php echo $row['category_name']; ?>
-        </a>
+       <a href="product.php?category=<?php echo urlencode($row['category_name']); ?>" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+    <?php echo $row['category_name']; ?>
+</a>
+
     <?php
         }
     } else {
@@ -188,7 +189,7 @@ if (!$result) {
 
 		
 										<li>
-											<a href="shop.php">OFFER</a>
+											 <a href="index.php#deals">OFFER</a>
 											
 										</li>
 										<li>
@@ -196,20 +197,20 @@ if (!$result) {
                                         </li>
 										<li>
 											<a href="#">ABOUT</a>
-											<div class="version pages">
+											<!-- <div class="version pages">
 												<span>
 													<a href="blog.php">Blog</a>
-													<!-- <a href="contact-us.php">Contact Us</a> -->
+													<a href="contact-us.php">Contact Us</a>
 													<a class="link-checkout" title="Checkout" href="http://localhost/vonia/checkout.php">Checkout</a>
 													<a href="my-account.php">My account</a>
 													<a href="product-details.php">Product details</a>
 													<a href="shop.php">Shop Page</a>
 													<a href="shopping-cart.php">Shoping Cart</a>
 													<a href="wishlist.php">Wishlist</a>
-													<!-- <a href="404.php">404 Error</a> -->
+													<a href="404.php">404 Error</a>
 												</span>
 										
-												</div>
+												</div> -->
 											</li>
 										</ul>
 									</nav>
