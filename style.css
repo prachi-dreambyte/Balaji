@@ -4581,3 +4581,23 @@ height: auto;
 @media(max-width: 344.98px){
   
 }
+
+/* --------------------BLOG DETAILS-------------------------------------------------- */
+.blogDetailImg{
+  margin-bottom: 30px !important;
+  padding: 20px !important;
+}
+/* .postboxBlog{
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+     margin-bottom: 7px !important;
+  } */
+  .postboxBlog {
+    font-size: 14px !important;
+    color:black !important;
+    margin-right: 15px !important;
+    font-weight: 500 !important;
+    display: inline-block !important;
+    margin-bottom: 5px !important;
+}
