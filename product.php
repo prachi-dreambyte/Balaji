@@ -1,19 +1,20 @@
 <?php
 include 'connect.php';
 
-$category = $_GET['category'] ?? '';
+$category_id = $_GET['category_id'] ?? '';
 
-if ($category == '') {
+if ($category_id == '') {
     echo "<h2>No category selected!</h2>";
     exit;
 }
 
-$sql = "SELECT * FROM products WHERE category = ?";
+$sql = "SELECT * FROM products WHERE category_id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $category);
+$stmt->bind_param("i", $category_id); // 'i' for integer
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -97,4 +98,4 @@ $result = $stmt->get_result();
 </div>
 
 </body>
-</html>
+</html> -->

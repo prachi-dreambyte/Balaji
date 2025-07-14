@@ -1,16 +1,117 @@
 <?php
+
+session_start();
+$compare_count = isset($_SESSION['compare_list']) ? count($_SESSION['compare_list']) : 0;
+
 include 'connect.php';
 
+// Get category_id from URL parameter
+$category_id = isset($_GET['category']) ?$_GET['category'] : '';
+
+// Default limit: 12 products per page
+$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 12;
+
+$search_term = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 
-$sql = "SELECT * FROM products";
-$stmt = $conn->prepare($sql);
+// Get sort_by from URL
+$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : '';
+
+// Build ORDER BY condition
+$order_by = '';
+switch ($sort_by) {
+    case 'price_asc':
+        $order_by = ' ORDER BY price ASC';
+        break;
+    case 'price_desc':
+        $order_by = ' ORDER BY price DESC';
+        break;
+    case 'name_asc':
+        $order_by = ' ORDER BY product_name ASC';
+        break;
+    case 'name_desc':
+        $order_by = ' ORDER BY product_name DESC';
+        break;
+    default:
+        $order_by = ''; // no sorting
+}
+
+
+// Get category name if category_id is provided
+// $category_name = '';
+// if (!empty($category_id)) {
+//     // First, get the category name
+//     $cat_sql = "SELECT category_name FROM categories WHERE  = ?";
+//     $cat_stmt = $conn->prepare($cat_sql);
+//     $cat_stmt->bind_param("i", $category_id);
+//     $cat_stmt->execute();
+//     $cat_result = $cat_stmt->get_result();
+    
+//     if ($cat_result->num_rows > 0) {
+//         $category_name = $cat_result->fetch_assoc()['category_name'];
+//     }
+//     $cat_stmt->close();
+// }
+
+// Debug information (remove this in production)
+// $debug_info = [];
+// $debug_info['category_id'] = $category_id;
+// $debug_info['category_name'] = $category_name;
+
+// Fetch products based on category
+$like = "%$search_term%";
+
+if (!empty($category_id) && !empty($search_term)) {
+    // Search + Category
+    $sql = "SELECT * FROM products WHERE category = ? AND product_name LIKE ?" . $order_by . " LIMIT ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $category_id, $like, $limit);
+    $debug_info['search_term'] = $search_term;
+} elseif (!empty($category_id)) {
+    // Category only
+    $sql = "SELECT * FROM products WHERE category = ?" . $order_by . " LIMIT ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $category_id, $limit);
+    $debug_info['search_term'] = $category_id;
+} elseif (!empty($search_term)) {
+    // Search only
+    $sql = "SELECT * FROM products WHERE product_name LIKE ?" . $order_by . " LIMIT ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $like, $limit);
+    $debug_info['search_term'] = $search_term;
+} else {
+    // No filters (all products)
+    $sql = "SELECT * FROM products" . $order_by . " LIMIT ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $limit);
+    $debug_info['search_term'] = 'ALL PRODUCTS';
+}
+
+$debug_info['sql'] = $sql;
+
+
 $stmt->execute();
 $result = $stmt->get_result();
-$allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
+$allRows = $result->fetch_all(MYSQLI_ASSOC);
 
+// Debug: Get all unique categories from products table
+$debug_sql = "SELECT DISTINCT category FROM products ORDER BY category";
+$debug_stmt = $conn->prepare($debug_sql);
+$debug_stmt->execute();
+$debug_result = $debug_stmt->get_result();
+$debug_categories = $debug_result->fetch_all(MYSQLI_ASSOC);
+$debug_info['available_categories'] = array_column($debug_categories, 'category');
+$debug_stmt->close();
 
+// Get all categories for sidebar
+$cat_sidebar_sql = "SELECT * FROM categories ORDER BY created_at DESC";
+$cat_sidebar_stmt = $conn->prepare($cat_sidebar_sql);
+$cat_sidebar_stmt->execute();
+$cat_sidebar_result = $cat_sidebar_stmt->get_result();
+$categories = $cat_sidebar_result->fetch_all(MYSQLI_ASSOC);
+$cat_sidebar_stmt->close();
 ?>
+
 
 
 <!doctype html>
@@ -168,16 +269,38 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 		</header>
 		<?php include "header.php"; ?>
 		<!-- header-end -->
+
+		<!-- <form method="GET" id="sortForm" style="margin-bottom: 20px;">
+    <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
+    <label for="sort_by"><strong>Sort By:</strong></label>
+    <select name="sort_by" id="sort_by" onchange="document.getElementById('sortForm').submit()">
+        <option value="">Default</option>
+        <option value="price_asc" <?php if ($_GET['sort_by'] == 'price_asc') echo 'selected'; ?>>Price: Low to High</option>
+        <option value="price_desc" <?php if ($_GET['sort_by'] == 'price_desc') echo 'selected'; ?>>Price: High to Low</option>
+        <option value="name_asc" <?php if ($_GET['sort_by'] == 'name_asc') echo 'selected'; ?>>Name: A to Z</option>
+        <option value="name_desc" <?php if ($_GET['sort_by'] == 'name_desc') echo 'selected'; ?>>Name: Z to A</option>
+    </select>
+</form> -->
+
+
+
 		<!-- shop-2-area-start -->
 		<div class="shop-2-area">
 			<div class="container">
+				
 				<div class="breadcrumb">
 					<a href="index.php" title="Return to Home">
 						<i class="icon-home"></i>
 					</a>
 					<span class="navigation-pipe">></span>
 					<span class="navigation-page">
-						FURNITURE
+						<?php if (!empty($category_name)): ?>
+							<a href="shop.php" title="All Products">FURNITURE</a>
+							<span class="navigation-pipe">></span>
+							<?php echo htmlspecialchars($category_name); ?>
+						<?php else: ?>
+							FURNITURE
+						<?php endif; ?>
 					</span>
 				</div>
 				<div class="row">
@@ -190,70 +313,18 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 										Categories
 									</h3>
 									<ul>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Executive Chair(2)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Plastic Chair</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Mesh Chair(13)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Plastic Table(13)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Staff Chairs(13)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Plastic Baby Chairs(13)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Visitor Chair(20)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Plastic Stools(5)</a>
-											</label>
-										</li>
+										<?php foreach ($categories as $cat): ?>
+											<li class="<?php echo ($category_id == $cat['id']) ? 'active' : ''; ?>">
+												<span class="checkit">
+													<input class="checkbox" type="checkbox" <?php echo ($category_id == $cat['id']) ? 'checked' : ''; ?>>
+												</span>
+												<label class="check-label">
+													<a href="shop.php?category_id=<?php echo intval($cat['id']); ?>">
+														<?php echo htmlspecialchars($cat['category_name']); ?>
+													</a>
+												</label>
+											</li>
+										<?php endforeach; ?>
 									</ul>
 								</div>
 								<div class="content-box">
@@ -523,8 +594,8 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 					<div class="col-sm-9">
 						<div class="shop-banner"></div>
 						<div class="shop-heading">
-							<h2>bedding</h2>
-							<span>There are 13 products.</span>
+							<h2><?php echo !empty($category_name) ? htmlspecialchars($category_name) : "All Products"; ?></h2>
+							<span>There are <?php echo count($allRows); ?> products.</span>
 						</div>
 						<div class="category-products">
 							<div class="topbar-category">
@@ -541,32 +612,49 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 										</ul>
 									</div>
 								</div>
-								<div class="sort-by">
-									<label>Sort by</label>
-									<select>
-										<option value="#">Price: Lowest first</option>
-										<option value="#">Price: Highest first</option>
-										<option value="#">Product Name: A to Z</option>
-										<option value="#">Product Name: Z to A</option>
-										<option value="#">In stock</option>
-										<option value="#">Reference: Lowest first</option>
-										<option selected="selected" value="#">--</option>
-									</select>
-								</div>
-								<div class="show">
-									<label>Show</label>
-									<select>
-										<option value="#">24</option>
-										<option selected="selected" value="#">12</option>
-									</select>
-									<span>per page</span>
-								</div>
-								<div class="compare">
-									<a href="#"> compare (0) </a>
-									<i class="fa fa-angle-right"></i>
-								</div>
+
+	<div class="sort-by">
+    <form method="GET" action="shop.php#product-list" id="sortForm">
+
+        <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
+        <label for="sort_by">Sort By</label>
+        <select name="sort_by" id="sort_by" onchange="document.getElementById('sortForm').submit()">
+            <option value="">Default</option>
+            <option value="price_asc" <?php if (isset($_GET['sort_by']) && $_GET['sort_by'] == 'price_asc') echo 'selected'; ?>>Price: Low to High</option>
+            <option value="price_desc" <?php if (isset($_GET['sort_by']) && $_GET['sort_by'] == 'price_desc') echo 'selected'; ?>>Price: High to Low</option>
+            <option value="name_asc" <?php if (isset($_GET['sort_by']) && $_GET['sort_by'] == 'name_asc') echo 'selected'; ?>>Name: A to Z</option>
+            <option value="name_desc" <?php if (isset($_GET['sort_by']) && $_GET['sort_by'] == 'name_desc') echo 'selected'; ?>>Name: Z to A</option>
+
+        </select>
+    </form>
+</div>
+
+
+<div class="show">
+    <form method="GET" action="shop.php#product-list" id="limitForm">
+
+        <!-- hidden fields to preserve filters -->
+        <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
+        <input type="hidden" name="sort_by" value="<?php echo $sort_by; ?>">
+        
+        <label for="limit">Show</label>
+        <select name="limit" id="limit" onchange="document.getElementById('limitForm').submit()">
+            <option value="12" <?php if (isset($_GET['limit']) && $_GET['limit'] == '12') echo 'selected'; ?>>12</option>
+            <option value="24" <?php if (isset($_GET['limit']) && $_GET['limit'] == '24') echo 'selected'; ?>>24</option>
+        </select>
+        <span>per page</span>
+    </form>
+</div>
+
+								
+                                     <div class="compare">
+                                        <a href="compare.php "> compare (<span class="compare-count"><?php echo $compare_count; ?></span>) </a>
+                                         <i class="fa fa-angle-right"></i>
+                                     </div>
+
 							</div>
-							<div class="shop-category-product">
+							<div class="shop-category-product" id="product-list">
+
 								<div class="category-product">
 									<!-- Tab panes -->
 									<div class="tab-content">
@@ -602,11 +690,17 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 										<i class="fa fa-heart" aria-hidden="true"></i>
 									</a>
 								</li>
-								<li>
+								<!-- <li>
 									<a href="#" title="Add to compare">
 										<i class="fa fa-bar-chart" aria-hidden="true"></i>
 									</a>
-								</li>
+								</li> -->
+								<li>
+                                    <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+
 							</ul>
 							<div class="quick-view">
 								<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
@@ -708,10 +802,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li>
+                                                                    <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                     </a>
+                                                                    </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -774,11 +869,17 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																			<i class="fa fa-heart" aria-hidden="true"></i>
 																		</a>
 																	</li>
-																	<li>
+																	<!-- <li>
 																		<a href="#" title="Add to compare">
 																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
 																		</a>
-																	</li>
+																	</li> -->
+																	<li>
+                                                                      <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                        </a>
+                                                                    </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -846,11 +947,17 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																			<i class="fa fa-heart" aria-hidden="true"></i>
 																		</a>
 																	</li>
-																	<li>
+																	<!-- <li>
 																		<a href="#" title="Add to compare">
 																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
 																		</a>
-																	</li>
+																	</li> -->
+																	 <li>
+                                                                       <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                           <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                       </a>
+                                                                     </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -914,10 +1021,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li>
+                                                                      <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                          </a>
+                                                                      </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -958,7 +1066,7 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																	<span class="star star-on"></span>
 																	<span class="star star-on"></span>
 																	<span class="star star-on"></span>
-																	<span class="star"></span>
+																	<span class="star"></span> 
 																</div>
 																<div class="comment">
 																	<span class="reviewcount">1</span>
@@ -986,10 +1094,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li>
+                                                                      <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                         <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                      </a>
+                                                                    </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -1053,10 +1162,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li>
+                                                                        <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                          <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                        </a>
+                                                                    </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -1125,10 +1235,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li>
+                                                                   <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                     <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                     </a>
+                                                                      </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -1192,10 +1303,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li>
+                                                                      <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                           <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                       </a>
+                                                                    </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -1264,9 +1376,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
+                                                                      <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                          </a>
+                                                                    </li>
+
 																	</li>
 																</ul>
 															</div>
@@ -1331,10 +1445,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li>
+                                                                       <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                        </a>
+                                                                    </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -1403,10 +1518,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li>
+                                                                     <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                     </a>
+                                                                    </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -1470,10 +1586,11 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 																		</a>
 																	</li>
 																	<li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li>
+                                                                      <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+                                                                         <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                                                      </a>
+                                                                    </li>
+
 																</ul>
 															</div>
 															<span class="availability">
@@ -1519,10 +1636,12 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
 									</ul>
 								</div>
 								<div class="col-md-6 col-xs-6">
-									<div class="compare">
-										<a href="#"> compare (0) </a>
-										<i class="fa fa-angle-right"></i>
-									</div>
+									
+                                <div class="compare">
+                                <a href="compare.php"> compare (<span class="compare-count"><?php echo $compare_count; ?></span>) </a>
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+
 								</div>
 							</div>
 						</div>
@@ -1869,6 +1988,60 @@ $allRows = $result->fetch_all(MYSQLI_ASSOC); // or MYSQLI_NUM for numeric index
         <script src="js/plugins.js"></script>
 		<!-- main js -->
         <script src="js/main.js"></script>
+
+<!-- for search erase then auto show all product -->
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+          const searchInput = document.querySelector('input[name="search"]');
+    
+         searchInput.addEventListener('input', function() {
+          if (this.value.trim() === '') {
+            // Automatically submit the form when input is empty
+            document.getElementById('searchForm').submit();
+        }
+    });
+});
+</script>
+
+<!-- for compare -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.add-to-compare').click(function(e) {
+        e.preventDefault();
+
+        var productId = $(this).data('id'); // Get product ID from data-id
+        if (!productId) {
+            alert('Product ID missing!');
+            return;
+        }
+
+        $.ajax({
+            url: 'compare.php',
+            method: 'POST',
+            data: { product_id: productId },
+            success: function(response) {
+                try {
+                    var res = JSON.parse(response);
+                    if (res.status === 'success') {
+                        $('.compare-count').text(res.count); // Update count
+                    } else {
+                        alert(res.message);
+                    }
+                } catch (err) {
+                    console.error('Invalid JSON:', response);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', error);
+            }
+        });
+    });
+});
+</script>
+
+
+
     </body>
 
 
