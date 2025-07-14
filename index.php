@@ -2,6 +2,10 @@
 include 'connect.php'; 
 ?>
 
+<?php
+include 'connect.php'; 
+?>
+
 <!doctype html>
 <html class="no-js" lang="">
     
@@ -133,11 +137,11 @@ include 'connect.php';
 				<div class="container">
 					<div class="row ">
 						<div class="col-md-12 owl-carousel-space">
-							<div class="product-title">
-								<h2>
-									<span>daily deals</span>
-								</h2>
-							</div>
+							<div class="product-title" id="deals">
+                               <h2>
+                                  <span>daily deals</span>
+                               </h2>
+                            </div>
 							<div class="row">
 								<div class="daily-deal">
 									<div class="daily-deal-carousel">
@@ -1791,7 +1795,7 @@ include 'connect.php';
 						<div class="container">
 							<div class="footer-logo">
 								<a href="#">
-									<img src="img/logo-footer.png" alt="" />
+									<img src="img/balaji-logo-top.png" alt="" />
 								</a>
 							</div>
 						</div>

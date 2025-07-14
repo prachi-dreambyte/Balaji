@@ -56,10 +56,224 @@
 					</span>
 				</div>
 				<div class="row">
+					<div class="col-md-9">
+						<div class="clearfix"></div>
+						<div class="row">
+							<div class="col-md-12">
+							<div class="blog-heading">
+								<h2>Blog</h2>
+							</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="single-blog blog-margin">
+									<div class="blog-img">
+										<a href="#">
+											<img src="img/latest-blog/1.jpg" alt="" />
+										</a>
+									</div>
+									<div class="blog-content">
+										<h4 class="blog-title">
+											<a href="#">Share the Love 1.6</a>
+										</h4>
+										<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+										Lorem Ipsum has been...
+										</p>
+										<span class="blog-date">2016-03-09 13:40:04</span>
+										<a class="blog-read-more" href="blog-details1.php">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="single-blog blog-margin">
+									<div class="blog-img">
+										<a href="#">
+											<img src="img/latest-blog/3.jpg" alt="" />
+										</a>
+									</div>
+									<div class="blog-content">
+										<h4 class="blog-title">
+											<a href="#">Answers to your Questions about...</a>
+										</h4>
+										<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+										Lorem Ipsum has been...
+										</p>
+										<span class="blog-date">2016-03-09 13:40:04</span>
+										<a class="blog-read-more" href="#">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="single-blog blog-margin">
+									<div class="blog-img">
+										<a href="#">
+											<img src="img/latest-blog/2.jpg" alt="" />
+										</a>
+									</div>
+									<div class="blog-content">
+										<h4 class="blog-title">
+											<a href="#">What is Bootstrap? – The History...</a>
+										</h4>
+										<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+										Lorem Ipsum has been...
+										</p>
+										<span class="blog-date">2016-03-09 13:40:04</span>
+										<a class="blog-read-more" href="#">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="single-blog blog-margin">
+									<div class="blog-img">
+										<a href="#">
+											<img src="img/latest-blog/1.jpg" alt="" />
+										</a>
+									</div>
+									<div class="blog-content">
+										<h4 class="blog-title">
+											<a href="#">From Now we are certified web...</a>
+										</h4>
+										<p> Smartdatasoft is an offshore web development company located in Bangladesh. 
+										We are serving this...
+										</p>
+										<span class="blog-date">2016-03-09 13:40:04</span>
+										<a class="blog-read-more" href="#">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="single-blog blog-margin">
+									<div class="blog-img">
+										<a href="#">
+											<img src="img/latest-blog/1.jpg" alt="" />
+										</a>
+									</div>
+									<div class="blog-content">
+										<h4 class="blog-title">
+											<a href="#">Share the Love 1.6</a>
+										</h4>
+										<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+										Lorem Ipsum has been...
+										</p>
+										<span class="blog-date">2016-03-09 13:40:04</span>
+										<a class="blog-read-more" href="#">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="single-blog blog-margin">
+									<div class="blog-img">
+										<a href="#">
+											<img src="img/latest-blog/3.jpg" alt="" />
+										</a>
+									</div>
+									<div class="blog-content">
+										<h4 class="blog-title">
+											<a href="#">Answers to your Questions about...</a>
+										</h4>
+										<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+										Lorem Ipsum has been...
+										</p>
+										<span class="blog-date">2016-03-09 13:40:04</span>
+										<a class="blog-read-more" href="#">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="single-blog blog-margin">
+									<div class="blog-img">
+										<a href="#">
+											<img src="img/latest-blog/2.jpg" alt="" />
+										</a>
+									</div>
+									<div class="blog-content">
+										<h4 class="blog-title">
+											<a href="#">What is Bootstrap? – The History...</a>
+										</h4>
+										<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+										Lorem Ipsum has been...
+										</p>
+										<span class="blog-date">2016-03-09 13:40:04</span>
+										<a class="blog-read-more" href="#">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="single-blog blog-margin">
+									<div class="blog-img">
+										<a href="#">
+											<img src="img/latest-blog/1.jpg" alt="" />
+										</a>
+									</div>
+									<div class="blog-content">
+										<h4 class="blog-title">
+											<a href="#">From Now we are certified web...</a>
+										</h4>
+										<p> Smartdatasoft is an offshore web development company located in Bangladesh. 
+										We are serving this...
+										</p>
+										<span class="blog-date">2016-03-09 13:40:04</span>
+										<a class="blog-read-more" href="#">
+											<span>Read More</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="blog-pagination">
+							<div class="row">
+								<div class="col-md-6 col-xs-6">
+									<div class="product-count">
+										Showing 1 - 12 of 13 items
+									</div>
+									<ul class="pagination">
+										<li class="pagination-previous-bottom">
+											<a href="#">
+												<i class="fa fa-angle-left"></i>
+											</a>
+										</li>
+										<li class="active current">
+											<a href="#">
+												1
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												2
+											</a>
+										</li>
+										<li class="pagination-next-bottom">
+											<a href="#">
+												<i class="fa fa-angle-right"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="col-md-6 col-xs-6">
+									<div class="compare">
+										<a href="#"> compare (0) </a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="left-column col-md-3">
 						<div class="left-column-block">
-							<h1>Catalog</h1>
-							<div class="block-content">
+							<h1>RECENT BLOGS</h1>
+							<!-- <div class="block-content">
 								<div class="content-box">
 									<h3 class="content-box-heading">
 										Categories
@@ -329,9 +543,9 @@
 										</li>
 									</ul>
 								</div>
-							</div>
+							</div> -->
 						</div>
-						<div class="left-column-block left-col-mar">
+						<!-- <div class="left-column-block left-col-mar">
 							<h1>Tags</h1>
 							<div class="tags">
 								<a href="#">new</a>
@@ -341,11 +555,11 @@
 								<a href="#">accessories</a>
 								<a href="#">lighting</a>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="col-md-9">
 						<div class="clearfix"></div>
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-md-12">
 							<div class="blog-heading">
 								<h2>Blog</h2>
@@ -366,7 +580,7 @@
 										Lorem Ipsum has been...
 										</p>
 										<span class="blog-date">2016-03-09 13:40:04</span>
-										<a class="blog-read-more" href="#">
+										<a class="blog-read-more" href="blog-details1.php">
 											<span>Read More</span>
 										</a>
 									</div>
@@ -519,8 +733,8 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="blog-pagination">
+						</div> -->
+						<!-- <div class="blog-pagination">
 							<div class="row">
 								<div class="col-md-6 col-xs-6">
 									<div class="product-count">
@@ -555,7 +769,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

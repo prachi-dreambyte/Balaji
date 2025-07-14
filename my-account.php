@@ -42,6 +42,9 @@
 		<!-- header-start -->
 		<header>
 			<div class="header-top">
+
+			<?php include 'header.php'; ?>
+			
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6 col-sm-7 d-none d-sm-block">
@@ -220,20 +223,20 @@
                                         </li>
 										<li>
 											<a href="#">ABOUT</a>
-											<div class="version pages">
+											<!-- <div class="version pages">
 												<span>
 													<a href="blog.php">Blog</a>
-													<!-- <a href="contact-us.php">Contact Us</a> -->
+													<a href="contact-us.php">Contact Us</a>
 													<a href="checkout.php">Checkout</a>
 													<a href="my-account.php">My account</a>
 													<a href="product-details.php">Product details</a>
 													<a href="shop.php">Shop Page</a>
 													<a href="shopping-cart.php">Shoping Cart</a>
 													<a href="wishlist.php">Wishlist</a>
-													<!-- <a href="404.php">404 Error</a> -->
+													<a href="404.php">404 Error</a>
 												</span>
 										
-											</div>
+											</div> -->
 										</li>
 									</ul>
 								</nav>
