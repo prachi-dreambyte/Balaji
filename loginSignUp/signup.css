@@ -1,0 +1,164 @@
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Body background and layout */
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #989099); /* Light blue & purple tint */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 20px;
+}
+
+
+/* Signup container */
+.signup-container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Tabs */
+.tab-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.tab-buttons button {
+    flex: 1;
+    padding: 12px;
+    background-color: #f0f0f0;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-buttons button.active {
+    background-color: #007BFF;
+    color: #fff;
+    border-bottom: 3px solid #0056b3;
+    font-weight: bold;
+}
+
+/* Forms */
+.signup-form {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.signup-form.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Submit Button */
+input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Fade in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 30px 15px;
+    }
+
+    .signup-container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .tab-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .tab-buttons button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"] {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-container {
+        padding: 15px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input[type="submit"] {
+        font-size: 15px;
+        padding: 10px;
+    }
+}

@@ -1,0 +1,235 @@
+/* --------------------BLOG DETAILS-------------------------------------------------- */
+.BlogDetailSection{
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+.left-column-blocks{
+    background: #f6f5f3 none repeat scroll 0 0;
+    padding: 30px 30px;
+}
+.BlogDetailImage{
+  display: flex;
+    height: auto;
+    width: 46%;
+    gap: 44px;
+    margin: 13px;
+}
+.blogfirstHeading{
+    font-size: 36px !important;
+    padding: 20px !important;
+}
+.blogUniversalPara{
+    font-size: 20px;
+    line-height: 30px;
+    padding: 0px 21px;
+}
+.blog-DetailsList{
+    
+}
+.blogLi h4{
+ font-size: 30px;
+    font-family: Lato, sans-serif;
+    color: #003974;
+}
+.blogLi p{
+    font-size: 17px;
+    padding: 12px 0px;
+    line-height: 25px;
+}
+  .postboxBlog {
+    font-size: 14px !important;
+    font-family: Lato, sans-serif !important;
+    color: #003974!important;
+    margin-right: 15px !important;
+    font-weight: 500 !important;
+    display: inline-block !important;
+    margin-bottom: 5px !important;
+}
+.bd-sticky {
+    position: sticky;
+    top: 120px;
+}
+.sidebar__widget {
+    background: rgb(246, 246, 246);
+    padding: 30px 30px;
+    margin-left: 23px;
+}
+.sidebar__widget-title {
+    position: relative;
+    display: inline-block;
+    font-weight: 500;
+    color:black;
+    font-size: 22px;
+    margin-bottom: 23px;
+}
+.blogRecent p{
+   font-size: 16px !important;
+    line-height: 1.25 !important;
+    color:#003974 !important;
+}
+.blogWrapperImage{
+    overflow: hidden;
+    margin-right: 25px;
+    flex: 0 0 auto;
+}
+.rc__post {
+    padding: 12px;
+    background-color: white;
+    box-shadow: 0px 1px 3px rgba(3, 4, 28, 0.06);
+    margin-bottom: 20px;
+}
+.blogWrapperImage img{
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+}
+.rc__meta svg{
+    margin-right: 6px;
+}
+.rc__meta span{
+    font-size: 14px;
+}
+.aboutUs-Heading {
+  position: absolute;
+  top: 50%; /* adjust this as per your design */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* optional for readability */
+}
+
+ /* RESPONSIVE-----BLOG-DETAILS------PAGE */
+  @media (min-width: 1921px) and (max-width: 2561px) {
+}
+
+@media (min-width: 1536px) and (max-width: 1920px) {
+}
+
+  @media (max-width: 1169.98px) {
+ .sidebar__widget {
+    /* width: 320px; */
+        padding: 30px 20px;
+    margin-left: 15px;
+ }
+  }
+  @media (max-width: 1055.98px) {
+  .sidebar__widget {
+    width: 298px;
+        padding: 30px 20px;
+ }
+}
+ @media (max-width: 991.98px) {
+  .sidebar__widget {
+    width: 298px;
+        padding: 30px 20px;
+ }
+}
+  @media (max-width: 931.98px) {
+  .blogWrapperImage {
+    margin-right: 11px;
+  }
+    .sidebar__widget {
+    width: 260px;
+    padding: 30px 10px;
+    margin-left: 10px;
+    }
+    .rc__post {
+    padding: 9px;
+    }
+    .aboutUs-Heading {
+  font-size: 30px;
+}
+}
+@media(max-width: 820.98px){
+    .sidebar__widget {
+        padding: 20px 10px;
+        margin-left: 5px;
+        width: 215px;
+    }
+        .rc__post {
+        padding: 2px;
+    }
+ .BlogDetailImage {
+    gap: 25px;
+ }
+}
+@media(max-width: 799.98px){
+  
+}
+@media(max-width: 767.98px){
+     .sidebar__widget {
+        width: auto;
+    margin-top: 25px;
+     }
+
+}
+@media(max-width: 799.98px){
+
+}
+@media(max-width: 575.98px){
+
+}
+@media(max-width: 538.98px){
+    /* .sidebar__widget {
+        width: 220px;
+        padding: 20px 5px;
+    }
+    .sidebar__widget {
+    margin-left: 15px;
+    } */
+}
+@media(max-width: 474.98px){
+}
+@media(max-width: 412.98px){
+    .sidebar__widget {
+        padding: 30px 10px;
+        margin-left: 0px;
+        margin-top: 15px;
+    }
+    .aboutUs-Heading {
+  font-size: 30px;
+}
+.blogfirstHeading {
+    font-size: 32px !important;
+    padding: 15px !important;
+}
+}
+@media(max-width: 390.98px){
+    .aboutUs-Heading {
+  font-size: 28px;
+}
+}
+@media(max-width: 375.98px){
+    .aboutUs-Heading {
+  font-size: 25px;
+}
+}
+@media(max-width: 360.98px){
+  .aboutUs-Heading {
+        font-size: 24px;
+    }
+    .BlogDetailImage {
+        gap: 25px;
+        margin: 13px 0px;
+    }
+        .blogfirstHeading {
+        font-size: 26px !important;
+        padding: 10px !important;
+    }
+    .blogUniversalPara {
+    font-size: 16px;
+    line-height: 29px;
+    padding: 0px 10px;
+    }
+    .blogLi h4 {
+    font-size: 21px;
+    }
+    .blogLi p {
+    font-size: 15px;
+    }
+    .left-column-blocks {
+    padding: 30px 25px;
+}
+}
