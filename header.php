@@ -78,10 +78,18 @@ if (!$result) {
 					<div class="container">
 						<div class="row align-items-center">
 							<div class="col-md-4 col-sm-6 col-xs-12 d-none d-md-block">
-								<div class="search-block-top">
-									<input type="text" value="" placeholder="Search" >
-									<button class="btn btn-default " name="submit_search" type="submit"></button>
-								</div>
+
+   <form method="GET" action="shop.php#product-list" class="search-block-top" id="searchForm">
+
+    <input type="text" name="search" placeholder="Search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+    <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
+    <input type="hidden" name="sort_by" value="<?php echo $sort_by; ?>">
+    <input type="hidden" name="limit" value="<?php echo $limit; ?>">
+    <button class="btn btn-default" name="submit_search" type="submit"></button>
+
+</form>
+
+
 							</div>
 							<div class="col-md-4 col-sm-6 col-6">
 								<div class="pos-logo">
@@ -168,9 +176,20 @@ if (!$result) {
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)) {
     ?>
+
         <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
             <?php echo $row['category_name']; ?>
         </a>
+
+
+   <a href="shop.php?category=<?php echo $row['category_name']; ?>#product-list"
+   style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+   <?php echo $row['category_name']; ?>
+</a>
+
+
+
+
     <?php
         }
     } else {
@@ -246,9 +265,11 @@ if (!$result) {
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)) {
     ?>
-        <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-            <?php echo $row['category_name']; ?>
-        </a>
+    <a href="shop.php?category=<?php echo $row['category_name']; ?>#product-list"
+   style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+   <?php echo $row['category_name']; ?>
+</a>
+
     <?php
         }
     } else {
