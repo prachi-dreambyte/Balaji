@@ -5,8 +5,52 @@ $compare_count = isset($_SESSION['compare_list']) ? count($_SESSION['compare_lis
 
 include 'connect.php';
 
-// Get category_id from URL parameter
-$category_id = isset($_GET['category']) ?$_GET['category'] : '';
+// Initialize the cart if it doesn't exist
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+// Handle Add to Cart
+if (isset($_GET['action']) && $_GET['action'] == 'add') {
+    $product_id = intval($_GET['id']);
+
+    $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
+
+    if ($product) {
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
+
+        if (isset($_SESSION['cart'][$product_id])) {
+            $_SESSION['cart'][$product_id]['quantity'] += 1;
+        } else {
+            // Extract image first
+            $image_array = json_decode($product['images'], true);
+            $image = isset($image_array[0]) ? $image_array[0] : 'default.jpg';
+
+            // Add to session cart
+            $_SESSION['cart'][$product_id] = [
+                'id' => $product['id'],
+                'name' => $product['product_name'],
+                'price' => $product['price'],
+                'quantity' => 1,
+                'image' => $image
+            ];
+        }
+
+        header("Location: shop.php?added=1#product-list");
+        exit;
+    } else {
+        echo "Product not found.";
+    }
+}
+
+// Get category_name from URL parameter
+$category_name = isset($_GET['category']) ? trim($_GET['category']) : '';
 
 // Default limit: 12 products per page
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 12;
@@ -58,34 +102,36 @@ switch ($sort_by) {
 // $debug_info['category_id'] = $category_id;
 // $debug_info['category_name'] = $category_name;
 
-// Fetch products based on category
+// Fetch products based on product name + category name
 $like = "%$search_term%";
 
-if (!empty($category_id) && !empty($search_term)) {
-    // Search + Category
+if (!empty($category_name) && !empty($search_term)) {
+    // Search by product name + category name
     $sql = "SELECT * FROM products WHERE category = ? AND product_name LIKE ?" . $order_by . " LIMIT ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssi", $category_id, $like, $limit);
-    $debug_info['search_term'] = $search_term;
-} elseif (!empty($category_id)) {
-    // Category only
+    $stmt->bind_param("ssi", $category_name, $like, $limit);
+} elseif (!empty($category_name)) {
+    // Filter by category name only
     $sql = "SELECT * FROM products WHERE category = ?" . $order_by . " LIMIT ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $category_id, $limit);
-    $debug_info['search_term'] = $category_id;
-} elseif (!empty($search_term)) {
-    // Search only
-    $sql = "SELECT * FROM products WHERE product_name LIKE ?" . $order_by . " LIMIT ?";
+    $stmt->bind_param("si", $category_name, $limit);
+}elseif (!empty($search_term)) {
+    // Search by product name or category name
+    $sql = "SELECT * FROM products WHERE product_name LIKE ? OR category LIKE ?" . $order_by . " LIMIT ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $like, $limit);
-    $debug_info['search_term'] = $search_term;
-} else {
-    // No filters (all products)
+    $stmt->bind_param("ssi", $like, $like, $limit);
+}
+
+ else {
+    // No search and no category - show all products
     $sql = "SELECT * FROM products" . $order_by . " LIMIT ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $limit);
-    $debug_info['search_term'] = 'ALL PRODUCTS';
 }
+
+
+
+
 
 $debug_info['sql'] = $sql;
 
@@ -160,21 +206,21 @@ $cat_sidebar_stmt->close();
 		 <?php include 'header.php'; ?>
 			<!-- mainmenu-area-end -->
 			<!-- mobile-menu-area-start -->
-			<div class="mobile-menu-area d-lg-none d-block">
+			<!-- <div class="mobile-menu-area d-lg-none d-block">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mobile_menu">
 								<nav id="mobile_menu_active">
 									<ul>
-										<li><a href="index.php">Home</a>
+										<li><a href="index.php">Home</a> -->
 											<!-- <ul>
 												<li><a href="index11.php">Home 1</a></li>
 												<li><a href="index-2.php">Home 2</a></li>
 												<li><a href="index-3.php">Home 3</a></li>
 												<li><a href="index.php">Home 4</a></li>
 											</ul> -->
-										</li>
+										<!-- </li>
 										<li>
     <a href="shop.php">CATEGORY</a>
     <div class="mega-menu">
@@ -193,7 +239,7 @@ $cat_sidebar_stmt->close();
             <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Stools</a>
         </span>
     </div>
-</li>
+</li> -->
 <!-- <li><a href="shop.php">Kitchen & Bar</a>
 											<ul>
 												<li><a href="#">Bags</a>
@@ -222,7 +268,7 @@ $cat_sidebar_stmt->close();
 												</li>
 											</ul>
 										</li> -->
-										<li><a href="shop.php">OFFER</a>
+										<!-- <li><a href="shop.php">OFFER</a> -->
 											<!-- <ul>
 												<li><a href="#">Footwear Man</a>
 													<ul>
@@ -241,7 +287,7 @@ $cat_sidebar_stmt->close();
 													</ul>											
 												</li>
 											</ul> -->
-										</li>
+										<!-- </li>
 										<li>
                                           <a href="contact.php">CONTACT</a>
                                         </li>
@@ -264,10 +310,10 @@ $cat_sidebar_stmt->close();
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!-- mobile-menu-area-end -->
 		</header>
-		<?php include "header.php"; ?>
+		
 		<!-- header-end -->
 
 		<!-- <form method="GET" id="sortForm" style="margin-bottom: 20px;">
@@ -674,17 +720,17 @@ $cat_sidebar_stmt->close();
 						<img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
 					</a>
 					<span class="new">new</span>
-					<!-- <?php if ($row['old_price'] > $row['price']) { ?>
-						<span class="sale">sale!</span>
-					<?php } ?> -->
+					
 					<div class="product-action">
 						<div class="add-to-links">
 							<ul>
-								<li>
-									<a href="#" title="Add to cart">
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</li>
+								<li class="cart">
+                                <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+                                 <i class="fa fa-shopping-cart"></i>
+                                 <span>add to cart</span>
+                                </a>
+                               </li>
+
 								<li>
 									<a href="#" title="Add to wishlist">
 										<i class="fa fa-heart" aria-hidden="true"></i>
@@ -791,11 +837,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+                                                                     <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+                                                                        <i class="fa fa-shopping-cart"></i>
+                                                                        <span>add to cart</span>
+                                                                       </a>
+                                                                    </li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -859,11 +906,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+                                                                      <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+                                                                       <i class="fa fa-shopping-cart"></i>
+                                                                        <span>add to cart</span>
+                                                                               </a>
+                                                                          </li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -937,11 +985,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+                                                                     <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+                                                                     <i class="fa fa-shopping-cart"></i>
+                                                                <span>add to cart</span>
+                                                                        </a>
+                                                                    </li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1010,11 +1059,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+                                                                         <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+                                                                          <i class="fa fa-shopping-cart"></i>
+                                                                          <span>add to cart</span>
+                                                                             </a>
+                                                                           </li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1083,11 +1133,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+    <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+        <i class="fa fa-shopping-cart"></i>
+        <span>add to cart</span>
+    </a>
+</li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1151,11 +1202,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+    <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+        <i class="fa fa-shopping-cart"></i>
+        <span>add to cart</span>
+    </a>
+</li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1224,11 +1276,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+    <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+        <i class="fa fa-shopping-cart"></i>
+        <span>add to cart</span>
+    </a>
+</li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1292,11 +1345,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+    <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+        <i class="fa fa-shopping-cart"></i>
+        <span>add to cart</span>
+    </a>
+</li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1365,11 +1419,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+    <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+        <i class="fa fa-shopping-cart"></i>
+        <span>add to cart</span>
+    </a>
+</li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1434,11 +1489,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+    <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+        <i class="fa fa-shopping-cart"></i>
+        <span>add to cart</span>
+    </a>
+</li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1507,11 +1563,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+    <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+        <i class="fa fa-shopping-cart"></i>
+        <span>add to cart</span>
+    </a>
+</li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1575,11 +1632,12 @@ $cat_sidebar_stmt->close();
 															<div class="action">
 																<ul>
 																	<li class="cart">
-																		<a href="#" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
+    <a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+        <i class="fa fa-shopping-cart"></i>
+        <span>add to cart</span>
+    </a>
+</li>
+
 																	<li class="wishlist">
 																		<a href="#" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -1713,7 +1771,8 @@ $cat_sidebar_stmt->close();
 		</div>
 		<!-- brand-area-end -->
 		<!-- footer-start -->
-		<footer>
+		 <?php include 'footer.php'; ?>
+		<!-- <footer>
 			<div class="footer-area">
 				<div class="footer-top">
 					<div class="container">
@@ -1841,7 +1900,7 @@ $cat_sidebar_stmt->close();
 					</div>
 				</div>
 			</div>
-		</footer>
+		</footer> -->
 		<!-- footer-end -->
 		<!-- modal start -->
 		<div class="modal fade" id="myModal" role="dialog">

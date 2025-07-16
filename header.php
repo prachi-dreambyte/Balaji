@@ -1,18 +1,36 @@
 <?php
-include 'connect.php'; // replace with actual path if needed
 
-// Step 2: Write the query
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+include 'connect.php';
+
+
+// Fetch categories for menu
 $sql = "SELECT * FROM categories";
-
-// Step 3: Execute the query
 $result = mysqli_query($conn, $sql);
 
-// Step 4: Check for errors (optional but good practice)
-if (!$result) {
-    die("Query failed: " . mysqli_error($conn));
-}
+// Cart item count by user
+$cart_count = 0;
+$total_price = 0;
 
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    $stmt = $conn->prepare("SELECT SUM(quantity) as total_items, SUM(quantity * p.price) as total_price
+                            FROM cart c
+                            JOIN products p ON c.product_id = p.id
+                            WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $cart_result = $stmt->get_result();
+    $row = $cart_result->fetch_assoc();
+
+    $cart_count = $row['total_items'] ?? 0;
+    $total_price = $row['total_price'] ?? 0;
+}
 ?>
+
 
 
 <header class="header-4">
@@ -82,9 +100,13 @@ if (!$result) {
    <form method="GET" action="shop.php#product-list" class="search-block-top" id="searchForm">
 
     <input type="text" name="search" placeholder="Search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-    <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
-    <input type="hidden" name="sort_by" value="<?php echo $sort_by; ?>">
-    <input type="hidden" name="limit" value="<?php echo $limit; ?>">
+    <input type="hidden" name="category" value="<?php echo isset($category_name) ? htmlspecialchars($category_name) : ''; ?>">
+
+
+    <input type="hidden" name="sort_by" value="<?php echo isset($sort_by) ? htmlspecialchars($sort_by) : ''; ?>">
+    <input type="hidden" name="limit" value="<?php echo isset($limit) ? (int)$limit : 12; ?>">
+
+
     <button class="btn btn-default" name="submit_search" type="submit"></button>
 
 </form>
@@ -99,60 +121,75 @@ if (!$result) {
 								</div>
 							</div>						
 							<div class="col-md-4 col-sm-6 col-6">
-								<div class="shopping-cart">
-									<a href="#" rel="nofollow" title="View my shopping cart">
-										<b>cart 2 item</b>
-									</a>
-									<div class="top-cart-content">
-										<div class="media header-middle-checkout">
-											<div class="media-left check-img">
-												<a href="#">
-													<img src="img/cart-img/blouse.jpg" alt="" />
-												</a>
-											</div>
-											<div class="media-body checkout-content">
-												<h4 class="media-heading">
-													<span class="cart-count">1x</span>
-													<a href="#">Suspendisse</a>
-													<span class="btn-remove checkout-remove" title="remove this product from my cart">
-														<i class="fa fa-times" aria-hidden="true"></i>
-													</span>
-												</h4>
-												<p class="product-detail"><a href="#" title="product detail">S, Yellow</a></p>
-												<p>£ 34.78</p>
-											</div>
-										</div>
-										<div class="media header-middle-checkout last-child">
-											<div class="media-left check-img">
-												<a href="#">
-													<img src="img/cart-img/printed-summer-dress.jpg" alt="" />
-												</a>
-											</div>
-											<div class="media-body checkout-content">
-												<h4 class="media-heading">
-													<span class="cart-count">1x</span>
-													<a href="#">Suspendisse</a>
-													<span class="btn-remove checkout-remove" title="remove this product from my cart">
-														<i class="fa fa-times" aria-hidden="true"></i>
-													</span>
-												</h4>
-												<p class="product-detail"><a href="#" title="product detail">S, Black</a></p>
-												<p>£ 32.40</p>
-											</div>
-										</div>
-										<div class="cart-total">
-											<span>Total</span>
-											<span><b>£ 67.18</b></span>
-										</div>
-										<div class="checkout">
-											<a href="#">
-												<span>checkout
-													<i class="fa fa-angle-right" aria-hidden="true"></i></span>
-											</a>
-										</div>
-									</div>
-								</div>	
-							</div>
+    <div class="shopping-cart">
+        <a href="shopping-cart.php" rel="nofollow" title="View my shopping cart">
+            <b>cart 
+               <?php
+                 echo $cart_count . ' item' . ($cart_count > 1 ? 's' : '');
+                 ?>
+
+            </b>
+        </a>
+
+        <!-- Dropdown Cart -->
+        <div class="top-cart-content">
+            <?php 
+            $total_price = 0;
+            if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    
+    $stmt = $conn->prepare("SELECT c.quantity,c.id, p.product_name, p.price, p.images 
+                            FROM cart c
+                            JOIN products p ON c.product_id = p.id
+                            WHERE c.user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $cart_items = $stmt->get_result();
+
+    if ($cart_items->num_rows > 0) {
+        while ($item = $cart_items->fetch_assoc()) {
+
+
+            $product_name = $item['product_name'];
+            $product_qty = $item['quantity'];
+            $product_price = $item['price'];
+            $product_image = "admin/uploads/" . basename($item['images']);
+            $product_total = $product_price * $product_qty;
+            $total_price += $product_total;
+?>
+        <div class="media header-middle-checkout">
+            <div class="media-left check-img">
+                <a href="#"><img src="<?php echo $product_image; ?>" alt="" style="width:50px;height:50px;" /></a>
+            </div>
+            <div class="media-body checkout-content">
+                <h4 class="media-heading">
+                    <span class="cart-count"><?php echo $product_qty; ?>x</span>
+                    <a href="#"><?php echo $product_name; ?></a>
+                </h4>
+                <p>₹ <?php echo number_format($product_price, 2); ?></p>
+            </div>
+        </div>
+<?php
+        }
+?>
+        <div class="cart-total">
+            <span>Total</span>
+            <span><b>₹ <?php echo number_format($total_price, 2); ?></b></span>
+        </div>
+        <div class="checkout">
+            <a href="checkout.php"><span>Checkout <i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+        </div>
+<?php
+    } else {
+        echo "<p style='padding:10px;'>Cart is empty.</p>";
+    }
+}
+
+            ?>
+        </div>
+    </div>
+</div>
+
 						</div>
 					</div>
 				</div>
@@ -177,9 +214,9 @@ if (!$result) {
         while ($row = mysqli_fetch_assoc($result)) {
     ?>
 
-        <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        <!-- <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
             <?php echo $row['category_name']; ?>
-        </a>
+        </a> -->
 
 
    <a href="shop.php?category=<?php echo $row['category_name']; ?>#product-list"
@@ -207,7 +244,7 @@ if (!$result) {
 
 		
 										<li>
-											<a href="shop.php">OFFER</a>
+											<a href="index.php#deals">OFFER</a>
 											
 										</li>
 										<li>
@@ -285,7 +322,7 @@ if (!$result) {
 
 										
 										<li>
-											<a href="shop.php">OFFER</a>
+											<a href="index.php#deals">OFFER</a>
 											
 										</li>
 										<li>

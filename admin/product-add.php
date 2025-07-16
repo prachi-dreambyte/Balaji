@@ -362,8 +362,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      if (!empty($_FILES['file']['name'][0])) {
           foreach ($_FILES['file']['name'] as $key => $imageName) {
                $imageTmp = $_FILES['file']['tmp_name'][$key];
-               $imagePath = str_replace("\\", "/", $uploadDir . time() . "_" . basename($imageName));
-
+               $imagePath = $uploadDir . time() . "_" . basename($imageName);
 
                if (move_uploaded_file($imageTmp, $imagePath)) {
                     $imageArray[] = $imagePath; // Store image path in array

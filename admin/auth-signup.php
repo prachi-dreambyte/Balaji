@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             text: 'Sign Up Successful! You can now sign in.',
                             icon: 'success'
                         }).then(() => {
-                            window.location.href = 'auth-signin.php';
+                            window.location.href = 'auth-signin.html';
                         });
                       </script>";
                } else {

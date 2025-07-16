@@ -164,6 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </iframe>
 </div>
 
+<!-- footer section -->
+ <div>
+ <?php include 'footer.php'; ?>
+</div>
 
 <!-- JS Script -->
 <script>

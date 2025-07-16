@@ -4583,9 +4583,12 @@ height: auto;
 }
 
 /* --------------------BLOG DETAILS-------------------------------------------------- */
-.blogDetailImg{
-  margin-bottom: 30px !important;
-  padding: 20px !important;
+.BlogDetailImage{
+  display: flex;
+    height: auto;
+    width: 46%;
+    gap: 44px;
+    margin: 13px;
 }
 /* .postboxBlog{
     display: flex !important;

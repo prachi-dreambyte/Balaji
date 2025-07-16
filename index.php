@@ -42,6 +42,10 @@ include 'connect.php';
         <link rel="stylesheet" href="css/responsive.css">
 		<!-- modernizr css -->
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+		<!-- Owl Carousel CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
     </head>
     <body class="home-4-body">
         <!--[if lt IE 8]>
@@ -144,8 +148,8 @@ include 'connect.php';
                             </div>
 							<div class="row">
 								<div class="daily-deal">
-									<div class="daily-deal-carousel">
-										<div class="col-md-12">
+									<div class="daily-deal-carousel owl-carousel owl-theme">
+										<!-- <div class="col-md-12"> -->
 											<div class="single-product">
 												<div class="daily-products">
 													<div class="product-img">
@@ -178,8 +182,8 @@ include 'connect.php';
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col-md-12">
+										<!-- </div> -->
+										<!-- <div class="col-md-12"> -->
 											<div class="single-product">
 												<div class="daily-products">
 													<div class="product-img">
@@ -217,8 +221,8 @@ include 'connect.php';
 													</div>	
 												</div>
 											</div>
-										</div>
-										<div class="col-md-12">
+										<!-- </div> -->
+										<!-- <div class="col-md-12"> -->
 											<div class="single-product">
 												<div class="daily-products">
 													<div class="product-img">
@@ -256,8 +260,8 @@ include 'connect.php';
 													</div>	
 												</div>
 											</div>
-										</div>
-										<div class="col-md-12">
+										<!-- </div> -->
+										<!-- <div class="col-md-12"> -->
 											<div class="single-product">
 												<div class="daily-products">
 													<div class="product-img">
@@ -290,7 +294,7 @@ include 'connect.php';
 													</div>	
 												</div>
 											</div>
-										</div>
+										<!-- </div> -->
 									</div>
 								</div>
 							</div>
@@ -1789,7 +1793,8 @@ include 'connect.php';
 			</div>
 			<!-- brand-area-end -->
 			<!-- footer-start -->
-			<footer>
+			 <?php include 'footer.php'; ?>
+			<!-- <footer>
 				<div class="footer-area">
 					<div class="footer-top">
 						<div class="container">
@@ -1921,7 +1926,7 @@ include 'connect.php';
 						</div>
 					</div>
 				</div>
-			</footer>
+			</footer> -->
 			<!-- footer-end -->
 		</div>
 		<!-- modal start -->
@@ -2056,6 +2061,28 @@ include 'connect.php';
         <script src="js/plugins.js"></script>
 		<!-- main js -->
         <script src="js/main.js"></script>
+
+<script> 
+ $(document).ready(function(){
+ $(".daily-deal-carousel").owlCarousel({
+    items: 4,              // Number of visible products
+    loop: true,            // Infinite loop
+    margin: 20,            // Space between items
+    autoplay: true,        // Auto slide
+    nav: true,             // Arrows
+    dots: false            // Hide dots
+  });
+});
+
+</script>
+
+<!-- jQuery (required) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Owl Carousel JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
     </body>
 
 
