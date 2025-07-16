@@ -216,7 +216,8 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 		<!-- main js -->
         <script src="js/main.js"></script>
 
-
+<?php include 'footer.php';
+?>
 
 </body>
 </html>

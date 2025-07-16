@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="css/nivo-slider.css">
 		<!-- style css -->
 		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="blog-detail.css">
 		<!-- responsive css -->
         <link rel="stylesheet" href="css/responsive.css">
 		<!-- modernizr js -->
@@ -44,9 +45,18 @@
 <?php include "header.php"; ?>
 		<!-- header-end -->
 		<!-- blog-area-start -->
+		 <section class="AboutSection">
+  <div class="image-wrapper">
+    <img src="img\balaji\f29223411f5783a2e17276e9da95c140.jpg" class="AboutwrapperImage" />
+    <h1 class="aboutUs-Heading">BLOG</h1>
+    <div class="AboutDivWrapper">
+    <a class="AboutHome" href="index.php">HOME</a> &nbsp /  &nbsp <a class="AboutHome" href="#">BLOG</a>
+    </div>
+  </div>
+</section>
 		<div class="shop-2-area">
 			<div class="container">
-				<div class="breadcrumb">
+				<!-- <div class="breadcrumb">
 					<a href="index.php" title="Return to Home">
 						<i class="icon-home"></i>
 					</a>
@@ -54,17 +64,16 @@
 					<span class="navigation-page">
 						Blog
 					</span>
-				</div>
+				</div> -->
 				<div class="row">
-					<div class="col-md-9">
+					<div class="col-md-12">
 						<div class="clearfix"></div>
 						<div class="row">
 							<div class="col-md-12">
 							<div class="blog-heading">
-								<h2>Blog</h2>
 							</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="single-blog blog-margin">
 									<div class="blog-img">
 										<a href="#">
@@ -85,7 +94,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="single-blog blog-margin">
 									<div class="blog-img">
 										<a href="#">
@@ -100,13 +109,13 @@
 										Lorem Ipsum has been...
 										</p>
 										<span class="blog-date">2016-03-09 13:40:04</span>
-										<a class="blog-read-more" href="#">
+										<a class="blog-read-more" href="blog-details1.php">
 											<span>Read More</span>
 										</a>
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="single-blog blog-margin">
 									<div class="blog-img">
 										<a href="#">
@@ -121,13 +130,13 @@
 										Lorem Ipsum has been...
 										</p>
 										<span class="blog-date">2016-03-09 13:40:04</span>
-										<a class="blog-read-more" href="#">
+										<a class="blog-read-more" href="blog-details1.php">
 											<span>Read More</span>
 										</a>
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="single-blog blog-margin">
 									<div class="blog-img">
 										<a href="#">
@@ -142,13 +151,13 @@
 										We are serving this...
 										</p>
 										<span class="blog-date">2016-03-09 13:40:04</span>
-										<a class="blog-read-more" href="#">
+										<a class="blog-read-more" href="blog-details1.php">
 											<span>Read More</span>
 										</a>
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="single-blog blog-margin">
 									<div class="blog-img">
 										<a href="#">
@@ -163,13 +172,13 @@
 										Lorem Ipsum has been...
 										</p>
 										<span class="blog-date">2016-03-09 13:40:04</span>
-										<a class="blog-read-more" href="#">
+										<a class="blog-read-more" href="blog-details1.php">
 											<span>Read More</span>
 										</a>
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="single-blog blog-margin">
 									<div class="blog-img">
 										<a href="#">
@@ -184,13 +193,13 @@
 										Lorem Ipsum has been...
 										</p>
 										<span class="blog-date">2016-03-09 13:40:04</span>
-										<a class="blog-read-more" href="#">
+										<a class="blog-read-more" href="blog-details1.php">
 											<span>Read More</span>
 										</a>
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="single-blog blog-margin">
 									<div class="blog-img">
 										<a href="#">
@@ -205,13 +214,13 @@
 										Lorem Ipsum has been...
 										</p>
 										<span class="blog-date">2016-03-09 13:40:04</span>
-										<a class="blog-read-more" href="#">
+										<a class="blog-read-more" href="blog-details1.php">
 											<span>Read More</span>
 										</a>
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="single-blog blog-margin">
 									<div class="blog-img">
 										<a href="#">
@@ -226,7 +235,7 @@
 										We are serving this...
 										</p>
 										<span class="blog-date">2016-03-09 13:40:04</span>
-										<a class="blog-read-more" href="#">
+										<a class="blog-read-more" href="blog-details1.php">
 											<span>Read More</span>
 										</a>
 									</div>
@@ -270,281 +279,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="left-column col-md-3">
-						<div class="left-column-block">
-							<h1>RECENT BLOGS</h1>
-							<!-- <div class="block-content">
-								<div class="content-box">
-									<h3 class="content-box-heading">
-										Categories
-									</h3>
-									<ul>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Bags (13)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Tops & Tees (13)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Lingerie (13)</a>
-											</label>
-										</li>
-									</ul>
-								</div>
-								<div class="content-box">
-									<h3 class="content-box-heading">
-										Availability
-									</h3>
-									<ul>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">In stock (13)</a>
-											</label>
-										</li>
-									</ul>
-								</div>
-								<div class="content-box">
-									<h3 class="content-box-heading">
-										Condition
-									</h3>
-									<ul>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">New (13)</a>
-											</label>
-										</li>
-									</ul>
-								</div>
-								<div class="content-box">
-									<h3 class="content-box-heading">
-										Manufacturer
-									</h3>
-									<ul>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Fashion Manufacturer (13)</a>
-											</label>
-										</li>
-									</ul>
-								</div>
-								<div class="content-box">
-									<h3 class="content-box-heading">Size</h3>
-									<ul>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">S (13)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">L (13)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">M (13)</a>
-											</label>
-										</li>
-									</ul>
-								</div>
-								<div class="content-box">
-									<h3 class="content-box-heading">
-										Color
-									</h3>
-									<ul>
-										<li>
-											<input class="color-option Beige" type="checkbox">
-											<label class="check-label">
-												<a href="#">Beige (2)</a>
-											</label>
-										</li>
-										<li>
-											<input class="color-option white" type="checkbox">
-											<label class="check-label">
-												<a href="#">White (4)</a>
-											</label>
-										</li>
-										<li>
-											<input class="color-option black" type="checkbox">
-											<label class="check-label">
-												<a href="#">Black (4)</a>
-											</label>
-										</li>
-										<li>
-											<input class="color-option orange" type="checkbox">
-											<label class="check-label">
-												<a href="#">Orange (5)</a>
-											</label>
-										</li>
-										<li>
-											<input class="color-option blue" type="checkbox">
-											<label class="check-label">
-												<a href="#">Blue (3)</a>
-											</label>
-										</li>
-										<li>
-											<input class="color-option green" type="checkbox">
-											<label class="check-label">
-												<a href="#">Green (2)</a>
-											</label>
-										</li>
-										<li>
-											<input class="color-option yellow" type="checkbox">
-											<label class="check-label">
-												<a href="#">Yellow (6)</a>
-											</label>
-										</li>
-										<li>
-											<input class="color-option pink" type="checkbox">
-											<label class="check-label">
-												<a href="#">Pink (2)</a>
-											</label>
-										</li>
-									</ul>
-								</div>
-								<div class="content-box">
-									<h3 class="content-box-heading">
-										Compositions
-									</h3>
-									<ul>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Cotton (5)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Polyester (4)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Viscose (4)</a>
-											</label>
-										</li>
-									</ul>
-								</div>
-								<div class="content-box">
-									<h3 class="content-box-heading">
-										Styles
-									</h3>
-									<ul>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Casual (5)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#"> Dressy (2)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#"> Girly (6)</a>
-											</label>
-										</li>
-									</ul>
-								</div>
-								<div class="content-box">
-									<h3 class="content-box-heading">
-										Properties
-									</h3>
-									<ul>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Colorful Dress (2)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Maxi Dress (2)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Midi Dress (2)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#">Short Dress (4)</a>
-											</label>
-										</li>
-										<li>
-											<span class="checkit">
-												<input class="checkbox" type="checkbox">
-											</span>
-											<label class="check-label">
-												<a href="#"> Short Sleeve (3) </a>
-											</label>
-										</li>
-									</ul>
-								</div>
-							</div> -->
-						</div>
 						<!-- <div class="left-column-block left-col-mar">
 							<h1>Tags</h1>
 							<div class="tags">
@@ -557,7 +291,7 @@
 							</div>
 						</div> -->
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-12">
 						<div class="clearfix"></div>
 						<!-- <div class="row">
 							<div class="col-md-12">

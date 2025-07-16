@@ -24,15 +24,7 @@
     text-align: center;
     align-items: center;
 }
-/* Signup container */
-/* .signup-container {
-    background-color: #ffffff;
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 500px;
-} */
+
  .loginUniversal {
     text-align: center;
     font-family: Lato, sans-serif;
@@ -42,13 +34,11 @@
     padding-bottom: 300px;
 }
 .signup-container {
-   background-color: #ffffff;
-    padding: 177px 40px;
-    border-radius: 0% 94% 0% 0%;
+    background-color: #ffffff;
+    padding: 2px 40px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     width: 100%;
-    height: auto;
-    margin-top: 95px;
+    height: 100%;
 }
 /* Tabs */
 .tab-buttons {
@@ -86,12 +76,13 @@
 
 .signup-form.active {
     display: block;
+    height: 68%;
 }
 
 .form-group {
     margin-bottom: 18px;
     text-align: left;
-    padding: 10px 0px;
+    padding: 0px;
 }
 
 label {
@@ -99,8 +90,8 @@ label {
     margin-bottom: 5px !important;
     font-weight: 350 !important;
     color: #333 !important;
-    font-size: 25px;
-    padding-bottom: 5px;
+    font-size: 20px;
+    padding-bottom: 3px;
 }
 input[type="text"],
 input[type="email"],
@@ -141,9 +132,9 @@ input[type="submit"]:hover {
     padding-top: 20px;
     font-size: 18px;
 }
-.LoginImg{
+.LoginImg {
     margin-top: 95px !important;
-    border-radius: 10px !important;
+    border-radius: 50px !important;
 }
 /* Fade in effect */
 @keyframes fadeIn {
@@ -163,132 +154,89 @@ input[type="submit"]:hover {
 
 @media (min-width: 1536px) and (max-width: 1920px) {
 }
- 
+    
+@media (max-width: 1280.98px) {
+    
+
+ }
 @media (max-width: 1318.98px) {
     .tab-buttons button {
     font-size: 18px;
-    padding: 10px;
-    margin: 0px 5px;
-    }
-    input[type="submit"] {
-        font-size: 18px;
-    padding: 20px;
-    margin-top: 0px;
+    padding: 12px;
     }
   }
 
   @media (max-width: 1169.98px) {
-    .container{
-        width: 97% !important;
-    }
-    .LoginImage {
-    height: 160px;
-    }
-    .signup-container {
-    padding: 99px 40px;
-    }
-
-
+     .tab-buttons button {
+    font-size: 15px;
+     }
+     .signup-container {
+    background-color: #ffffff;
+    padding: 4px 35px;
+     }
+     .label{
+        margin-bottom: 0px !important;
+        font-size: 19px !important;
+     }
+     .container{
+        width: 100% !important;
+     }
   }
   @media (max-width: 1055.98px) {
-        .signup-container {
-        padding: 99px 27px 20px;
-        
-    }
-     /* .LoginImg {
-    height: 138vh !important;
-} */
-.LoginImg {
-    height: 60h !important;
-}
   }
- 
-
  
  @media (max-width: 991.98px) {
- .signup-container {
-        margin-top: 72px;
-    }
+ 
 }
-  @media (max-width: 931.98px) {
-  .label{
-    font-size: 22px !important;
-  }
+  @media (max-width: 890.98px) {
+  input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 5px 0px;
 }
-  @media(max-width: 912.98px){
-     /* .LoginImg {
-    height: 60vh !important;
-} */
-  .LoginImg {
-    height: 100vh !important;
-}
-  }
-  
+.signup-container {
+    background-color: #ffffff;
+    padding: 4px 20px;
+     }
+     .tab-buttons button {
+   margin: 0px 5px;
+   padding: 10px;
+     }
 
-@media(max-width: 820.98px){
-.tab-buttons button {
-    padding: 5px;
 }
-.LoginImg{
-    height: auto !important;
-}
-    .signup-container {
-        padding: 99px 15px 20px;
-    }
-    .LoginImg {
-    margin-top: 60px !important;
-    }
+@media(max-width: 853.98px){
+
 }
 @media(max-width: 799.98px){
-    .signup-container {
-        padding: 70px 10px 20px;
-        border-radius: 0% 80% 0% 0%;
-    }
-        .LoginImage {
-        height: 150px;
-    }
-  .tab-buttons button {
-        padding: 5px;
-        margin: 10px 3px;
-    }
-}
-@media(max-width: 783.98px){
-    .LoginImg {
-    height: 83vh !important;
-}
+  
 }
 @media(max-width: 767.98px){
-    .container{
-        width: 80% !important;
-    }
-        .tab-buttons button {
-        padding: 15px;
-    }
-        .signup-container {
-        padding: 70px 25px 20px;
-        border-radius: 0px;
-        
-    }
-     .image-column{
+    .image-column{
         display: none !important;
     }
-}
-@media(max-width: 567.98px){
-.tab-buttons button {
-        padding: 10px;
+    .container{
+        width: 95% !important;
     }
+    
+}
+@media(max-width: 799.98px){
+
+}
+@media(max-width: 575.98px){
+
 }
 @media(max-width: 538.98px){
-    .signup-container {
-        padding: 70px 18px 20px;
-    }
 }
 @media(max-width: 474.98px){
+    .LoginImage {
+    height: 130px;
+    }
+    .signup-container {
+    padding: 4px 15px;
+     }
 }
 @media(max-width: 412.98px){
-    .LoginImage {
-        height: 120px;
-    }
+
 }
 @media(max-width: 360.98px){
 
