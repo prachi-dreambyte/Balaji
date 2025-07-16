@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="css/nivo-slider.css">
 		<!-- style css -->
 		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="blog-details.css">
+		<link rel="stylesheet" href="blog-detail.css">
 		<!-- responsive css -->
         <link rel="stylesheet" href="css/responsive.css">
 		<!-- modernizr js -->
@@ -45,9 +45,18 @@
 <?php include "header.php"; ?>
 		<!-- header-end -->
 		<!-- blog-area-start -->
+		 <section class="AboutSection">
+  <div class="image-wrapper">
+    <img src="img\balaji\f29223411f5783a2e17276e9da95c140.jpg" class="AboutwrapperImage" />
+    <h1 class="aboutUs-Heading">BLOG</h1>
+    <div class="AboutDivWrapper">
+    <a class="AboutHome" href="index.php">HOME</a> &nbsp /  &nbsp <a class="AboutHome" href="#">BLOG</a>
+    </div>
+  </div>
+</section>
 		<div class="shop-2-area">
 			<div class="container">
-				<div class="breadcrumb">
+				<!-- <div class="breadcrumb">
 					<a href="index.php" title="Return to Home">
 						<i class="icon-home"></i>
 					</a>
@@ -55,14 +64,13 @@
 					<span class="navigation-page">
 						Blog
 					</span>
-				</div>
+				</div> -->
 				<div class="row">
 					<div class="col-md-12">
 						<div class="clearfix"></div>
 						<div class="row">
 							<div class="col-md-12">
 							<div class="blog-heading">
-								<h2>Blog</h2>
 							</div>
 							</div>
 							<div class="col-sm-4">

@@ -5,7 +5,8 @@ include 'connect.php';
 <html class="no-js" lang="">
     
 
-<head> <meta charset="utf-8">
+    <head>
+     <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Blog || Vonia</title>
         <meta name="description" content="">

@@ -53,23 +53,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Signup Page</title>
-    <link rel="stylesheet" href="signup.css">
+    <html class="no-js" lang="">
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Login Page|| Vonia</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
+        <!-- Place favicon.ico in the root directory -->
+		<!-- google font -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+		<!-- all css here -->
+		<!-- bootstrap v3.3.6 css -->
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+		<!-- animate css -->
+        <link rel="stylesheet" href="../css/animate.css">
+		<!-- jquery-ui.min css -->
+        <link rel="stylesheet" href="../css/jquery-ui.min.css">
+		<!-- meanmenu css -->
+        <link rel="stylesheet" href="../css/meanmenu.min.css">
+		<!-- owl.carousel css -->
+        <link rel="stylesheet" href="../css/owl.carousel.css">
+		<!-- font-awesome css -->
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
+		<!-- nivo-slider css -->
+        <link rel="stylesheet" href="../css/nivo-slider.css">
+		<!-- style css -->
+		<link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="signup1.css"> 
+
+        <link rel="stylesheet" href="blog-detail.css">
+		<!-- responsive css -->
+        <link rel="stylesheet" href="../css/responsive.css">
+		<!-- modernizr js -->
+        <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+         <!-- <link rel="stylesheet" href="signup.css"> -->
     
 </head>
 <body>
 
-    <div class="signup-container">
-        <div class="tab-buttons">
-            <button id="personalBtn" class="active" onclick="showForm('personal')">👤 Personal Signup</button>
-            <button id="commercialBtn" onclick="showForm('commercial')">🏢 Commercial Signup</button>
-        </div>
+    <section class="LoginPageSection">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-6 col-lg-6 image-column">
+                    <div class="signupImage">
+                   <img src="../img/balaji/login.jpg"  class="LoginImg"/>
+                </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="signup-container">
+                        <div class="aboutUniversal">
+                            <img src="../img/balaji-TOP-LOGO.png"  class="LoginImage"/>
+                            <h1 class="py-4">SIGN UP</h1>
+                            <div class="tab-buttons">
+                                <button id="personalBtn" class="active" onclick="showForm('personal')">👤 Personal Signup</button>
+                                  <button id="commercialBtn" onclick="showForm('commercial')">🏢 Commercial Signup</button>
+                            </div>
+                    
 
         <!-- Personal Signup Form -->
-        <form action="" method="POST" id="personalForm" class="signup-form active">
+                    <form action="" method="POST" id="personalForm" class="signup-form active">
 
             <input type="hidden" name="account_type" value="personal">
 
@@ -106,10 +153,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
                 <input type="submit" name="submit" value="Signup">
             </div>
-        </form>
+                    </form>
 
         <!-- Commercial Signup Form -->
-        <form action="" method="POST" id="commercialForm" class="signup-form">
+                    <form action="" method="POST" id="commercialForm" class="signup-form">
 
             <input type="hidden" name="account_type" value="commercial">
 
@@ -166,8 +213,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
                 <input type="submit" name="submit" value="Signup">
             </div>
-        </form>
-    </div>
+                    </form>
+                </div>
+</div>
+</div>
+                
+            </div>
+        </div>
+        
+       </div>
+    </section>
+
 
     <script>
         function showForm(type) {
@@ -192,5 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 </html>
+
+
 
 
