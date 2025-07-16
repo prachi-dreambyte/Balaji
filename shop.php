@@ -1771,7 +1771,7 @@ $cat_sidebar_stmt->close();
 		</div>
 		<!-- brand-area-end -->
 		<!-- footer-start -->
-		 <?php include 'footer.php'; ?>
+		
 		<!-- <footer>
 			<div class="footer-area">
 				<div class="footer-top">
