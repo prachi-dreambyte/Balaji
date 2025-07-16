@@ -360,12 +360,12 @@ $cat_sidebar_stmt->close();
 									</h3>
 									<ul>
 										<?php foreach ($categories as $cat): ?>
-											<li class="<?php echo ($category_id == $cat['id']) ? 'active' : ''; ?>">
+											<li class="<?php echo ($$category_name == $cat['id']) ? 'active' : ''; ?>">
 												<span class="checkit">
 													<input class="checkbox" type="checkbox" <?php echo ($category_id == $cat['id']) ? 'checked' : ''; ?>>
 												</span>
 												<label class="check-label">
-													<a href="shop.php?category_id=<?php echo intval($cat['id']); ?>">
+													<a href="shop.php?$category_name=<?php echo intval($cat['id']); ?>">
 														<?php echo htmlspecialchars($cat['category_name']); ?>
 													</a>
 												</label>
@@ -732,7 +732,7 @@ $cat_sidebar_stmt->close();
                                </li>
 
 								<li>
-									<a href="#" title="Add to wishlist">
+									<a href="whishlist.php" title="Add to wishlist">
 										<i class="fa fa-heart" aria-hidden="true"></i>
 									</a>
 								</li>

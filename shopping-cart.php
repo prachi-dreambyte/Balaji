@@ -244,7 +244,8 @@ $firstImage = is_array($images) ? $images[0] : '';
         <span class="amount">₹<?php echo number_format($item['price'], 2); ?></span>
     </td>
     <td class="product-quantity">
-
+		<!-- cart id ko as a product id use kiya gya hai -->
+		<!-- <?php echo $item['id']; ?> -->
 		<input type="hidden" name="id[]" value="<?php echo $item['id']; ?>">
         <input type="number" name="quantity[]" value="<?php echo $item['quantity']; ?>" min="1" />
 
