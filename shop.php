@@ -360,9 +360,9 @@ $cat_sidebar_stmt->close();
 									</h3>
 									<ul>
 										<?php foreach ($categories as $cat): ?>
-											<li class="<?php echo ($$category_name == $cat['id']) ? 'active' : ''; ?>">
+											<li class="<?php echo ($category_name == $cat['category_name']) ? 'active' : ''; ?>">
 												<span class="checkit">
-													<input class="checkbox" type="checkbox" <?php echo ($category_id == $cat['id']) ? 'checked' : ''; ?>>
+													<input class="checkbox" type="checkbox" <?php echo ($category_name == $cat['category_name']) ? 'checked' : ''; ?>>
 												</span>
 												<label class="check-label">
 													<a href="shop.php?$category_name=<?php echo intval($cat['id']); ?>">

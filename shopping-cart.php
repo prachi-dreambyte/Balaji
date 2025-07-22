@@ -66,6 +66,10 @@ while ($row = $cart_result->fetch_assoc()) {
         'subtotal' => $subtotal
     ];
 }
+
+// Calculate dynamic flat rate (18% of subtotal)
+$flat_rate = $total * 0.18;
+$grand_total = $total + $flat_rate;
 ?>
 
 
@@ -306,10 +310,10 @@ else:
 														<td>
 															<ul id="shipping_method">
 																<li>
-																	<input type="radio" />
+																	<input type="radio" checked />
 																	<label>
-																		Flat Rate:
-																		<span class="amount">£7.00</span>
+																		Flat Rate (18%):
+																		<span class="amount">₹<?php echo number_format($flat_rate, 2); ?></span>
 																	</label>
 																</li>
 																<li>
@@ -328,7 +332,7 @@ else:
 														<th>Total</th>
 														<td>
 															<strong>
-																<span class="amount">£215.00</span>
+																<span class="amount">₹<?php echo number_format($grand_total, 2); ?></span>
 															</strong>
 														</td>
 													</tr>
@@ -460,6 +464,10 @@ else:
                     
                     // Show success message
                     alert('Cart updated successfully!');
+					 
+						window.location.reload(true);
+					
+					
                 } else {
                     alert('Error: ' + response.message);
                 }

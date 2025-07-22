@@ -1,625 +1,261 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+include 'connect.php';
+$user_id = $_SESSION['user_id'];
+
+
+
+
+// Fetch user data
+$user_query = mysqli_query($conn, "SELECT * FROM signup WHERE id = $user_id");
+$user = mysqli_fetch_assoc($user_query);
+
+// Save Address
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
+    $address_line = trim($_POST['address_line']);
+    $city = trim($_POST['city']);
+    $state = trim($_POST['state']);
+    $zipcode = trim($_POST['zipcode']);
+
+    if (!empty($address_line) && !empty($city) && !empty($state) && !empty($zipcode)) {
+        $stmt = $conn->prepare("INSERT INTO addresses (user_id, address_line, city, state, zipcode) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("issss", $user_id, $address_line, $city, $state, $zipcode);
+        $stmt->execute();
+        header("Location: my-account.php#address");
+         exit;
+
+    } else {
+        echo "<script>alert('Please fill all fields.');</script>";
+    }
+}
+
+// Delete Address
+if (isset($_GET['delete_address'])) {
+    $id = intval($_GET['delete_address']);
+    $stmt = $conn->prepare("DELETE FROM addresses WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $id, $user_id);
+    $stmt->execute();
+    header("Location: my-account.php#address");
+    exit;
+
+}
+?>
+
 <!doctype html>
 <html class="no-js" lang="">
-    
 
 <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>My Account || Vonia</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
-        <!-- Place favicon.ico in the root directory -->
-		<!-- google font -->
-		<link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
-		<!-- all css here -->
-		<!-- bootstrap v3.3.6 css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-		<!-- animate css -->
-        <link rel="stylesheet" href="css/animate.css">
-		<!-- jquery-ui.min css -->
-        <link rel="stylesheet" href="css/jquery-ui.min.css">
-		<!-- meanmenu css -->
-        <link rel="stylesheet" href="css/meanmenu.min.css">
-		<!-- owl.carousel css -->
-        <link rel="stylesheet" href="css/owl.carousel.css">
-		<!-- font-awesome css -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-		<!-- nivo-slider css -->
-        <link rel="stylesheet" href="css/nivo-slider.css">
-		<!-- style css -->
-		<link rel="stylesheet" href="style.css">
-		<!-- responsive css -->
-        <link rel="stylesheet" href="css/responsive.css">
-		<!-- modernizr css -->
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    </head>
-    <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-		<!-- header-start -->
-		<header>
-			<div class="header-top">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>My Account || Vonia</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/nivo-slider.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+        .account-container { margin-top: 30px; }
+        .sidebar { background: #f8f9fa; padding: 20px; height: 100%; border-right: 1px solid #ddd; }
+        .sidebar a { display: block; padding: 10px; color: #333; text-decoration: none; }
+        .sidebar a:hover { background: #ddd; }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+    </style>
+</head>
+<body>
 
-			<?php include 'header.php'; ?>
-			
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6 col-sm-7 d-none d-sm-block">
-							<div class="language">
-								<div class="current">
-									<span>English</span>
-								</div>
-								<ul class="lan-cur">
-									<li class="selected">
-										<img src="img/1/1.jpg" alt="en" />
-										<span>English</span>
-									</li>
-									<li>
-										<img src="img/1/2.jpg" alt="ar" />
-										<a href="#" rel="alternate" title="اللغة العربية (Arabic)">
-											<span>اللغة العربية</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="currencies">
-								<div class="current">
-									<span class="cur-label">Currency :</span>
-									<strong>GBP</strong>
-								</div>
-								<ul class="lan-cur">
-									<li>
-										<a href="#"> Dollar (USD) </a>
-									</li>
-									<li>
-										<a href="#"> Pound (GBP) </a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-6 col-sm-5 col-xs-12">
-							<div class="header-userinfo">
-								<ul class="header-links">
-									<li class="first">
-										<a class="link-myaccount" title="My account" href="#"> My account </a>
-									</li>
-									<li>
-										<a class="link-wishlist wishlist_block" title="My wishlist" href="#">My wishlist</a>
-									</li>
-									<li>
-										<a class="link-checkout" title="checkout" href="#">Checkout</a>
-									</li>
-									<li>
-										<a class="login" title="Log in to your customer account" rel="nofollow" href="loginSignUp/login.php">Log in</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="header-middle">
-				<div class="container">
-					<div class="row align-items-center">
-						<div class="col-md-4 col-sm-6 col-xs-12 d-none d-md-block">
-							<div class="search-block-top">
-								<input type="text" value="" placeholder="Search" >
-								<button class="btn btn-default " name="submit_search" type="submit"></button>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6 col-6">
-							<div class="pos-logo">
-								<a href="index.php">
-									<img class="logo img-responsive" src="img/balaji-TOP-LOGO.png" alt="" />
-								</a>
-							</div>
-						</div>						
-						<div class="col-md-4 col-sm-6 col-6">
-							<div class="shopping-cart">
-								<a href="#" rel="nofollow" title="View my shopping cart">
-									<b>cart 2 item</b>
-								</a>
-								<div class="top-cart-content">
-									<div class="media header-middle-checkout">
-										<div class="media-left check-img">
-											<a href="#">
-												<img src="img/cart-img/blouse.jpg" alt="" />
-											</a>
-										</div>
-										<div class="media-body checkout-content">
-											<h4 class="media-heading">
-												<span class="cart-count">1x</span>
-												<a href="#">Suspendisse</a>
-												<span class="btn-remove checkout-remove" title="remove this product from my cart">
-													<i class="fa fa-times" aria-hidden="true"></i>
-												</span>
-											</h4>
-											<p class="product-detail"><a href="#" title="product detail">S, Yellow</a></p>
-											<p>£ 34.78</p>
-										</div>
-									</div>
-									<div class="media header-middle-checkout last-child">
-										<div class="media-left check-img">
-											<a href="#">
-												<img src="img/cart-img/printed-summer-dress.jpg" alt="" />
-											</a>
-										</div>
-										<div class="media-body checkout-content">
-											<h4 class="media-heading">
-												<span class="cart-count">1x</span>
-												<a href="#">Suspendisse</a>
-												<span class="btn-remove checkout-remove" title="remove this product from my cart">
-													<i class="fa fa-times" aria-hidden="true"></i>
-												</span>
-											</h4>
-											<p class="product-detail"><a href="#" title="product detail">S, Black</a></p>
-											<p>£ 32.40</p>
-										</div>
-									</div>
-									<div class="cart-total">
-										<span>Total</span>
-										<span><b>£ 67.18</b></span>
-									</div>
-									<div class="checkout">
-										<a href="#">
-											<span>checkout
-												<i class="fa fa-angle-right" aria-hidden="true"></i></span>
-										</a>
-									</div>
-								</div>
-							</div>	
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- mainmenu-area-start -->
-			<div class="main-menu-area d-none d-lg-block">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="main-menu">
-								<nav>
-									<ul>
-										<li>
-											<a class="active" href="index.php">home</a>
-											<!-- <div class="version">
-												<span>
-													<a href="index11.php">Homepage version-1</a>
-													<a href="index-2.php">Homepage version-2</a>
-													<a href="index-3.php">Homepage version-3</a>
-													<a href="index.php">Homepage version-4</a>
-												</span>
-											</div> -->
-										</li>
-										<li>
-    <a href="shop.php">CATEGORY</a>
-    <div class="mega-menu">
-        <span style="display: grid; grid-template-columns: 200px 200px; gap: 10px;">
+	<?php include 'header.php'; ?>
 
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Executive Chair</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Chair</a>
+<div class="container account-container">
+    <div class="row">
+        <div class="col-md-3 sidebar">
+            <h4>My Account</h4>
+            <a href="javascript:void(0);" onclick="showSection('personal-info')">Personal Info</a>
+            <a href="javascript:void(0);" onclick="showSection('my-orders')">My Orders</a>
+            <a href="javascript:void(0);" onclick="showSection('wishlist')">Wishlist</a>
+            <a href="javascript:void(0);" onclick="showSection('my-reviews')">My Reviews</a>
+            <a href="javascript:void(0);" onclick="showSection('address')">Address</a>
+            <a href="javascript:void(0);" onclick="showSection('support')">Support</a>
+            <a href="?action=logout">Logout</a>
 
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Mesh Chair</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Table</a>
+        </div>
 
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Staff Chairs</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Baby Chairs</a>
+        <div class="col-md-9">
+            <div id="personal-info" class="content-section active">
+                <h3>Personal Info</h3>
+                <p><strong>Name:</strong> <?= htmlspecialchars($user['name']) ?></p>
+                <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
+                <p><strong>Phone:</strong> <?= htmlspecialchars($user['phone']) ?></p>
+            </div>
 
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Visitor Chair</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Stools</a>
-        </span>
-    </div>
-</li>
+            <div id="my-orders" class="content-section">
+                <h3>My Orders</h3>
+                <?php
+                $orders = mysqli_query($conn, "SELECT * FROM orders WHERE user_id = $user_id ORDER BY created_at DESC");
+                if (mysqli_num_rows($orders) > 0) {
+                    while ($order = mysqli_fetch_assoc($orders)) {
+                        echo "<div><strong>Order ID:</strong> {$order['id']} | <strong>Total:</strong> ₹{$order['total_amount']} | <strong>Date:</strong> {$order['created_at']}</div><hr>";
+                    }
+                } else {
+                    echo "<p>No orders found.</p>";
+                }
+                ?>
+            </div>
 
-										<li>
-											<a href="shop.php">OFFER</a>
-											
-										</li>
-										<li>
-                                            <a href="contact.php">CONTACT</a>
-                                        </li>
-										<li>
-											<a href="#">ABOUT</a>
-											<!-- <div class="version pages">
-												<span>
-													<a href="blog.php">Blog</a>
-													<a href="contact-us.php">Contact Us</a>
-													<a href="checkout.php">Checkout</a>
-													<a href="my-account.php">My account</a>
-													<a href="product-details.php">Product details</a>
-													<a href="shop.php">Shop Page</a>
-													<a href="shopping-cart.php">Shoping Cart</a>
-													<a href="wishlist.php">Wishlist</a>
-													<a href="404.php">404 Error</a>
-												</span>
-										
-											</div> -->
-										</li>
-									</ul>
-								</nav>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- mainmenu-area-end -->
-			<!-- mobile-menu-area-start -->
-			<div class="mobile-menu-area d-lg-none d-block">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="mobile_menu">
-								<nav id="mobile_menu_active">
-									<ul>
-										<li><a href="index.php">Home</a>
-											<!-- <ul>
-												<li><a href="index11.php">Home 1</a></li>
-												<li><a href="index-2.php">Home 2</a></li>
-												<li><a href="index-3.php">Home 3</a></li>
-												<li><a href="index.php">Home 4</a></li>
-											</ul> -->
-										</li>
-										<li style="position: relative;">
-    <a href="shop.php">CATEGORY</a>
+            <div id="wishlist" class="content-section">
+                <h3>Wishlist</h3>
+                <?php
+                $wishlist = mysqli_query($conn, "SELECT p.name FROM wishlist w JOIN products p ON w.product_id = p.id WHERE w.user_id = $user_id");
+                while ($item = mysqli_fetch_assoc($wishlist)) {
+                    echo "<p>" . htmlspecialchars($item['name']) . "</p>";
+                }
+                ?>
+            </div>
 
-    <div class="mega-menu" style="
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background: #fff;
-        padding: 20px;
-        box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
-        z-index: 999;
-        display: inline-block; /* width based on content */
-    ">
-        <div style="
-            display: grid;
-            grid-template-columns: repeat(2, auto);
-            gap: 15px 40px;
-        ">
-            <a href="#">Executive Chair</a>
-            <a href="#">Plastic Chair</a>
-            <a href="#">Mesh Chair</a>
-            <a href="#">Plastic Table</a>
-            <a href="#">Staff Chairs</a>
-            <a href="#">Plastic Baby Chairs</a>
-            <a href="#">Visitor Chair</a>
-            <a href="#">Plastic Stools</a>
+            <div id="my-reviews" class="content-section">
+                <h3>My Reviews</h3>
+                <?php
+                $reviews = mysqli_query($conn, "SELECT r.review, p.name FROM reviews r JOIN products p ON r.product_id = p.id WHERE r.user_id = $user_id");
+                while ($rev = mysqli_fetch_assoc($reviews)) {
+                    echo "<p><strong>" . htmlspecialchars($rev['name']) . ":</strong> " . htmlspecialchars($rev['review']) . "</p>";
+                }
+                ?>
+            </div>
+
+            <div id="address" class="content-section">
+    <h3>Manage Address</h3>
+
+    <!-- Add New Address Form -->
+
+    <form method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Address Line</label>
+                <input type="text" name="address_line" required class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label>City</label>
+                <input type="text" name="city" required class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label>State</label>
+                <input type="text" name="state" required class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label>Pincode</label>
+                <input type="text" name="zipcode" required class="form-control">
+            </div>
+        </div>
+        <br>
+        <button type="submit" name="save_address" class="btn btn-primary">Save Address</button>
+    </form>
+
+    <hr>
+
+    <!-- Saved Addresses -->
+    <h4>Saved Addresses</h4>
+    <?php
+    $result = mysqli_query($conn, "SELECT * FROM addresses WHERE user_id = $user_id");
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<div class='card p-3 mb-3'>";
+            echo "<p><strong>Address:</strong> " . htmlspecialchars($row['address_line']) . "</p>";
+            echo "<p><strong>City:</strong> " . htmlspecialchars($row['city']) . "</p>";
+            echo "<p><strong>State:</strong> " . htmlspecialchars($row['state']) . "</p>";
+            echo "<p><strong>Pincode:</strong> " . htmlspecialchars($row['zipcode']) . "</p>";
+            echo "<a href='my-account.php?delete_address=" . $row['id'] . "' class='btn btn-sm btn-danger' onclick='return confirm(\"Are you sure you want to delete this address?\")'>Delete</a>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>No address found.</p>";
+    }
+    ?>
+</div>
+
+            <div id="support" class="content-section">
+                <h3>Support</h3>
+                <p>If you need help, contact us at <strong>support@voniafurniture.com</strong></p>
+            </div>
         </div>
     </div>
-</li>
+</div>
 
 
-										
-										<li>
-											<a href="shop.php">OFFER</a>
-											
-										</li>
-										<li>
-                                         <a href="contact.php">CONTACT</a>
-                                         </li>
-										<li>
-											<a href="#">ABOUT</a>
-											<div class="version pages">
-												<span>
-													<a href="blog.php">Blog</a>
-													<!-- <a href="contact-us.php">Contact Us</a> -->
-													<a href="checkout.php">Checkout</a>
-													<a href="my-account.php">My account</a>
-													<a href="product-details.php">Product details</a>
-													<a href="shop.php">Shop Page</a>
-													<a href="shopping-cart.php">Shoping Cart</a>
-													<a href="wishlist.php">Wishlist</a>
-													<!-- <a href="404.php">404 Error</a> -->
-												</span>
-										
-										</li>
-									</ul>
-								</nav>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- mobile-menu-area-end -->
-		</header>
-		<!-- header-end -->
-		<!-- my-account-start -->
-		<div class="entry-header-area">
-			<div class="container">
-				<div class="breadcrumb-area">
-					<div class="breadcrumb">
-						<a href="index.php" title="Return to Home">
-							<i class="icon-home"></i>
-						</a>
-						<span class="navigation-pipe">></span>
-						<span class="navigation-page">
-							My Account
-						</span>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="entry-header">
-							<h1 class="entry-title">My Account</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="my-account-area">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-sm-6 col-xs-12">
-						<form action="#">
-							<div class="form-fields">
-								<h2>Login</h2>
-								<p>
-									<label>Username or email address</label>
-									<span class="required">*</span>
-									<input type="text" />
-								</p>
-								<p>
-									<label>password</label>
-									<span class="required">*</span>
-									<input type="text" />
-								</p>
-							</div>
-							<div class="form-action">
-								<p class="lost-password">
-									<a href="#">Lost your password?</a>
-								</p>
-								<input type="submit" value="Login" />
-								<label>
-									<input type="checkbox" />
-									Remember me 
-								</label>
-							</div>
-						</form>
-					</div>
-					<div class="col-md-6 col-sm-6 col-xs-12">
-						<form action="#">
-							<div class="form-fields">
-								<h2>Register</h2>
-								<p>
-									<label>Email address</label>
-									<span class="required">*</span>
-									<input type="text" />
-								</p>
-								<p>
-									<label>password</label>
-									<span class="required">*</span>
-									<input type="text" />
-								</p>
-							</div>
-							<div class="form-action">
-								<input type="submit" value="Register" />
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- my-account-end -->
-		<!-- brand-area-start -->
-		<div class="brand-area">
-			<div class="container">
-				<div class="row">
-					<div class="brands">
-						<div class="brand-carousel">
-							<div class="col-md-12">
-								<div class="single-brand">
-									<a href="#">
-										<img src="img/brand/1.jpg" alt="" />
-									</a>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="single-brand">
-									<a href="#">
-										<img src="img/brand/2.jpg" alt="" />
-									</a>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="single-brand">
-									<a href="#">
-										<img src="img/brand/3.jpg" alt="" />
-									</a>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="single-brand">
-									<a href="#">
-										<img src="img/brand/4.jpg" alt="" />
-									</a>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="single-brand">
-									<a href="#">
-										<img src="img/brand/5.jpg" alt="" />
-									</a>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="single-brand">
-									<a href="#">
-										<img src="img/brand/6.jpg" alt="" />
-									</a>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="single-brand">
-									<a href="#">
-										<img src="img/brand/7.jpg" alt="" />
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- brand-area-end -->
-		<!-- footer-start -->
-		<footer>
-			<div class="footer-area">
-				<div class="footer-top">
-					<div class="container">
-						<div class="footer-logo">
-							<a href="#">
-								<img src="img/logo-footer.png" alt="" />
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="footer-middle">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-9 col-sm-9 foot-mar">
-								<div class="row">
-									<div class="col-md-4  col-sm-4 col-xs-12">
-										<h4>Shop Location</h4>
-										<div class="footer-contact">
-											<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-											Duis dignissim erat ut laoreet pharetra....
-											</p>
-											<p class="address add">
-												<span>No. 96, Jecica City, NJ 07305, New York, USA</span>
-											</p>
-											<p class="phone add">
-												<span> +0123456789</span>
-											</p>
-											<p class="email add">
-												<a href="#">demo@example.com</a>
-											</p>
-										</div>
-									</div>
-									<div class="col-md-4 col-sm-4 col-xs-12">
-										<h4>Information</h4>
-										<ul class="toggle-footer">
-											<li>
-												<a title="Specials" href="#">Specials</a>
-											</li>
-											<li>
-												<a title="New products" href="#">New products</a>
-											</li>
-											<li>
-												<a title="Best sellers" href="#">Best sellers</a>
-											</li>
-											<li>
-												<a title="Our stores" href="#">Our stores</a>
-											</li>
-											<li>
-                                              <a href="contact.php">CONTACT</a>
-                                             </li>
-											<li>
-												<a title="Sitemap" href="#">Sitemap</a>
-											</li>
-										</ul>
-									</div>
-									<div class="col-md-4 col-sm-4 col-xs-12">
-										<h4>My account</h4>
-										<ul class="toggle-footer">
-											<li>
-												<a title="My orders" href="#">My orders</a>
-											</li>
-											<li>
-												<a title="My credit slips" href="#"> My credit slips</a>
-											</li>
-											<li>
-												<a title="My addresses" href="#">My addresses</a>
-											</li>
-											<li>
-												<a title="My personal info" href="#">My personal info</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-3">
-								<div class="newsletter">
-									<h4>Newsletter</h4>
-									<div class="newsletter-content">
-										<form action="https://htmldemo.net/vonia/vonia/method">
-											<input class="newsletter-input" type="text" placeholder="Enter your e-mail" size="18" name="email">
-											<button class="btn btn-default newsletter-button" type="submit">
-												<span class="subscribe">Subscribe</span>
-											</button>
-										</form>
-									</div>
-								</div>
-								<div class="footer-social">
-								 <h3>Follow Us</h3>
-									<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-									<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-									<a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a>
-									<a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a>
-									<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-								</div>
-							</div>
-						</div>
-						<div class="payment">
-							<a href="#">
-								<img src="img/payment.png" alt="" />
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="footer-bottom">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-6 col-sm-6 col-xs-12 address"><p class="copyright">&copy; 2021 <strong>Vonia</strong> Made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> by <a href="https://hasthemes.com/"><strong>HasThemes</strong></a>.</p>					</div>
-							<div class="col-md-6 col-sm-6 col-xs-12 footer-link">
-								<ul>
-									<li>
-										<a href="#">Customer Service</a>
-									</li>
-									<li>
-										<a href="#">Secure payment</a>
-									</li>
-									<li>
-										<a href="#">Term of Use</a>
-									</li>
-									<li>
-										<a href="#">About us</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<!-- footer-end -->
-		<!-- all js here -->
-		<!-- jquery latest version -->
-        <script src="js/vendor/jquery-1.12.4.min.js"></script>
-		<!-- bootstrap js -->
-        <script src="js/bootstrap.min.js"></script>
-		<!--jquery scrollUp js -->
-        <script src="js/jquery.scrollUp.js"></script>
-		<!-- owl.carousel js -->
-        <script src="js/owl.carousel.min.js"></script>
-		<!-- meanmenu js -->
-        <script src="js/jquery.meanmenu.js"></script>
-		<!-- jquery-ui js -->
-        <script src="js/jquery-ui.min.js"></script>
-		<!-- wow js -->
-        <script src="js/wow.min.js"></script>
-		<!-- nivo slider js -->
-        <script src="js/jquery.nivo.slider.pack.js"></script>
-		<!-- countdown js -->
-        <script src="js/countdown.js"></script>
-		<!-- plugins js -->
-        <script src="js/plugins.js"></script>
-		<!-- main js -->
-        <script src="js/main.js"></script>
-    </body>
+    <?php include 'footer.php'; ?>
 
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.scrollUp.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.meanmenu.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/jquery.nivo.slider.pack.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+	
+
+<script>
+    function showSection(id) {
+        // Hide all sections
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Show the selected section
+        const section = document.getElementById(id);
+        if (section) {
+            section.classList.add('active');
+            
+            // Update URL hash without scrolling
+            if (history.pushState) {
+                history.pushState(null, null, '#' + id);
+            } else {
+                window.location.hash = '#' + id;
+            }
+        }
+    }
+
+    // On page load, check for hash and show corresponding section
+    document.addEventListener('DOMContentLoaded', function() {
+        const hash = window.location.hash.substring(1);
+        const validSections = ['personal-info', 'my-orders', 'wishlist', 'my-reviews', 'address', 'support'];
+        
+        if (hash && validSections.includes(hash)) {
+            showSection(hash);
+        } else {
+            // Default to personal info if no valid hash
+            showSection('personal-info');
+        }
+    });
+</script>
+
+
+    <?php
+    if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+        session_destroy();
+        header("Location: index.php");
+        exit;
+    }
+    ?>
+</body>
 
 </html>

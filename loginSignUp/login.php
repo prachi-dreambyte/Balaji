@@ -32,7 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if (isset($user['password']) && !empty($user['password'])) {
                 echo $password;
                 if (password_verify($password, $user['password'])) {
-                    echo 'princeraj908071@gmail.com';
+                     $_SESSION['user_id'] = $user['id'];
+                   
                     $_SESSION['user'] = $user;
                     echo "<script>alert('✅ Login successful!'); window.location.href='../index.php';</script>";
                     exit;

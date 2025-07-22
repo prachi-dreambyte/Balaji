@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# If file or directory does not exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite all /blog/anything → blog/index.php?slug=anything
+RewriteRule ^blog/([^/]+)/?$ blog/index.php?slug=$1 [QSA,L]

@@ -520,6 +520,26 @@
                     </ul>
                 </div>
             </li>
+            
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarBlog" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarBlog">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:clipboard-list-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text">Blog </span>
+                </a>
+                <div class="collapse" id="sidebarBlog">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="blog-list.php">List</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="blog-add.php">Create</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
 
 
             <!-- <li class="menu-title mt-2">Users</li>

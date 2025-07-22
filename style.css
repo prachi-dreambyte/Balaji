@@ -4604,3 +4604,39 @@ height: auto;
     display: inline-block !important;
     margin-bottom: 5px !important;
 }
+.recent-posts-section {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-top: 30px;
+    border: 1px solid #ddd;
+}
+
+.recent-posts-section h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ff6600;
+    display: inline-block;
+}
+
+.recent-posts-list {
+    list-style: none;
+    padding: 0;
+}
+
+.recent-post-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.recent-post-item a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.recent-post-item a:hover {
+    color: #ff6600;
+}

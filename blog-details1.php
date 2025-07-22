@@ -1,7 +1,9 @@
 <?php
 include 'connect.php'; 
-?>
 
+$recentSql = "SELECT title, slug, main_images, created_at FROM blog ORDER BY id DESC LIMIT 2";
+$recentResult = $conn->query($recentSql);
+?>
 <html class="no-js" lang="">
     
 
@@ -65,7 +67,7 @@ include 'connect.php';
                     </svg> 2016-03-09 13:40:04
                   </span>
                 </div>
-                <h1 class="blogfirstHeading">Why Bala Ji Furniture is the best choice?</h1>
+                <h1 class="blogfirstHeading">Why BalaJi Furniture is the best choice?</h1>
                 <p class="blogUniversalPara">
                     Furniture is more than just a seat, let's face it. It's about durability, comfort, and design that blends seamlessly with our daily routines. Furthermore, Spark Line Furniture is more than just a brand when it comes to plastic chairs; 
                     it is a reputable company in Uttarakhand, founded on excellence, flair, and long-term relationships with customers.

@@ -8,7 +8,7 @@ include 'connect.php';
 						<div class="container">
 							<div class="footer-logo">
 								<a href="#">
-							    <img class="logo img-responsive" src="img/balaji-logo-top.png" alt=" " style="width: 200px; height: 200px;"/>
+							    <img class="logo img-responsive" src="./img/balaji-logo-top.png" alt=" " style="width: 200px; height: 200px;"/>
 								</a>
 							</div>
 						</div>
