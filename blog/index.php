@@ -5,7 +5,6 @@ $requestUri = $_SERVER['REQUEST_URI']; // Example: /vonia/blog/index.php/pariatu
 
 $parts = explode('/', $requestUri);
 
-
 // Get the last non-empty part
 $slug = end($parts);
 
@@ -17,9 +16,6 @@ $blogstmt->bind_param("s", $slug);
 $blogstmt->execute();
 $blogresult = $blogstmt->get_result();
 $blogdetails = $blogresult->fetch_assoc();
-
-$recentSql = "SELECT title, slug, main_images, createdAt FROM blog ORDER BY id DESC LIMIT 2";
-$recentResult = $conn->query($recentSql);
 
 ?>
 
@@ -89,7 +85,7 @@ $recentResult = $conn->query($recentSql);
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                 <path d="M7.5 3.59961V7.49961L10.1 8.79961" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg> <?= $blogdetails['createdAt']; ?>
+                            </svg> 2016-03-09 13:40:04
                         </span>
                     </div>
                     <h1 class="blogfirstHeading">
@@ -145,14 +141,15 @@ $recentResult = $conn->query($recentSql);
                     <img src="img\balaji\postbox-05.jpg" class="BlogAboutImage"/> -->
                             </div>
                             <div class="blogLi">
-                                <h4><p?><?= $blogdetails['sub_description']; ?></p></h4>
-                                <p class="aboutpUniversalPara"></p>
+                                <h4>The Bala Ji Promise</h4>
+                                <p class="aboutpUniversalPara">When you choose Bala Ji Furniture, you’re not just buying a chair. You’re investing in trust, quality, and a better seating experience - proudly made right here in Uttarakhand.
+                                    If you’re looking for the best plastic chairs, we’re already around the corner. Visit our store or contact us today - and feel theBala Ji difference.</p>
                             </div>
                     </div>
                    
                 </div>
                  <div class="col-md-4 col-lg-4">
-                        <!-- <div class="sidebar__wrapper bd-sticky pl-30">
+                        <div class="sidebar__wrapper bd-sticky pl-30">
 
                             <div class="sidebar__widget mb-45">
                                 <h3 class="sidebar__widget-title">Recent Post</h3>
@@ -198,51 +195,11 @@ $recentResult = $conn->query($recentSql);
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-                        <?php
-                        while ($recent = $recentResult->fetch_assoc()) 
-                            {
-                             $recentImg = '';
-                                $mainImageArr = json_decode($recent['main_images'], true);
-                                if ($mainImageArr) {
-                                   $recentImg = $mainImageArr; // show first image if multiple
-                                 } else {
-                                  $recentImg = $recent['main_images'];
-                                 }
-                                ?>
-                                  <div class="sidebar__wrapper bd-sticky pl-30">
-                                   <div class="sidebar__widget mb-45">
-                                <h3 class="sidebar__widget-title">Recent Post</h3>
-                                <div class="sidebar__widget-content">
-                                    <div class="sidebar__post">
-                                <div class="rc__post d-flex align-items-center">
-                                    <div class="blogWrapperImage">
-                                        <a href="/vonia/blog/<?= htmlspecialchars($recent['slug']) ?>">
-                                          <img src="../admin/uploads/<?= htmlspecialchars($recentImg) ?>" alt="<?= htmlspecialchars($recent['title']) ?>" />
-                                        </a>
-                                    </div>
-                                    <div class="blogRecentDiv">
-                                        <p class="blogRecent">
-                                            <a href="/vonia/blog/<?= htmlspecialchars($recent['slug']) ?>">
-                                                <?= htmlspecialchars($recent['title']) ?>
-                                            </a>
-                                        </p>
-                                        <div class="rc__meta">
-                                            <span>
-                                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M7.5 3.59961V7.49961L10.1 8.79961" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                                <?php echo $blogdetails['createdAt'] ?>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div></div></div></div>
-                            <?php } ?>
                         </div>
+
                     </div>
-                </section>
+            </div>
+    </section>
     <?php include './footer2.php'; ?>
     <!-- modal end -->
     <!-- all js here -->

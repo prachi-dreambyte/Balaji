@@ -330,7 +330,7 @@ $sql= "SELECT * FROM `blog`";
         }
     }
 
-   $main_images_json = $main_images;
+   $main_images_json = json_encode($main_images);
     $sub_images_json = json_encode($sub_images);
     $stmt = $conn->prepare("INSERT INTO blog 
         (title, slug, main_content, sub_content, meta_title, meta_description, og_title, og_description, schema_data, keywords, rating, main_images, sub_images) 

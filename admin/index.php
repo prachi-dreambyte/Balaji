@@ -5,14 +5,10 @@ if (!isset($_SESSION['user_id'])) {
      header("Location: auth-signin.php");
      exit;
  }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
-
-
 <!-- Mirrored from techzaa.in/larkon/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 20 Mar 2025 09:19:37 GMT -->
 <head>
      <!-- Title Meta -->

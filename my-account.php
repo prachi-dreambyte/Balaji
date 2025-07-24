@@ -84,6 +84,28 @@ if (isset($_GET['delete_address'])) {
 <div class="container account-container">
     <div class="row">
         <div class="col-md-3 sidebar">
+            <script>
+                function showSection(id) {
+    // Hide all sections
+    document.querySelectorAll('.content-section').forEach(function(section){
+        section.classList.remove('active');
+    });
+
+    // Show selected section
+    var section = document.getElementById(id);
+    if (section) {
+        section.classList.add('active');
+
+        // Update URL hash
+        if (history.pushState) {
+            history.pushState(null, null, '#' + id);
+        } else {
+            window.location.hash = '#' + id;
+        }
+    }
+}
+
+            </script>
             <h4>My Account</h4>
             <a href="javascript:void(0);" onclick="showSection('personal-info')">Personal Info</a>
             <a href="javascript:void(0);" onclick="showSection('my-orders')">My Orders</a>
@@ -119,26 +141,17 @@ if (isset($_GET['delete_address'])) {
 
             <div id="wishlist" class="content-section">
                 <h3>Wishlist</h3>
-                <?php
-                $wishlist = mysqli_query($conn, "SELECT p.name FROM wishlist w JOIN products p ON w.product_id = p.id WHERE w.user_id = $user_id");
-                while ($item = mysqli_fetch_assoc($wishlist)) {
-                    echo "<p>" . htmlspecialchars($item['name']) . "</p>";
-                }
-                ?>
+                
             </div>
 
             <div id="my-reviews" class="content-section">
                 <h3>My Reviews</h3>
-                <?php
-                $reviews = mysqli_query($conn, "SELECT r.review, p.name FROM reviews r JOIN products p ON r.product_id = p.id WHERE r.user_id = $user_id");
-                while ($rev = mysqli_fetch_assoc($reviews)) {
-                    echo "<p><strong>" . htmlspecialchars($rev['name']) . ":</strong> " . htmlspecialchars($rev['review']) . "</p>";
-                }
-                ?>
+                
             </div>
 
             <div id="address" class="content-section">
     <h3>Manage Address</h3>
+    
 
     <!-- Add New Address Form -->
 
@@ -214,25 +227,20 @@ if (isset($_GET['delete_address'])) {
 	
 
 <script>
-    function showSection(id) {
-        // Hide all sections
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.classList.remove('active');
-        });
-        
-        // Show the selected section
-        const section = document.getElementById(id);
-        if (section) {
-            section.classList.add('active');
-            
-            // Update URL hash without scrolling
-            if (history.pushState) {
-                history.pushState(null, null, '#' + id);
-            } else {
-                window.location.hash = '#' + id;
-            }
-        }
+    
+
+// Show section from URL hash on page load
+document.addEventListener('DOMContentLoaded', function() {
+    var hash = window.location.hash.substring(1);
+    var validSections = ['personal-info', 'my-orders', 'wishlist', 'my-reviews', 'address', 'support'];
+    if (hash && validSections.includes(hash)) {
+        showSection(hash);
+    } else {
+        showSection('personal-info');
     }
+});
+</script>
+
 
     // On page load, check for hash and show corresponding section
     document.addEventListener('DOMContentLoaded', function() {
@@ -246,7 +254,7 @@ if (isset($_GET['delete_address'])) {
             showSection('personal-info');
         }
     });
-</script>
+</scrip>
 
 
     <?php

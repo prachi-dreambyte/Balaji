@@ -1,8 +1,5 @@
 <?php
 include 'connect.php'; 
-
-$recentSql = "SELECT title, slug, main_images, created_at FROM blog ORDER BY id DESC LIMIT 2";
-$recentResult = $conn->query($recentSql);
 ?>
 <html class="no-js" lang="">
     

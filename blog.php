@@ -102,7 +102,7 @@ $totalPages = ceil($totalProducts / $limit);
 											</h4>
 											<p><?= $row['main_content']; ?>
 											</p>
-											<span class="blog-date"><?php echo $row['createdAt'] ?></span>
+											<span class="blog-date">2016-03-09 13:40:04</span>
 											<a class="blog-read-more" href="blog/<?= $row['slug']; ?>">
 												<span>Read More</span>
 											</a>

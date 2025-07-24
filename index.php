@@ -177,7 +177,7 @@ include 'connect.php';
 													</div>
 												</div>
 											</div>
-										<!-- </div> -->
+										
 										<!-- <div class="col-md-12"> -->
 											<div class="single-product">
 												<div class="daily-products">

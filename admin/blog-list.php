@@ -74,7 +74,6 @@ $totalPages = ceil($totalProducts / $limit);
                                                          <th>slug</th>
                                                           <th>Main Content</th>
                                                            <th>Sub Content</th>
-                                                           <th>Sub Description</th>
                                                             <th>Meta Title</th>
                                                              <th>Meta Description</th>
                                                               <th>OG Title</th>
@@ -103,15 +102,14 @@ $totalPages = ceil($totalProducts / $limit);
                                                                <td><?=$row['keywords'];?></td>
                                                                <td><?=$row['rating'];?></td>
                                                                <td>
-                                                                
-                                                                 <img src='./uploads/<?=$row['main_images'] ?>' alt="<?=$row['slug'];?>" height="50"/></td>
+                                                                 <img src='http://localhost/vonia/admin/uploads/<?=json_decode($row['main_images'], true);?>' alt="<?=$row['slug'];?>" height="50"/></td>
                                                             
                                                             <td>
                                                                   <?php
     $subImages = json_decode($row['sub_images'], true); // Decode JSON string to PHP array
     if (!empty($subImages)) {
         foreach ($subImages as $subImg) {
-          echo "<img src='./uploads/{$subImg}' alt='{$row['slug']}' height='50' style='margin-right: 5px;' />";
+          echo "<img src='http://localhost/vonia/admin/uploads/{$subImg}' alt='{$row['slug']}' height='50' style='margin-right: 5px;' />";
         }
     } else {
         echo "No Sub Images";
@@ -186,7 +184,7 @@ $totalPages = ceil($totalProducts / $limit);
 
                 Swal.fire({
                     title: "Are you sure?",
-                    text: "This blog will be deleted permanently!",
+                    text: "This product will be deleted permanently!",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#d33",
