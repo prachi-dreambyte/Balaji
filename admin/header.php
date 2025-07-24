@@ -540,7 +540,127 @@
                 </div>
             </li>
 
+             
+  <li class="nav-item">
+    <a class="nav-link menu-arrow" href="#sidebarHomeBanners" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarHomeBanners">
+        <span class="nav-icon">
+            <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>
+        </span>
+        <span class="nav-text">Home-Banners</span>
+    </a>
+    <div class="collapse" id="sidebarHomeBanners">
+        <ul class="nav sub-navbar-nav">
+            <li class="sub-nav-item">
+                <a class="sub-nav-link" href="home-banners-list.php">List</a>
+            </li>
+            <li class="sub-nav-item">
+                <a class="sub-nav-link" href="home-banners.php">Create</a>
+            </li>
+        </ul>
+    </div>
+</li>
 
+
+
+             <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarHome-blogs" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarHome-blogs">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Home-blogs </span>
+                </a>
+                <div class="collapse" id="sidebarHome-blogs">
+                    <ul class="nav sub-navbar-nav">
+
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="home-blogs.php">List</a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </li>
+
+             <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarHome-brands" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarHome-brands">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text">Home-brands</span>
+                </a>
+                <div class="collapse" id="sidebarHome-brands">
+                 <ul class="nav sub-navbar-nav">
+
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="home-brands.php">List</a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </li>
+
+             <li class="nav-item">
+    <a class="nav-link menu-arrow" href="#sidebarHome-product" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarHome-product">
+        <span class="nav-icon">
+            <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>
+        </span>
+        <span class="nav-text">Home Daily-deals</span>
+    </a>
+    <div class="collapse" id="sidebarHome-product">
+        <ul class="nav sub-navbar-nav">
+            <li class="sub-nav-item">
+                <a class="sub-nav-link" href="home-daily-deals-list.php">List</a>
+            </li>
+            <li class="sub-nav-item">
+                <a class="sub-nav-link" href="home-daily-deals-edit.php">Edit</a>
+            </li>
+            <li class="sub-nav-item">
+                <a class="sub-nav-link" href="home-daily-deals.php">Create</a>
+            </li>
+        </ul>
+    </div>
+</li>
+
+             <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarHome-services" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarHome-services">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text">Home-services </span>
+                </a>
+                <div class="collapse" id="sidebarHome-services">
+                    <ul class="nav sub-navbar-nav">
+
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="home-service.php">List</a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </li>
+
+             <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarHome-testimonials" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarHome-testimonials">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text">Home-testimonials </span>
+                </a>
+                <div class="collapse" id="sidebarHome-testimonials">
+                    <ul class="nav sub-navbar-nav">
+
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="home-testimonials.php">List</a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </li>
+            
+            
+            
+            
+            
+            
 
             <!-- <li class="menu-title mt-2">Users</li>
 
