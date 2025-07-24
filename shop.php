@@ -358,7 +358,6 @@ $cat_sidebar_stmt->close();
 									<h3 class="content-box-heading">
 										Categories
 									</h3>
-									<ul>
 										<?php foreach ($categories as $cat): ?>
 											<li class="<?php echo ($category_name == $cat['category_name']) ? 'active' : ''; ?>">
 												<span class="checkit">
@@ -434,7 +433,7 @@ $cat_sidebar_stmt->close();
 									<h3 class="content-box-heading">Size</h3>
 									<ul>
 										<li>
-											<span class="checkit">
+											<span  class the njbjjnnjhhn nwd jhyeb sshhee dbydnjjdydc geclass="checkit">
 												<input class="checkbox" type="checkbox">
 											</span>
 											<label class="check-label">

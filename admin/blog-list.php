@@ -186,7 +186,7 @@ $totalPages = ceil($totalProducts / $limit);
 
                 Swal.fire({
                     title: "Are you sure?",
-                    text: "This product will be deleted permanently!",
+                    text: "This blog will be deleted permanently!",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#d33",

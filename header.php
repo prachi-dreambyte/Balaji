@@ -42,7 +42,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
 
 
-
 <header class="header-4">
 	<div class="header-top">
 		<div class="container">
@@ -87,7 +86,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 								<a class="link-myaccount" title="My account" href="my-account.php"> My account </a>
 							</li>
 							<li>
-								<a class="link-wishlist wishlist_block" title="My wishlist" href="#">My wishlist</a>
+								<a class="link-wishlist wishlist_block" title="My wishlist" href="wishlist.php">My wishlist</a>
 							</li>
 							<li>
 								<a class="link-checkout" title="Checkout" href="http://localhost/vonia/checkout.php">Checkout</a>
@@ -229,70 +228,41 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 											if ($result) {
 												while ($row = mysqli_fetch_assoc($result)) {
 											?>
-
-													<!-- <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-            <?php echo $row['category_name']; ?>
-        </a> -->
-
-
-													<a href="shop.php?category=<?php echo $row['category_name']; ?>#product-list"
+											<?php echo $row['category_name']; ?><a href="shop.php?category=<?php echo $row['category_name']; ?>#product-list"
 														style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 														<?php echo $row['category_name']; ?>
-													</a>
+													        </a>
+															<?php
+															}
+														} else {
+															?>
+															<span>Category not found.</span>
+															<?php
+															}
+															?>
+															</span>
+														</div>
+													</li>
+													<li>
+									                 <a href="index.php#deals">OFFER</a>
 
-
-
-
-												<?php
-												}
-											} else {
-												?>
-												<span>Category not found.</span>
-											<?php
-											}
-											?>
-										</span>
-
-									</div>
-								</li>
-
-
-
-
-								<li>
-									<a href="index.php#deals">OFFER</a>
-
-								</li>
-								<li>
-									<a href="contact.php">CONTACT</a>
-								</li>
-								<li>
-									<a href="about-us.php">ABOUT US</a>
-
-									<!-- <span>
-													<a href="blog.php">Blog</a>
-													
-													<a class="link-checkout" title="Checkout" href="http://localhost/vonia/checkout.php">Checkout</a>
-													<a href="my-account.php">My account</a>
-													<a href="product-details.php">Product details</a>
-													<a href="shop.php">Shop Page</a>
-													<a href="shopping-cart.php">Shoping Cart</a>
-													<a href="wishlist.php">Wishlist</a>
-													
-												</span> -->
-
-
-								</li>
-								<li>
-									<a href="blog.php">BLOG</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+								                    </li>
+								                    <li>
+									                   <a href="contact.php">CONTACT</a>
+								                    </li>
+								                    <li>
+									                  <a href="about-us.php">ABOUT US</a>
+													</li>
+													<li>
+														<a href="blog.php">BLOG</a>
+													</li>
+							                    </ul>
+						                    </nav>
+					                    </div>
+			 	                    </div>
+			                    </div>
+		                    </div>
+	                    </div>
 	<!-- mainmenu-area-end -->
 	<!-- mobile-menu-area-start -->
 	<div class="mobile-menu-area d-lg-none d-block">
@@ -303,12 +273,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 						<nav id="mobile_menu_active">
 							<ul>
 								<li><a href="index.php">Home</a>
-									<!-- <ul>
-													<li><a href="index11.php">Home 1</a></li>
-													<li><a href="index-2.php">Home 2</a></li>
-													<li><a href="index-3.php">Home 3</a></li>
-													<li><a href="index.php">Home 4</a></li>
-												</ul> -->
 								</li>
 								<li>
 									<a href="shop.php">CATEGORY</a>

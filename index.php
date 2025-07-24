@@ -1923,20 +1923,7 @@ include 'connect.php';
         <script src="js/plugins.js"></script>
 		<!-- main js -->
         <script src="js/main.js"></script>
-
-<script> 
- $(document).ready(function(){
- $(".daily-deal-carousel").owlCarousel({
-    items: 4,              // Number of visible products
-    loop: true,            // Infinite loop
-    margin: 20,            // Space between items
-    autoplay: true,        // Auto slide
-    nav: true,             // Arrows
-    dots: false            // Hide dots
-  });
-});
-
-</script>
+		
 
 <!-- jQuery (required) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

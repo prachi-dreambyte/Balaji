@@ -1,0 +1,28 @@
+.wishlist-area {
+  margin-bottom: 35px;
+  background: #f6f5f3 !important;
+  padding: 50px 170px !important;
+}
+h1.entry-title {
+    border-bottom: 4px solid #e5e5e5 !important;
+    color: black !important;
+    font-size: 25px !important;
+    font-weight: 700 !important;
+    /* line-height: 20px !important; */
+    margin-bottom: 30px !important;
+    overflow: hidden !important;
+    padding: 30px 18px 10px !important;
+    text-transform: none !important;
+}
+.wishlist-table table th, .wishlist-table table td {
+    border-bottom: 2px solid #e5e5e5 !important;
+    border-right: 2px solid #e5e5e5 !important;
+    color: black !important;
+    font-size: 15px !important;
+    padding: 30px 10px !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+}
+.wishlist-table table .product-thumbnail {
+    width: 10% !important;
+}
