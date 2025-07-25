@@ -201,10 +201,10 @@ $result = $stmt->get_result();
 
                                                        <label for="product-stock" class="form-label">Tag</label>
                                                        <select class="form-control" name="tag[]" id="choices-multiple-remove-button" data-choices data-choices-removeItem name="choices-multiple-remove-button" multiple>
-                                                            <option value="Fashion" selected>Fashion</option>
-                                                            <option value="Electronics">Electronics</option>
-                                                            <option value="Watches">Watches</option>
-                                                            <option value="Headphones">Headphones</option>
+                                                            <option value="FEATURED PRODUCTS" selected>FEATURED PRODUCTS</option>
+                                                            <option value="NEW ARRIVAL">NEW ARRIVAL</option>
+                                                            <option value="ONSALE">ONSALE</option>
+                                                            <option value="BESTSELLER">BESTSELLER</option>
                                                        </select>
 
                                                   </div>

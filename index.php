@@ -1,5 +1,40 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 include 'connect.php'; 
+
+
+// Function to get products by tag from database
+function getProductsByTag($conn, $tag) {
+    // No quotes here, plain text match
+    $searchTerm = '%' . $tag . '%';
+    
+    $sql_tag = "SELECT * FROM products WHERE tags LIKE ? ORDER BY created_at DESC LIMIT 4";
+    $stmt_tag = $conn->prepare($sql_tag);
+    $stmt_tag->bind_param("s", $searchTerm);
+    $stmt_tag->execute();
+    $result_tag = $stmt_tag->get_result();
+
+    // Optional: Debug
+    // if ($result_tag->num_rows === 0) {
+    //     echo "<p style='color:red;'>No products found for tag: $tag</p>";
+    // }
+
+    return $result_tag->fetch_all(MYSQLI_ASSOC);
+}
+
+
+// Get products for each category
+$newArrivalProducts = getProductsByTag($conn, "NEW ARRIVAL");
+$onsaleProducts = getProductsByTag($conn, "ONSALE");
+$bestsellerProducts = getProductsByTag($conn, "BESTSELLER");
+$featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
+
+
+
+
+
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -40,6 +75,196 @@ include 'connect.php';
 		<!-- Owl Carousel CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+   <style>
+.product-tabs-section {
+    padding: 60px 0;
+    background: #f9f9f9;
+}
+
+.tab-nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.tab-btn.active {
+    color: #333;
+    border-bottom: 2px solid #333;
+}
+
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0 40px;
+    font-size: 14px;
+    color: #666;
+}
+
+.description-text {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.single-product {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.single-product:hover {
+    transform: translateY(-5px);
+}
+
+.product-img {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+}
+
+.product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.single-product:hover .product-img img {
+    transform: scale(1.05);
+}
+
+.badge-new, .badge-sale {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.badge-new {
+    background: #3b5de7;
+}
+
+.badge-sale {
+    background: #f06548;
+}
+
+.product-content {
+    padding: 20px;
+}
+
+.product-name {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.product-rating {
+    margin-bottom: 10px;
+    color: #ffc107;
+    font-size: 16px;
+}
+
+.review-count {
+    font-size: 12px;
+    color: #666;
+    margin-left: 5px;
+}
+
+.price-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.old-price {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.product-action {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.single-product:hover .product-action {
+    bottom: 0;
+    opacity: 1;
+}
+
+.product-action ul {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.product-action ul li {
+    margin: 0 5px;
+}
+
+.product-action ul li a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background: #f8f9fa;
+    color: #495057;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.product-action ul li a:hover {
+    background: #3b5de7;
+    color: white;
+}
+</style>
+		 
 
     </head>
     <body class="home-4-body">
@@ -144,153 +369,55 @@ include 'connect.php';
 							<div class="row">
 								<div class="daily-deal">
 									<div class="daily-deal-carousel owl-carousel owl-theme">
-										<!-- <div class="col-md-12"> -->
-											<div class="single-product">
-												<div class="daily-products">
-													<div class="product-img">
-														<a href="#">
-															<img src="img/tab-pro/printed-dress.jpg" alt="" />
-														</a>
-														<span class="new">new</span>
-													</div>
-													<div class="daily-content">
-														<h5 class="product-name">
-															<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-														</h5>
-														<div class="reviews">
-															<div class="star-content clearfix">
-																<span class="star"></span>
-																<span class="star"></span>
-																<span class="star"></span>
-																<span class="star"></span>
-																<span class="star"></span>
-															</div>
-														</div>
-														<div class="price-box">
-															<span class="price"> £ 34.78 </span>
-															<span class="old-price"> £ 36.61 </span>
-														</div>
-													</div>
-													<div class="upcoming">
-														<span class="is-countdown"> </span>
-														<div data-countdown="2018/01/01"></div>
-													</div>
-												</div>
-											</div>
-										
-										<!-- <div class="col-md-12"> -->
-											<div class="single-product">
-												<div class="daily-products">
-													<div class="product-img">
-														<a href="#">
-															<img src="img/tab-pro/printed-summer-dress.jpg" alt="" />
-														</a>
-														<span class="new">new</span>
-														<span class="sale">sale</span>
-													</div>
-													<div class="daily-content">
-														<h5 class="product-name">
-															<a href="#" title="Printed Dress">Printed Dress</a>
-														</h5>
-														<div class="reviews">
-															<div class="star-content clearfix">
-																<span class="star star-on"></span>
-																<span class="star star-on"></span>
-																<span class="star star-on"></span>
-																<span class="star star-on"></span>
-																<span class="star star-on"></span>
-															</div>
-															<div class="comment">
-																<span class="reviewcount">1</span>
-																 Review(s)
-															</div>
-														</div>
-														<div class="price-box">
-															<span class="price"> £ 55.07 </span>
-															<span class="old-price"> £ 61.19 </span>
-														</div>
-													</div>
-													<div class="upcoming">
-														<span class="is-countdown"> </span>
-														<div data-countdown="2018/05/01"></div>
-													</div>	
-												</div>
-											</div>
-										<!-- </div> -->
-										<!-- <div class="col-md-12"> -->
-											<div class="single-product">
-												<div class="daily-products">
-													<div class="product-img">
-														<a href="#">
-															<img src="img/tab-pro/summer-dress.jpg" alt="" />
-														</a>
-														<span class="new">new</span>
-														<span class="sale">sale</span>
-													</div>
-													<div class="daily-content">
-														<h5 class="product-name">
-															<a href="#" title="Printed Dress">Printed Dress</a>
-														</h5>
-														<div class="reviews">
-															<div class="star-content clearfix">
-																<span class="star star-on"></span>
-																<span class="star star-on"></span>
-																<span class="star star-on"></span>
-																<span class="star star-on"></span>
-																<span class="star star-on"></span>
-															</div>
-															<div class="comment">
-																<span class="reviewcount">1</span>
-																 Review(s)
-															</div>
-														</div>
-														<div class="price-box">
-															<span class="price"> £ 55.07 </span>
-															<span class="old-price"> £ 61.19 </span>
-														</div>
-													</div>
-													<div class="upcoming">
-														<span class="is-countdown"> </span>
-														<div data-countdown="2017/02/01"></div>
-													</div>	
-												</div>
-											</div>
-										<!-- </div> -->
-										<!-- <div class="col-md-12"> -->
-											<div class="single-product">
-												<div class="daily-products">
-													<div class="product-img">
-														<a href="#">
-															<img src="img/tab-pro/lamp.jpg" alt="" />
-														</a>
-														<span class="new">new</span>
-													</div>
-													<div class="daily-content">
-														<h5 class="product-name">
-															<a href="#" title="Blouse">Blouse</a>
-														</h5>
-														<div class="reviews">
-															<div class="star-content clearfix">
-																<span class="star"></span>
-																<span class="star"></span>
-																<span class="star"></span>
-																<span class="star"></span>
-																<span class="star"></span>
-															</div>
-														</div>
-														<div class="price-box">
-															<span class="price"> £ 38.12 </span>
-															<span class="old-price"> £ 42.30 </span>
-														</div>
-													</div>
-													<div class="upcoming">
-														<span class="is-countdown"> </span>
-														<div data-countdown="2018/11/01"></div>
-													</div>	
-												</div>
-											</div>
-										<!-- </div> -->
-									</div>
+<?php
+$sql = "SELECT * FROM home_daily_deal 
+        WHERE is_daily_deal = 1 
+        AND NOW() BETWEEN start_time AND end_time
+        ORDER BY id DESC LIMIT 10";
+$result = $conn->query($sql);
+
+while ($row = $result->fetch_assoc()):
+    $image = 'admin/uploads/' . $row['image'];
+    $name = htmlspecialchars($row['name']);
+    $price = number_format($row['price'], 2);
+    $old_price = number_format($row['old_price'], 2);
+    $end_time = date("Y/m/d H:i:s", strtotime($row['end_time']));
+?>
+    <div class="single-product">
+        <div class="daily-products">
+            <div class="product-img">
+                <a href="#">
+                    <img src="<?= $image ?>" alt="<?= $name ?>" />
+                </a>
+                <span class="new">new</span>
+            </div>
+            <div class="daily-content">
+                <h5 class="product-name">
+                    <a href="#"><?= $name ?></a>
+                </h5>
+                <div class="reviews">
+                    <div class="star-content clearfix">
+                        <span class="star star-on"></span>
+                        <span class="star star-on"></span>
+                        <span class="star star-on"></span>
+                        <span class="star star-on"></span>
+                        <span class="star star-on"></span>
+                    </div>
+                </div>
+                <div class="price-box">
+                    <span class="price"> ₹ <?= $price ?> </span>
+                    <span class="old-price"> ₹ <?= $old_price ?> </span>
+                </div>
+            </div>
+            <div class="upcoming">
+                <span class="is-countdown"></span>
+                <div data-countdown="<?= $end_time ?>"></div>
+            </div>
+        </div>
+    </div>
+<?php endwhile; ?>
+</div>
+
 								</div>
 							</div>
 						</div>
@@ -298,896 +425,150 @@ include 'connect.php';
 				</div>
 			</div>
 			<!--=====daily-deals-end=====-->
-			<!--=====product-tab-start=====-->
-			<div class="home-4-product-tab">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="feature-tab-area">
-								<!-- Nav tabs -->
-								<ul class="tabs" role="tablist">
-									<li><a class="active" href="#newarrival" aria-controls="newarrival" role="tab" data-bs-toggle="tab">new arrival</a></li>
-									<li><a href="#onsale" aria-controls="onsale" role="tab" data-bs-toggle="tab">onsale</a></li>
-									<li><a href="#bestseller" aria-controls="bestseller" role="tab" data-bs-toggle="tab">bestseller</a></li>
-								</ul>
-								<div class="tab-content owl-carousel-space">
-									<div role="tabpanel" class="tab-pane active fade show" id="newarrival">
-										<div class="row">
-											<div class="product-carousel">
-												<!-- single-product start -->
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-chiffon-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																	 Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 19.68 </span>
-																<span class="old-price"> £ 24.60 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/lamp.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 36.60 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-summer-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																	 Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 34.78 </span>
-																<span class="old-price"> £ 36.61 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Dress">Printed Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 55.07 </span>
-																<span class="old-price"> £ 61.19 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/cup.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Dress">Printed Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																	 Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 28.08 </span>
-																<span class="old-price"> £ 31.20 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div role="tabpanel" class="tab-pane fade" id="onsale">
-										<div class="row">
-											<div class="product-carousel">
-												<!-- single-product start -->
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-summer-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																	 Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 34.78 </span>
-																<span class="old-price"> £ 36.61  </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/printed-dress.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Dress">Printed Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 55.07 </span>
-																<span class="old-price"> £ 61.19 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/cup.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																	 Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 28.08 </span>
-																<span class="old-price"> £ 31.20 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/cooks.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Dress">Printed Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																	Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 28.08 </span>
-																<span class="old-price"> £ 31.20 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/been.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 55.07 </span>
-																<span class="old-price"> £ 61.19 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div role="tabpanel" class="tab-pane fade" id="bestseller">
-										<div class="row">
-											<div class="product-carousel">
-												<!-- single-product start -->
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/faded-short-sleeves-tshirt.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Blouse">Blouse</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																	 Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 30.78 </span>
-																<span class="old-price"> £ 32.40 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/vass.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Chiffon Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																	<span class="star"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 55.07 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/cooks.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale!</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Chiffon Dress">Printed Summer Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-																<div class="comment">
-																	<span class="reviewcount">1</span>
-																	 Review(s)
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 28.08 </span>
-																<span class="old-price"> £ 31.20 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/blouse.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Blouse">Blouse</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 34.78 </span>
-																<span class="old-price"> £ 36.61 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="#">
-																<img src="img/tab-pro/lamp.jpg" alt="" />
-															</a>
-															<span class="new">new</span>
-															<span class="sale">sale</span>
-															<div class="product-action">
-																<div class="add-to-links">
-																	<ul>
-																		<li>
-																			<a href="#" title="Add to cart">
-																				<i class="fa fa-shopping-cart"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to wishlist">
-																				<i class="fa fa-heart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																		<li>
-																			<a href="#" title="Add to compare">
-																				<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																			</a>
-																		</li>
-																	</ul>
-																	<div class="quick-view">
-																		<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																			<span>Quick view</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="#" title="Printed Chiffon Dress">Printed Dress</a>
-															</h5>
-															<div class="reviews">
-																<div class="star-content clearfix">
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star star-on"></span>
-																	<span class="star"></span>
-																</div>
-															</div>
-															<div class="price-box">
-																<span class="price"> £ 34.78 </span>
-																<span class="old-price"> £ 36.61 </span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- product-tab-end -->
+<!--=====product-tab-start=====-->
+<div class="home-4-product-tab">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="feature-tab-area product-tabs">
+                    <!-- Tab Navigation -->
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="newarrival">NEW ARRIVAL</button>
+                        <button class="tab-btn" data-tab="onsale">ON SALE</button>
+                        <button class="tab-btn" data-tab="bestseller">BEST SELLER</button>
+                    </div>
+                    
+                    
+                    
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        <!-- New Arrival Products -->
+                        <div class="tab-pane active" id="newarrival">
+							
+                            <div class="row">
+
+								
+                                <?php foreach ($newArrivalProducts as $product): ?>
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                <?php 
+                                                $images = json_decode($product['images'], true);
+                                                if (!empty($images)): ?>
+                                                    <img src="admin/<?= htmlspecialchars($images[0]) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>">
+
+                                                <?php endif; ?>
+                                            </a>
+                                            <span class="badge-new">New</span>
+                                        </div>
+                                        <div class="product-content">
+                                            <h5 class="product-name">
+                                                <a href="product-details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['product_name']) ?></a>
+                                            </h5>
+                                            <div class="product-rating">
+                                                <?= str_repeat('★', $product['rating'] ?? 0) ?>
+                                                <?= str_repeat('☆', 5 - ($product['rating'] ?? 0)) ?>
+                                                <?php if (($product['review_count'] ?? 0) > 0): ?>
+                                                    <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="price-box">
+                                                <span class="price">$<?= number_format($product['price'], 2) ?></span>
+                                                <?php if ($product['discount'] > 0): ?>
+                                                    <span class="old-price">$<?= number_format($product['price'] + $product['discount'], 2) ?></span>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        
+                        <!-- On Sale Products -->
+                        <div class="tab-pane" id="onsale">
+                            <div class="row">
+                                <?php foreach ($onsaleProducts as $product): ?>
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                <?php 
+                                                $images = json_decode($product['images'], true);
+                                                if (!empty($images)): ?>
+                                                    <img src="admin/<?= htmlspecialchars($images[0]) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>">
+                                                <?php endif; ?>
+                                            </a>
+                                            <span class="badge-sale">Sale</span>
+                                        </div>
+                                        <div class="product-content">
+                                            <h5 class="product-name">
+                                                <a href="product-details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['product_name']) ?></a>
+                                            </h5>
+                                            <div class="product-rating">
+                                                <?= str_repeat('★', $product['rating'] ?? 0) ?>
+                                                <?= str_repeat('☆', 5 - ($product['rating'] ?? 0)) ?>
+                                            </div>
+                                            <div class="price-box">
+                                                <span class="price">$<?= number_format($product['price'], 2) ?></span>
+                                                <span class="old-price">$<?= number_format($product['price'] + $product['discount'], 2) ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        
+                        <!-- Best Seller Products -->
+                        <div class="tab-pane" id="bestseller">
+                            <div class="row">
+                                <?php foreach ($bestsellerProducts as $product): ?>
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                <?php 
+                                                $images = json_decode($product['images'], true);
+                                                if (!empty($images)): ?>
+                                                    <img src="admin/<?= htmlspecialchars($images[0]) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>">
+                                                <?php endif; ?>
+                                            </a>
+                                            <?php if (strtotime($product['created_at']) > strtotime('-30 days')): ?>
+                                                <span class="badge-new">New</span>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="product-content">
+                                            <h5 class="product-name">
+                                                <a href="product-details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['product_name']) ?></a>
+                                            </h5>
+                                            <div class="product-rating">
+                                                <?= str_repeat('★', $product['rating'] ?? 0) ?>
+                                                <?= str_repeat('☆', 5 - ($product['rating'] ?? 0)) ?>
+                                                <?php if (($product['review_count'] ?? 0) > 0): ?>
+                                                    <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="price-box">
+                                                <span class="price">$<?= number_format($product['price'], 2) ?></span>
+                                                <?php if ($product['discount'] > 0): ?>
+                                                    <span class="old-price">$<?= number_format($product['price'] + $product['discount'], 2) ?></span>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=====product-tab-end=====-->
 			<!-- service-start -->
 			<div class="home-4-service home-2-service service-area">
 				<div class="container">
@@ -1223,355 +604,62 @@ include 'connect.php';
 				</div>
 			</div>
 			<!--=====service-end=====-->
-			<!--===== feature-product-start =====-->
-			<div class="home-4-feature-product">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="product-title">
-								<h2>
-									<span>Featured Products</span>
-								</h2>
-							</div>
-							<div class="row">
-								<div class="feature-product-tab">
-									<div class="feature-product-carousel">
-										<div class="col-md-12">
-											<div class="item-product item-pro-mar">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/faded-short-sleeves-tshirt.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Faded Short Sleeves T-shirt">Faded Short Sleeves T-shirt</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-														</div>
-														<div class="comment">
-															<span class="reviewcount">1</span>
-															 Review(s)
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 16.84 </span>
-														<span class="old-price"> £ 19.81 </span>
-													</div>
-												</div>
-											</div>
-											<div class="item-product item-pro-mar">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/vass.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Blouse">Blouse</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 30.78 </span>
-														<span class="old-price"> £ 32.40 </span>
-													</div>
-												</div>
-											</div>
-											<div class="item-product">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/cooks.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Printed Dress">Printed Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star"></span>
-														</div>
-														<div class="comment">
-															<span class="reviewcount">1</span>
-															 Review(s)
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 28.70 </span>
-														<span class="old-price"> £ 31.20 </span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="item-product item-pro-mar">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/chair.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Printed Dress">Printed Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 61.19 </span>
-													</div>
-												</div>
-											</div>
-											<div class="item-product item-pro-mar">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/summer-dress.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-														</div>
-														<div class="comment">
-															<span class="reviewcount">1</span>
-															 Review(s)
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 34.78 </span>
-														<span class="old-price"> £ 36.61 </span>
-													</div>
-												</div>
-											</div>
-											<div class="item-product">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/lamp2.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 36.60 </span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="item-product item-pro-mar">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/been.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star"></span>
-														</div>
-														<div class="comment">
-															<span class="reviewcount">1</span>
-															 Review(s)
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 19.68 </span>
-														<span class="old-price"> £ 24.60 </span>
-													</div>
-												</div>
-											</div>
-											<div class="item-product item-pro-mar">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/blouse.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Blouse">Blouse</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 32.40 </span>
-													</div>
-												</div>
-											</div>
-											<div class="item-product">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/cup.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Printed Dress">Printed Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-														</div>
-														<div class="comment">
-															<span class="reviewcount">1</span>
-															 Review(s)
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 28.08 </span>
-														<span class="old-price"> £ 31.20 </span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="item-product item-pro-mar">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/printed-dress.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Printed Dress">Printed Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 55.07 </span>
-														<span class="old-price"> £ 61.19 </span>
-													</div>
-												</div>
-											</div>
-											<div class="item-product item-pro-mar">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/printed-summer-dress.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-														</div>
-														<div class="comment">
-															<span class="reviewcount">1</span>
-															 Review(s)
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 34.78 </span>
-														<span class="old-price"> £ 36.61 </span>
-													</div>
-												</div>
-											</div>
-											<div class="item-product">
-												<div class="products-inner">
-													<a href="#" title="Faded Short Sleeves T-shirt">
-														<img src="img/tab-pro/lamp.jpg" alt="" />
-													</a>
-												</div>
-												<div class="product-contents">
-													<h5 class="product-name">
-														<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 36.60 </span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--===== feature-product-end =====-->
+			
+			<!-- feature-product-start -->
+<div class="feature-product-area">
+    <div class="container">
+        <div class="row">
+            <div class="product-title text-left">
+                <h2>
+                    <span>FEATURED PRODUCTS</span>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <?php if (!empty($featuredProducts)): ?>
+                <?php foreach ($featuredProducts as $product): ?>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="single-product">
+                            <div class="product-img">
+                                <a href="product-details.php?id=<?= $product['id'] ?>">
+                                    <?php 
+                                    $images = json_decode($product['images'], true);
+                                    if (!empty($images)): ?>
+                                        <img src="admin/<?= htmlspecialchars($images[0]) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>">
+                                    <?php endif; ?>
+                                </a>
+                                <span class="badge-new">Featured</span>
+                            </div>
+                            <div class="product-content">
+                                <h5 class="product-name">
+                                    <a href="product-details.php?id=<?= $product['id'] ?>">
+                                        <?= htmlspecialchars($product['product_name']) ?>
+                                    </a>
+                                </h5>
+                                <div class="product-rating">
+                                    <?= str_repeat('★', $product['rating'] ?? 0) ?>
+                                    <?= str_repeat('☆', 5 - ($product['rating'] ?? 0)) ?>
+                                </div>
+                                <div class="price-box">
+                                    <span class="price">₹<?= number_format($product['price'], 2) ?></span>
+                                    <?php if ($product['discount'] > 0): ?>
+                                        <span class="old-price">₹<?= number_format($product['price'] + $product['discount'], 2) ?></span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-12 text-center">
+                    <p>No featured products found.</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<!-- feature-product-end -->
+
 			<!--===== banner-2-start =====-->
 			<div class="home-4-banner-2">
 				<div class="container">
@@ -1931,6 +1019,30 @@ include 'connect.php';
 <!-- Owl Carousel JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    
+    // Show first tab by default
+    document.querySelector('.tab-pane').classList.add('active');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons and panes
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabPanes.forEach(pane => pane.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Show corresponding tab content
+            const tabId = this.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+});
+</script>
 
     </body>
 
