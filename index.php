@@ -77,6 +77,9 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
 
    <style>
+	/* .single-brand{
+		margin-right:30px;
+	} */
 .product-tabs-section {
     padding: 60px 0;
     background: #f9f9f9;
@@ -129,6 +132,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     transition: transform 0.3s ease;
     margin-bottom: 30px;
+	margin-right:30px !important;
 }
 
 .single-product:hover {
@@ -164,7 +168,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 }
 
 .badge-new {
-    background: #3b5de7;
+    background: #f47653ff;
 }
 
 .badge-sale {
@@ -369,6 +373,9 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 							<div class="row">
 								<div class="daily-deal">
 									<div class="daily-deal-carousel owl-carousel owl-theme">
+
+
+
 <?php
 $sql = "SELECT * FROM home_daily_deal 
         WHERE is_daily_deal = 1 
@@ -389,7 +396,7 @@ while ($row = $result->fetch_assoc()):
                 <a href="#">
                     <img src="<?= $image ?>" alt="<?= $name ?>" />
                 </a>
-                <span class="new">new</span>
+                <!-- <span class="new">new</span> -->
             </div>
             <div class="daily-content">
                 <h5 class="product-name">
@@ -450,7 +457,7 @@ while ($row = $result->fetch_assoc()):
 								
                                 <?php foreach ($newArrivalProducts as $product): ?>
                                 <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="single-product">
+                                    <div class="single-product ">
                                         <div class="product-img">
                                             <a href="product-details.php?id=<?= $product['id'] ?>">
                                                 <?php 
@@ -474,9 +481,9 @@ while ($row = $result->fetch_assoc()):
                                                 <?php endif; ?>
                                             </div>
                                             <div class="price-box">
-                                                <span class="price">$<?= number_format($product['price'], 2) ?></span>
+                                                <span class="price">₹<?= number_format($product['price'], 2) ?></span>
                                                 <?php if ($product['discount'] > 0): ?>
-                                                    <span class="old-price">$<?= number_format($product['price'] + $product['discount'], 2) ?></span>
+                                                    <span class="old-price">₹<?= number_format($product['price'] + $product['discount'], 2) ?></span>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
@@ -511,8 +518,8 @@ while ($row = $result->fetch_assoc()):
                                                 <?= str_repeat('☆', 5 - ($product['rating'] ?? 0)) ?>
                                             </div>
                                             <div class="price-box">
-                                                <span class="price">$<?= number_format($product['price'], 2) ?></span>
-                                                <span class="old-price">$<?= number_format($product['price'] + $product['discount'], 2) ?></span>
+                                                <span class="price">₹<?= number_format($product['price'], 2) ?></span>
+                                                <span class="old-price">₹<?= number_format($product['price'] + $product['discount'], 2) ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -536,7 +543,7 @@ while ($row = $result->fetch_assoc()):
                                                 <?php endif; ?>
                                             </a>
                                             <?php if (strtotime($product['created_at']) > strtotime('-30 days')): ?>
-                                                <span class="badge-new">New</span>
+                                                <span class="badge-new">Best seller</span>
                                             <?php endif; ?>
                                         </div>
                                         <div class="product-content">
@@ -551,9 +558,9 @@ while ($row = $result->fetch_assoc()):
                                                 <?php endif; ?>
                                             </div>
                                             <div class="price-box">
-                                                <span class="price">$<?= number_format($product['price'], 2) ?></span>
+                                                <span class="price">₹<?= number_format($product['price'], 2) ?></span>
                                                 <?php if ($product['discount'] > 0): ?>
-                                                    <span class="old-price">$<?= number_format($product['price'] + $product['discount'], 2) ?></span>
+                                                    <span class="old-price">₹<?= number_format($product['price'] + $product['discount'], 2) ?></span>
                                                 <?php endif; ?>
                                             </div>
                                         </div>

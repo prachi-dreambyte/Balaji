@@ -718,7 +718,7 @@ $cat_sidebar_stmt->close();
 					<a href="#">
 						<img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
 					</a>
-					<span class="new">new</span>
+					<!-- <span class="new">new</span> -->
 					
 					<div class="product-action">
 						<div class="add-to-links">

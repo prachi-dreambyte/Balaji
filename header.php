@@ -131,7 +131,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 				</div>
 				<div class="col-md-4 col-sm-6 col-6">
 					<div class="pos-logo">
-						<a href="index.php">
+						<a >
 							<img class="logo img-responsive" src="./img/balaji-logo-top.png" alt="" style="width: 200px; height: 200px;" />
 						</a>
 					</div>
