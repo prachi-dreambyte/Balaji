@@ -5,13 +5,16 @@ $compare_count = isset($_SESSION['compare_list']) ? count($_SESSION['compare_lis
 
 include 'connect.php';
 
+
+
+
 // Initialize the cart if it doesn't exist
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
 // Handle Add to Cart
-if (isset($_GET['action']) && $_GET['action'] == 'add') {
+if (isset($_GET['action']) && $_GET['action'] == 'add') { 
     $product_id = intval($_GET['id']);
 
     $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
@@ -58,27 +61,8 @@ $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 12;
 $search_term = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 
-// Get sort_by from URL
-$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : '';
 
-// Build ORDER BY condition
-$order_by = '';
-switch ($sort_by) {
-    case 'price_asc':
-        $order_by = ' ORDER BY price ASC';
-        break;
-    case 'price_desc':
-        $order_by = ' ORDER BY price DESC';
-        break;
-    case 'name_asc':
-        $order_by = ' ORDER BY product_name ASC';
-        break;
-    case 'name_desc':
-        $order_by = ' ORDER BY product_name DESC';
-        break;
-    default:
-        $order_by = ''; // no sorting
-}
+
 
 
 // Get category name if category_id is provided
@@ -103,42 +87,78 @@ switch ($sort_by) {
 // $debug_info['category_name'] = $category_name;
 
 // Fetch products based on product name + category name
+// Get sort_by from URL parameter
+$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : '';
+
+// Build ORDER BY clause based on sort selection
+$order_by = '';
+switch ($sort_by) {
+    case 'price_asc':
+        $order_by = ' ORDER BY price ASC';
+        break;
+    case 'price_desc':
+        $order_by = ' ORDER BY price DESC';
+        break;
+    case 'name_asc':
+        $order_by = ' ORDER BY product_name ASC';
+        break;
+    case 'name_desc':
+        $order_by = ' ORDER BY product_name DESC';
+        break;
+    default:
+        $order_by = ''; // Default sorting (none specified)
+}
+
+// Prepare search term for LIKE query
 $like = "%$search_term%";
 
-if (!empty($category_name) && !empty($search_term)) {
-    // Search by product name + category name
-    $sql = "SELECT * FROM products WHERE category = ? AND product_name LIKE ?" . $order_by . " LIMIT ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssi", $category_name, $like, $limit);
-} elseif (!empty($category_name)) {
-    // Filter by category name only
-    $sql = "SELECT * FROM products WHERE category = ?" . $order_by . " LIMIT ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $category_name, $limit);
-}elseif (!empty($search_term)) {
-    // Search by product name or category name
-    $sql = "SELECT * FROM products WHERE product_name LIKE ? OR category LIKE ?" . $order_by . " LIMIT ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssi", $like, $like, $limit);
+// Build the SQL query dynamically based on filters
+$sql = "SELECT * FROM products WHERE 1=1"; // Base query
+$params = []; // Array to hold parameter values
+$types = "";  // String to hold parameter types
+
+// Add category filter if specified
+if (!empty($category_name)) {
+    $sql .= " AND category = ?";
+    $params[] = $category_name;
+    $types .= "s";
 }
 
- else {
-    // No search and no category - show all products
-    $sql = "SELECT * FROM products" . $order_by . " LIMIT ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $limit);
+// Add search term filter if specified
+if (!empty($search_term)) {
+    $sql .= " AND (product_name LIKE ? OR category LIKE ?)";
+    $params[] = $like;
+    $params[] = $like;
+    $types .= "ss";
 }
 
+// Add sorting and limit
+$sql .= $order_by . " LIMIT ?";
+$params[] = $limit;
+$types .= "i";
 
+// Prepare and execute the query
+$stmt = $conn->prepare($sql);
 
-
-
-$debug_info['sql'] = $sql;
-
-
-$stmt->execute();
-$result = $stmt->get_result();
-$allRows = $result->fetch_all(MYSQLI_ASSOC);
+if ($stmt) {
+    // Bind parameters if there are any
+    if (!empty($params)) {
+        // For PHP 5.6+ we can use argument unpacking
+        $stmt->bind_param($types, ...$params);
+    }
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $allRows = $result->fetch_all(MYSQLI_ASSOC);
+    
+    // For debugging - store the final query
+    $debug_info['sql'] = $sql;
+    $debug_info['params'] = $params;
+    $debug_info['types'] = $types;
+} else {
+    // Handle query preparation error
+    die("Error preparing query: " . $conn->error);
+}
 
 // Debug: Get all unique categories from products table
 $debug_sql = "SELECT DISTINCT category FROM products ORDER BY category";
@@ -198,6 +218,9 @@ $cat_sidebar_stmt->close();
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
+
+
+
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -660,16 +683,18 @@ $cat_sidebar_stmt->close();
 
 	<div class="sort-by">
     <form method="GET" action="shop.php#product-list" id="sortForm">
-
-        <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
+        <!-- Preserve the current category -->
+        <input type="hidden" name="category" value="<?php echo htmlspecialchars($category_name); ?>">
+        <!-- Preserve the current search term -->
+        <input type="hidden" name="search" value="<?php echo htmlspecialchars($search_term); ?>">
+        
         <label for="sort_by">Sort By</label>
         <select name="sort_by" id="sort_by" onchange="document.getElementById('sortForm').submit()">
             <option value="">Default</option>
-            <option value="price_asc" <?php if (isset($_GET['sort_by']) && $_GET['sort_by'] == 'price_asc') echo 'selected'; ?>>Price: Low to High</option>
-            <option value="price_desc" <?php if (isset($_GET['sort_by']) && $_GET['sort_by'] == 'price_desc') echo 'selected'; ?>>Price: High to Low</option>
-            <option value="name_asc" <?php if (isset($_GET['sort_by']) && $_GET['sort_by'] == 'name_asc') echo 'selected'; ?>>Name: A to Z</option>
-            <option value="name_desc" <?php if (isset($_GET['sort_by']) && $_GET['sort_by'] == 'name_desc') echo 'selected'; ?>>Name: Z to A</option>
-
+            <option value="price_asc" <?php if ($sort_by == 'price_asc') echo 'selected'; ?>>Price: Low to High</option>
+            <option value="price_desc" <?php if ($sort_by == 'price_desc') echo 'selected'; ?>>Price: High to Low</option>
+            <option value="name_asc" <?php if ($sort_by == 'name_asc') echo 'selected'; ?>>Name: A to Z</option>
+            <option value="name_desc" <?php if ($sort_by == 'name_desc') echo 'selected'; ?>>Name: Z to A</option>
         </select>
     </form>
 </div>
@@ -677,10 +702,10 @@ $cat_sidebar_stmt->close();
 
 <div class="show">
     <form method="GET" action="shop.php#product-list" id="limitForm">
-
-        <!-- hidden fields to preserve filters -->
-        <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
-        <input type="hidden" name="sort_by" value="<?php echo $sort_by; ?>">
+        <!-- Preserve all current filters -->
+        <input type="hidden" name="category" value="<?php echo htmlspecialchars($category_name); ?>">
+        <input type="hidden" name="sort_by" value="<?php echo htmlspecialchars($sort_by); ?>">
+        <input type="hidden" name="search" value="<?php echo htmlspecialchars($search_term); ?>">
         
         <label for="limit">Show</label>
         <select name="limit" id="limit" onchange="document.getElementById('limitForm').submit()">
