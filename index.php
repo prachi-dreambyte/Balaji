@@ -1,8 +1,15 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    session_start();      
 }
 include 'connect.php'; 
+
+ $slider_banners = [];
+$sql = "SELECT * FROM home_banners WHERE type = 'slider' ORDER BY created_at DESC";
+$result = $conn->query($sql);
+if ($result && $result->num_rows > 0) {
+    $slider_banners = $result->fetch_all(MYSQLI_ASSOC);
+}
 
 
 // Function to get products by tag from database
@@ -279,50 +286,39 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 		<div class="wrapper">
 			<?php include 'header.php'; ?>
 			<!-- heade incr-end -->
+		
 			<!-- slider-start -->
-			<div class="slider-container">
-				<div class="slider">
-					<!-- Slider Image -->
-					<div id="mainslider" class="nivoSlider slider-image">
-						<img src="img/slider/5.jpg" alt="main slider" title="#htmlcaption1"/>
-						<img src="img/slider/6.jpg" alt="main slider" title="#htmlcaption2"/>
-					</div>
-					<!-- Slider Caption 1 -->
-					<div id="htmlcaption1" class="nivo-html-caption slider-caption-1">
-						<div class="slider-progress"></div>	
-						<div class="slide1-text slide-1">
-							<div class="middle-text">
-								<div class="cap-dec wow bounceInLeft" data-wow-duration="0.9s" data-wow-delay="0s">
-									<h1>wooflamp</h1>
-								</div>	
-								<div class="cap-title wow bounceInRight" data-wow-duration="1.2s" data-wow-delay="0.2s">
-									<h3>From: $99.00</h3>
-								</div>
-								<div class="cap-readmore wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
-									<a href="#">Shop Now</a>
-								</div>	
-							</div>
-						</div>						
-					</div>
-					<!-- Slider Caption 2 -->
-					<div id="htmlcaption2" class="nivo-html-caption slider-caption-2">
-						<div class="slider-progress"></div>
-						<div class="slide1-text slide-2">
-							<div class="middle-text">
-								<div class="cap-dec wow bounceIn" data-wow-duration="0.7s" data-wow-delay="0s">
-									<h1>Sale!</h1>
-								</div>	
-								<div class="cap-title wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
-									<h3>10% off all products</h3>
-								</div>
-								<div class="cap-readmore wow bounceIn" data-wow-duration="1.1s" data-wow-delay=".5s">
-									<a href="#">Shop Now</a>
-								</div>										
-							</div>										
-						</div>
-					</div>
-				</div>
-			</div>
+
+<div class="slider-container">
+    <div class="slider">
+        <!-- Slider Image -->
+        <div id="mainslider" class="nivoSlider slider-image">
+            <?php foreach ($slider_banners as $index => $banner): ?>
+                <img src="./admin/<?php echo htmlspecialchars($banner['image']); ?>" alt="slider" title="#htmlcaption<?php echo $index + 1; ?>" />
+            <?php endforeach; ?>
+        </div>
+
+        <?php foreach ($slider_banners as $index => $banner): ?>
+            <div id="htmlcaption<?php echo $index + 1; ?>" class="nivo-html-caption slider-caption-<?php echo $index + 1; ?>">
+                <div class="slider-progress"></div>
+                <div class="slide1-text slide-<?php echo $index + 1; ?>">
+                    <div class="middle-text">
+                        <div class="cap-dec wow bounceIn" data-wow-duration="1s" data-wow-delay="0s">
+                            <h1><?php echo htmlspecialchars($banner['caption']); ?></h1>
+                        </div>  
+                        <div class="cap-title wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                            <h3>From the collection</h3>
+                        </div>
+                        <div class="cap-readmore wow bounceIn" data-wow-duration="1.1s" data-wow-delay="0.5s">
+                            <a href="<?php echo htmlspecialchars($banner['link']); ?>">Shop Now</a>
+                        </div>                                          
+                    </div>                                          
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
 			<!--=====slider-end=====-->
 			<!--=====special-look-start=====-->
 			<div class="home-4-special-look">
@@ -662,7 +658,7 @@ while ($row = $result->fetch_assoc()):
                     <p>No featured products found.</p>
                 </div>
             <?php endif; ?>
-        </div>
+         </div>
     </div>
 </div>
 <!-- feature-product-end -->

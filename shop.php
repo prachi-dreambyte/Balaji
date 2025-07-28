@@ -219,7 +219,23 @@ $cat_sidebar_stmt->close();
     </head>
     <body>
 
-
+<!-- <div class="sort-by">
+    <form method="GET" action="shop.php#product-list" id="sortForm">
+       
+        <input type="hidden" name="category" value="<?php echo htmlspecialchars($category_name); ?>">
+       
+        <input type="hidden" name="search" value="<?php echo htmlspecialchars($search_term); ?>">
+        
+        <label for="sort_by">Sort By</label>
+        <select name="sort_by" id="sort_by" onchange="document.getElementById('sortForm').submit()">
+            <option value="">Default</option>
+            <option value="price_asc" <?php if ($sort_by == 'price_asc') echo 'selected'; ?>>Price: Low to High</option>
+            <option value="price_desc" <?php if ($sort_by == 'price_desc') echo 'selected'; ?>>Price: High to Low</option>
+            <option value="name_asc" <?php if ($sort_by == 'name_asc') echo 'selected'; ?>>Name: A to Z</option>
+            <option value="name_desc" <?php if ($sort_by == 'name_desc') echo 'selected'; ?>>Name: Z to A</option>
+        </select>
+    </form>
+</div> -->
 
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -698,7 +714,6 @@ $cat_sidebar_stmt->close();
         </select>
     </form>
 </div>
-
 
 <div class="show">
     <form method="GET" action="shop.php#product-list" id="limitForm">
