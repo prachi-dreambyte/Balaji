@@ -389,7 +389,7 @@ while ($row = $result->fetch_assoc()):
     <div class="single-product">
         <div class="daily-products">
             <div class="product-img">
-                <a href="#">
+                <a href="product-details.php?id=<?= $id ?>">
                     <img src="<?= $image ?>" alt="<?= $name ?>" />
                 </a>
                 <!-- <span class="new">new</span> -->
@@ -449,8 +449,6 @@ while ($row = $result->fetch_assoc()):
                         <div class="tab-pane active" id="newarrival">
 							
                             <div class="row">
-
-								
                                 <?php foreach ($newArrivalProducts as $product): ?>
                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                     <div class="single-product ">
@@ -664,7 +662,7 @@ while ($row = $result->fetch_assoc()):
 <!-- feature-product-end -->
 
 			<!--===== banner-2-start =====-->
-			<div class="home-4-banner-2">
+			<!-- <div class="home-4-banner-2">
 				<div class="container">
 					<div class="banner-box">
 						<a href="#">
@@ -672,7 +670,7 @@ while ($row = $result->fetch_assoc()):
 						</a>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!--===== banner-2-end =====-->
 			<!--===== latest-blog-start =====-->
 			<div class="home-4-latest-blog">

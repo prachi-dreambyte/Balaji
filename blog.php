@@ -49,7 +49,11 @@ $totalPages = ceil($totalProducts / $limit);
         <link rel="stylesheet" href="css/nivo-slider.css">
 		<!-- style css -->
 		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="blog.css">
+		<link rel="stylesheet" href="header.css">
 		<link rel="stylesheet" href="blog-detail.css">
+		<link rel="stylesheet" href="css/animate.css">
+
 		<!-- responsive css -->
         <link rel="stylesheet" href="css/responsive.css">
 		<!-- modernizr js -->
@@ -71,15 +75,6 @@ $totalPages = ceil($totalProducts / $limit);
 </section>
 		<div class="shop-2-area">
 			<div class="container">
-				<!-- <div class="breadcrumb">
-					<a href="index.php" title="Return to Home">
-						<i class="icon-home"></i>
-					</a>
-					<span class="navigation-pipe">></span>
-					<span class="navigation-page">
-						Blog
-					</span>
-				</div> -->
 				<div class="row">
 					<div class="col-md-12">
 						<div class="clearfix"></div>
@@ -89,27 +84,26 @@ $totalPages = ceil($totalProducts / $limit);
 							</div>
 							</div>
 							<?php while ($row = $allBlogs->fetch_assoc()) { ?>
-								<div class="col-sm-4">
-									<div class="single-blog blog-margin">
-										<div class="blog-img">
-											<a href="#">
-												<img src='./admin/uploads/<?= json_decode($row['main_images'], true);?>' alt="<?= $row['slug'];?>" style="height: 250px; width:350px;" />
-											</a>
-										</div>
-										<div class="blog-content">
-											<h4 class="blog-title">
-										     <?= $row['title']; ?></a>
-											</h4>
-											<p><?= $row['main_content']; ?>
-											</p>
-											<span class="blog-date">2016-03-09 13:40:04</span>
-											<a class="blog-read-more" href="blog/<?= $row['slug']; ?>">
-												<span>Read More</span>
-											</a>
-										</div>
-									</div>
-								</div>
-							<?php } ?>
+<div class="col-sm-4">
+    <div class="single-blog blog-margin wow fadeInUp" data-wow-delay="0.2s">
+        <div class="blog-img">
+            <a href="#">
+                <img src='./admin/uploads/<?= $row['main_images'];?>' alt="<?= $row['slug'];?>" style="height: 300px; width:300px;" />
+            </a>
+        </div>
+		<div class="blogContent">
+        <div class="blog-content">
+            <h4 class="blog-title"><?= $row['title']; ?></h4>
+            <p><?= $row['main_content']; ?></p>
+            <span class="blog-date"><?php echo $row['created_at'] ?></span>
+               <a class="blog-read-more" href="blog/<?= $row['slug']; ?>">
+                <span>Read More</span>
+            </a>
+        </div>
+    </div>
+							</div>
+</div>
+<?php } ?>
 
 						</div>
 						<div class="blog-pagination">
@@ -377,6 +371,10 @@ $totalPages = ceil($totalProducts / $limit);
         <script src="js/plugins.js"></script>
 		<!-- main js -->
         <script src="js/main.js"></script>
+		<script src="js/wow.min.js"></script>
+<script>
+    new WOW().init();
+</script>
     </body>
 
 

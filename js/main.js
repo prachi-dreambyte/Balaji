@@ -121,17 +121,41 @@
 /*----------------------------
  price-slider active
 ------------------------------ */  
+	  let debounceTimer;
+
+	// Get URL parameters
+	const urlParams = new URLSearchParams(window.location.search);
+	const minPriceParam = parseInt(urlParams.get("min_price")) || 600;
+	const maxPriceParam = parseInt(urlParams.get("max_price")) || 5700;
+
 	  $( "#slider-range" ).slider({
 	   range: true,
-	   min: 40,
-	   max: 600,
-	   values: [ 60, 570 ],
+	   min: 100,
+	   max: 10000,
+	   values: [ minPriceParam, maxPriceParam ],
 	   slide: function( event, ui ) {
-		$( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+			const min = ui.values[0];
+			const max = ui.values[1];
+			$("#amount").val("₹" + min + " - ₹" + max);
+			console.log("₹" + min + " - ₹" + max, 'value changes');
+
+			// Debounce: wait before updating URL
+			clearTimeout(debounceTimer);
+			debounceTimer = setTimeout(() => {
+			const currentUrl = new URL(window.location.href);
+
+			// Set min_price and max_price
+			currentUrl.searchParams.set('min_price', min);
+			currentUrl.searchParams.set('max_price', max);
+
+			currentUrl.hash = 'product-list';
+			window.location.href = currentUrl.toString();
+			}, 2000); // 2000ms delay
+
 	   }
 	  });
-	  $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
-	   " - £" + $( "#slider-range" ).slider( "values", 1 ) ); 
+	  $( "#amount" ).val( "₹" + $( "#slider-range" ).slider( "values", 0 ) +
+	   " - ₹" + $( "#slider-range" ).slider( "values", 1 ) ); 
 /*--------------------------
  scrollUp
 ---------------------------- */	

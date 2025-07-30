@@ -137,8 +137,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     <input type="submit" value="Login">
                                 </div>
                                 <div class="LoginAccount">
-                             <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
-                            </div>
+                                  <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
+                                     <p><a href="forgot-password.php">Forgot Password?</a></p>
+                                 </div>
+
                         </form>
 
                          <!-- Commercial Login Form -->
@@ -156,8 +158,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                <input type="submit" name = 'submit' value="Login">
                             </div>
                             <div class="LoginAccount">
-                             <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
-                            </div>
+                              <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
+                                <p><a href="forgot-password.php">Forgot Password?</a></p>
+                              </div>
+
                         </form>
                     </div>
                    </div>

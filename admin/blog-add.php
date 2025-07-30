@@ -129,6 +129,14 @@ if (!isset($_SESSION['user_id'])) {
         </div>
       </div>
 
+      <!-- Sub Description -->
+      <div class="col-md-12">
+        <div class="mb-3">
+          <label for="description" class="form-label">Blog Sub Description</label>
+          <textarea class="form-control bg-light-subtle" name="sub_description" id="sub_description" rows="7" placeholder="Short description about the product"></textarea>
+        </div>
+      </div>
+
       <!-- Meta Title -->
       <div class="col-md-6">
         <div class="mb-3">
@@ -235,8 +243,33 @@ if (!isset($_SESSION['user_id'])) {
      <!-- App Javascript (Require in all Page) -->
      <script src="assets/js/app.js"></script>
      <script>
-    ClassicEditor
+       ClassicEditor
         .create(document.querySelector('#description'), {
+            toolbar: [
+                'heading', '|',
+                'bold', 'italic', 'underline', '|',
+                'bulletedList', 'numberedList', '|',
+                'link', 'blockQuote', '|',
+                'undo', 'redo'
+            ],
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                    { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' }
+                ]
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+ <script>
+    ClassicEditor
+        .create(document.querySelector('#sub_description'), {
             toolbar: [
                 'heading', '|',
                 'bold', 'italic', 'underline', '|',
@@ -276,6 +309,7 @@ $tableQuery = "CREATE TABLE IF NOT EXISTS blog (
   slug VARCHAR(255) NOT NULL UNIQUE,
   main_content TEXT,
   sub_content TEXT,
+  sub_description TEXT,
   meta_title VARCHAR(255),
   meta_description TEXT,
   og_title VARCHAR(255),
@@ -302,6 +336,7 @@ $sql= "SELECT * FROM `blog`";
 
     $main_content = $_POST['main_content'];
     $sub_content = $_POST['sub_content'];
+    $sub_description = $_POST['sub_description'];
     $meta_title = $_POST['meta_title'];
     $meta_description = $_POST['meta_description'];
     $og_title = $_POST['og_title'];
@@ -330,12 +365,12 @@ $sql= "SELECT * FROM `blog`";
         }
     }
 
-   $main_images_json = json_encode($main_images);
+   $main_images_json = $main_images;
     $sub_images_json = json_encode($sub_images);
     $stmt = $conn->prepare("INSERT INTO blog 
-        (title, slug, main_content, sub_content, meta_title, meta_description, og_title, og_description, schema_data, keywords, rating, main_images, sub_images) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssssss", $title, $slug, $main_content, $sub_content, $meta_title, $meta_description, $og_title, $og_description, $schema, $keywords, $rating, $main_images_json, $sub_images_json);
+        (title, slug, main_content, sub_content, sub_description, meta_title, meta_description, og_title, og_description, schema_data, keywords, rating, main_images, sub_images) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)");
+    $stmt->bind_param("ssssssssssssss", $title, $slug, $main_content, $sub_content, $sub_description, $meta_title, $meta_description, $og_title, $og_description, $schema, $keywords, $rating, $main_images_json, $sub_images_json);
 
           if ($stmt->execute()) { 
       //  .then(() => window.location.href='blog-add.php');

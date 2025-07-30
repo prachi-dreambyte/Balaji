@@ -26,7 +26,7 @@ $totalPages = ceil($totalProducts / $limit);
 <html lang="en">
 
 
-<!-- Mirrored from techzaa.in/larkon/admin/product-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 20 Mar 2025 09:18:41 GMT -->
+
 
 <head>
      <!-- Title Meta -->
@@ -74,6 +74,7 @@ $totalPages = ceil($totalProducts / $limit);
                                                          <th>slug</th>
                                                           <th>Main Content</th>
                                                            <th>Sub Content</th>
+                                                           <th>Sub Description</th>
                                                             <th>Meta Title</th>
                                                              <th>Meta Description</th>
                                                               <th>OG Title</th>
@@ -94,6 +95,7 @@ $totalPages = ceil($totalProducts / $limit);
                                                             <td><?=$row['slug'];?></td>
                                                           <td><?=$row['main_content'];?></td>
                                                            <td><?=$row['sub_content'];?></td>
+                                                           <td><?=$row['sub_description'];?></td>
                                                             <td><?=$row['meta_title'];?></td>
                                                              <td><?=$row['meta_description'];?></td>
                                                               <td><?=$row['og_title'];?></td>
@@ -102,14 +104,15 @@ $totalPages = ceil($totalProducts / $limit);
                                                                <td><?=$row['keywords'];?></td>
                                                                <td><?=$row['rating'];?></td>
                                                                <td>
-                                                                 <img src='http://localhost/vonia/admin/uploads/<?=json_decode($row['main_images'], true);?>' alt="<?=$row['slug'];?>" height="50"/></td>
+                                                                
+                                                                 <img src='./uploads/<?=$row['main_images'] ?>' alt="<?=$row['slug'];?>" height="50"/></td>
                                                             
                                                             <td>
                                                                   <?php
     $subImages = json_decode($row['sub_images'], true); // Decode JSON string to PHP array
     if (!empty($subImages)) {
         foreach ($subImages as $subImg) {
-          echo "<img src='http://localhost/vonia/admin/uploads/{$subImg}' alt='{$row['slug']}' height='50' style='margin-right: 5px;' />";
+          echo "<img src='./uploads/{$subImg}' alt='{$row['slug']}' height='50' style='margin-right: 5px;' />";
         }
     } else {
         echo "No Sub Images";
@@ -184,7 +187,7 @@ $totalPages = ceil($totalProducts / $limit);
 
                 Swal.fire({
                     title: "Are you sure?",
-                    text: "This product will be deleted permanently!",
+                    text: "This blog will be deleted permanently!",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#d33",

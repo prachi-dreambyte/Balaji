@@ -1,6 +1,10 @@
 <?php
 include '../connect.php';
 
+$recentBlogsQuery = "SELECT id, title, main_images, slug, created_at FROM blog ORDER BY created_at DESC LIMIT 2";
+
+$recentBlogsResult = mysqli_query($conn, $recentBlogsQuery);
+
 $requestUri = $_SERVER['REQUEST_URI']; // Example: /vonia/blog/index.php/pariatur-eligendi-v
 
 $parts = explode('/', $requestUri);
@@ -50,6 +54,7 @@ $blogdetails = $blogresult->fetch_assoc();
     <link rel="stylesheet" href="../css/nivo-slider.css">
     <!-- style css -->
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../header.css">
     <link rel="stylesheet" href="../blog-detail.css">
     <!-- responsive css -->
     <link rel="stylesheet" href="../css/responsive.css">
@@ -74,7 +79,7 @@ $blogdetails = $blogresult->fetch_assoc();
                 <div class="left-column-blocks col-md-8 col-lg-8 pt-5">
                     <div class="single-blog blog-margin">
                         <?php
-                        $mainImageArr = json_decode($blogdetails['main_images'], true);
+                        $mainImageArr = $blogdetails['main_images'];
 
                         ?>
                         <img src='../admin/uploads/<?= $mainImageArr ?>' alt="<?= $blogdetails['slug'] ?>" style="width:100%; max-height:400px; object-fit:cover;" />
@@ -82,11 +87,13 @@ $blogdetails = $blogresult->fetch_assoc();
                     </div>
                     <div>
                         <span class="postboxBlog">
-                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M7.5 3.59961V7.49961L10.1 8.79961" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg> 2016-03-09 13:40:04
-                        </span>
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M7.5 3.59961V7.49961L10.1 8.79961" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <?= date('M d, Y h:i A', strtotime($blogdetails['created_at'])); ?>
+</span>
+
                     </div>
                     <h1 class="blogfirstHeading">
                         <?= htmlspecialchars($blogdetails['title']); ?>
@@ -135,66 +142,52 @@ $blogdetails = $blogresult->fetch_assoc();
                                     echo "<p>No images available</p>";
                                 }
                                 ?>
-
-                                <!--                    				
-                    <img src="img\balaji\postbox-04.jpg" class="BlogAboutImage "/>
-                    <img src="img\balaji\postbox-05.jpg" class="BlogAboutImage"/> -->
                             </div>
                             <div class="blogLi">
-                                <h4>The Bala Ji Promise</h4>
-                                <p class="aboutpUniversalPara">When you choose Bala Ji Furniture, you’re not just buying a chair. You’re investing in trust, quality, and a better seating experience - proudly made right here in Uttarakhand.
-                                    If you’re looking for the best plastic chairs, we’re already around the corner. Visit our store or contact us today - and feel theBala Ji difference.</p>
+                                <h4>
+                                    <p?><?= $blogdetails['sub_description']; ?></p>
+                                </h4>
                             </div>
                     </div>
                    
                 </div>
-                 <div class="col-md-4 col-lg-4">
+                    <div class="col-md-4 col-lg-4">
                         <div class="sidebar__wrapper bd-sticky pl-30">
 
                             <div class="sidebar__widget mb-45">
-                                <h3 class="sidebar__widget-title">Recent Post</h3>
-                                <div class="sidebar__widget-content">
-                                    <div class="sidebar__post">
-                                        <div class="rc__post d-flex align-items-center">
-                                            <div class="blogWrapperImage">
-                                                <a href=""><img src="../img\latest-blog\1.jpg" alt=""></a>
-                                            </div>
-                                            <div class="blogRecentDiv">
-                                                <p class="blogRecent">
-                                                    <a href="">Why Bala Ji Furniture is the best choice?</a>
-                                                </p>
-                                                <div class="rc__meta">
-                                                    <span>
-                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                            <path d="M7.5 3.59961V7.49961L10.1 8.79961" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        </svg>May 29, 2025
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="rc__post d-flex align-items-center">
-                                            <div class="blogWrapperImage">
-                                                <a href=""><img src="../img\latest-blog\2.jpg" alt=""></a>
-                                            </div>
-                                            <div class="blogRecentDiv">
-                                                <p class="blogRecent">
-                                                    <a href="">The chair behind everyday moments</a>
-                                                </p>
-                                                <div class="rc__meta">
-                                                    <span>
-                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                            <path d="M7.5 3.59961V7.49961L10.1 8.79961" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        </svg>May 29, 2025
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
+                             <h3 class="sidebar__widget-title">Recent Post</h3>
+                               <div class="sidebar__widget-content">
+                                   <div class="sidebar__post">
+                                       <?php while ($blogdetails = mysqli_fetch_assoc($recentBlogsResult)) { ?>
+                                           <div class="rc__post d-flex align-items-center">
+                                               <div class="blogWrapperImage">
+                                                   <a href="blog-details.php/<?= $blogdetails['slug']; ?>">
+                                                     <img src="../admin/uploads/<?= htmlspecialchars($blogdetails['main_images']); ?>" alt="<?= htmlspecialchars($blogdetails['title']); ?>">
 
-                                    </div>
-                                </div>
+                                                    </a>
+                                                </div>
+                                                <div class="blogRecentDiv">
+                                                    <p class="blogRecent">
+                                                        <a href="blog-details.php/<?= $blogdetails['slug']; ?>">
+                                                         <?= htmlspecialchars($blogdetails['title']); ?>
+                                                     </a>
+                                                 </p>
+                                                 <div class="rc__meta">
+                                                     <span>
+                                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                             <path d="M7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                             <path d="M7.5 3.59961V7.49961L10.1 8.79961" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                         </svg>
+                                                     <?= date('M d, Y h:i A', strtotime($blogdetails['created_at'])); ?>
+                                                     </span>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     <?php } ?>
+                                 </div>
+                             </div>
                             </div>
+
                         </div>
 
                     </div>

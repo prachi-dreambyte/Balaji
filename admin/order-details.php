@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
  } // Database connection
 
 // Get order ID from URL
-$order_id = isset($_POST['id']) ? intval($_POST['id']) :" ";
+$order_id = isset($_POST['id']) ? intval($_POST['id']) :"";
 
 // if ($order_id <= 0) {
 //     die("Invalid Order ID.");
@@ -16,18 +16,18 @@ $order_id = isset($_POST['id']) ? intval($_POST['id']) :" ";
 // Fetch order details and items
 $sql = "SELECT 
             o.id AS order_id, 
-            o.user_id, 
-            o.total_price, 
-            o.payment_status, 
+            o.user_id,  
+            o.status, 
+            o.payment_status,  
             o.status AS order_status, 
-            o.order_date,
+            o.created_at,
             o.discount,
-            o.final_price,
+            o.amount,
             oi.product_id, 
             oi.quantity, 
             oi.price
         FROM orders o
-        LEFT JOIN order_items oi ON o.id = oi.order_id
+        LEFT JOIN order_items oi ON o.order_id = oi.order_id
         WHERE o.id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -43,12 +43,12 @@ while ($row = $result->fetch_assoc()) {
         $order = [
             "id" => $row["order_id"],
             "customer_name" => $row["user_id"],
-            "total_price" => $row["total_price"],
+            "total_price" => $row["amount"],
             "payment_status" => $row["payment_status"],
-            "order_status" => $row["order_status"],
-            "created_at" => $row["order_date"],
+            "order_status" => $row["status"],
+            "created_at" => $row["created_at"],
             "discount" => $row["discount"],
-            "final_price" => $row["final_price"],
+            
             "items" => []
         ];
     }
@@ -111,7 +111,7 @@ $conn->close();
                                     </tr>
                                     <tr>
                                         <th>Final Price</th>
-                                        <td>₹<?= htmlspecialchars(number_format($order['final_price'], 2)) ?></td>
+                                        <td>₹<?= htmlspecialchars(number_format($order['total_price'] + $order['discount'] , 2)) ?></td>
                                     </tr>
                                     <tr>
                                         <th>Order Status</th>
@@ -171,11 +171,7 @@ $conn->close();
             </div>
         </div>
     </div>
-    <script>
-        console.log("asjkncsdlijf/l");
-    </script>
-
-
+    
   
 <script>
   $(document).ready(function(){

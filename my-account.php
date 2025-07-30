@@ -123,6 +123,12 @@ if (isset($_GET['delete_address'])) {
                 <p><strong>Name:</strong> <?= htmlspecialchars($user['name']) ?></p>
                 <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
                 <p><strong>Phone:</strong> <?= htmlspecialchars($user['phone']) ?></p>
+
+                 <?php if (isset($user['account_type']) && $user['account_type'] === 'commercial'): ?>
+                     <p><strong>Company Name :</strong> <?= htmlspecialchars($user['company_name']) ?: 'Not Provided' ?></p>
+                   <p><strong>GST Number:</strong> <?= htmlspecialchars($user['gst']) ?: 'Not Provided' ?></p>
+                   <p><strong>PAN Number:</strong> <?= htmlspecialchars($user['pan']) ?: 'Not Provided' ?></p>
+                 <?php endif; ?>
             </div>
 
             <div id="my-orders" class="content-section">
@@ -131,7 +137,7 @@ if (isset($_GET['delete_address'])) {
                 $orders = mysqli_query($conn, "SELECT * FROM orders WHERE user_id = $user_id ORDER BY created_at DESC");
                 if (mysqli_num_rows($orders) > 0) {
                     while ($order = mysqli_fetch_assoc($orders)) {
-                        echo "<div><strong>Order ID:</strong> {$order['id']} | <strong>Total:</strong> ₹{$order['total_amount']} | <strong>Date:</strong> {$order['created_at']}</div><hr>";
+                        echo "<div><strong>Order ID:</strong> {$order['id']} | <strong>Total:</strong> ₹{$order['amount']} | <strong>Date:</strong> {$order['created_at']}</div><hr>";
                     }
                 } else {
                     echo "<p>No orders found.</p>";

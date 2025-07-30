@@ -12,7 +12,7 @@ $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
 // Fetch orders from the database
-$sql = "SELECT * FROM orders ORDER BY order_date DESC LIMIT $limit OFFSET $offset";
+$sql = "SELECT * FROM orders ORDER BY created_at DESC LIMIT $limit OFFSET $offset";
 $result = $conn->query($sql);
 
 // Count total orders for pagination
@@ -76,9 +76,9 @@ $totalPages = ceil($totalOrders / $limit);
                                                        <tr>
                                                             <td><?= $row['id']; ?></td>
                                                             <td><?= $row['user_id']; ?></td>
-                                                            <td>₹<?= number_format($row['total_price'], 2); ?></td>
+                                                            <td>₹<?= number_format($row['amount'], 2); ?></td>
                                                             <td>₹<?= number_format($row['discount'], 2); ?></td>
-                                                            <td>₹<?= number_format($row['final_price'], 2); ?></td>
+                                                             <td>₹<?= number_format($row['discount'] + $row['amount'], 2); ?></td>
                                                             <td><?= ucfirst($row['status']); ?></td>
                                                             <td>
                                                                  <!-- Edit Button -->

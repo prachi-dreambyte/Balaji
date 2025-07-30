@@ -1,22 +1,78 @@
-<?php 
-include 'connect.php'; 
+<?php
+session_start();
+include 'connect.php';
 
-$wishlistItems = [
-    [
-        'image' => 'img/wishlist/1.jpg',
-        'name' => 'Vestibulum suscipit',
-        'price' => '£165.00',
-        'stock' => 'In Stock',
-    ],
-    [
-        'image' => 'img/wishlist/2.jpg',
-        'name' => 'Vestibulum dictum magna',
-        'price' => '£50.00',
-        'stock' => 'In Stock',
-    ]
-];
-$totalItems = count($wishlistItems);
+if (!isset($_SESSION['user_id'])) {
+    die("Please login to access your wishlist.");
+}
+
+// ✅ Create wishlist table if not exists
+$createTableQuery = "
+CREATE TABLE IF NOT EXISTS wishlist (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(11) NOT NULL,
+    product_id INT(11) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+";
+$conn->query($createTableQuery);
+
+
+$user_id = $_SESSION['user_id'];
+
+// Handle Add to Wishlist
+if (isset($_GET['action']) && $_GET['action'] === 'add' && isset($_GET['id'])) {
+    $product_id = intval($_GET['id']);
+
+    // Check if already in wishlist
+    $check = $conn->prepare("SELECT id FROM wishlist WHERE user_id = ? AND product_id = ?");
+    $check->bind_param("ii", $user_id, $product_id);
+    $check->execute();
+    $check_result = $check->get_result();
+
+    if ($check_result->num_rows === 0) {
+        $insert = $conn->prepare("INSERT INTO wishlist (user_id, product_id) VALUES (?, ?)");
+        $insert->bind_param("ii", $user_id, $product_id);
+        $insert->execute();
+    }
+
+    header("Location: wishlist.php?added=1");
+    exit;
+}
+
+// Handle Remove from Wishlist
+if (isset($_GET['action']) && $_GET['action'] === 'remove' && isset($_GET['id'])) {
+    $product_id = intval($_GET['id']);
+    $remove = $conn->prepare("DELETE FROM wishlist WHERE user_id = ? AND product_id = ?");
+    $remove->bind_param("ii", $user_id, $product_id);
+    $remove->execute();
+    header("Location: wishlist.php?removed=1");
+    exit;
+}
+
+// Fetch wishlist items
+// Fetch cart items from cart table
+$stmt = $conn->prepare("SELECT p.id, p.product_name, p.price, p.images, p.stock FROM wishlist w JOIN products p ON w.product_id = p.id WHERE w.user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$wishlist_result = $stmt->get_result();
+$totalItems = $wishlist_result->num_rows;
+$wishlist_items = [];
+
+while ($row = $wishlist_result->fetch_assoc()) {
+    $image_array = json_decode($row['images'], true);
+    $image = isset($image_array[0]) ? $image_array[0] : 'default.jpg';
+
+    $wishlist_items[] = [
+        'id' => $row['id'],
+        'name' => $row['product_name'],
+        'price' => $row['price'],
+        'image' => $image,
+		'stock' => $row['stock']
+    ];
+}
 ?>
+
 
 
 <!doctype html>
@@ -51,7 +107,8 @@ $totalItems = count($wishlistItems);
         <link rel="stylesheet" href="css/nivo-slider.css">
 		<!-- style css -->
 		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="wishlist1.css">
+		<link rel="stylesheet" href="wishlist.css">
+		 <link rel="stylesheet" href="header.css">
 		<!-- responsive css -->
         <link rel="stylesheet" href="css/responsive.css">
 		<!-- modernizr css -->
@@ -65,14 +122,14 @@ $totalItems = count($wishlistItems);
 		<?php include 'header.php'; ?>
 		<!-- header-end -->
 		<!-- wishlist-start -->
-		<div class="wishlist-area">
+<div class="wishlist-area">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-12">
-						<div class="entry-header pt-4">
+						
 							<h1 class="entry-title">My Wishlist (<?= $totalItems ?>)</h1>
-
-						</div>
+		
+						
 						<div class="wishlist-content">
 							<form action="#">
 								<div class="wishlist-table table-responsive">
@@ -98,109 +155,42 @@ $totalItems = count($wishlistItems);
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												
-												<td class="product-thumbnail">
-													<a href="#">
-														<img src="img/wishlist/1.jpg" alt="" />
-													</a>
-												</td>
-												<td class="product-name">
-													<a href="#">Vestibulum suscipit</a>
-												</td>
-												<td class="product-price">
-													<span class="amount">£165.00</span>
-												</td>
-												<td class="product-stock-status">
-													<span class="wishlist-in-stock">In Stock</span>
-												</td>
-												<td class="product-add-to-cart">
-													<a href="#"> Add to Cart</a>
-												</td>
-												<td class="product-remove">
-													<a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                                    </svg></a>
-												</td>
-											</tr>
-											<tr>
-												
-												<td class="product-thumbnail">
-													<a href="#">
-														<img src="img/wishlist/2.jpg" alt="" />
-													</a>
-												</td>
-												<td class="product-name">
-													<a href="#">Vestibulum dictum magna</a>
-												</td>
-												<td class="product-price">
-													<span class="amount">£50.00</span>
-												</td>
-												<td class="product-stock-status">
-													<span class="wishlist-in-stock">In Stock</span>
-												</td>
-												<td class="product-add-to-cart">
-													<a href="#"> Add to Cart</a>
-												</td>
-												<td class="product-remove">
-													<a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                          <?php if (!empty($wishlist_items)): ?>
+                           <?php foreach ($wishlist_items as $item): ?>
+        <tr>
+            <td class="product-thumbnail">
+                <a href="product-detail.php?id=<?= $item['id'] ?>">
+                    <img src="./admin/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" width="80">
+                </a>
+            </td>
+            <td class="product-name">
+                <a href="product-detail.php?id=<?= $item['id'] ?>"><?= htmlspecialchars($item['name']) ?></a>
+            </td>
+            <td class="product-price">
+                <span class="amount">₹<?= number_format($item['price'], 2) ?></span>
+            </td>
+            <td class="product-stock-status">
+                <span class="wishlist-in-stock"><?= $item['stock'] > 0 ? 'In Stock' : 'Out of Stock' ?></span>
+            </td>
+            <td class="product-add-to-cart">
+                <?php if ($item['stock'] > 0): ?>
+					<a href="shopping-cart.php?action=add&id=<?= $item['id'] ?>" title="Add to cart">Add to Cart</a>
+                <?php else: ?>
+                    <span class="text-muted">Unavailable</span>
+                <?php endif; ?>
+            </td>
+            <td class="product-remove">
+				<a href="wishlist.php?action=remove&id=<?= $item['id'] ?>"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                                                                 </svg></i></a>
-												</td>
-											</tr>
-										</tbody>
-									<tbody>
-											<tr>
-												
-												<td class="product-thumbnail">
-													<a href="#">
-														<img src="img/wishlist/1.jpg" alt="" />
-													</a>
-												</td>
-												<td class="product-name">
-													<a href="#">Vestibulum suscipit</a>
-												</td>
-												<td class="product-price">
-													<span class="amount">£165.00</span>
-												</td>
-												<td class="product-stock-status">
-													<span class="wishlist-in-stock">In Stock</span>
-												</td>
-												<td class="product-add-to-cart">
-													<a href="#"> Add to Cart</a>
-												</td>
-												<td class="product-remove">
-													<a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                                    </svg></a>
-												</td>
-											</tr>
-											<tr>
-												
-												<td class="product-thumbnail">
-													<a href="#">
-														<img src="img/wishlist/2.jpg" alt="" />
-													</a>
-												</td>
-												<td class="product-name">
-													<a href="#">Vestibulum dictum magna</a>
-												</td>
-												<td class="product-price">
-													<span class="amount">£50.00</span>
-												</td>
-												<td class="product-stock-status">
-													<span class="wishlist-in-stock">In Stock</span>
-												</td>
-												<td class="product-add-to-cart">
-													<a href="#"> Add to Cart</a>
-												</td>
-												<td class="product-remove">
-													<a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                                                </svg></i></a>
-												</td>
-											</tr>
-										</tbody>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php else: ?>
+    <tr><td colspan="6">🛒 Your wishlist is empty.</td></tr>
+<?php endif; ?>
+</tbody>
+
 									</table>
 								</div>
 							</form>

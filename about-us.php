@@ -33,8 +33,10 @@ include 'connect.php';
         <link rel="stylesheet" href="css/nivo-slider.css">
 		<!-- style css -->
 		<link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="header.css">
 		<!-- responsive css -->
         <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/animate.css">
 		<!-- modernizr css -->
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
@@ -55,38 +57,47 @@ include 'connect.php';
   </div>
 </section>
 
-                    <section>
-                       <div class="container-fluid">
-                        <div class="AboutUSwrapper">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-sx-12">
-                                   <img src="img/slider/5.jpg" alt="main slider" title="#htmlcaption1" class="AboutImage"/>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-sx-12">
-                                  <div class="AboutUs-Wrapper">
-                                    <h1 class="aboutHead">ABOUT BALA JI</h1>
-                                    <p class="aboutParagraph pt-3">Unveiling the Spirit of Balaji Furniture: A Luxurious Fusion of Comfort and Connectivity</p>
-                                    <p class="aboutParagraph">The Inception of Balaji Furniture: A Symbolic Expedition initiated in 2003 by its Founder, Mr. Naveen Goel, 
-                                        hailing from the small city of Amroha in Uttar Pradesh and relocating to Dehradun in 1999. Subsequently, he commenced the production of High-Quality Office Furniture.”</p>
-                                    <a href="" class="AboutWrapperButton">
-                                       Read More
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                   <section>
+    <div class="container-fluid">
+        <div class="AboutUSwrapper">
+            <div class="row">
+                <!-- Image with left-to-right animation -->
+                <div class="col-md-6 col-sm-6 col-sx-12 wow slideInLeft" data-wow-delay="0.2s">
+                    <img src="img/slider/5.jpg" alt="main slider" title="#htmlcaption1" class="AboutImage"/>
+                </div>
+
+                <!-- Text with fade-in animations -->
+                <div class="col-md-6 col-sm-6 col-sx-12">
+                    <div class="AboutUs-Wrapper">
+                        <h1 class="aboutHead wow fadeInDown" data-wow-delay="0.3s">ABOUT BALA JI</h1>
+                        <p class="aboutParagraph pt-3 wow fadeInUp" data-wow-delay="0.5s">
+                            Unveiling the Spirit of Balaji Furniture: A Luxurious Fusion of Comfort and Connectivity
+                        </p>
+                        <p class="aboutParagraph wow fadeInUp" data-wow-delay="0.7s">
+                            The Inception of Balaji Furniture: A Symbolic Expedition initiated in 2003 by its Founder, Mr. Naveen Goel, 
+                            hailing from the small city of Amroha in Uttar Pradesh and relocating to Dehradun in 1999. Subsequently, he commenced the production of High-Quality Office Furniture.”
+                        </p>
+                        <a href="" class="AboutWrapperButton wow fadeInUp" data-wow-delay="0.9s">
+                            Read More
+                        </a>
+                       </div>
+                       </div>
+                       </div>
+                       </div>
                       </div>
                     </section>
+
                      <section class="AboutUSwrapper">
                         <div class="container">
                             <div class="AboutBoxWrapper">
-                               <h1 class="aboutUniversal">Discovering the Essence of Balaji Furniture: A Harmonious Fusion of Luxury, Comfort, and Connection.</h1>
+                               <h1 class="aboutUniversal  wow fadeInUp" data-wow-delay="0.3s">Discovering the Essence of Balaji Furniture: A Harmonious Fusion of Luxury, Comfort, and Connection.</h1>
                                <div class="row">
-                            <div class="col-md-6 col-sm-6  col-xs-12">
+                            <div class="col-md-6 col-sm-6  col-xs-12  wow fadeInUp" data-wow-delay="0.5s">
                                <p class="aboutParagraph pt-5">“The enterprise ‘JAY SHRI BALAJI FOAM & FURNITURE’, popularly referred to as ‘BALAJI FURNITURE’, embarked on its symbolic journey in 2003 under the guidance of its founder, Mr. Naveen Goel, a native of Amroha, Uttar Pradesh, who relocated to Dehradun in 1999.</p>
                                <p  class="aboutParagraph">Initially focusing on manufacturing high-quality office furniture, the firm has since evolved into a prominent Distributor of Plastic Furniture, representing renowned brands such as ‘Amul’, ‘Spark’, ‘Highway’, ‘Neelam’, ‘Vardhmaan’, ‘Omaxe’, ‘Marble’, ‘Sharda’ and ‘Prime Gold’.</p>
                                <p  class="aboutParagraph">Serving clientele across Dehradun and extending its reach throughout Uttarakhand, the company’s manufacturing arm operates under the brand ‘HAPPY UNIVERSAL’, proudly recognized as one of Dehradun’s pioneering trademarked furniture brands.”</p>
                             </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-xs-12 wow slideInRight" data-wow-delay="1s">
                                <div class="DiscoveringImage">
                                 <img src="img\body\5_2.jpg" class="discoverAboutImg">
                                </div>
@@ -111,32 +122,50 @@ include 'connect.php';
 </div>
     </div>
   </section>
-                    <section class="home-4-daily-deals-area BalajiFamily">                     
-                      <div class="AboutNewHeading">
-                          <h1 class="AboutfirstHeading">The Balaji Furniture Family</h1>
-                          <p class="aboutParagraph">Where Comfort Meets Style, and Customers Are Family. From Dehradun’s Heart to Uttarakhand’s Soul,
-                            <br/> We’re More Than a Brand – We’re Your Story.”</p>
-                      </div>
-                      
-                      <div class="AboutBackground">
-                        <div class ="container-fluid">
-                          <div class="row">                              
-                            <div class="col-md-4  col-sm-4 col-xs-12">
-                              <img src="img\balaji\happy-universal-q-01-TM-1024x1024.png" class="BalajiAboutImage "/>
-                            </div>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                              <div class="happyAbout">
-                                <h1 class="aboutUniversal">HAPPY UNIVERSAL LOGO </h1>
-                                <p class="aboutUniversalPara pt-4">At the core of innovation lies the brand ‘HAPPY UNIVERSAL’. The logo features a ‘happy face’, reflecting the founder’s hometown name ‘HAPPY’. The term ‘UNIVERSAL’ signifies our commitment to creating products with a luxurious aesthetic for workplaces and enhancing lifestyles with comfort.
-                                </p>
-                                <p class="aboutUniversalPara">It embodies a philosophy where our product range transcends boundaries, offering a universal appeal. Our products are emotionally intertwined with the people of Uttarakhand and across India, as evidenced by our extensive loyal customer base spanning over 21 years and counting, dedicated to BALAJI FURNITURE.</p>
-                                <p class="aboutUniversalPara">HAPPY UNIVERSAL takes pride in crafting universally luxurious products that redefine workplaces and elevate lifestyles. Our brand places a strong emphasis on quality assurance, offering a wide range of office furniture and plastic furniture to meet our customers’ needs.”</p>
-                              </div>                                  
-                            </div>
-                          </div>
-                        </div>
-                     </div>
-                    </section>
+                    <section class="home-4-daily-deals-area BalajiFamily">
+    <!-- Heading Area -->
+    <div class="AboutNewHeading wow fadeInDown" data-wow-delay="0.2s">
+        <h1 class="AboutfirstHeading">The Balaji Furniture Family</h1>
+        <p class="aboutParagraph">
+            Where Comfort Meets Style, and Customers Are Family. From Dehradun’s Heart to Uttarakhand’s Soul,
+            <br/> We’re More Than a Brand – We’re Your Story.”
+        </p>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="AboutBackground">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- Image Column -->
+                <div class="col-md-4 col-sm-4 col-xs-12 wow zoomIn" data-wow-delay="0.4s">
+                    <img src="img/balaji/happy-universal-q-01-TM-1024x1024.png" class="BalajiAboutImage" />
+                </div>
+
+                <!-- Text Column -->
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div class="happyAbout">
+                        <h1 class="aboutUniversal wow fadeInRight" data-wow-delay="0.5s">HAPPY UNIVERSAL LOGO</h1>
+
+                        <p class="aboutUniversalPara pt-4 wow fadeInUp" data-wow-delay="0.6s">
+                            At the core of innovation lies the brand ‘HAPPY UNIVERSAL’. The logo features a ‘happy face’, reflecting the founder’s hometown name ‘HAPPY’. The term ‘UNIVERSAL’ signifies our commitment to creating products with a luxurious aesthetic for workplaces and enhancing lifestyles with comfort.
+                        </p>
+
+                        <p class="aboutUniversalPara wow fadeInUp" data-wow-delay="0.8s">
+                            It embodies a philosophy where our product range transcends boundaries, offering a universal appeal. Our products are emotionally intertwined with the people of Uttarakhand and across India, as evidenced by our extensive loyal customer base spanning over 21 years and counting, dedicated to BALAJI FURNITURE.
+                        </p>
+
+                        <p class="aboutUniversalPara wow fadeInUp" data-wow-delay="1s">
+                            HAPPY UNIVERSAL takes pride in crafting universally luxurious products that redefine workplaces and elevate lifestyles. Our brand places a strong emphasis on quality assurance, offering a wide range of office furniture and plastic furniture to meet our customers’ needs.”
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
 
 
   <section id="testimonials" class="testimonials section">
@@ -264,6 +293,10 @@ $('.autoplay').slick({
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- ✅ Slick Carousel JS -->
   <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="js/wow.min.js"></script>
+<script>
+    new WOW().init();
+</script>
 
                      <?php include 'footer.php'; ?>
     </body>

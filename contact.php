@@ -3,19 +3,24 @@ session_start();
 include 'connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name    = htmlspecialchars($_POST['name']);
-    $email   = htmlspecialchars($_POST['email']);
-    $mobile  = htmlspecialchars($_POST['mobile']);
-    $message = htmlspecialchars($_POST['message']);
+    $name    = htmlspecialchars($_POST['name'] ?? '');
+    $email   = htmlspecialchars($_POST['email'] ?? '');
+    $mobile  = htmlspecialchars($_POST['mobile'] ?? '');
+    $message = htmlspecialchars($_POST['message'] ?? '');
 
     $sql = "INSERT INTO contact_form (name, email, mobile, message) 
             VALUES ('$name', '$email', '$mobile', '$message')";
+    
     if (mysqli_query($conn, $sql)) {
-        $adminNumber = "8979892185";
-        $adminName = "Balaji Store";
+        $adminNumber = "6396540283";
 
-        $whatsappMessage = urlencode("Namaste $adminName,\nName: $name\nEmail: $email\nMobile: $mobile\nMessage: $message");
+        // Format the message
+        $whatsappMessage = rawurlencode("New Contact Form Submission:\n\nName: $name\nEmail: $email\nMobile: $mobile\nMessage:\n$message");
+
+        // Generate WhatsApp URL
         $whatsappURL = "https://wa.me/91$adminNumber?text=$whatsappMessage";
+
+        // Send URL back to JS
         echo $whatsappURL;
         exit;
     } else {
@@ -24,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -115,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="mb-3">
           <label for="message" class="form-label">Message</label>
-          <textarea name="message" class="form-control" rows="8" required style="border-radius: 6px;"></textarea>
+          <textarea name="message" class="form-control" rows="8" required style="border-radius: 6px; height: 100px; padding: 25px; resize: none;"></textarea>
         </div>
         <button type="submit" class="btn btn-dark w-100" style="border-radius: 6px;">Send via WhatsApp</button>
       </form>
@@ -173,6 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script>
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
+
   const form = e.target;
   const formData = new FormData(form);
 
@@ -183,14 +190,14 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   .then(res => res.text())
   .then(url => {
     if (url.startsWith('https://wa.me')) {
-      window.open(url, '_blank');
-      alert("✅ WhatsApp opened.");
+      window.open(url, '_blank'); // Open WhatsApp chat in new tab
     } else {
       alert("❌ Failed to send message.");
     }
   });
 });
 </script>
+
 
 <!-- Bootstrap JS (Optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
