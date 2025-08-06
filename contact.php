@@ -30,154 +30,501 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-          <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Home four || Vonia</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
-        <!-- Place favicon.ico in the root directory -->
-		<!-- google font -->
-		<link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
-		<!-- all css here -->
-		<!-- bootstrap v3.3.6 css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-		<!-- animate css -->
-        <link rel="stylesheet" href="css/animate.css">
-		<!-- jquery-ui.min css -->
-        <link rel="stylesheet" href="css/jquery-ui.min.css">
-		<!-- meanmenu css -->
-        <link rel="stylesheet" href="css/meanmenu.min.css">
-		<!-- owl.carousel css -->
-        <link rel="stylesheet" href="css/owl.carousel.css">
-		<!-- font-awesome css -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-		<!-- nivo-slider css -->
-        <link rel="stylesheet" href="css/nivo-slider.css">
-		<!-- style css -->
-		<link rel="stylesheet" href="style.css">
-		<!-- responsive css -->
-        <link rel="stylesheet" href="css/responsive.css">
-		<!-- modernizr css -->
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Contact Us</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <style>
-  /* Force contact form inputs to full width */
-  #contactForm input,
-  #contactForm textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f8f9fa;
+    }
+     .contactusHeading{
+        font-size:30px !important;
+     }
+     .contactInformation{
+        padding-left:10px;
+     }
+    .contactus {
+        background: #fff;
+        padding: 55px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #00000030;
+        margin: 60px 0;
+        transition: transform 0.3s ease;
+    }
+    .contactInfo{
+        padding-top: 15px;
+    }
+    .contactForm{
+        font-size: 25px;
+    }
+    .contactFormInput{
+        padding-bottom: 40px !important;
+        border: 1px solid #000000 !important;
+    border-radius: 5px !important;
+    background: #575757 !important;
+    -webkit-background-clip: text !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+
+    }
+
+    .contactus:hover {
+        transform: translateY(-5px);
+    }
+
+    .contactus h2 {
+        font-weight: 700;
+        color: #c06b81;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 8px #c06b81;
+    }
+
+    .btn-dark {
+        background-color: #c06b81;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-dark:hover {
+        background-color: #e393a7;
+    }
+     .contactButton{
+      background-color: #c06b81 !important;
+        border: none !important;
+        transition: background-color 0.3s ease !important;
+     }
+     .contactButton:hover{
+      background-color: #e393a7 !important;
+     }
+    .contact-info svg {
+        transition: transform 0.3s ease;
+    }
+
+    .contact-info:hover svg {
+        transform: scale(1.1);
+    }
+
+    .contact-info h2 {
+        font-size: 25px;
+        margin-top: 3px;
+    }
+
+    .contact-info p {
+        color: #333;
+        font-size: 18px;
+    }
+    .contact-info p a{
+      color: #333;
+        font-size: 18px;
+        text-decoration:none;
+    }
+
+    .contact-Map iframe {
+        width: 100%;
+        height: 400px;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .contactus {
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    }
+    .image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.AboutwrapperImage {
+  width: 100%;
+  height: 40vh;
+  display: block;
+}
+.aboutUs-Heading {
+  position: absolute;
+  top: 50%; /* adjust this as per your design */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* optional for readability */
+}
+.AboutDivWrapper{
+   position: absolute;
+  top: 65%; /* adjust this as per your design */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* optional for readability */
+  display: flex;
+}
+.AboutHome{
+   color: white;
+  font-size: 15px;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* optional for readability */
+  text-decoration: none;  
+}
+.contactWhatsup{
+  font-size:20px !important;
+}
+/* *************************media query*************************** */
+/* RESPONSIVE-----BLOG-DETAILS------PAGE */
+  @media (min-width: 1921px) and (max-width: 2561px) {
+}
+@media (min-width: 1536px) and (max-width: 1920px) {
+.contactWhatsup{
+  font-size:20px !important;
+  padding:20px 0px !important;
+}
+}
+@media (min-width: 1170px) and (max-width: 1535px) {
+.contactWhatsup{
+  font-size:20px !important;
+  padding:20px 0px !important;
+}
+}
+
+  @media (max-width: 1192.98px) {
+ .contactWhatsup{
+  font-size:20px !important;
+  padding:20px 0px !important;
+}
+.aboutUs-Heading {
+  font-size:38px;
+}
   }
-</style>
+  @media (max-width: 1055.98px) {
+ 
+}
+ @media (max-width: 991.98px) {
+  .contactus {
+    background: #fff;
+    padding: 30px;
+    height: 90%
+  }
+  .contact-info p {
+    color: #333;
+    font-size: 17px;
+}
+.contactusHeading {
+    font-size: 25px !important;
+}
+.contact-info h2 {
+    margin-top: 0px;
+}
+.aboutUs-Heading {
+  font-size:35px;
+}
+}
+  @media (max-width: 869.98px) {
+  .aboutUs-Heading {
+  font-size:32px;
+}
+}
+@media(max-width: 820.98px){
+    
+}
+@media(max-width: 794.98px){
+  .aboutUs-Heading {
+  font-size:30px;
+}
+}
+@media(max-width: 767.98px){
+ .contactInformation {
+    padding-left: 10px;
+    text-align: start;
+}
+}@media(max-width: 745.98px){
 
+  .aboutUs-Heading {
+  font-size:28px;
+}
+}
+@media(max-width: 575.98px){
+ .aboutUs-Heading {
+  font-size:28px;
+}
+}
+@media(max-width: 695.98px){
+   .aboutUs-Heading {
+  font-size:25px;
+}
+}
+
+@media(max-width: 538.98px){
+       .aboutUs-Heading {
+        font-size: 21px;
+    }
+}
+@media(max-width: 474.98px){
+}
+@media(max-width: 412.98px){
+   
+}
+@media(max-width: 390.98px){
+    
+}
+@media(max-width: 375.98px){
+   
+}
+@media(max-width: 360.98px){
+
+}
+
+  </style>
 </head>
 <body>
+  <?php include 'header.php'; ?>
+	<section class="AboutSection">
+        <div class="image-wrapper">
+            <img src="img\balaji\f29223411f5783a2e17276e9da95c140.jpg" class="AboutwrapperImage" />
+            <h1 class="aboutUs-Heading">"Happy Universal"</br>Where Style Meets Smiles!</h1>        </div>
+    </section>
 
-<?php include 'header.php'; ?>
-
-<!-- Hero Section -->
-<div class="text-white text-center d-flex justify-content-center align-items-end"
-     style="
-       background: url('img/banner-contact.jpg') top center no-repeat;
-       background-size: cover;
-       width: 100%;
-       height: 400px;
-       padding-bottom: 30px;
-     ">
-  <h1 class="display-5 fw-bold bg-dark bg-opacity-50 px-4 py-2 rounded">
-    Leave Us Your Info
-  </h1>
-</div>
-
-
-
-<!-- Contact Form + Info Section Side-by-Side -->
-<div class="container my-5">
-  <div class="row g-4 justify-content-center">
-    
-    <!-- Contact Form (Left) -->
-   <div class="col-md-6">
-  <div class="card shadow" style="border-radius: 12px;">
-    <div class="card-body">
-      <h2 class="card-title text-center mb-4">Contact Form</h2>
-      <form method="POST" id="contactForm">
-        <div class="mb-3">
-          <label for="name" class="form-label">Name</label>
-          <input type="text" name="name" class="form-control w-100" required style="border-radius: 6px;">
+<section>
+  <div class="container-fluid px-4">
+    <div class="row">
+      <!-- Contact Form -->
+      <div class="col-md-6" data-aos="fade-up">
+        <div class="contactus contactUsPage">
+          <h2 class="text-center mb-4">Contact Form</h2>
+          <form method="POST">
+            <div class="mb-3">
+              <label for="name" class="form-label contactForm">Name</label>
+              <input type="text" name="name" class="form-control contactFormInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label contactForm">Email</label>
+              <input type="email" name="email" class="form-control contactFormInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="mobile" class="form-label contactForm">Mobile</label>
+              <input type="text" name="mobile" class="form-control contactFormInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label contactForm">Message</label>
+              <textarea name="message" class="form-control contactFormInput" rows="6" required></textarea>
+            </div>
+            <button type="submit" class="btn contactButton w-100 contactWhatsup" >Send via WhatsApp</button>
+          </form>
         </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" name="email" class="form-control" required style="border-radius: 6px;">
+      </div>
+
+      <!-- Contact Info & Map -->
+      <div class="col-md-6" data-aos="fade-left">
+        <div class="contactus contact-info">
+            <h1 class="contactusHeading">INFORMATION</h1>
+          <div class="contactInfo">
+          <div class="mb-4 d-flex align-items-start">
+            <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="60"
+                        viewBox="0 0 60 60"
+                        fill="none"
+                      >
+                        <path
+                          d="M18.1172 34.2642H24.2988L21.4277 43.2407H13.2305C12.8027 43.2407 12.4512 42.8892 12.4512 42.4614C12.4512 42.3091 12.498 42.1626 12.5801 42.0337L17.4668 34.6099C17.6133 34.3989 17.8594 34.2642 18.1172 34.2642Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M23.7012 46.3638H13.2305C11.0801 46.3638 9.33398 44.6177 9.33398 42.4673C9.33398 41.7056 9.55664 40.9614 9.97852 40.3228L14.8652 32.8989C15.5859 31.8032 16.8047 31.147 18.1172 31.147H28.5703L23.7012 46.3638ZM18.1172 34.2642C17.8535 34.2642 17.6133 34.3931 17.4668 34.6157L12.5801 42.0396C12.498 42.1685 12.4512 42.3149 12.4512 42.4673C12.4512 42.895 12.8027 43.2466 13.2305 43.2466H21.4277L24.2988 34.27H18.1172V34.2642Z"
+                          fill="#333333"
+                        />
+                        <path
+                          d="M26.6367 34.2642H33.0586L34.541 43.2466H25.1543L26.6367 34.2642Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M38.2148 46.3638H21.4805L23.9883 31.1528H35.707L38.2148 46.3638ZM25.1543 43.2466H34.541L33.0586 34.2642H26.6367L25.1543 43.2466Z"
+                          fill="#333333"
+                        />
+                        <path
+                          d="M36.2461 34.2642H42.4277C42.6914 34.2642 42.9316 34.3931 43.0781 34.6157L47.9707 42.0396C48.2051 42.397 48.1055 42.8833 47.748 43.1177C47.6191 43.1997 47.4727 43.2466 47.3203 43.2466H39.123L36.2461 34.2642Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M47.3203 46.3638H36.8496L31.9805 31.147H42.4336C43.7461 31.147 44.9648 31.8032 45.6855 32.8989L50.5723 40.3228C51.1465 41.1899 51.3457 42.2329 51.1348 43.2524C50.9238 44.272 50.332 45.145 49.459 45.7192C48.8262 46.1411 48.082 46.3638 47.3203 46.3638ZM39.123 43.2466H47.3203C47.4727 43.2466 47.6191 43.1997 47.748 43.1177C47.9824 42.9653 48.0586 42.7427 48.082 42.6255C48.1055 42.5083 48.123 42.2739 47.9707 42.0396L43.084 34.6216C42.9375 34.3989 42.6973 34.27 42.4336 34.27H36.2461L39.123 43.2466Z"
+                          fill="#333333"
+                        />
+                        <path
+                          d="M31.2949 37.4824C38.2324 31.4883 41.7012 26.1211 41.7012 21.3867C41.7012 13.9453 35.6836 8.95898 30.2754 8.95898C24.8672 8.95898 18.8496 13.9453 18.8496 21.3867C18.8496 26.1211 22.3184 31.4824 29.2617 37.4824C29.8418 37.9863 30.709 37.9863 31.2949 37.4824Z"
+                          fill="#8CAAFF"
+                        />
+                        <path
+                          d="M30.2754 39.416C29.543 39.416 28.8164 39.1641 28.2363 38.6602C20.8711 32.2969 17.291 26.6426 17.291 21.3867C17.291 13.0195 24.0059 7.40039 30.2754 7.40039C36.5449 7.40039 43.2598 13.0195 43.2598 21.3867C43.2598 26.6426 39.6797 32.2969 32.3086 38.6602C31.7344 39.1641 31.002 39.416 30.2754 39.416ZM30.2754 10.5176C25.6055 10.5176 20.4082 14.9824 20.4082 21.3867C20.4082 25.623 23.7305 30.6445 30.2754 36.3047C36.8262 30.6445 40.1426 25.623 40.1426 21.3867C40.1426 14.9824 34.9453 10.5176 30.2754 10.5176Z"
+                          fill="#333333"
+                        />
+                        <path
+                          d="M24.5625 20.3906C24.5625 21.9058 25.1644 23.3589 26.2358 24.4302C27.3071 25.5016 28.7602 26.1035 30.2754 26.1035C31.7905 26.1035 33.2436 25.5016 34.315 24.4302C35.3864 23.3589 35.9883 21.9058 35.9883 20.3906C35.9883 18.8755 35.3864 17.4224 34.315 16.351C33.2436 15.2796 31.7905 14.6777 30.2754 14.6777C28.7602 14.6777 27.3071 15.2796 26.2358 16.351C25.1644 17.4224 24.5625 18.8755 24.5625 20.3906Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M30.2754 27.6621C26.2676 27.6621 23.0039 24.3984 23.0039 20.3906C23.0039 16.3828 26.2676 13.1191 30.2754 13.1191C34.2832 13.1191 37.5469 16.377 37.5469 20.3906C37.5469 24.4043 34.2832 27.6621 30.2754 27.6621ZM30.2754 16.2305C27.9844 16.2305 26.1211 18.0938 26.1211 20.3848C26.1211 22.6758 27.9844 24.5391 30.2754 24.5391C32.5664 24.5391 34.4297 22.6758 34.4297 20.3848C34.4297 18.0938 32.5664 16.2305 30.2754 16.2305Z"
+                          fill="#333333"
+                        />
+                      </svg>
+            <div class="contactInformation">
+              <h2>Address</h2>
+              <p>Jay Shri Balaji Foam & Furniture, Opposite Mall Of Dehradun, Near Miyawala Underpass,<br>Haridwar Road, Dehradun, Uttarakhand - 248005</p>
+            </div>
+          </div>
+
+          <div class="mb-4 d-flex align-items-start">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="40"
+                        viewBox="0 0 43 43"
+                        fill="none"
+                      >
+                        <g clip-path="url(#clip0_2087_4299)">
+                          <path
+                            d="M33.3296 40.9599L36.5737 37.711C36.8791 37.4069 37.1166 37.0415 37.2704 36.6389C37.4242 36.2363 37.4909 35.8056 37.4661 35.3753C37.4412 34.9451 37.3255 34.5249 37.1263 34.1427C36.9272 33.7604 36.6493 33.4248 36.3109 33.1578L31.213 29.2018C30.6776 28.781 30.0163 28.5523 29.3354 28.5523C28.6544 28.5523 27.9931 28.781 27.4577 29.2018L26.3301 30.1C25.7457 30.5632 25.0114 30.7953 24.2669 30.7521C23.5225 30.7089 22.8199 30.3935 22.2929 29.8659L13.2151 20.7882C12.6802 20.2598 12.3595 19.5524 12.3145 18.8019C12.2695 18.0514 12.5035 17.3107 12.9715 16.7223L13.8553 15.609C14.2757 15.0725 14.5042 14.4106 14.5042 13.729C14.5042 13.0474 14.2757 12.3854 13.8553 11.8489L9.92802 6.77016C9.66341 6.42916 9.3292 6.14845 8.94763 5.94671C8.56607 5.74497 8.1459 5.62684 7.71511 5.60017C7.28432 5.5735 6.85279 5.63891 6.44926 5.79204C6.04572 5.94517 5.67944 6.18252 5.37479 6.48827L2.13068 9.73238C-0.105318 11.9445 -0.0957628 18.2416 12.3647 30.7164C24.8251 43.1912 31.2751 43 33.3296 40.9599Z"
+                            fill="#FF8898"
+                          />
+                          <path
+                            d="M30.2909 43C28.9617 42.969 27.6484 42.7038 26.4113 42.2165C22.269 40.6924 17.3336 37.0613 11.6719 31.4187C-3.02455 16.6888 -0.382439 10.8599 1.43312 9.03959L4.68201 5.79548C5.08478 5.39213 5.56877 5.07909 6.10182 4.87716C6.63488 4.67522 7.20479 4.58902 7.77372 4.62427C8.34265 4.65951 8.89757 4.81541 9.40162 5.08159C9.90567 5.34778 10.3473 5.71816 10.6972 6.16814L14.6484 11.2469C15.2045 11.9548 15.5067 12.8288 15.5067 13.729C15.5067 14.6291 15.2045 15.5032 14.6484 16.211L13.7407 17.3434C13.4271 17.7419 13.2705 18.2416 13.3005 18.7478C13.3304 19.254 13.5448 19.7318 13.9031 20.0906L22.9809 29.1684C23.3384 29.5273 23.8154 29.7422 24.3212 29.7721C24.8269 29.8021 25.3259 29.645 25.7233 29.3308L26.8509 28.4374C27.5581 27.8797 28.4324 27.5765 29.3329 27.5765C30.2335 27.5765 31.1078 27.8797 31.815 28.4374L36.8938 32.3934C37.3417 32.7442 37.7102 33.186 37.975 33.6895C38.2398 34.1931 38.3949 34.747 38.4301 35.3149C38.4653 35.8827 38.3798 36.4516 38.1793 36.984C37.9787 37.5165 37.6676 38.0003 37.2664 38.4038L34.0223 41.6527C33.5302 42.1448 32.3836 43 30.2909 43ZM7.52001 6.56948C6.98071 6.57385 6.46519 6.79208 6.08667 7.17626L2.81867 10.4204C0.663895 12.5799 2.04945 19.0204 13.0574 30.0093C18.4181 35.389 23.2676 38.9676 27.0898 40.3723C29.5838 41.2896 31.6621 41.2514 32.6416 40.2719L35.8857 37.023C36.0938 36.8153 36.2552 36.5657 36.3592 36.2907C36.4632 36.0157 36.5074 35.7218 36.4889 35.4284C36.4704 35.1349 36.3895 34.8489 36.2517 34.5892C36.1139 34.3295 35.9223 34.1021 35.6898 33.9223L30.611 29.971C30.2476 29.6843 29.7982 29.5283 29.3353 29.5283C28.8724 29.5283 28.423 29.6843 28.0597 29.971L26.9321 30.8645C26.1625 31.478 25.1945 31.7878 24.2116 31.7349C23.2288 31.6821 22.2995 31.2704 21.6001 30.5778L12.5223 21.5C11.8269 20.8024 11.4113 19.874 11.354 18.8906C11.2968 17.9072 11.602 16.9369 12.2118 16.1633L13.1052 15.0309C13.3912 14.6672 13.5466 14.2179 13.5466 13.7553C13.5466 13.2926 13.3912 12.8433 13.1052 12.4796L9.15401 7.36737C8.97447 7.13407 8.74658 6.94239 8.48597 6.80548C8.22536 6.66858 7.9382 6.5897 7.64423 6.57426L7.52001 6.56948Z"
+                            fill="#576065"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_2087_4299">
+                            <rect width="43" height="43" fill="white" />
+                          </clipPath>
+                        </defs>
+                </svg>
+           <div class="contactInformation">
+              <h2>Call Us</h2>
+              <p><a href="tel:+918979892185">+91-8979892185</a></p>
+            </div>
+          </div>
+
+            <div class="mb-4 d-flex align-items-start">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="40"
+                        viewBox="0 0 41 41"
+                        fill="none"
+                      >
+                        <path
+                          d="M40.9999 11.8726V12.6695C40.9505 12.7004 40.8825 12.7376 40.8269 12.7746L39.2947 13.6828C39.1834 13.7445 39.0784 13.8187 38.9486 13.8866C38.9486 13.8928 38.9425 13.8928 38.9425 13.8928H38.9363C38.5409 14.1215 38.0713 14.3933 37.6512 14.6404C37.3855 14.8011 37.1322 14.9431 36.9283 15.0668L34.9945 16.2035L34.2469 16.6422L24.1452 22.5796L23.9723 22.6847L23.8549 22.7527L23.4965 22.9627L23.2308 23.1233L22.2979 23.6732L21.8222 23.9513C21.6554 24.044 21.47 24.1119 21.2723 24.1614C21.2538 24.1676 21.2352 24.1676 21.2167 24.1738C20.9881 24.2232 20.741 24.2417 20.5 24.2294C20.259 24.2417 20.0119 24.2232 19.7833 24.1738C19.7647 24.1676 19.7462 24.1676 19.7276 24.1614C19.5299 24.1119 19.3446 24.044 19.1778 23.9513L18.7021 23.6671L18.2263 23.389L17.7692 23.1233L17.5653 22.9997L17.5036 22.9627L17.1452 22.7527L12.2457 19.8735L7.0126 16.7967L6.00554 16.2035L4.07173 15.0668C3.92967 14.9864 3.76904 14.8875 3.59599 14.7886C3.11408 14.5044 2.53952 14.1646 2.06377 13.8927H2.05761C2.05761 13.8927 2.05144 13.8927 2.05144 13.8866C1.92171 13.8187 1.81665 13.7445 1.70542 13.6828L0.173049 12.7747C0.117395 12.7377 0.0494883 12.7005 0 12.6696V11.8727C0 11.7367 0.0185781 11.6256 0.0556543 11.5267C0.0556543 11.5206 0.0618203 11.5206 0.0618203 11.5206C0.0988965 11.4958 0.135973 11.4772 0.173049 11.4525L0.673537 11.156L1.70534 10.5443C2.36022 10.1675 3.42294 9.53728 4.07165 9.16035L4.1458 9.11703L6.00554 8.0234L8.9155 6.31205L9.75576 5.81773L19.1778 0.275761C19.5423 0.0718824 20.0304 -0.020768 20.5 0.00389611C20.9696 -0.020768 21.4638 0.0719625 21.8222 0.275761L28.1303 3.98282L31.2442 5.81781L32.0536 6.29355L34.9945 8.02348L36.9283 9.16035C36.984 9.19126 37.0396 9.22209 37.1014 9.25917C37.4968 9.49403 38.0034 9.79673 38.4791 10.0686C38.7757 10.2478 39.0599 10.4084 39.2947 10.5443L39.9311 10.9212L40.3265 11.156L40.827 11.4525C40.864 11.4772 40.9011 11.4958 40.9382 11.5206C40.9813 11.6193 40.9999 11.7366 40.9999 11.8726Z"
+                          fill="#F6B154"
+                        />
+                        <path
+                          d="M40.9999 15.4191V16.216C40.9505 16.2469 40.8887 16.2841 40.8269 16.3211L39.2947 17.2293C38.9363 17.4332 38.4544 17.7173 37.9848 17.9893C37.6018 18.2178 37.2186 18.4403 36.9283 18.6133L33.8823 20.405L27.5928 24.1059L27.5186 24.1492L26.944 24.4829L25.5353 25.3108L25.4673 25.354L21.8221 27.4979C21.6553 27.5906 21.4699 27.6585 21.2722 27.708C21.0312 27.7698 20.7594 27.7883 20.4999 27.776C20.2405 27.7883 19.9686 27.7698 19.7276 27.708C19.5299 27.6585 19.3446 27.5906 19.1778 27.4979L15.5388 25.3602L15.5326 25.354L14.7356 24.8845L14.056 24.4829L13.4751 24.1431L7.39562 20.5658L4.07165 18.6135C3.84303 18.4775 3.565 18.3169 3.26847 18.1377C2.72474 17.8226 2.1316 17.4704 1.70534 17.2295L0.173049 16.3211C0.117395 16.2841 0.0494883 16.2469 0 16.216V15.4191C0 15.2831 0.0185781 15.1719 0.0556543 15.0731C0.0556543 15.067 0.0618203 15.067 0.0618203 15.067C0.0988965 15.0422 0.135973 15.0236 0.173049 14.9989L0.673537 14.7024L1.70534 14.0907C1.81041 14.029 1.9278 13.961 2.05136 13.8868C2.57035 13.584 3.21906 13.2011 3.73813 12.9045C3.75046 12.8922 3.76904 12.886 3.78137 12.8798C3.88643 12.818 3.97908 12.7562 4.07181 12.7067L6.45662 11.3042L11.4179 8.38804L14.0931 6.81251L19.178 3.82215C19.5425 3.61827 20.0306 3.52562 20.5002 3.55028C20.9697 3.52562 21.464 3.61835 21.8223 3.82215L26.9133 6.81251L29.4465 8.30772L34.7537 11.4278L36.9286 12.7067C37.0274 12.7685 37.1448 12.8303 37.2622 12.9044C37.3363 12.9414 37.4105 12.9847 37.4846 13.0342C37.9604 13.3122 38.4979 13.6273 38.949 13.8867C39.0725 13.9609 39.1899 14.0288 39.295 14.0906L40.3268 14.7023L40.8272 14.9988C40.8643 15.0236 40.9013 15.0421 40.9384 15.0669C40.9813 15.1657 40.9999 15.2831 40.9999 15.4191Z"
+                          fill="url(#paint0_linear_2087_4272)"
+                        />
+                        <path
+                          d="M35.0065 8.84513L34.7532 11.4277L34.469 14.381L34.2466 16.6423L33.8821 20.4049L33.5793 23.5374L33.3322 26.0706L31.7011 25.9099L29.032 25.6504L25.535 25.3106L25.3558 25.2982L20.6665 24.8411L17.1385 24.5012L15.5507 24.3467L14.488 24.2417L13.4748 24.1429L7.69797 23.5806L2.78613 23.105L3.26812 18.1375L3.59548 14.7888L3.7747 12.9229L3.78086 12.8797L4.14538 9.11699L4.46049 5.87952L8.91507 6.31202L14.0926 6.81243L20.6417 7.44881L29.446 8.30765L35.0065 8.84513Z"
+                          fill="#7CBE3A"
+                        />
+                        <path
+                          d="M38.498 23.0369L33.58 23.5374L27.6611 24.1306L27.5189 24.1492L26.5242 24.2479L23.8861 24.5136L20.6671 24.8411L15.5391 25.3601H15.5267L13.7535 25.5392L11.8258 25.7369L7.95816 26.1262L7.69863 23.5807L7.39593 20.5656L7.01284 16.7968L6.78429 14.517L6.45677 11.3042L6.21582 8.91317L11.418 8.38802L20.6424 7.44886L26.9135 6.81248L32.0539 6.29349L35.0072 5.99696L36.7556 5.81775L36.9719 7.96176L37.1016 9.25911L37.46 12.7932L37.4847 13.0342L37.6515 14.6406L37.9851 17.9893L38.498 23.0369Z"
+                          fill="url(#paint1_linear_2087_4272)"
+                        />
+                        <path
+                          d="M21.3588 22.2524C21.3588 22.2524 21.2229 22.3328 21.0004 22.4501C20.8645 22.5243 20.6915 22.6107 20.4999 22.7219C20.4073 22.7714 20.3023 22.8269 20.191 22.8825L19.7832 23.0988L19.7276 23.1235L19.5978 23.1976L18.7019 23.6672L17.4662 24.3222C17.355 24.3777 17.2439 24.4395 17.1387 24.5013C16.9472 24.6002 16.7619 24.7052 16.5951 24.7856C16.2985 24.9462 16.0698 25.0698 15.9834 25.1131C15.9154 25.1501 15.7486 25.2367 15.5324 25.354L15.5262 25.3601C15.242 25.5084 14.8775 25.7062 14.5129 25.8976L10.0645 28.2578L8.13682 29.2835L2.16227 32.453C1.92131 32.5765 1.66178 32.7187 1.42091 32.8422H0.679703C0.611717 32.8422 0.54373 32.8422 0.488156 32.8362C0.333686 32.8237 0.222457 32.7991 0.135973 32.7619C0.0927305 32.7372 0.0556543 32.7187 0.0309102 32.6939C0.0185781 32.6754 0.012332 32.6693 0.00616602 32.6507C0.00616602 32.6321 0 32.6136 0.00616602 32.5889C0 32.558 0 32.5272 0 32.4901V12.0395C0 11.9159 0.0185781 11.8109 0.0556543 11.7244C0.0556543 11.7183 0.0618203 11.7183 0.0618203 11.7183C0.142139 11.5329 0.290443 11.4217 0.494322 11.4032C0.549896 11.3846 0.605551 11.3846 0.673457 11.3908C0.821762 11.397 0.99473 11.4402 1.18011 11.5453L3.4476 12.7439L3.69472 12.8798L3.73797 12.9045L3.77504 12.923L4.74503 13.4358C4.86859 13.4976 5.00456 13.5779 5.15279 13.6521C5.65944 13.9177 6.28341 14.2452 6.7839 14.517C6.89513 14.5727 7.00011 14.6344 7.09901 14.6838L13.3825 18.0202L19.0728 21.0414L19.3879 21.2082C19.4002 21.2144 19.4126 21.2144 19.4188 21.2207C19.4435 21.2268 19.462 21.2392 19.4868 21.2516C19.5423 21.2824 19.598 21.3071 19.6474 21.338C19.6536 21.3441 19.6659 21.3441 19.6721 21.3503C19.7462 21.3874 19.8141 21.4245 19.8821 21.4615C20.154 21.6036 20.3764 21.721 20.4999 21.7951C20.5741 21.826 20.6111 21.8508 20.6235 21.857C20.6482 21.8755 20.8212 21.9619 21.0003 22.067C21.0065 22.067 21.0065 22.0731 21.0127 22.0731C21.0436 22.0854 21.0745 22.0978 21.0991 22.1164C21.2475 22.1906 21.3588 22.2461 21.3588 22.2524Z"
+                          fill="#F6BA69"
+                        />
+                        <path
+                          d="M40.9889 11.9216C40.9949 11.9845 40.9997 12.1095 40.9997 12.1995V32.3161C40.9997 32.4061 40.9997 32.4961 40.9997 32.516C40.9997 32.5359 40.9925 32.5945 40.9925 32.6052C40.9925 32.6159 40.9925 32.6248 40.9925 32.6471C40.9925 32.6471 40.9925 32.6484 40.9925 32.6499C40.9925 32.6514 40.9317 32.6941 40.8573 32.7447L40.4836 32.8233C40.3942 32.8337 40.2474 32.8422 40.1575 32.8422H39.7419C39.6519 32.8422 39.5131 32.808 39.4334 32.7663L38.9803 32.5279C38.9006 32.4861 38.7704 32.4175 38.6909 32.3753L26.63 25.9762C26.5504 25.934 26.4204 25.865 26.3409 25.8228L25.1581 25.1905C25.0788 25.148 24.949 25.0787 24.8695 25.0364L23.6797 24.404C23.6004 24.3616 23.4704 24.2925 23.3909 24.2503L21.4157 23.2044C21.3362 23.1623 21.2061 23.0934 21.1265 23.0514L20.9515 22.959C20.872 22.917 20.7416 22.8486 20.6618 22.807C20.6618 22.807 20.5926 22.771 20.4997 22.7208C20.0069 22.4531 19.6426 22.2579 19.6426 22.2524C19.6426 22.2469 19.7998 22.1688 19.9855 22.0684C20.1711 21.968 20.2342 21.934 20.2342 21.934C20.3134 21.8913 20.3895 21.8502 20.4032 21.8425C20.417 21.8348 20.5643 21.7597 20.6432 21.7167C20.6432 21.7167 21.071 21.4828 21.514 21.2542C21.5355 21.2431 21.5355 21.2431 21.5355 21.2431C21.559 21.2308 21.5831 21.2183 21.589 21.2152C21.5948 21.2122 21.6654 21.1765 21.7282 21.1427C21.7911 21.109 21.9076 21.0469 21.987 21.0048L33.7551 14.7617C33.8346 14.7195 33.9646 14.6505 34.044 14.6081L36.1121 13.5124C36.1916 13.4703 36.3217 13.4014 36.4012 13.3592L39.6764 11.6221C39.756 11.5799 39.8888 11.5169 39.9717 11.4819C39.9717 11.4819 40.079 11.4326 40.1674 11.4172C40.2558 11.4018 40.4005 11.4028 40.489 11.4193L40.8262 11.5964C40.8862 11.6633 40.983 11.8587 40.9889 11.9216Z"
+                          fill="#F5A84F"
+                        />
+                        <path
+                          d="M40.9996 30.015V32.4881C40.9996 32.5262 40.9996 32.5588 40.9923 32.5915C40.9996 32.6133 40.9923 32.6297 40.9923 32.6515C40.9923 32.6515 40.9923 32.6515 40.9923 32.6569C40.941 32.7713 40.7067 32.8421 40.3041 32.8421H2.78711L10.1734 27.9234L10.1806 27.9179L19.4263 21.7627L20.3268 21.1689L20.5682 21.0055L21.3662 21.3542L40.9996 30.015Z"
+                          fill="#E68737"
+                        />
+                        <path
+                          d="M41 32.3951V32.4878C41 32.5259 41 32.5587 40.9929 32.5913C41 32.6132 40.9929 32.6295 40.9929 32.6514C40.9929 32.6514 40.9929 32.6514 40.9929 32.6568C40.9428 32.7713 40.7142 32.8421 40.3214 32.8421H0.678582C0.285799 32.8421 0.0571758 32.7713 0.00712695 32.6568C0.00712695 32.6514 0.00712695 32.6514 0.00712695 32.6514C0.00712695 32.6296 0 32.6132 0.00712695 32.5913C0 32.5587 0 32.5259 0 32.4878V32.3951C0.0643027 32.3296 0.157193 32.2642 0.278592 32.1988L19.3428 21.5247C19.3499 21.5247 19.3499 21.5193 19.3571 21.5139C19.3786 21.503 19.4 21.492 19.4213 21.4812C19.8141 21.2685 20.2142 21.1213 20.4999 21.0669C20.5999 21.0887 20.707 21.1159 20.8286 21.1595C21.0571 21.2304 21.3214 21.3449 21.5785 21.4812C21.607 21.4976 21.6285 21.5084 21.657 21.5247L40.7212 32.1988C40.8427 32.2697 40.9356 32.3351 41 32.3951Z"
+                          fill="#F6B154"
+                        />
+                        <defs>
+                          <linearGradient
+                            id="paint0_linear_2087_4272"
+                            x1="20.5"
+                            y1="27.7794"
+                            x2="20.5"
+                            y2="3.54642"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#F3982E" />
+                            <stop offset="0.7685" stop-color="#F5A33B" />
+                          </linearGradient>
+                          <linearGradient
+                            id="paint1_linear_2087_4272"
+                            x1="22.3569"
+                            y1="5.81778"
+                            x2="22.3569"
+                            y2="26.1262"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#FDFCE8" />
+                            <stop offset="0.9704" stop-color="#FBDCC6" />
+                          </linearGradient>
+                        </defs>
+                    </svg>
+              <div class="contactInformation">
+              <h2>Email</h2>
+              <p><a href="">Decorwithbalaji@gmail.com</a></p>
+              </div>
+            </div>
+            </div>
+
+          <div class="contact-Map mt-4">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110273.84397830622!2d77.94002734335938!3d30.2639393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390929114f3328ff%3A0x3d6bafe374102ca9!2sBALAJI%20FURNITURE!5e0!3m2!1sen!2sin!4v1752133858868!5m2!1sen!2sin" 
+              width="100%" 
+              height="450" 
+              style="border:0; border-radius: 10px; display: block;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>            
+         </div>
         </div>
-        <div class="mb-3">
-          <label for="mobile" class="form-label">Mobile</label>
-          <input type="text" name="mobile" class="form-control" required style="border-radius: 6px;">
-        </div>
-        <div class="mb-3">
-          <label for="message" class="form-label">Message</label>
-          <textarea name="message" class="form-control" rows="8" required style="border-radius: 6px; height: 100px; padding: 25px; resize: none;"></textarea>
-        </div>
-        <button type="submit" class="btn btn-dark w-100" style="border-radius: 6px;">Send via WhatsApp</button>
-      </form>
+      </div>
     </div>
   </div>
-</div>
+</section>
+<?php include 'footer.php'; ?>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Info Block (Right) -->
-   <div class="col-md-5">
-  <div class="bg-white text-black rounded p-4 h-100 d-flex flex-column justify-content-center text-center shadow border">
-    <h4 style="color:rgb(242, 130, 182);" class="fw-bold mb-3">Address</h4>
-
-    <p class="mb-3">
-      Jay Shri Balaji Foam & Furniture,<br>
-      Opposite Mall Of Dehradun,<br>
-      Near Miyawala Underpass,<br>
-      Haridwar Road, Dehradun,<br>
-      Uttarakhand - 248005
-    </p>
-
-    <h4 style="color:rgb(242, 130, 182);" class="fw-bold mb-3">Email id</h4>
-    <p class="mb-3">Decorwithbalaji@gmail.com</p>
-
-    <h4 style="color:rgb(242, 130, 182);" class="fw-bold mb-3">Phone</h4>
-    <p class="mb-0">+91 89798 92185</p>
-  </div>
-</div>
-
-
-  </div>
-</div>
-
-
-<!-- map Section -->
-<div class="container-fluid mt-5 px-0">
-  <h3 class="text-center mb-4">📍 Find Us on Map</h3>
-  <iframe 
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110273.84397830622!2d77.94002734335938!3d30.2639393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390929114f3328ff%3A0x3d6bafe374102ca9!2sBALAJI%20FURNITURE!5e0!3m2!1sen!2sin!4v1752133858868!5m2!1sen!2sin" 
-    width="100%" 
-    height="450" 
-    style="border:0; border-radius: 10px; display: block;" 
-    allowfullscreen="" 
-    loading="lazy" 
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
-</div>
-
-<!-- footer section -->
- <div>
- <?php include 'footer.php'; ?>
-</div>
-
-<!-- JS Script -->
+<!-- AOS Animation -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+  AOS.init({
+    duration: 800,
+    once: true
+  });
+</script>
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
   const form = e.target;
@@ -195,33 +542,8 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       alert("❌ Failed to send message.");
     }
   });
-});
+  });
 </script>
-
-
-<!-- Bootstrap JS (Optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/vendor/jquery-1.12.4.min.js"></script>
-		<!-- bootstrap js -->
-        <script src="js/bootstrap.min.js"></script>
-		<!--jquery scrollUp js -->
-        <script src="js/jquery.scrollUp.js"></script>
-		<!-- owl.carousel js -->
-        <script src="js/owl.carousel.min.js"></script>
-		<!-- meanmenu js -->
-        <script src="js/jquery.meanmenu.js"></script>
-		<!-- jquery-ui js -->
-        <script src="js/jquery-ui.min.js"></script>
-		<!-- wow js -->
-        <script src="js/wow.min.js"></script>
-		<!-- nivo slider js -->
-        <script src="js/jquery.nivo.slider.pack.js"></script>
-		<!-- countdown js -->
-        <script src="js/countdown.js"></script>
-		<!-- plugins js -->
-        <script src="js/plugins.js"></script>
-		<!-- main js -->
-        <script src="js/main.js"></script>
 
 </body>
 </html>

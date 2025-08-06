@@ -167,13 +167,22 @@ $result = $stmt->get_result();
                                                        </div>
                                                   </div>
 
+                                             </div class= "row">
+                                                  <div class="col-lg-12">
+
+                                                       <div class="mb-3">
+                                                            <label for="short_description" class="form-label">Short Description(30-40Words)</label>
+                                                            <textarea class="form-control bg-light-subtle" name="short_description" id="short_description" rows="7" placeholder="Short description about the product"></textarea>
+                                                       </div>
+
+                                                  </div>
                                              </div>
                                              <div class="row">
                                                   <div class="col-lg-12">
 
                                                        <div class="mb-3">
-                                                            <label for="description" class="form-label">Description</label>
-                                                            <textarea class="form-control bg-light-subtle" name="description" id="description" rows="7" placeholder="Short description about the product"></textarea>
+                                                            <label for="description" class="form-label">More Info.</label>
+                                                            <textarea class="form-control bg-light-subtle" name="description" id="description" rows="7" placeholder="More Info. about the product"></textarea>
                                                        </div>
 
                                                   </div>
@@ -318,6 +327,7 @@ $sql = "CREATE TABLE IF NOT EXISTS products (
      brand VARCHAR(255),
      weight VARCHAR(50),
      size VARCHAR(255),
+     short_description TEXT,
      description TEXT,
      tag_number VARCHAR(50) UNIQUE,
      stock INT,
@@ -347,6 +357,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $brand = $_POST['brand'];
      $weight = $_POST['weight'];
      $size = isset($_POST['size']) ? implode(',', $_POST['size']) : ''; // Convert array to string
+     $short_description = $_POST['short_description']; // Assuming this is the short description
      $description = $_POST['description'];
      $tag_number = $_POST['tagnumber'];
      $stock = $_POST['stock'];
@@ -390,11 +401,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      } else {
           // Insert data into database
           $sql = "INSERT INTO products 
-                (product_name, category, brand, weight, size, description, tag_number, stock, tags, price, discount, tax, images) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (product_name, category, brand, weight, size, short_description, description, tag_number, stock, tags, price, discount, tax, images) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
           $stmt = $conn->prepare($sql);
-          $stmt->bind_param("sssssssissdds", $product_name, $category, $brand, $weight, $size, $description, $tag_number, $stock, $tags, $price, $discount, $tax, $imagesJSON);
+          $stmt->bind_param("ssssssssissdds", $product_name, $category, $brand, $weight, $size, $short_description, $description, $tag_number, $stock, $tags, $price, $discount, $tax, $imagesJSON);
 
           if ($stmt->execute()) {
                echo "<script>

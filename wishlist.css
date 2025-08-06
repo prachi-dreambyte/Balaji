@@ -1,32 +1,828 @@
-.wishlist-area {
-  margin-bottom: 35px;
-  background: #f6f5f3 !important;
-  padding: 150px 170px !important;
-  padding-top: 150px !important;
+/* General Body and Container Adjustments */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5; /* Light grey background */
+    color: #333;
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    -webkit-font-smoothing: antialiased; /* Better font rendering for smoothness */
+    -moz-osx-font-smoothing: grayscale; /* Better font rendering for smoothness */
 }
-h1.entry-title {
-    border-bottom: 4px solid #e5e5e5 !important;
-    color: black !important;
-    font-size: 25px !important;
-    font-weight: 700 !important;
-    /* line-height: 20px !important; */
-    margin-bottom: 30px !important;
-    overflow: hidden !important;
-    padding: 30px 18px 10px !important;
-    text-transform: none !important;
+
+.container {
+    max-width: 1200px; /* Limit container width for better readability */
+    padding-left: 15px; /* Ensure default Bootstrap padding */
+    padding-right: 15px; /* Ensure default Bootstrap padding */
 }
-.wishlist-table table th, .wishlist-table table td {
-    border-bottom: 2px solid #e5e5e5 !important;
-    border-right: 2px solid #e5e5e5 !important;
-    color: black !important;
-    font-size: 15px !important;
-    padding: 30px 10px !important;
-    text-align: center !important;
-    text-transform: uppercase !important;
+
+/* Global Transition Defaults (applied where specific transitions aren't defined) */
+* {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Ease-in-out quint */
 }
-.wishlist-table table .product-thumbnail {
-    width: 10% !important;
+
+/* Keyframe Animations for Page Load (Pure CSS) */
+@keyframes vonia-fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-.wishlist-table table .product-add-to-cart > a {
-    background: #c06b81 none repeat scroll 0 0 !important;
+
+@keyframes vonia-fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes vonia-tableRowEnter {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Breadcrumb Styling */
+.vonia-breadcrumb-area {
+    background-color: #f8fafd;
+    padding: 30px 0;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 40px;
+    opacity: 0; /* Initial state */
+    animation: vonia-fadeInSlideUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.1s; /* Staggered load */
+}
+
+.vonia-breadcrumb-content h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.vonia-breadcrumb-content ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 16px;
+}
+
+.vonia-breadcrumb-content ul li {
+    display: inline-block;
+    color: #777;
+}
+
+.vonia-breadcrumb-content ul li a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s ease-out, transform 0.2s ease-out; /* Faster, smoother hover */
+}
+
+.vonia-breadcrumb-content ul li a:hover {
+    color: #c06b81;
+    transform: translateY(-3px); /* More pronounced lift */
+}
+
+.vonia-breadcrumb-content ul li.vonia-active {
+    font-weight: 600;
+    color: #c06b81;
+}
+
+.vonia-breadcrumb-content ul li + li::before {
+    content: '/';
+    margin: 0 8px;
+    color: #bbb;
+}
+
+/* Main Wishlist Area */
+.vonia-wishlist-section {
+    padding: 50px 0;
+    background: #f0f2f5;
+}
+
+.vonia-wishlist-wrapper {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Slightly softer initial shadow */
+    padding: 40px;
+    margin-top: 20px;
+    opacity: 0; /* Initial state */
+    animation: vonia-fadeInSlideUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.2s; /* Staggered load */
+}
+
+.vonia-wishlist-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #2c3e50;
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #c06b81;
+    text-transform: capitalize;
+    letter-spacing: -0.5px;
+    position: relative; /* For potential pseudo-element effects */
+}
+
+/* Alert Messages (Added/Removed) */
+.alert {
+    margin-bottom: 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0; /* Initial state */
+    animation: vonia-fadeInScale 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.4s; /* Staggered load */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow for alerts */
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+.alert .close {
+    font-size: 24px;
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    background: none; /* Ensure no default button background */
+    border: none; /* Ensure no default button border */
+    cursor: pointer;
+    padding: 5px; /* Increase click area */
+    border-radius: 50%; /* Make it round */
+}
+
+.alert .close:hover {
+    opacity: 1;
+    transform: rotate(90deg) scale(1.1); /* More distinct spin and scale */
+    background-color: rgba(0, 0, 0, 0.05); /* Subtle background on hover */
+}
+
+/* Wishlist Table */
+.vonia-wishlist-table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow for the table container */
+}
+
+.vonia-wishlist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+}
+
+.vonia-wishlist-table th,
+.vonia-wishlist-table td {
+    padding: 20px 15px;
+    text-align: center; /* Default for desktop, overridden below for specific cells */
+    vertical-align: middle;
+    border-bottom: 1px solid #e9ecef;
+    border-right: none;
+    font-size: 16px;
+    color: #444;
+}
+
+.vonia-wishlist-table thead th {
+    background-color: #f7f9fc;
+    font-weight: 700;
+    color: #2c3e50;
+    text-transform: uppercase;
+    font-size: 15px;
+    border-bottom: 2px solid #e0e6ec;
+    padding: 25px 15px;
+}
+
+.vonia-wishlist-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.vonia-wishlist-table tbody tr {
+    /* Apply staggered entry animation for each row */
+    opacity: 0; /* Initial state for animation */
+    animation: vonia-tableRowEnter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    /* Delay set dynamically in JS or by :nth-child in CSS for more fine-grained control if PHP isn't handling it */
+}
+
+/* Staggered animation for rows (pure CSS, fixed delay) */
+.vonia-wishlist-table tbody tr:nth-child(1) { animation-delay: 0.5s; }
+.vonia-wishlist-table tbody tr:nth-child(2) { animation-delay: 0.55s; }
+.vonia-wishlist-table tbody tr:nth-child(3) { animation-delay: 0.6s; }
+.vonia-wishlist-table tbody tr:nth-child(4) { animation-delay: 0.65s; }
+.vonia-wishlist-table tbody tr:nth-child(5) { animation-delay: 0.7s; }
+/* Add more :nth-child rules if you expect many rows */
+
+
+.vonia-wishlist-table tbody tr:hover {
+    background-color: #fcfcfc;
+    transform: translateY(-5px); /* Stronger lift */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* More prominent shadow */
+}
+
+/* --- DESKTOP & TABLET DEFAULT LAYOUT --- */
+/* (These styles apply unless overridden by mobile-specific media queries) */
+
+/* Product Thumbnail Cell - Enlarge Image Left */
+.vonia-product-thumbnail-cell {
+    width: 180px; /* More generous width for image column */
+    text-align: left; /* Align image to the left within its cell */
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.vonia-product-thumbnail-cell img {
+    max-width: 150px; /* ENLARGED IMAGE SIZE for desktop/tablet */
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #e0e6ec;
+    display: block; /* Remove extra space below image */
+    margin: 0; /* Ensure image is left-aligned */
+}
+
+.vonia-product-thumbnail-cell a:hover img {
+    transform: scale(1.08); /* Subtle zoom */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    filter: brightness(1.05);
+}
+
+/* All other cells - Align Content to the Left */
+.vonia-product-name-cell,
+.vonia-product-price-cell,
+.vonia-product-stock-cell,
+.vonia-product-add-to-cart-cell,
+.vonia-product-remove-cell {
+    text-align: left; /* Align all other cell contents to the left */
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Price Display (Desktop/Tablet) */
+.vonia-old-price {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.vonia-discount-badge {
+    background-color: #c06b81;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.vonia-product-price-cell {
+    display: flex; /* Ensure current, old, discount are inline */
+    align-items: baseline;
+    gap: 8px;
+}
+
+
+/* Product Name */
+.vonia-product-name-cell a {
+    font-weight: 600;
+    color: #2c3e50;
+    text-decoration: none;
+    position: relative;
+    display: inline-block; /* Required for transform on text */
+}
+
+.vonia-product-name-cell a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #c06b81;
+    left: 0;
+    bottom: -5px;
+    transition: width 0.3s ease-out; /* Smooth underline animation */
+}
+
+.vonia-product-name-cell a:hover {
+    color: #c06b81;
+    transform: translateY(-2px); /* Subtle lift on text */
+}
+
+.vonia-product-name-cell a:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+
+/* Product Price */
+.vonia-amount-price {
+    font-weight: 700;
+    color: #28a745;
+    font-size: 18px;
+}
+
+/* Stock Status */
+.vonia-badge {
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    display: inline-block; /* Necessary for transform */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle badge shadow */
+}
+
+.vonia-badge-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.vonia-badge-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.vonia-badge:hover {
+    transform: scale(1.1); /* More noticeable scale */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Stronger shadow on hover */
+}
+
+/* Buttons */
+.vonia-btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex; /* Changed from 'inline-block' to 'inline-flex' if it was, important for alignment */
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Default button shadow */
+    will-change: transform, box-shadow; /* Hint to browser for smoother animation */
+}
+
+.vonia-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.25); /* Slightly more opaque ripple */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1), height 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease-out; /* Faster, smoother ripple */
+    z-index: -1;
+}
+
+.vonia-btn:hover::before {
+    width: 250%; /* Larger ripple */
+    height: 250%;
+    opacity: 1;
+}
+
+.vonia-btn:active {
+    transform: translateY(1px); /* Subtle press down effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Flatten shadow on press */
+}
+
+.vonia-btn-primary {
+    background-color: #c06b81;
+    color: #fff;
+}
+
+.vonia-btn-primary:hover {
+    background-color: #a85d71;
+    transform: translateY(-3px); /* More lift on hover */
+    box-shadow: 0 8px 18px rgba(192, 107, 129, 0.4); /* Stronger shadow */
+}
+
+.vonia-btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    cursor: not-allowed;
+    opacity: 0.7; /* Make disabled buttons slightly more faded */
+    box-shadow: none; /* No shadow for disabled */
+}
+
+.vonia-btn-secondary:hover {
+    transform: none; /* No transform for disabled */
+    box-shadow: none;
+    opacity: 0.7; /* Keep opacity */
+}
+
+.vonia-btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.vonia-btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(220, 53, 69, 0.4);
+}
+
+/* Empty State */
+.vonia-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #fdfdfd;
+    border: 2px dashed #e0e6ec;
+    border-radius: 12px;
+    margin-top: 30px;
+    opacity: 0; /* Initial state */
+    animation: vonia-fadeInScale 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 0.5s; /* Staggered load */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Subtle shadow for empty state */
+}
+
+.vonia-empty-state i {
+    font-size: 70px;
+    color: #c06b81;
+    margin-bottom: 25px;
+    display: inline-block; /* Necessary for transform */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy transition */
+}
+
+.vonia-empty-state i:hover {
+    transform: scale(1.2) rotate(8deg); /* More distinct bounce and rotation */
+}
+
+.vonia-empty-state p {
+    font-size: 19px;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.vonia-mt-4 {
+    margin-top: 1.5rem !important; /* Bootstrap spacing class equivalent */
+}
+
+/* Responsive Adjustments for Tablet (max-width: 991.98px) */
+/* No major structural changes for tablet, just font/padding adjustments */
+@media (max-width: 991.98px) {
+    .vonia-wishlist-wrapper {
+        padding: 30px;
+    }
+    .vonia-wishlist-heading {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+    .vonia-wishlist-table th,
+    .vonia-wishlist-table td {
+        padding: 15px 10px;
+        font-size: 15px;
+    }
+    /* Image size for tablet */
+    .vonia-product-thumbnail-cell img {
+        max-width: 120px; /* Slightly smaller than desktop, but still prominent */
+    }
+
+    .vonia-btn {
+        padding: 8px 15px;
+        font-size: 13px;
+        gap: 6px;
+    }
+    .vonia-empty-state i {
+        font-size: 60px;
+    }
+    .vonia-empty-state p {
+        font-size: 17px;
+    }
+    .vonia-empty-state .vonia-btn-primary {
+        padding: 10px 25px;
+        font-size: 16px;
+    }
+    /* Tablet price/discount adjustments */
+    .vonia-amount-price {
+        font-size: 17px;
+    }
+    .vonia-old-price {
+        font-size: 14px;
+    }
+    .vonia-discount-badge {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+}
+
+/* --- Mobile Specific Layout (Max-width: 767.98px) --- */
+/* This is where the card-like layout with image left, content right, and buttons at bottom happens */
+@media (max-width: 767.98px) {
+    .vonia-breadcrumb-area {
+        padding: 15px 0; /* Minimized breadcrumb padding */
+        margin-bottom: 20px;
+    }
+    .vonia-breadcrumb-content h2 {
+        font-size: 26px; /* More compact heading size for mobile */
+        margin-bottom: 3px;
+    }
+    .vonia-breadcrumb-content ul {
+        font-size: 13px; /* Smaller breadcrumb text */
+    }
+
+    .vonia-wishlist-section {
+        padding: 20px 0; /* Reduced section padding */
+    }
+    .vonia-wishlist-wrapper {
+        padding: 15px; /* Compact wrapper padding */
+        border-radius: 10px; /* Slightly less rounded corners */
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06); /* Lighter shadow */
+    }
+    .vonia-wishlist-heading {
+        font-size: 22px; /* Main heading for mobile */
+        margin-bottom: 15px;
+        text-align: center;
+        border-bottom: 1px solid #c06b81; /* Thinner accent border */
+        padding-bottom: 8px;
+    }
+
+    /* Transform Table Rows into Responsive Cards using CSS Grid */
+    .vonia-wishlist-table-container {
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        overflow-x: hidden; /* Important for preventing horizontal scroll */
+        animation: vonia-fadeInSlideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Re-add overall table animation */
+        animation-delay: 0.3s;
+    }
+    .vonia-wishlist-table thead {
+        display: none; /* Hide table headers */
+    }
+    .vonia-wishlist-table tbody {
+        display: flex; /* Make tbody a flex container for cards */
+        flex-direction: column; /* Stack cards vertically */
+        gap: 15px; /* Space between product cards */
+    }
+    .vonia-wishlist-table tr {
+        margin-bottom: 0; /* No margin-bottom, gap handles spacing */
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Card-like shadow for each row */
+        background-color: #fff;
+        padding: 15px; /* Padding inside each product card */
+        display: grid; /* Use Grid for precise layout within the card */
+        /* Define grid areas for mobile layout */
+        grid-template-columns: auto 1fr; /* Image column (auto) and content column (1fr) */
+        grid-template-areas:
+            "image price"
+            "image stock"
+            "name name"
+            "remove-btn add-to-cart-btn"; /* Separate areas for left/right buttons */
+        align-items: start; /* Align items to the top of their grid areas */
+        animation: none !important; /* Disable individual row entry animation for stacked view */
+        opacity: 1 !important; /* Ensure visibility */
+    }
+
+    .vonia-wishlist-table td {
+        border-bottom: none; /* Remove individual cell borders */
+        padding: 4px 0; /* Compact cell padding */
+        width: auto; /* Let grid handle width */
+        text-align: left; /* Align text within its grid area */
+        display: flex; /* Keep flex for label-value alignment */
+        flex-direction: row; /* Layout label and value horizontally */
+        align-items: center; /* Vertically align label and value */
+        justify-content: flex-start; /* Align content to the start */
+        font-size: 14px; /* Compact font size for data */
+        line-height: 1.3; /* Tighter line height for compactness */
+    }
+
+    /* Hide the default ::before labels in grid layout, we'll put them manually or use specific areas */
+    .vonia-wishlist-table td::before {
+        content: none;
+    }
+
+    /* Product Thumbnail Cell - Positioned via Grid Area */
+    .vonia-product-thumbnail-cell {
+        grid-area: image;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-right: 15px; /* Space to the right of the image */
+        align-self: center; /* Center image vertically in its area */
+    }
+    .vonia-product-thumbnail-cell img {
+        max-width: 80px; /* Optimized image size for mobile */
+        height: auto;
+        margin: 0; /* Remove default margins */
+        display: block;
+    }
+
+    /* Product Name Cell - Full Width Below Image/Price/Stock */
+    .vonia-product-name-cell {
+        grid-area: name;
+        padding-top: 10px; /* Space above the product name */
+        padding-bottom: 10px;
+        text-align: center; /* Center product name */
+        display: block; /* Ensure it takes full width */
+        width: 100%;
+    }
+    .vonia-product-name-cell a {
+        font-size: 17px; /* Readable product name */
+        font-weight: 700;
+        white-space: nowrap; /* Prevent wrapping */
+        overflow: hidden; /* Hide overflow */
+        text-overflow: ellipsis; /* Add ellipsis */
+        display: block; /* Ensure full width for ellipsis */
+        max-width: 100%;
+        color: #2c3e50; /* Ensure strong color */
+    }
+    .vonia-product-name-cell a:hover {
+        color: #c06b81; /* Retain hover color */
+    }
+    .vonia-product-name-cell a::after {
+        display: none; /* Hide underline for compactness */
+    }
+
+    /* Price and Stock Cells - Positioned Next to Image */
+    .vonia-product-price-cell {
+        grid-area: price;
+        padding-top: 0;
+        padding-bottom: 0;
+        justify-content: flex-start; /* Align value to start */
+        font-size: 15px; /* Readable price */
+        color: #28a745; /* Green for price */
+        font-weight: 700;
+        margin-bottom: 5px; /* Space between price and stock */
+        /* Price, old price, discount badge will align within this flex container */
+        display: flex; /* Override previous flex-direction row */
+        align-items: baseline;
+        gap: 5px; /* Tighter gap for mobile */
+    }
+    .vonia-product-price-cell .vonia-amount-price {
+        font-size: 15px; /* Smaller current price */
+    }
+    .vonia-product-price-cell .vonia-old-price {
+        text-decoration: line-through;
+        color: #888;
+        font-size: 13px; /* Smaller old price */
+        margin-left: 0; /* Remove extra margin from desktop style */
+    }
+    .vonia-product-price-cell .vonia-discount-badge {
+        background-color: #c06b81;
+        color: #fff;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 10px; /* Smaller discount badge */
+        font-weight: 600;
+        margin-left: 0; /* Remove extra margin from desktop style */
+        white-space: nowrap;
+    }
+
+
+    .vonia-product-stock-cell {
+        grid-area: stock;
+        padding-top: 0;
+        padding-bottom: 0;
+        justify-content: flex-start; /* Align value to start */
+    }
+    .vonia-product-stock-cell .vonia-badge {
+        font-size: 11px; /* Smaller badge for compactness */
+        padding: 6px 10px;
+    }
+
+    /* --- Button Positioning (LEFT / RIGHT) --- */
+    .vonia-product-remove-cell {
+        grid-area: remove-btn; /* Assign to left button area */
+        padding-top: 10px; /* Space from product name above */
+        padding-bottom: 0;
+        text-align: left; /* Align button to the left */
+        display: flex; /* Make it a flex container */
+        justify-content: flex-start; /* Push content to the start */
+        align-items: center; /* Vertically center button content */
+    }
+    .vonia-product-add-to-cart-cell {
+        grid-area: add-to-cart-btn; /* Assign to right button area */
+        padding-top: 10px; /* Space from product name above */
+        padding-bottom: 0;
+        text-align: right; /* Align button to the right */
+        display: flex; /* Make it a flex container */
+        justify-content: flex-end; /* Push content to the end */
+        align-items: center; /* Vertically center button content */
+    }
+
+    /* Ensure buttons themselves take appropriate width */
+    .vonia-product-remove-cell .vonia-btn,
+    .vonia-product-add-to-cart-cell .vonia-btn {
+        width: auto; /* Allow buttons to size based on content */
+        max-width: 100%; /* Prevent overflow if text is too long */
+        font-size: 14px; /* Readable button text */
+        padding: 10px 15px; /* Generous padding for tap target */
+        justify-content: center; /* Center icon and text */
+    }
+
+    .vonia-empty-state {
+        padding: 30px 15px;
+        font-size: 15px;
+    }
+    .vonia-empty-state i {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+    .vonia-empty-state p {
+        font-size: 16px;
+    }
+    .vonia-empty-state .vonia-btn-primary {
+        width: 90%; /* Maintain full width but give small side padding */
+        max-width: 250px;
+        font-size: 15px;
+        padding: 10px 20px;
+    }
+}
+
+/* --- Adjustments for Very Small Phones (Max-width: 480px) --- */
+@media (max-width: 480px) {
+    .vonia-wishlist-wrapper {
+        padding: 10px; /* Even tighter wrapper padding */
+    }
+    .vonia-wishlist-heading {
+        font-size: 20px;
+        margin-bottom: 12px;
+        padding-bottom: 6px;
+    }
+    .vonia-wishlist-table tbody {
+        gap: 10px; /* Tighter space between product cards */
+    }
+    .vonia-wishlist-table tr {
+        padding: 10px; /* Tighter card padding */
+        /* Keep the 2-column grid and area definitions */
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+            "image price"
+            "image stock"
+            "name name"
+            "remove-btn add-to-cart-btn"; /* Keep separate areas */
+    }
+    .vonia-wishlist-table td {
+        font-size: 13px; /* Smallest font size for data */
+    }
+    .vonia-product-thumbnail-cell {
+        margin-right: 10px; /* Reduce space next to image */
+    }
+    .vonia-product-thumbnail-cell img {
+        max-width: 70px; /* Smallest image for smallest screens */
+    }
+    .vonia-product-name-cell {
+        font-size: 16px; /* Slightly smaller product name */
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .vonia-product-price-cell {
+        font-size: 14px;
+        margin-bottom: 3px; /* Reduced space */
+    }
+    .vonia-product-stock-cell .vonia-badge {
+        font-size: 10px; /* Smallest badge */
+        padding: 4px 8px;
+    }
+    /* Buttons for very small screens */
+    .vonia-product-remove-cell .vonia-btn,
+    .vonia-product-add-to-cart-cell .vonia-btn {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .vonia-empty-state {
+        padding: 20px 10px;
+        font-size: 13px;
+    }
+    .vonia-empty-state i {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+    .vonia-empty-state p {
+        font-size: 14px;
+    }
+    .vonia-empty-state .vonia-btn-primary {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
 }

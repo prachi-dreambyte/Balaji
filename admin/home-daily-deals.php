@@ -1,253 +1,461 @@
 <?php
-// Database connection
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'balaji';
+session_start();
+include 'db_connect.php';
 
-$conn = new mysqli($host, $user, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+
+if (!isset($_SESSION['user_id'])) {
+     header("Location: auth-signin.php");
+     exit;
 }
+
+
+$stmt = $conn->prepare('SELECT * FROM categories');
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Add Daily Deal</title>
-    <link href="assets/css/vendor.min.css" rel="stylesheet">
-    <link href="assets/css/icons.min.css" rel="stylesheet">
-    <link href="assets/css/app.min.css" rel="stylesheet">
-    <script src="assets/js/config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <!-- Title Meta -->
+     <meta charset="utf-8" />
+     <title>Create Daily Deal | Larkon - Responsive Admin Dashboard Template</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description" content="A fully responsive premium admin dashboard template" />
+     <meta name="author" content="Techzaa" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+     <!-- App favicon -->
+     <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+     <!-- Vendor css (Require in all Page) -->
+     <link href="assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
+
+     <!-- Icons css (Require in all Page) -->
+     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+
+     <!-- App css (Require in all Page) -->
+     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+     <!-- Theme Config js (Require in all Page) -->
+     <script src="assets/js/config.js"></script>
+     
+     <!-- Flatpickr for date/time picker -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
-<body class="wrapper">
-    <!-- ========== Topbar Start ========== -->
-    <?php include 'header.php'; ?>
 
-    <!-- ========== Page Content Start ========== -->
-    <div class="page-content">
-        <div class="container-xxl">
-            <div class="row">
-                <div class="col-12">
-                    <form method="post" enctype="multipart/form-data">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Add Product Photo</h4>
-                            </div>
-                            <div class="card-body">
-                                <!-- File Upload Dropzone -->
-                                <div class="dropzone" id="imageDropzone" data-plugin="dropzone">
-                                    <div class="fallback">
-                                        <input name="image" type="file" />
-                                    </div>
-                                    <div class="dz-message needsclick">
-                                        <i class="bx bx-cloud-upload fs-48 text-primary"></i>
-                                        <h3 class="mt-4">Drop your image here, or <span class="text-primary">click to browse</span></h3>
-                                        <span class="text-muted fs-13">
-                                            1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<body>
 
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Product Information</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="product-name" class="form-label">Product Name</label>
-                                            <input type="text" name="name" id="product-name" class="form-control" placeholder="Enter product name" required>
+     <!-- START Wrapper -->
+     <div class="wrapper">
+
+          <!-- ========== Topbar Start ========== -->
+          <?php include 'header.php'; ?>
+
+          <!-- ==================================================== -->
+          <!-- Start right Content here -->
+          <!-- ==================================================== -->
+          <div class="page-content">
+
+               <!-- Start Container Fluid -->
+               <div class="container-xxl">
+
+                    <div class="row">
+                         <form method="post" enctype="multipart/form-data">
+                              <div class="col-xl-12 col-lg-12 ">
+                                   <div class="card">
+                                        <div class="card-header">
+                                             <h4 class="card-title">Add Daily Deal Photo</h4>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="product-description" class="form-label">Description</label>
-                                            <textarea name="description" id="product-description" class="form-control" rows="2" placeholder="Product description"></textarea>
+                                        <div class="card-body">
+                                             <!-- File Upload -->
+                                             <div class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate">
+                                                  <div class="fallback">
+                                                       <input name="file[]" type="file" multiple />
+                                                  </div>
+                                                  <div class="dz-message needsclick">
+                                                       <i class="bx bx-cloud-upload fs-48 text-primary"></i>
+                                                       <h3 class="mt-4">Drop your images here, or <span class="text-primary">click to browse</span></h3>
+                                                       <span class="text-muted fs-13">
+                                                            1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed
+                                                       </span>
+                                                  </div>
+                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="product-price" class="form-label">Price</label>
-                                            <div class="input-group">
-                                                <span class="input-group-text">₹</span>
-                                                <input type="number" step="0.01" name="price" id="product-price" class="form-control" placeholder="0.00">
-                                            </div>
+                                   </div>
+                                   
+                                   <div class="card">
+                                        <div class="card-header">
+                                             <h4 class="card-title">Daily Deal Information</h4>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="product-old-price" class="form-label">Old Price</label>
-                                            <div class="input-group">
-                                                <span class="input-group-text">₹</span>
-                                                <input type="number" step="0.01" name="old_price" id="product-old-price" class="form-control" placeholder="0.00">
-                                            </div>
+                                        <div class="card-body">
+                                             <div class="row">
+                                                  <div class="col-lg-6">
+                                                       <div class="mb-3">
+                                                            <label for="product-name" class="form-label">Product Name</label>
+                                                            <input type="text" name="name" id="product-name" class="form-control" placeholder="Items Name" required>
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-6">
+                                                       <label for="product-categories" class="form-label">Product Categories</label>
+                                                       <select class="form-control" name="category" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories" required>
+                                                            <option value="">Choose a category</option>
+                                                            <?php while ($row = $result->fetch_assoc()) { ?>
+                                                                 <option value="<?php echo htmlspecialchars($row['category_name']); ?>">
+                                                                      <?php echo htmlspecialchars($row['category_name']); ?>
+                                                                 </option>
+                                                            <?php } ?>
+                                                       </select>
+                                                  </div>
+                                             </div>
+                                             
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="product-brand" class="form-label">Brand</label>
+                                                            <input type="text" id="product-brand" name="brand" class="form-control" placeholder="Brand Name" required>
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="product-weight" class="form-label">Weight</label>
+                                                            <input type="text" id="product-weight" name="weight" class="form-control" placeholder="In gm & kg">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             
+                                             <div class="row mb-4">
+                                                  <div class="col-lg-4">
+                                                       <div class="mt-3">
+                                                            <h5 class="text-dark fw-medium">Size :</h5>
+                                                            <div class="d-flex flex-wrap gap-2" role="group" aria-label="Basic checkbox toggle button group">
+                                                                 <input type="checkbox" class="btn-check" id="size-xs1" name="size[]" value="XS">
+                                                                 <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-xs1">XS</label>
+
+                                                                 <input type="checkbox" class="btn-check" id="size-s1" name="size[]" value="S">
+                                                                 <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-s1">S</label>
+
+                                                                 <input type="checkbox" class="btn-check" id="size-m1" name="size[]" value="M">
+                                                                 <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-m1">M</label>
+
+                                                                 <input type="checkbox" class="btn-check" id="size-xl1" name="size[]" value="XL">
+                                                                 <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-xl1">Xl</label>
+
+                                                                 <input type="checkbox" class="btn-check" id="size-xxl1" name="size[]" value="XXL">
+                                                                 <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-xxl1">XXL</label>
+                                                                 
+                                                                 <input type="checkbox" class="btn-check" id="size-3xl1" name="size[]" value="3XL">
+                                                                 <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-3xl1">3XL</label>
+                                                            </div>
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             
+                                             <div class="row">
+                                                  <div class="col-lg-12">
+                                                       <div class="mb-3">
+                                                            <label for="description" class="form-label">Description</label>
+                                                            <textarea class="form-control bg-light-subtle" name="description" id="description" rows="7" placeholder="Short description about the product" required></textarea>
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="product-id" class="form-label">Tag Number</label>
+                                                            <input type="number" name="tagnumber" id="product-id" class="form-control" placeholder="#" required>
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="product-stock" class="form-label">Stock</label>
+                                                            <input type="number" name="stock" id="product-stock" class="form-control" placeholder="Quantity" required>
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <label for="product-stock" class="form-label">Tag</label>
+                                                       <select class="form-control" name="tag[]" id="choices-multiple-remove-button" data-choices data-choices-removeItem name="choices-multiple-remove-button" multiple>
+                                                            <option value="FEATURED PRODUCTS" selected>FEATURED PRODUCTS</option>
+                                                            <option value="NEW ARRIVAL">NEW ARRIVAL</option>
+                                                            <option value="ONSALE">ONSALE</option>
+                                                            <option value="BESTSELLER">BESTSELLER</option>
+                                                            <option value="DAILY DEAL">DAILY DEAL</option>
+                                                       </select>
+                                                  </div>
+                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="start-time" class="form-label">Start Time</label>
-                                            <input type="datetime-local" name="start_time" id="start-time" class="form-control">
+                                   </div>
+                                   
+                                   <div class="card">
+                                        <div class="card-header">
+                                             <h4 class="card-title">Pricing & Deal Details</h4>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="end-time" class="form-label">End Time</label>
-                                            <input type="datetime-local" name="end_time" id="end-time" class="form-control">
+                                        <div class="card-body">
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <label for="old-price" class="form-label">Original Price</label>
+                                                       <div class="input-group mb-3">
+                                                            <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
+                                                            <input type="number" id="old-price" name="old_price" class="form-control" placeholder="Original price before discount" required>
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <label for="product-price" class="form-label">Deal Price</label>
+                                                       <div class="input-group mb-3">
+                                                            <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
+                                                            <input type="number" id="product-price" name="price" class="form-control" placeholder="Deal price" required>
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <label for="product-discount" class="form-label">Discount Percentage</label>
+                                                       <div class="input-group mb-3">
+                                                            <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
+                                                            <input type="number" id="product-discount" class="form-control" name="discount" placeholder="Discount %" readonly>
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             
+                                             <div class="row mt-3">
+                                                  <div class="col-lg-6">
+                                                       <div class="mb-3">
+                                                            <label for="deal-start" class="form-label">Deal Start Time</label>
+                                                            <input type="datetime-local" id="deal-start" name="deal_start" class="form-control" required>
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-6">
+                                                       <div class="mb-3">
+                                                            <label for="deal-end" class="form-label">Deal End Time</label>
+                                                            <input type="datetime-local" id="deal-end" name="deal_end" class="form-control" required>
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <label for="product-tex" class="form-label">Tax</label>
+                                                       <div class="input-group mb-3">
+                                                            <span class="input-group-text fs-20"><i class='bx bxs-file-txt'></i></span>
+                                                            <input type="number" name="tex" id="product-tex" class="form-control" placeholder="000">
+                                                       </div>
+                                                  </div>
+                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                   </div>
+                                   
+                                   <div class="p-3 bg-light mb-3 rounded">
+                                        <div class="row justify-content-end g-2">
+                                             <div class="col-lg-2">
+                                                  <button type="submit" name="add_deal" class="btn btn-outline-secondary w-100">Create Daily Deal</button>
+                                             </div>
+                                             <div class="col-lg-2">
+                                                  <a href="product-list.php" class="btn btn-primary w-100">Cancel</a>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </form>
+                    </div>
+               </div>
+               <!-- End Container Fluid -->
 
-                        <div class="p-3 bg-light mb-3 rounded">
-                            <div class="row justify-content-end g-2">
-                                <div class="col-lg-2">
-                                    <button type="submit" name="submit" class="btn btn-primary w-100">Create Deal</button>
-                                </div>
-                                <div class="col-lg-2">
-                                    <a href="home-daily-deals.php" class="btn btn-outline-secondary w-100">Cancel</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+               <!-- ========== Footer Start ========== -->
+               <footer class="footer">
+                    <div class="container-fluid">
+                         <div class="row">
+                              <div class="col-12 text-center">
+                                   <script>
+                                        document.write(new Date().getFullYear())
+                                   </script> &copy; Larkon. Crafted by <iconify-icon icon="iconamoon:heart-duotone" class="fs-18 align-middle text-danger"></iconify-icon> <a href="https://1.envato.market/techzaa" class="fw-bold footer-text" target="_blank">Techzaa</a>
+                              </div>
+                         </div>
+                    </div>
+               </footer>
+               <!-- ========== Footer End ========== -->
+          </div>
+          <!-- ==================================================== -->
+          <!-- End Page Content -->
+          <!-- ==================================================== -->
+     </div>
+     <!-- END Wrapper -->
 
-    <!-- ========== Footer Start ========== -->
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <script>document.write(new Date().getFullYear())</script> &copy; Your Brand Name.
-                </div>
-            </div>
-        </div>
-    </footer>
+     <!-- Vendor Javascript (Require in all Page) -->
+     <script src="assets/js/vendor.js"></script>
 
-    <!-- Vendor Javascript -->
-    <script src="assets/js/vendor.js"></script>
-
-    <!-- App Javascript -->
-    <script src="assets/js/app.js"></script>
-
-    <!-- Initialize Dropzone -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Dropzone
-        Dropzone.autoDiscover = false;
-        const myDropzone = new Dropzone("#imageDropzone", {
-            url: "/file/post",
-            maxFiles: 1,
-            maxFilesize: 5, // MB
-            acceptedFiles: "image/jpeg,image/png,image/gif",
-            addRemoveLinks: true,
-            dictDefaultMessage: "Drop image here to upload",
-            dictFileTooBig: "File is too big ({{filesize}}MB). Max filesize: {{maxFilesize}}MB.",
-            dictInvalidFileType: "Invalid file type. Only JPG, PNG, GIF allowed.",
-            init: function() {
-                this.on("addedfile", function(file) {
-                    if (this.files.length > 1) {
-                        this.removeFile(this.files[0]);
-                    }
-                });
-            }
-        });
-    });
-    </script>
+     <!-- App Javascript (Require in all Page) -->
+     <script src="assets/js/app.js"></script>
+     
+     <!-- Flatpickr JS -->
+     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+     
+     <script>
+          // Initialize TinyMCE
+          tinymce.init({
+               selector: '#description',
+               plugins: 'lists link image code',
+               toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code',
+               menubar: false
+          });
+          
+          // Initialize date/time picker
+          flatpickr("#deal-start, #deal-end", {
+               enableTime: true,
+               dateFormat: "Y-m-d H:i",
+               minDate: "today"
+          });
+          
+          // Calculate discount percentage automatically
+          document.getElementById('old-price').addEventListener('input', calculateDiscount);
+          document.getElementById('product-price').addEventListener('input', calculateDiscount);
+          
+          function calculateDiscount() {
+               const oldPrice = parseFloat(document.getElementById('old-price').value);
+               const dealPrice = parseFloat(document.getElementById('product-price').value);
+               
+               if (oldPrice && dealPrice && oldPrice > dealPrice) {
+                    const discount = ((oldPrice - dealPrice) / oldPrice) * 100;
+                    document.getElementById('product-discount').value = discount.toFixed(2);
+               } else {
+                    document.getElementById('product-discount').value = '';
+               }
+          }
+     </script>
 </body>
 </html>
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-    // Sanitize inputs
-    $name = $conn->real_escape_string($_POST['name']);
-    $description = $conn->real_escape_string($_POST['description']);
-    $price = $_POST['price'] ?? null;
-    $old_price = $_POST['old_price'] ?? null;
-    $start_time = $_POST['start_time'] ?? null;
-    $end_time = $_POST['end_time'] ?? null;
+// Create daily_deals table if not exists
+$sql = "CREATE TABLE IF NOT EXISTS home_daily_deal (
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     product_name VARCHAR(255),
+     category VARCHAR(255),
+     brand VARCHAR(255),
+     weight VARCHAR(50),
+     size VARCHAR(255),
+     description TEXT,
+     tag_number VARCHAR(50) UNIQUE,
+     stock INT,
+     tags TEXT,
+     old_price DECIMAL(10,2),
+     price DECIMAL(10,2),
+     discount DECIMAL(10,2),
+     tax DECIMAL(10,2),
+     deal_start DATETIME,
+     deal_end DATETIME,
+     images TEXT,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     status ENUM('active', 'upcoming', 'expired') DEFAULT 'upcoming'
+)";
 
-    $image_name = null;
+if ($conn->query($sql) === FALSE) {
+     echo "<script>
+          Swal.fire({
+               icon: 'error',
+               title: 'Database Error!',
+               text: 'Error creating daily deals table: " . $conn->error . "',
+               confirmButtonText: 'OK'
+          });
+     </script>";
+}
 
-    // Handle file upload
-    if (!empty($_FILES['image']['name'])) {
-        $upload_dir = 'uploads/';
-        if (!is_dir($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
-        }
-        
-        $image_ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-        $image_name = 'deal_' . uniqid() . '.' . $image_ext;
-        $target_file = $upload_dir . $image_name;
-        
-        // Validate image
-        $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
-        if (!in_array(strtolower($image_ext), $allowed_types)) {
-            echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid File Type',
-                    text: 'Only JPG, PNG, and GIF files are allowed.',
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_deal'])) {
+     // Collect form data
+     $product_name = $_POST['name'];
+     $category = $_POST['category'];
+     $brand = $_POST['brand'];
+     $weight = $_POST['weight'];
+     $size = isset($_POST['size']) ? implode(',', $_POST['size']) : '';
+     $description = $_POST['description'];
+     $tag_number = $_POST['tagnumber'];
+     $stock = $_POST['stock'];
+     $tags = isset($_POST['tag']) ? (is_array($_POST['tag']) ? implode(',', $_POST['tag']) : $_POST['tag']) : '';
+     $old_price = $_POST['old_price'];
+     $price = $_POST['price'];
+     $discount = $_POST['discount'];
+     $tax = $_POST['tex'];
+     $deal_start = $_POST['deal_start'];
+     $deal_end = $_POST['deal_end'];
+
+     // Image upload handling
+     $imageArray = [];
+     $uploadDir = "uploads/";
+
+     if (!empty($_FILES['file']['name'][0])) {
+          foreach ($_FILES['file']['name'] as $key => $imageName) {
+               $imageTmp = $_FILES['file']['tmp_name'][$key];
+               $imagePath = $uploadDir . time() . "_" . basename($imageName);
+
+               if (move_uploaded_file($imageTmp, $imagePath)) {
+                    $imageArray[] = $imagePath;
+               }
+          }
+     }
+
+     $imagesJSON = json_encode($imageArray);
+
+     // Check if deal already exists
+     $stmt = $conn->prepare("SELECT id FROM home_daily_deal WHERE tag_number = ?");
+     $stmt->bind_param("s", $tag_number);
+     $stmt->execute();
+     $stmt->store_result();
+
+     if ($stmt->num_rows > 0) {
+          echo "<script>
+               Swal.fire({
+                    icon: 'warning',
+                    title: 'Duplicate Entry!',
+                    text: 'A deal with this Tag Number already exists!',
                     confirmButtonText: 'OK'
-                });
-            </script>";
-            exit();
-        }
-        
-        if (!move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-            echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Upload Failed',
-                    text: 'There was an error uploading your image.',
-                    confirmButtonText: 'OK'
-                });
-            </script>";
-            exit();
-        }
-    }
+               });
+          </script>";
+     } else {
+          // Determine deal status based on current time
+          $current_time = date('Y-m-d H:i:s');
+          $status = 'upcoming';
+          
+          if ($deal_start <= $current_time && $deal_end >= $current_time) {
+               $status = 'active';
+          } elseif ($deal_end < $current_time) {
+               $status = 'expired';
+          }
 
-    // Insert into database
-    $sql = "INSERT INTO `home_daily_deal` (name, description, image, price, old_price, is_daily_deal, start_time, end_time)
-            VALUES (?, ?, ?, ?, ?, 1, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssddss", $name, $description, $image_name, $price, $old_price, $start_time, $end_time);
+          // Insert data into database
+          $sql = "INSERT INTO home_daily_deal 
+                (product_name, category, brand, weight, size, description, tag_number, stock, tags, 
+                 old_price, price, discount, tax, deal_start, deal_end, images, status) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    if ($stmt->execute()) {
-        echo "<script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: 'Daily deal added successfully.',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                window.location.href = 'home-daily-deals.php';
-            });
-        </script>";
-    } else {
-        echo "<script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Failed to add daily deal: " . addslashes($stmt->error) . "',
-                confirmButtonText: 'OK'
-            });
-        </script>";
-    }
+          $stmt = $conn->prepare($sql);
+          $stmt->bind_param("sssssssissddddsss", 
+               $product_name, $category, $brand, $weight, $size, $description, $tag_number, 
+               $stock, $tags, $old_price, $price, $discount, $tax, $deal_start, $deal_end, 
+               $imagesJSON, $status);
 
-    $stmt->close();
-    $conn->close();
+          if ($stmt->execute()) {
+               echo "<script>
+                    Swal.fire({
+                         icon: 'success',
+                         title: 'Daily Deal Added!',
+                         text: 'The daily deal has been successfully added.',
+                         confirmButtonText: 'OK'
+                    }).then(() => {
+                         window.location.href = 'home-daily-deals-list.php';
+                    });
+               </script>";
+          } else {
+               echo "<script>
+                    Swal.fire({
+                         icon: 'error',
+                         title: 'Error!',
+                         text: 'Daily deal could not be added. Please try again!',
+                         confirmButtonText: 'OK'
+                    });
+               </script>";
+          }
+     }
+
+     $stmt->close();
+     $conn->close();
 }
 ?>

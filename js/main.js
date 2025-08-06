@@ -241,18 +241,30 @@ cart-plus-minus-button
    $(".qtybutton").on("click", function() {
   var $button = $(this);
   var oldValue = $button.parent().find("input").val();
+  var maxValue = $button.parent().find("input").attr("max");
+  maxValue = parseInt(maxValue) || 1000; // Default to 1000 if max attribute is not set
+  
   if ($button.text() == "+") {
-    var newVal = parseFloat(oldValue) + 1;
+    // Don't allow incrementing above max stock
+    if (parseFloat(oldValue) < maxValue) {
+      var newVal = parseFloat(oldValue) + 1;
+    } else {
+      newVal = maxValue;
+    }
   } else {
      // Don't allow decrementing below zero
     if (oldValue > 0) {
-   var newVal = parseFloat(oldValue) - 1;
-   } else {
-   newVal = 0;
+      var newVal = parseFloat(oldValue) - 1;
+    } else {
+      newVal = 0;
     }
-    }
+  }
   $button.parent().find("input").val(newVal);
+  
+  // Trigger change event to update any dependent elements (like add-to-cart links)
+  $button.parent().find("input").trigger("change");
    });
+   
    
    
 })(jQuery); 

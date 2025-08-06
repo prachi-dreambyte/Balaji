@@ -186,6 +186,7 @@ $cat_sidebar_stmt->close();
 	<link rel="stylesheet" href="css/nivo-slider.css">
 	<!-- style css -->
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style1.css">
 	<link rel="stylesheet" href="header.css">
 	<!-- responsive css -->
 	<link rel="stylesheet" href="css/responsive.css">
@@ -225,6 +226,7 @@ $cat_sidebar_stmt->close();
 						<?php endif; ?>
 					</span>
 				</div> -->
+				<section class="shopSection">
 	<div class="container">
 		<div class="row">
 			<div class="left-column col-sm-3 pt-5">
@@ -260,7 +262,7 @@ $cat_sidebar_stmt->close();
 									<div id="slider-range"></div>
 									<div class="price_slider_amount">
 										<input type="text" id="amount" name="price" placeholder="Add Your Price" />
-										<input type="submit" value="Range" />
+										<input type="submit" value="" />
 									</div>
 								</div>
 							</div>
@@ -323,10 +325,10 @@ $cat_sidebar_stmt->close();
 						</div>
 
 
-						<div class="compare">
+						<!-- <div class="compare">
 							<a href="compare.php "> compare (<span class="compare-count"><?php echo $compare_count; ?></span>) </a>
 							<i class="fa fa-angle-right"></i>
-						</div>
+						</div> -->
 
 					</div>
 					<div class="shop-category-product">
@@ -346,7 +348,7 @@ $cat_sidebar_stmt->close();
 											<div class="col-md-4 col-sm-6 col-xs-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="#">
+														<a href="product-details.php?id=<?php echo $row['id']; ?>">
 															<img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
 														</a>
 														<span class="new">new</span>
@@ -354,13 +356,6 @@ $cat_sidebar_stmt->close();
 														<div class="product-action">
 															<div class="add-to-links">
 																<ul>
-																	<li class="cart">
-																		<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
-																			<i class="fa fa-shopping-cart"></i>
-																			<span>add to cart</span>
-																		</a>
-																	</li>
-
 																	<li>
 																		<a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
@@ -371,17 +366,16 @@ $cat_sidebar_stmt->close();
 										<i class="fa fa-bar-chart" aria-hidden="true"></i>
 									</a>
 								</li> -->
-																	<li>
+																	<!-- <li>
 																		<a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
 																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
 																		</a>
-																	</li>
+																	</li> -->
 
 																</ul>
-																<div class="quick-view">
-																	<a href="#" data-bs-toggle="modal" data-target="#myModal" title="Quick view">
-																		<span>Quick view</span>
-																	</a>
+																<div class="AddCart">
+																	<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+																			<span>add to cart</span>																
 																</div>
 															</div>
 														</div>
@@ -417,234 +411,98 @@ $cat_sidebar_stmt->close();
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="list_view">
 									<div class="list-view">
-										<div class="list-view-single row list-view-mar">
-											<div class="col-md-4 col-sm-5">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="#">
-															<img src="img/tab-pro/faded-short-sleeves-tshirt.jpg" alt="" />
-														</a>
-														<span class="new">new</span>
-														<span class="sale">sale</span>
-														<div class="product-action">
-															<div class="add-to-links">
-																<div class="quick-view">
-																	<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																		<span>Quick view</span>
-																	</a>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-8 col-sm-7">
-												<div class="product-content">
-													<h5 class="product-name">
-														<a href="#" title="Printed Dress">Printed Dress</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-														</div>
-														<div class="comment">
-															<span class="reviewcount">1</span>
-															Review(s)
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 28.08 </span>
-														<span class="old-price"> £ 31.20 </span>
-													</div>
-													<p class="product-desc"> Faded short sleeves t-shirt with high neckline.
-														Soft and stretchy material for a comfortable fit. Accessorize
-														with a straw hat and you're ready for summer!
-													</p>
-													<div class="action">
-														<ul>
-															<li class="cart">
-																<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
-																	<i class="fa fa-shopping-cart"></i>
-																	<span>add to cart</span>
-																</a>
-															</li>
+										<?php foreach ($allRows as $row):
+											// Get image
+											$images = json_decode($row['images'], true);
+											$firstImage = is_array($images) && !empty($images) ? $images[0] : 'default.jpg';
 
-															<li class="wishlist">
-																<a href="#" title="Add to wishlist">
-																	<i class="fa fa-heart" aria-hidden="true"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
-																	<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																</a>
-															</li>
-
-														</ul>
-													</div>
-													<span class="availability">
-														<span> In stock </span>
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="list-view-single row list-view-mar">
-											<div class="col-md-4">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="#">
-															<img src="img/tab-pro/vass.jpg" alt="" />
-														</a>
-														<span class="new">new</span>
-														<span class="sale">sale</span>
-														<div class="product-action">
-															<div class="add-to-links">
-																<div class="quick-view">
-																	<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																		<span>Quick view</span>
-																	</a>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-8">
-												<div class="product-content">
-													<h5 class="product-name">
-														<a href="#" title="Blouse">Blouse</a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 30.78 </span>
-														<span class="old-price"> £ 3.40 </span>
-													</div>
-													<p class="product-desc">Short-sleeved blouse with feminine draped sleeve detail.
-													</p>
-													<div class="action">
-														<ul>
-															<li class="cart">
-																<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
-																	<i class="fa fa-shopping-cart"></i>
-																	<span>add to cart</span>
-																</a>
-															</li>
-
-															<li class="wishlist">
-																<a href="#" title="Add to wishlist">
-																	<i class="fa fa-heart" aria-hidden="true"></i>
-																</a>
-															</li>
-															<!-- <li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
+											// Calculate price display
+											$price = isset($row['price']) ? floatval($row['price']) : 0;
+											$discount = isset($row['discount']) ? floatval($row['discount']) : 0;
+											$old_price = $price + $discount;
+										?>
+											<div class="list-view-single row list-view-mar">
+												<div class="col-md-4 col-sm-5">
+													<div class="single-product">
+														<div class="product-img">
+															<a href="product-details.php?id=<?php echo $row['id']; ?>">
+																<img src="./admin/<?php echo $firstImage; ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
+															</a>
+															<?php if (strtotime($row['created_at']) > strtotime('-30 days')): ?>
+																<span class="new">new</span>
+															<?php endif; ?>
+															<?php if ($discount > 0): ?>
+																<span class="sale">sale</span>
+															<?php endif; ?>
+															<div class="product-action">
+																<div class="add-to-links">
+																	<div class="quick-view">
+																		<a href="product-details.php?id=<?php echo $row['id']; ?>" title="Quick view">
+																			<span>Quick view</span>
 																		</a>
-																	</li> -->
-															<li>
-																<a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
-																	<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																</a>
-															</li>
-
-														</ul>
-													</div>
-													<span class="availability">
-														<span> In stock </span>
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="list-view-single row list-view-mar">
-											<div class="col-md-4">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="#">
-															<img src="img/tab-pro/cooks.jpg" alt="" />
-														</a>
-														<span class="new">new</span>
-														<span class="sale">sale</span>
-														<div class="product-action">
-															<div class="add-to-links">
-																<div class="quick-view">
-																	<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																		<span>Quick view</span>
-																	</a>
+																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-											<div class="col-md-8">
-												<div class="product-content">
-													<h5 class="product-name">
-														<a href="#" title=" Faded Short Sleeves T-shirt "> Faded Short Sleeves T-shirt </a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star star-on"></span>
-															<span class="star"></span>
+												<div class="col-md-8 col-sm-7">
+													<div class="product-content">
+														<h5 class="product-name">
+															<a href="product-details.php?id=<?php echo $row['id']; ?>" title="<?php echo htmlspecialchars($row['product_name']); ?>">
+																<?php echo htmlspecialchars($row['product_name']); ?>
+															</a>
+														</h5>
+														<div class="reviews">
+															<div class="star-content clearfix">
+																<?php for ($i = 0; $i < 5; $i++) : ?>
+																	<span class="star star-on"></span>
+																<?php endfor; ?>
+															</div>
+															<div class="comment">
+																<span class="reviewcount">1</span>
+																Review(s)
+															</div>
 														</div>
-														<div class="comment">
-															<span class="reviewcount">1</span>
-															Review(s)
+														<div class="price-box">
+															<span class="price">₹ <?php echo number_format($price, 2); ?></span>
+															<?php if ($discount > 0): ?>
+																<span class="old-price">₹ <?php echo number_format($old_price, 2); ?></span>
+															<?php endif; ?>
 														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 28.70 </span>
-														<span class="old-price"> £ 31.20 </span>
-													</div>
-													<p class="product-desc">100% cotton double printed dress. Black and white
-														striped top and orange high waisted skater skirt bottom.
-													</p>
-													<div class="action">
-														<ul>
-															<li class="cart">
-																<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
-																	<i class="fa fa-shopping-cart"></i>
-																	<span>add to cart</span>
-																</a>
-															</li>
+														<p class="product-desc">
+															<?php echo htmlspecialchars(substr($row['description'] ?? 'Product description not available.', 0, 150)) . '...'; ?>
+														</p>
+														<div class="action">
+															<ul>
+																<li class="cart">
+																	<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+																		<i class="fa fa-shopping-cart"></i>
+																		<span>add to cart</span>
+																	</a>
+																</li>
 
-															<li class="wishlist">
-																<a href="#" title="Add to wishlist">
-																	<i class="fa fa-heart" aria-hidden="true"></i>
-																</a>
-															</li>
-															<!-- <li>
-																		<a href="#" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li> -->
-															<li>
-																<a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
-																	<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																</a>
-															</li>
+																<li class="wishlist">
+																	<a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
+																		<i class="fa fa-heart" aria-hidden="true"></i>
+																	</a>
+																</li>
+																<li>
+																	<a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
+																		<i class="fa fa-bar-chart" aria-hidden="true"></i>
+																	</a>
+																</li>
 
-														</ul>
+															</ul>
+														</div>
+														<span class="availability">
+															<span>In stock</span>
+														</span>
 													</div>
-													<span class="availability">
-														<span> In stock </span>
-													</span>
 												</div>
 											</div>
-										</div>
+										<?php endforeach; ?>
+
 										<div class="list-view-single row list-view-mar">
 											<div class="col-md-4">
 												<div class="single-product">
@@ -1325,10 +1183,10 @@ $cat_sidebar_stmt->close();
 						</div>
 						<div class="col-md-6 col-xs-6">
 
-							<div class="compare">
+							<!-- <div class="compare">
 								<a href="compare.php"> compare (<span class="compare-count"><?php echo $compare_count; ?></span>) </a>
 								<i class="fa fa-angle-right"></i>
-							</div>
+							</div> -->
 
 						</div>
 					</div>
@@ -1337,6 +1195,7 @@ $cat_sidebar_stmt->close();
 		</div>
 	</div>
 	</div>
+															</section>
 	<!--=====shop-2-area-end=====-->
 
 	<!--===== brand-area-start =====-->

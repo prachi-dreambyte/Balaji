@@ -1,137 +1,264 @@
-<?php
-include 'connect.php'; 
-?>
+<style>
+/* Footer Styles */
+.pg-footer {
+    font-family: 'Roboto', sans-serif;
+    background-color: #363636;
+    color: #fff;
+    position: relative;
+}
 
-<footer>
-				<div class="footer-area">
-					<div class="footer-top">
-						<div class="container">
-							<div class="footer-logo">
-								<a href="#">
-							    <img class="logo img-responsive" src="./img/balaji-logo-top.png" alt=" " style="width: 200px; height: 200px;"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<div class="footer-middle">
-						<div class="container">
-							<div class="row">
-								<div class="col-md-9 col-sm-9 foot-mar">
-									<div class="row">
-										<div class="col-md-4  col-sm-4 col-xs-12">
-											<h4>Shop Location</h4>
-											<div class="footer-contact">
-												<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-												Duis dignissim erat ut laoreet pharetra....
-												</p>
-												<p class="address add">
-													<span>No. 96, Jecica City, NJ 07305, New York, USA</span>
-												</p>
-												<p class="phone add">
-													<span> +0123456789</span>
-												</p>
-												<p class="email add">
-													<a href="#">demo@example.com</a>
-												</p>
-											</div>
-										</div>
-										<div class="col-md-4 col-sm-4 col-xs-12">
-											<h4>Information</h4>
-											<ul class="toggle-footer">
-												<li>
-													<a title="Specials" href="#">Specials</a>
-												</li>
-												<li>
-													<a title="New products" href="#">New products</a>
-												</li>
-												<li>
-													<a title="Best sellers" href="#">Best sellers</a>
-												</li>
-												<li>
-													<a title="Our stores" href="#">Our stores</a>
-												</li>
-												<li>
-													<a title="Contact us" href="#">Contact us</a>
-												</li>
-												<li>
-													<a title="Sitemap" href="#">Sitemap</a>
-												</li>
-											</ul>
-										</div>
-										<div class="col-md-4 col-sm-4 col-xs-12">
-											<h4>My account</h4>
-											<ul class="toggle-footer">
-												<li>
-													<a title="My orders" href="#">My orders</a>
-												</li>
-												<li>
-													<a title="My credit slips" href="#"> My credit slips</a>
-												</li>
-												<li>
-													<a title="My addresses" href="#">My addresses</a>
-												</li>
-												<li>
-													<a title="My personal info" href="#">My personal info</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-3">
-									<div class="newsletter">
-										<h4>Newsletter</h4>
-										<div class="newsletter-content">
-											<form action="https://htmldemo.net/vonia/vonia/method">
-												<input class="newsletter-input" type="text" placeholder="Enter your e-mail" size="18" name="email">
-												<button class="btn btn-default newsletter-button" type="submit">
-													<span class="subscribe">Subscribe</span>
-												</button>
-											</form>
-										</div>
-									</div>
-									<div class="footer-social">
-									 <h3>Follow Us</h3>
-										<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-										<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-										<a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a>
-										<a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a>
-										<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-									</div>
-								</div>
-							</div>
-							<div class="payment">
-								<a href="#">
-									<img src="img/payment.png" alt="" />
-								</a>
-							</div>
-						</div>
-					</div>
-					<div class="footer-bottom">
-						<div class="container">
-							<div class="row">
-								<div class="col-md-6 col-sm-6 col-xs-12 address">
-									Copyright  © 
-									<a href="http://bootexperts.com/">Bootexperts</a>
-									. All Rights Reserved
-								</div>
-								<div class="col-md-6 col-sm-6 col-xs-12 footer-link">
-									<ul>
-										<li>
-											<a href="#">Customer Service</a>
-										</li>
-										<li>
-											<a href="#">Secure payment</a>
-										</li>
-										<li>
-											<a href="#">Term of Use</a>
-										</li>
-										<li>
-											<a href="#">About us</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</footer>
+.footer-wave-svg {
+    background-color: transparent;
+    display: block;
+    height: 50px;
+    width: 100%;
+}
+
+.footer-wave-path {
+    fill: #c06b81;
+}
+
+.footer-content {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.footer-logo-link {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.footer-logo-link img {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer-menu-name {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-menu-list li {
+    margin-bottom: 10px;
+}
+
+.footer-menu-list li a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.footer-menu-list li a:hover {
+    color: #c06b81;
+}
+
+.footer-menu-list li p {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.footer-call-to-action {
+    margin-bottom: 20px;
+}
+
+.footer-call-to-action-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.footer-call-to-action-description {
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.footer-call-to-action-button {
+    background-color: #c06b81;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.footer-call-to-action-button:hover {
+    background-color: #e393a7;
+}
+
+.footer-social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.footer-social-link {
+    color: #fff;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.footer-social-link:hover {
+    color: #c06b81;
+}
+
+.footer-copyright {
+    background-color: #c06b81;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.footer-copyright-text {
+    color: #fff;
+    font-size: 13px;
+    margin: 0;
+}
+
+.footer-copyright-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .footer-menu-name {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .footer-logo-link {
+        text-align: center;
+    }
+    
+    .footer-menu {
+        text-align: center;
+    }
+    
+    .footer-social-links {
+        justify-content: center;
+    }
+}
+</style>
+
+<footer class="pg-footer">
+    <svg class="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
+        <path class="footer-wave-path" d="M851.8,100c125,0,288.3-45,348.2-64V0H0v44c3.7-1,7.3-1.9,11-2.9C80.7,22,151.7,10.8,223.5,6.3C276.7,2.9,330,4,383,9.8 c52.2,5.7,103.3,16.2,153.4,32.8C623.9,71.3,726.8,100,851.8,100z"></path>
+    </svg>
+    
+    <div class="footer-content">
+        <div class="footer-content-column">
+            <div class="footer-logo">
+                <a class="footer-logo-link" href="#">
+                    <img src="./img/balaji-logo-top.png" alt="Balaji Furniture" class="img-fluid">
+                </a>
+            </div>
+            <div class="footer-menu">
+                <h2 class="footer-menu-name">Shop Location</h2>
+                <ul class="footer-menu-list">
+                    <li>
+                        <p>Jay Shri Balaji Foam & Furniture, Opposite Mall Of Dehradun, Near Miyawala Underpass, Haridwar Road, Dehradun, Uttarakhand-248005</p>
+                    </li>
+                    <li>
+                        <p>+91-8979892185</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-content-column">
+            <div class="footer-menu">
+                <h2 class="footer-menu-name">Information</h2>
+                <ul class="footer-menu-list">
+                    <li><a href="index.php#deals">Daily Deals</a></li>
+                    <li><a href="index.php#newarrival">New Products</a></li>
+                    <li><a href="index.php#bestseller">Bestseller</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-menu">
+                <h2 class="footer-menu-name">Legal</h2>
+                <ul class="footer-menu-list">
+                    <li><a href="#">Privacy Notice</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-content-column">
+            <div class="footer-menu">
+                <h2 class="footer-menu-name">Quick Links</h2>
+                <ul class="footer-menu-list">
+                    <li><a href="about-us.php">About Us</a></li>
+                    <li><a href="shop.php">Category</a></li>
+                    <li><a href="index.php#deals">Offer</a></li>
+                    <li><a href="blog.php">Blog</a></li>
+                    <li><a href="#">Customers</a></li>
+                    <li><a href="#">Reviews</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-content-column">
+            <div class="footer-call-to-action">
+                <h2 class="footer-call-to-action-title">Let's Chat</h2>
+                <p class="footer-call-to-action-description">Have a support question?</p>
+                <a class="footer-call-to-action-button" href="contact.php">Get in Touch</a>
+            </div>
+            
+            <div class="footer-call-to-action">
+                <h2 class="footer-call-to-action-title">Call Us</h2>
+                <p><a href="tel:+918979892185" class="footer-menu-list">+91-8979892185</a></p>
+            </div>
+            
+            <div class="footer-social-links">
+                <a href="#" class="footer-social-link"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="footer-social-link"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="footer-social-link"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="footer-social-link"><i class="bi bi-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-copyright">
+        <div class="footer-copyright-wrapper">
+            <p class="footer-copyright-text">
+                <a class="footer-copyright-link" href="#">© Copyright 2024 Balaji Furniture | powered by Dreambyte Solution Pvt.Ltd</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Add this in your head section for Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">

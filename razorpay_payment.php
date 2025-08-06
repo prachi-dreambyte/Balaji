@@ -138,9 +138,9 @@ $delete_cart->execute();
         }
 
         // Auto-open Razorpay checkout (optional)
-        window.onload = function() {
-            rzp.open();
-        }
+        // window.onload = function() {
+        //     rzp.open();
+        // }
     </script>
 </body>
 

@@ -110,35 +110,28 @@ $totalPages = ceil($totalProducts / $limit);
 							<div class="row">
 								<div class="col-md-6 col-xs-6">
 									<div class="product-count">
-										Showing 1 - 12 of 13 items
+									   Showing <?= ($offset + 1) ?> - <?= min($offset + $limit, $totalProducts) ?> of <?= $totalProducts ?> items
+
 									</div>
 									<ul class="pagination">
-										<li class="pagination-previous-bottom">
-											<a href="#">
-												<i class="fa fa-angle-left"></i>
-											</a>
-										</li>
-										<li class="active current">
-											<a href="#">
-												1
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												2
-											</a>
-										</li>
-										<li class="pagination-next-bottom">
-											<a href="#">
-												<i class="fa fa-angle-right"></i>
-											</a>
-										</li>
-									</ul>
-								</div>
-								<div class="col-md-6 col-xs-6">
-									<div class="compare">
-										<a href="#"> compare (0) </a>
-									</div>
+    <!-- Previous button -->
+    <li class="pagination-previous-bottom <?= ($page <= 1) ? 'disabled' : '' ?>">
+        <a href="?page=<?= max(1, $page - 1) ?>"><i class="fa fa-angle-left"></i></a>
+    </li>
+
+    <!-- Page numbers -->
+    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+        <li class="<?= ($page == $i) ? 'active current' : '' ?>">
+            <a href="?page=<?= $i ?>"><?= $i ?></a>
+        </li>
+    <?php endfor; ?>
+
+    <!-- Next button -->
+    <li class="pagination-next-bottom <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
+        <a href="?page=<?= min($totalPages, $page + 1) ?>"><i class="fa fa-angle-right"></i></a>
+    </li>
+</ul>
+
 								</div>
 							</div>
 						</div>

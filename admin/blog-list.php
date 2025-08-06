@@ -65,8 +65,11 @@ $totalPages = ceil($totalProducts / $limit);
                                    <div class="card-header">
                                         <h4 class="card-title">Blog List</h4>
                                    </div>
+
                                    <div class="card-body">
-                                        <table class="table table-striped">
+                                        <div style="overflow-x: auto;">
+                                         <table class="table table-striped">
+
                                              <thead>
                                                   <tr>
                                                        <th>ID</th>
@@ -133,6 +136,7 @@ $totalPages = ceil($totalProducts / $limit);
                                                   <?php } ?>
                                              </tbody>
                                         </table>
+                                          </div>
 
                                         <!-- Pagination -->
                                         <nav aria-label="Blog Pagination">

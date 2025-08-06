@@ -1,63 +1,52 @@
 <?php
-session_start();
 include "./db_connect.php";
-if (!isset($_SESSION['user_id'])) {
-     header("Location: auth-signin.php");
-     exit;
- }
 
-
-// Check if ID is provided in URL
 if (!isset($_GET['id'])) {
-    die("Invalid request.");
+    die("No product ID provided.");
 }
 
 $id = intval($_GET['id']);
 
-// Handle update form submit
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name        = $_POST['name'];
-    $description = $_POST['description'];
-    $price       = $_POST['price'];
-    $old_price   = $_POST['old_price'];
-    $start_time  = $_POST['start_time'];
-    $end_time    = $_POST['end_time'];
-
-    // Image upload logic
-    if (!empty($_FILES['image']['name'])) {
-        $imageName = time() . "_" . basename($_FILES['image']['name']);
-        $targetPath = "../uploads/" . $imageName;
-        move_uploaded_file($_FILES['image']['tmp_name'], $targetPath);
-        $imageQuery = ", image = '$imageName'";
-    } else {
-        $imageQuery = "";
-    }
-
-    // Update query
-    $sql = "UPDATE home_daily_deal SET 
-                name = '$name',
-                description = '$description',
-                price = '$price',
-                old_price = '$old_price',
-                start_time = '$start_time',
-                end_time = '$end_time'
-                $imageQuery
-            WHERE id = $id";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Product updated successfully'); window.location.href='home-daily-deals-list.php';</script>";
-        exit;
-    } else {
-        echo "Error updating record: " . $conn->error;
-    }
-}
-
 // Fetch existing product data
-$result = $conn->query("SELECT * FROM `home_daily_deal` WHERE id = $id");
-if ($result->num_rows != 1) {
-    die("Product not found or not a daily deal.");
-}
+$stmt = $conn->prepare("SELECT * FROM home_daily_deal WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 $product = $result->fetch_assoc();
+
+if (!$product) {
+    die("Product not found.");
+}
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = $_POST['name'] ?? '';
+    $description = $_POST['description'] ?? '';
+    $price = $_POST['price'] ?? 0;
+    $old_price = $_POST['old_price'] ?? null;
+    $start_time = $_POST['start_time'] ?? null;
+    $end_time = $_POST['end_time'] ?? null;
+
+    // Image handling
+    $image = $product['images']; // default to existing image
+    if (!empty($_FILES['image']['name'])) {
+        $image_name = time() . '_' . basename($_FILES['image']['name']);
+        $target_path = '../uploads/' . $image_name;
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $target_path)) {
+            $image = $image_name;
+        }
+    }
+
+    // Update product
+    $stmt = $conn->prepare("UPDATE home_daily_deal SET product_name = ?, description = ?, price = ?, old_price = ?, deal_start = ?, deal_end = ?, images = ? WHERE id = ?");
+    $stmt->bind_param("ssddsssi", $name, $description, $price, $old_price, $start_time, $end_time, $image, $id);
+    
+    if ($stmt->execute()) {
+        echo "<script>alert('Product updated successfully'); window.location.href='home-daily-deals.php';</script>";
+    } else {
+        echo "Error updating: " . $conn->error;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -65,12 +54,27 @@ $product = $result->fetch_assoc();
 <head>
     <title>Edit Daily Deal</title>
     <style>
-        body { font-family: Arial; padding: 20px; }
-        form { max-width: 600px; margin: auto; }
-        label { display: block; margin-top: 10px; font-weight: bold; }
-        input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
-        img { margin-top: 10px; max-height: 150px; }
-        button { margin-top: 15px; padding: 10px 20px; }
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 6px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+        }
+        img {
+            max-height: 100px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -79,7 +83,7 @@ $product = $result->fetch_assoc();
 
 <form method="POST" enctype="multipart/form-data">
     <label>Product Name</label>
-    <input type="text" name="name" value="<?= htmlspecialchars($product['name']) ?>" required>
+    <input type="text" name="name" value="<?= htmlspecialchars($product['product_name']) ?>" required>
 
     <label>Description</label>
     <textarea name="description" rows="4"><?= htmlspecialchars($product['description']) ?></textarea>
@@ -91,15 +95,15 @@ $product = $result->fetch_assoc();
     <input type="number" step="0.01" name="old_price" value="<?= $product['old_price'] ?>">
 
     <label>Start Time</label>
-    <input type="datetime-local" name="start_time" value="<?= date('Y-m-d\TH:i', strtotime($product['start_time'])) ?>">
+    <input type="datetime-local" name="start_time" value="<?= date('Y-m-d\TH:i', strtotime($product['deal_start'])) ?>">
 
     <label>End Time</label>
-    <input type="datetime-local" name="end_time" value="<?= date('Y-m-d\TH:i', strtotime($product['end_time'])) ?>">
+    <input type="datetime-local" name="end_time" value="<?= date('Y-m-d\TH:i', strtotime($product['deal_end'])) ?>">
 
     <label>Image</label>
     <input type="file" name="image">
-    <?php if (!empty($product['image'])): ?>
-        <img src="../uploads/<?= $product['image'] ?>" alt="Product Image">
+    <?php if (!empty($product['images'])): ?>
+        <img src="../uploads/<?= htmlspecialchars($product['images']) ?>" alt="Product Image">
     <?php endif; ?>
 
     <button type="submit">Update Product</button>
@@ -107,4 +111,3 @@ $product = $result->fetch_assoc();
 
 </body>
 </html>
- 

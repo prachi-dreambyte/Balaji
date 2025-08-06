@@ -21,17 +21,59 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("invalid_data");
     }
 
-    $stmt = $conn->prepare("UPDATE orders SET status = ? WHERE id = ?");
-    $stmt->bind_param("si", $status, $order_id);
-
-    if ($stmt->execute()) {
+    // Start transaction to ensure data consistency
+    $conn->begin_transaction();
+    
+    try {
+        // Update order status
+        $stmt = $conn->prepare("UPDATE orders SET status = ? WHERE id = ?");
+        $stmt->bind_param("si", $status, $order_id);
+        $stmt->execute();
+        
+        // If status is 'Confirmed', reduce product stock
+        if ($status === 'Confirmed') {
+            // Get order_id string from orders table
+            $order_stmt = $conn->prepare("SELECT order_id FROM orders WHERE id = ?");
+            $order_stmt->bind_param("i", $order_id);
+            $order_stmt->execute();
+            $order_result = $order_stmt->get_result();
+            
+            if ($order_row = $order_result->fetch_assoc()) {
+                $order_id_string = $order_row['order_id'];
+                
+                // Get items from order_items table
+                $items_stmt = $conn->prepare("SELECT product_id, quantity FROM order_items WHERE order_id = ?");
+                $items_stmt->bind_param("s", $order_id_string);
+                $items_stmt->execute();
+                $items_result = $items_stmt->get_result();
+                
+                while ($item = $items_result->fetch_assoc()) {
+                    $product_id = $item['product_id'];
+                    $quantity = $item['quantity'];
+                    
+                    // Try to update stock in products table
+                    $update_stmt = $conn->prepare("UPDATE products SET stock = GREATEST(0, stock - ?) WHERE id = ?");
+                    $update_stmt->bind_param("ii", $quantity, $product_id);
+                    $update_stmt->execute();
+                    
+                    // Also try to update stock in home_daily_deal table if product exists there
+                    $update_deal_stmt = $conn->prepare("UPDATE home_daily_deal SET stock = GREATEST(0, stock - ?) WHERE id = ?");
+                    $update_deal_stmt->bind_param("ii", $quantity, $product_id);
+                    $update_deal_stmt->execute();
+                }
+            }
+        }
+        
+        // Commit the transaction
+        $conn->commit();
         echo "success";
-    } else {
-        error_log("SQL Error: " . $stmt->error);
+    } catch (Exception $e) {
+        // Rollback in case of error
+        $conn->rollback();
+        error_log("Error updating stock: " . $e->getMessage());
         echo "error";
     }
-
-    $stmt->close();
+    
     $conn->close();
 } else {
     die("invalid_request");
