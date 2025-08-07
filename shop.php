@@ -491,7 +491,7 @@ $cat_sidebar_stmt->close();
 															<ul>
 																<li class="cart">
 																	<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
-																		<i class="fa fa-shopping-cart"></i>
+																		<!-- <i class="fa fa-shopping-cart"></i> -->
 																		<span>add to cart</span>
 																	</a>
 																</li>
