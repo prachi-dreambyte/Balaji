@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "balajifi");
+$conn = mysqli_connect("localhost", "root", "", "balaji");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
