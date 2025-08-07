@@ -371,7 +371,8 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <div class="daily-deal-carousel owl-carousel owl-theme">
                         <?php
 
-                        $sql = "SELECT * FROM home_daily_deal ORDER BY id DESC LIMIT 10";
+                        $sql = "SELECT * FROM home_daily_deal WHERE deal_end > NOW() ORDER BY id DESC LIMIT 10";
+
                         $result = $conn->query($sql);
 
                         while ($row = $result->fetch_assoc()):
@@ -732,7 +733,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 
         <!--===== testimonial-area-start =====-->
         <div class="testimonial-area">
-    <div class="container">
+    <div class="container" style="background: transparent;">
         <div class="testimonial">
             <div class="testimonial-container">
                 <!-- ⭐ LIVE GOOGLE REVIEWS WIDGET (iframe version) ⭐ -->
@@ -744,7 +745,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     frameborder="0" 
                     width="100%" 
                     height="1000"
-                    style="border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.05);">
+                    style="border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.05); background: transparent;">
                 </iframe>
             </div>
         </div>
