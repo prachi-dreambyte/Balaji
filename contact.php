@@ -524,26 +524,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   });
 </script>
 <script>
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault(); // Stop default form submission
 
   const form = e.target;
   const formData = new FormData(form);
 
-  fetch('', {
+  fetch(form.action || window.location.href, {
     method: 'POST',
     body: formData
   })
   .then(res => res.text())
   .then(url => {
-    if (url.startsWith('https://wa.me')) {
-      window.open(url, '_blank'); // Open WhatsApp chat in new tab
+    if (url.startsWith('https://wa.me/')) {
+      window.location.href = url; // Redirect to WhatsApp
     } else {
-      alert("❌ Failed to send message.");
+      alert('Something went wrong: ' + url);
     }
-  });
-  });
+  })
+  .catch(err => alert('Error: ' + err));
+});
 </script>
+
 
 </body>
 </html>
