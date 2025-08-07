@@ -26,7 +26,9 @@ $conn->query($createTableQuery);
 $user_query = mysqli_query($conn, "SELECT * FROM signup WHERE id = $user_id");
 $user = mysqli_fetch_assoc($user_query);
 
+// =====================
 // Save Address
+// =====================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
     $address_line = trim($_POST['address_line']);
     $city = trim($_POST['city']);
@@ -35,36 +37,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
     $contact_no = trim($_POST['contact_no']);
 
     if (!empty($address_line) && !empty($city) && !empty($state) && !empty($zipcode) && !empty($contact_no)) {
-        // Use prepared statements for security
         $stmt = $conn->prepare("INSERT INTO addresses (user_id, address_line, city, state, zipcode, contact_no) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("isssss", $user_id, $address_line, $city, $state, $zipcode, $contact_no);
+
         if ($stmt->execute()) {
+            $stmt->close();
             header("Location: my-account.php#address");
             exit;
         } else {
-            echo "<script>alert('Failed to save address: " . $stmt->error . "');</script>";
+            echo "<script>alert('❌ Failed to save address: " . $stmt->error . "');</script>";
+            $stmt->close();
         }
-        $stmt->close();
     } else {
-        echo "<script>alert('Please fill all fields.');</script>";
+        echo "<script>alert('⚠️ Please fill in all fields.');</script>";
     }
 }
 
+// =====================
 // Delete Address
+// =====================
 if (isset($_GET['delete_address'])) {
-    $id = intval($_GET['delete_address']);
-    // Ensure the user can only delete their own addresses
-    $stmt = $conn->prepare("DELETE FROM addresses WHERE id = ? AND user_id = ?");
-    $stmt->bind_param("ii", $id, $user_id);
-    if ($stmt->execute()) {
-        // Optional: Add a success message or check $stmt->affected_rows for verification
+    $delete_id = intval($_GET['delete_address']);
+
+    // Validate delete_id and user_id
+    if ($delete_id > 0 && $user_id) {
+        $stmt = $conn->prepare("DELETE FROM addresses WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("ii", $delete_id, $user_id);
+
+        if ($stmt->execute()) {
+            $stmt->close();
+            header("Location: my-account.php#address");
+            exit;
+        } else {
+            echo "<script>alert('❌ Failed to delete address: " . $stmt->error . "');</script>";
+            $stmt->close();
+        }
     } else {
-        echo "<script>alert('Failed to delete address: " . $stmt->error . "');</script>";
+        echo "<script>alert('⚠️ Invalid delete request.');</script>";
     }
-    $stmt->close();
-    header("Location: my-account.php#address");
-    exit;
 }
+
+
 
 // Logout action
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
@@ -832,61 +845,66 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
                 </div>
 
-                <div id="address" class="content-section">
-                    <h3 class="section-header">Manage Addresses</h3>
+              <div id="address" class="content-section">
+    <h3 class="section-header">Manage Addresses</h3>
 
-                    <div class="address-form">
-                        <h4>Add New Address</h4>
-                        <form method="POST">
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label for="address_line">Address Line</label>
-                                    <input type="text" id="address_line" name="address_line" required
-                                        class="form-control">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="city">City</label>
-                                    <input type="text" id="city" name="city" required class="form-control">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="state">State</label>
-                                    <input type="text" id="state" name="state" required class="form-control">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="zipcode">Pincode</label>
-                                    <input type="text" id="zipcode" name="zipcode" required class="form-control">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="contact_no">Contact No.</label>
-                                    <input type="text" id="contact_no" name="contact_no" required class="form-control">
-                                </div>
-                            </div>
-                            <button type="submit" name="save_address" class="btn btn-primary mt-3">Save Address</button>
-                        </form>
-                    </div>
-
-                    <hr class="my-5">
-
-                    <h4>Saved Addresses</h4>
-                    <?php
-                    $result = mysqli_query($conn, "SELECT * FROM addresses WHERE user_id = $user_id ORDER BY created_at DESC");
-
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<div class='saved-address-card'>";
-                            echo "<p><strong>Address:</strong> " . htmlspecialchars($row['address_line']) . "</p>";
-                            echo "<p><strong>City:</strong> " . htmlspecialchars($row['city']) . "</p>";
-                            echo "<p><strong>State:</strong> " . htmlspecialchars($row['state']) . "</p>";
-                            echo "<p><strong>Pincode:</strong> " . htmlspecialchars($row['zipcode']) . "</p>";
-                            echo "<p><strong>Phone No.:</strong> " . htmlspecialchars($row['contact_no']) . "</p>";
-                            echo "<a href='my-account.php?delete_address=" . $row['id'] . "' class='btn btn-sm btn-danger' onclick='return confirm(\"Are you sure you want to delete this address?\")'>Delete</a>";
-                            echo "</div>";
-                        }
-                    } else {
-                        echo "<div class='empty-state'><i class='fa fa-map-marker'></i><p>No saved addresses. Add one to speed up checkout!</p></div>";
-                    }
-                    ?>
+    <div class="address-form">
+        <h4>Add New Address</h4>
+        <form method="POST">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="address_line">Address Line</label>
+                    <input type="text" id="address_line" name="address_line" required class="form-control">
                 </div>
+                <div class="col-md-6 form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state" required class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="zipcode">Pincode</label>
+                    <input type="text" id="zipcode" name="zipcode" required class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="contact_no">Contact No.</label>
+                    <input type="text" id="contact_no" name="contact_no" required class="form-control">
+                </div>
+            </div>
+            <button type="submit" name="save_address" class="btn btn-primary mt-3">Save Address</button>
+        </form>
+    </div>
+
+    <hr class="my-5">
+
+    <h4>Saved Addresses</h4>
+    <?php
+                $stmt = $conn->prepare("SELECT * FROM addresses WHERE user_id = ? ORDER BY created_at DESC");
+                $stmt->bind_param("i", $user_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<div class='saved-address-card'>";
+                        echo "<p><strong>Address:</strong> " . htmlspecialchars($row['address_line']) . "</p>";
+                        echo "<p><strong>City:</strong> " . htmlspecialchars($row['city']) . "</p>";
+                        echo "<p><strong>State:</strong> " . htmlspecialchars($row['state']) . "</p>";
+                        echo "<p><strong>Pincode:</strong> " . htmlspecialchars($row['zipcode']) . "</p>";
+                        echo "<p><strong>Phone No.:</strong> " . htmlspecialchars($row['contact_no']) . "</p>";
+                        echo "<a href='my-account.php?delete_address=" . $row['id'] . "' class='btn btn-sm btn-danger' onclick='return confirm(\"Are you sure you want to delete this address?\")'>Delete</a>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "<div class='empty-state'><i class='fa fa-map-marker'></i><p>No saved addresses. Add one to speed up checkout!</p></div>";
+                }
+
+                $stmt->close();
+                ?>
+            </div>
+
 
                 <div id="support" class="content-section">
                     <h3 class="section-header">Customer Support</h3>
@@ -913,90 +931,93 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     <script src="js/main.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('.account-sidebar .nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
+    document.addEventListener('DOMContentLoaded', function () {
+        const navLinks = document.querySelectorAll('.account-sidebar .nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
 
-            function showSection(id) {
-                // Hide all sections
-                contentSections.forEach(function (section) {
-                    section.classList.remove('active');
-                });
-                // Remove active class from all nav links
-                navLinks.forEach(function (link) {
-                    link.classList.remove('active');
-                });
+        function showSection(id) {
+            // Hide all sections
+            contentSections.forEach(function (section) {
+                section.classList.remove('active');
+            });
 
-                // Show selected section
-                const section = document.getElementById(id);
-                if (section) {
-                    section.classList.add('active');
-                    // Add active class to corresponding nav link
-                    const targetLink = document.querySelector(`.account-sidebar .nav-link[data-section="${id}"]`);
-                    if (targetLink) {
-                        targetLink.classList.add('active');
-                    }
+            // Remove active class from all nav links
+            navLinks.forEach(function (link) {
+                link.classList.remove('active');
+            });
 
-                    // Update URL hash without page reload
-                    if (history.pushState) {
-                        history.pushState(null, null, '#' + id);
-                    } else {
-                        window.location.hash = '#' + id;
-                    }
+            // Show selected section
+            const section = document.getElementById(id);
+            if (section) {
+                section.classList.add('active');
+
+                // Add active class to corresponding nav link
+                const targetLink = document.querySelector(`.account-sidebar .nav-link[data-section="${id}"]`);
+                if (targetLink) {
+                    targetLink.classList.add('active');
                 }
-            }
 
-            // Event listeners for navigation links
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    const sectionId = this.getAttribute('data-section');
-                    const href = this.getAttribute('href');
-
-                    // Only handle internal navigation (not external links like wishlist or logout)
-                    if (sectionId && href === '#') {
-                        e.preventDefault();
-                        showSection(sectionId);
-                    }
-                });
-            });
-
-            // Show section from URL hash on page load
-            const hash = window.location.hash.substring(1);
-            const validSections = ['personal-info', 'my-orders', 'wishlist', 'my-reviews', 'address', 'support'];
-
-            if (hash && validSections.includes(hash)) {
-                showSection(hash);
+                // Update URL hash without page reload
+                if (history.pushState) {
+                    history.pushState(null, null, '#' + id);
+                } else {
+                    window.location.hash = '#' + id;
+                }
             } else {
-                // Default to personal info if no valid hash
-                showSection('personal-info');
+                console.warn(`Section with ID '${id}' not found.`);
             }
+        }
 
-            // Add smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+        // Event listeners for navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                const sectionId = this.getAttribute('data-section');
+                const href = this.getAttribute('href');
+
+                if (sectionId && href === '#') {
                     e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // Add loading state for form submissions
-            document.querySelectorAll('form').forEach(form => {
-                form.addEventListener('submit', function () {
-                    const submitBtn = this.querySelector('button[type="submit"]');
-                    if (submitBtn) {
-                        submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Saving...';
-                        submitBtn.disabled = true;
-                    }
-                });
+                    showSection(sectionId);
+                }
             });
         });
-    </script>
+
+        // Show section from URL hash on page load
+        const hash = window.location.hash.substring(1);
+        const validSections = ['personal-info', 'my-orders', 'wishlist', 'my-reviews', 'address', 'support'];
+
+        if (hash && validSections.includes(hash)) {
+            showSection(hash);
+        } else {
+            showSection('personal-info');
+        }
+
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading state for form submissions
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Saving...';
+                    submitBtn.disabled = true;
+                }
+            });
+        });
+    });
+</script>
+
 
 </body>
 
