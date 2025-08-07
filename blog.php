@@ -58,6 +58,23 @@ $totalPages = ceil($totalProducts / $limit);
         <link rel="stylesheet" href="css/responsive.css">
 		<!-- modernizr js -->
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+		<style>
+			.blog-button{
+    font-family: Poppins, sans-serif !important;
+    font-weight: 400 !important;
+    display: inline-block !important;
+    position: relative !important;
+    z-index: 0 !important;
+    padding: 10px 15px !important;
+    text-decoration: none;
+    background: #c06b81 ! important;
+    color: white !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    text-transform: uppercase !important;
+    border-radius: 5px !important;
+}
+		</style>
     </head>
     <body>
 		<!-- header-start -->
@@ -96,7 +113,7 @@ $totalPages = ceil($totalProducts / $limit);
             <h4 class="blog-title"><?= $row['title']; ?></h4>
             <p><?= $row['main_content']; ?></p>
             <span class="blog-date"><?php echo $row['created_at'] ?></span>
-               <a class="blog-read-more" href="blog/<?= $row['slug']; ?>">
+               <a class="blog-button" href="blog/<?= $row['slug']; ?>">
                 <span>Read More</span>
             </a>
         </div>

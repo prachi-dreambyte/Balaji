@@ -278,6 +278,9 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             background: #3b5de7;
             color: white;
         }
+        .home-4-latest-blog {
+            overflow: hidden !important;
+        }
     </style>
 
 

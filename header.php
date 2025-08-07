@@ -292,11 +292,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
       <!-- Search + Account Icons -->
       <div class="d-flex align-items-center gap-3 flex-wrap justify-content-end">
         <div class="search-box d-none d-md-block">
-          <input type="text" placeholder="Search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-           <input type="hidden" name="category" value="<?php echo isset($category_name) ? htmlspecialchars($category_name) : ''; ?>">
+          <form action="shop.php" method="get" class="search-box d-none d-md-block">
+            <input type="text" name="search" placeholder="Search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+            <input type="hidden" name="category" value="<?php echo isset($category_name) ? htmlspecialchars($category_name) : ''; ?>">
             <input type="hidden" name="sort_by" value="<?php echo isset($sort_by) ? htmlspecialchars($sort_by) : ''; ?>">
             <input type="hidden" name="limit" value="<?php echo isset($limit) ? (int)$limit : 12; ?>">
-          <i class="fas fa-search"></i>
+            <button type="submit" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none;">
+                        <i class="fas fa-search"></i>
+            </button>
+          </form>
         </div>
         <a href="my-account.php" class="text-white d-flex align-items-center header-Side"><i class="fas fa-cog me-1 "></i> Account</a>
         
