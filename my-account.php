@@ -29,10 +29,13 @@ $conn->query($createTableQuery);
 $user_query = mysqli_query($conn, "SELECT * FROM signup WHERE id = $user_id");
 $user = mysqli_fetch_assoc($user_query);
 
+
+
 // =====================
 // Save Address
 // =====================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
+    echo "sfsdfsdfsdfsdfsd";
     $address_line = trim($_POST['address_line']);
     $city = trim($_POST['city']);
     $state = trim($_POST['state']);
@@ -40,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
     $contact_no = trim($_POST['contact_no']);
 
     if (!empty($address_line) && !empty($city) && !empty($state) && !empty($zipcode) && !empty($contact_no)) {
+        echo "sfsdfsdfsdfsdfsd";
         $stmt = $conn->prepare("INSERT INTO addresses (user_id, address_line, city, state, zipcode, contact_no) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("isssss", $user_id, $address_line, $city, $state, $zipcode, $contact_no);
 
@@ -54,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
     } else {
         echo "<script>alert('⚠️ Please fill in all fields.');</script>";
     }
+
 }
 
 // =====================
@@ -853,7 +858,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
     <div class="address-form">
         <h4>Add New Address</h4>
-        <form method="POST">
+        <form method="POST" id="addressForm">
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label for="address_line">Address Line</label>
@@ -1009,17 +1014,20 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
         });
 
         // Add loading state for form submissions
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', function () {
-                const submitBtn = this.querySelector('button[type="submit"]');
-                if (submitBtn) {
-                    submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Saving...';
-                    submitBtn.disabled = true;
-                }
-            });
-        });
+        // document.querySelectorAll('form').forEach(form => {
+        //     form.addEventListener('submit', function (e) {
+        //         e.preventDefault;
+        //         console.log('Form submitted:');
+        //         const submitBtn = this.querySelector('button[type="submit"]');
+        //         if (submitBtn) {
+        //             submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Saving...';
+        //             submitBtn.disabled = true;
+        //         }
+        //     });
+        // });
     });
 </script>
+
 
 
 </body>
