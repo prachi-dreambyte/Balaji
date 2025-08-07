@@ -351,16 +351,18 @@ $cat_sidebar_stmt->close();
 														<a href="product-details.php?id=<?php echo $row['id']; ?>">
 															<img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
 														</a>
-														<span class="new">new</span>
+														<span class="new"><a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
+															<i class="fa fa-heart" aria-hidden="true"></i>
+														</a></span>
 
 														<div class="product-action">
 															<div class="add-to-links">
 																<ul>
-																	<li>
+																	<!-- <li>
 																		<a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
 																			<i class="fa fa-heart" aria-hidden="true"></i>
 																		</a>
-																	</li>
+																	</li> -->
 																	<!-- <li>
 									<a href="#" title="Add to compare">
 										<i class="fa fa-bar-chart" aria-hidden="true"></i>

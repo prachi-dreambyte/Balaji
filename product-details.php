@@ -1093,7 +1093,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 					</div>
 					<div class="owl-carousel-space">
 						<div class="row">
-							<div class="accessories">
+							<!-- <div class="accessories">
 								<div class="accessories-carousel owl-carousel owl-theme">
 									<?php if (!empty($related_products)): ?>
 										<?php foreach ($related_products as $rel):
@@ -1141,7 +1141,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 										</div>
 									<?php endif; ?>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
