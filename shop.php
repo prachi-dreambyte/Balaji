@@ -402,6 +402,12 @@ $cat_sidebar_stmt->close();
 																<span class="old-price">₹ <?php echo $row['old_price']; ?></span>
 															<?php } ?>
 														</div>
+                                                        
+														<div class="stock-info">
+                                                         <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
+                                                         </div>
+
+
 													</div>
 												</div>
 											</div>
@@ -470,6 +476,12 @@ $cat_sidebar_stmt->close();
 																<span class="old-price">₹ <?php echo number_format($old_price, 2); ?></span>
 															<?php endif; ?>
 														</div>
+
+														<div class="stock-info">
+                                                         <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
+                                                         </div>
+
+
 														<p class="product-desc">
 															<?php echo htmlspecialchars(substr($row['description'] ?? 'Product description not available.', 0, 150)) . '...'; ?>
 														</p>
@@ -495,9 +507,10 @@ $cat_sidebar_stmt->close();
 
 															</ul>
 														</div>
-														<span class="availability">
-															<span>In stock</span>
-														</span>
+														<div class="stock-info mt-2">
+    <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
+</div>
+
 													</div>
 												</div>
 											</div>
