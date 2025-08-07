@@ -10,7 +10,7 @@ $sessionHandler->handleSessionTimeout();
 
 // Check login
 if (!isset($_SESSION['user_id'])) {
-	die("Please login to access your cart.");
+	die("");
 }
 $user_id = (int)$_SESSION['user_id'];
 
