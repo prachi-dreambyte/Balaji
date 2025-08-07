@@ -1,3 +1,6 @@
+<style>
+    
+</style>
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -912,7 +915,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
 
                 <div id="support" class="content-section">
-                    <h3 class="section-header">Customer Support</h3>
+                    <h3 class="section-header">How Can We Help You?</h3>
                     <p>If you need help, please don't hesitate to reach out to our support team.</p>
                     <p>You can contact us directly at <strong>support@voniafurniture.com</strong>.</p>
                     <p>We aim to respond to all inquiries within 24-48 hours.</p>

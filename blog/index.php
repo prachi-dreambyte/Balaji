@@ -63,13 +63,13 @@ $blogdetails = $blogresult->fetch_assoc();
 </head>
 
 <body>
-    <?php include 'header2.php'; ?>
+    <?php include './header2.php'; ?>
     <section class="AboutSection">
         <div class="image-wrapper">
             <img src="../img\latest-blog\bg_testimonials.jpg" class="AboutwrapperImage" />
             <h1 class="aboutUs-Heading">BLOG DETAILS</h1>
             <div class="AboutDivWrapper">
-                <a class="AboutHome" href="blog.php">BLOG</a> &nbsp / &nbsp <a class="AboutHome" href="blog-details.php">BLOG DETAILS</a>
+                <a class="AboutHome" href="../blog.php">BLOG</a> &nbsp / &nbsp <a class="AboutHome" href="blog-details.php">BLOG DETAILS</a>
             </div>
         </div>
     </section>
