@@ -4,6 +4,16 @@ require_once 'connect.php';
 require_once 'includes/coin_system.php';
 require_once 'includes/session_timeout.php';
 
+// Initialize coin system
+$coinSystem = new CoinSystem($conn);
+
+// Get user's available coins
+$available_coins = 0;
+if (isset($_SESSION['user_id'])) {
+    $available_coins = $coinSystem->getCoinBalance($_SESSION['user_id']);
+}
+
+
 // Initialize session timeout handler
 $sessionHandler = new SessionTimeoutHandler($conn);
 $sessionHandler->handleSessionTimeout();
@@ -373,319 +383,252 @@ if (isset($_POST['apply_coupon'])) {
 	<!-- mobile-menu-area-start -->
 
 	<!-- mobile-menu-area-end -->
-	</header>
+	
 	<!-- header-end -->
 	<!-- shopping-cart-start -->
-	<div class="breadcrumb-area">
-		<div class="container">
-			<div class="breadcrumb">
-				<a href="index.php" title="Return to Home">
-					<i class="icon-home"></i>
-				</a>
-				<span class="navigation-pipe">></span>
-				<span class="navigation-page">
-					Shopping cart
-				</span>
-			</div>
-		</div>
-	</div>
-	<div class="cart-main-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="entry-header">
-						<h1 class="entry-title">Shopping cart</h1>
-					</div>
-					<div class="table-content">
-						<form action="update-cart.php" method="post" id="cartUpdateForm">
+	<div class="breadcrumb-area bg-light py-3">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="index.php" class="text-decoration-none"><i class="fas fa-home me-1"></i> Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+            </ol>
+        </nav>
+    </div>
+</div>
 
-							<div class="table-content table-responsive">
-								<table>
-									<thead>
-										<tr>
-											<th class="product-thumbnail">Image</th>
-											<th class="product-name">Product</th>
-											<th class="product-price">Price</th>
-											<th class="product-quantity">Quantity</th>
-											<th class="product-subtotal">Total</th>
-											<th class="product-remove">Remove</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-										if (!empty($cart_itemss)):
-											foreach ($cart_itemss as $cart_item): ?>
+<div class="cart-main-area py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Cart Items -->
+            <div class="col-lg-8">
+                <form action="update-cart.php" method="post" id="cartUpdateForm">
+                    <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+                        <div class="card-header bg-primary bg-gradient text-white p-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0 fw-bold"><i class="fas fa-shopping-cart me-2"></i>Your Shopping Cart</h4>
+                                <span class="badge bg-white text-primary fs-6"><?= count($cart_itemss) ?> Items</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body p-0">
+                            <?php if (!empty($cart_itemss)): ?>
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th scope="col" style="width: 100px;">Image</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col" class="text-end">Price</th>
+                                                <th scope="col" style="width: 180px;">Quantity</th>
+                                                <th scope="col" class="text-end">Total</th>
+                                                <th scope="col" style="width: 50px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($cart_itemss as $cart_item): ?>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="d-block">
+                                                            <img src="./admin/<?= htmlspecialchars($cart_item['image']) ?>" 
+                                                                 alt="<?= htmlspecialchars($cart_item['product_name']) ?>" 
+                                                                 class="img-fluid rounded-2 border"
+                                                                 onerror="this.src='img/default.jpg';">
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="mb-1"><?= htmlspecialchars($cart_item['product_name']) ?></h6>
+                                                        <!-- <small class="text-muted">SKU: <?= htmlspecialchars($cart_item['sku'] ?? 'N/A') ?></small> -->
+                                                    </td>
+                                                    <td class="text-end">₹<?= number_format($cart_item['price'], 2) ?></td>
+                                                    <td>
+                                                        <div class="input-group input-group-sm">
+                                                            <button type="button" class="btn btn-outline-secondary minus-btn px-3" <?= $cart_item['quantity'] <= 1 ? 'disabled' : '' ?>>
+                                                                <i class="fas fa-minus"></i>
+                                                            </button>
+                                                            <input type="number" name="quantity[]" 
+                                                                   class="form-control text-center quantity-input" 
+                                                                   value="<?= $cart_item['quantity'] ?>" 
+                                                                   min="1" 
+                                                                   max="<?= $cart_item['stock'] ?>"
+                                                                   readonly>
+                                                            <button type="button" class="btn btn-outline-secondary plus-btn px-3" <?= $cart_item['quantity'] >= $cart_item['stock'] ? 'disabled' : '' ?>>
+                                                                <i class="fas fa-plus"></i>
+                                                            </button>
+                                                            <input type="hidden" name="id[]" value="<?= $cart_item['id'] ?>">
+                                                        </div>
+                                                        <small class="text-muted d-block mt-1">Available: <?= $cart_item['stock'] ?></small>
+                                                    </td>
+                                                    <td class="text-end fw-bold">₹<?= number_format($cart_item['subtotal'], 2) ?></td>
+                                                    <td class="text-center">
+                                                        <a href="shopping-cart.php?action=remove&id=<?= $cart_item['id'] ?>" 
+                                                           class="text-danger" 
+                                                           title="Remove item"
+                                                           onclick="return confirm('Are you sure you want to remove this item?');">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php else: ?>
+                                <div class="text-center p-5">
+                                    <div class="mb-4">
+                                        <i class="fas fa-shopping-cart fa-4x text-muted"></i>
+                                    </div>
+                                    <h5 class="mb-3">Your cart is empty</h5>
+                                    <p class="text-muted mb-4">Looks like you haven't added anything to your cart yet</p>
+                                    <a href="shop.php" class="btn btn-primary px-4">
+                                        <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <?php if (!empty($cart_itemss)): ?>
+                        <div class="card-footer bg-light">
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="fas fa-sync-alt me-2"></i>Update Cart
+                                </button>
+                                <a href="shop.php" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>Continue Shopping
+                                </a>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </form>
 
+                <!-- Discount Section -->
+                <div class="card border-0 shadow-sm rounded-3 mt-4">
+                    <div class="card-header bg-light p-3">
+                        <h5 class="mb-0 fw-bold"><i class="fas fa-tag me-2"></i>Apply Discount</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php if (!empty($_SESSION['coupon_error']) || !empty($_SESSION['coins_error']) || !empty($_SESSION['apply_success'])): ?>
+                            <div class="alert alert-<?= !empty($_SESSION['apply_success']) ? 'success' : 'danger' ?> alert-dismissible fade show" role="alert">
+                                <?= htmlspecialchars($_SESSION['coupon_error'] ?? $_SESSION['coins_error'] ?? 'Discount applied successfully!') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php 
+                                unset($_SESSION['coupon_error'], $_SESSION['coins_error'], $_SESSION['apply_success']);
+                            endif; 
+                            ?>
+                        
+                        <form method="POST" id="applyForm">
+                            <div class="mb-3">
+                                <label for="coupon_code" class="form-label">Coupon Code</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="coupon_code" name="coupon_code" 
+                                           placeholder="Enter coupon code" 
+                                           value="<?= htmlspecialchars($_SESSION['coupon_code'] ?? '') ?>">
+                                    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="tooltip" 
+                                            title="Check for available coupons">
+                                        <i class="fas fa-info-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="coins_to_use" class="form-label">
+                                    Reward Coins (Available: <span class="text-success fw-bold" id="available-coins"><?= $available_coins ?></span>)
+                                </label>
+                                <input type="range" class="form-range mb-2" id="coins_range" min="0" 
+                                       max="<?= min($available_coins, $total) ?>" 
+                                       value="<?= htmlspecialchars($_SESSION['coins_applied'] ?? 0) ?>">
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="number" class="form-control" id="coins_to_use" name="coins_to_use" 
+                                           min="0" max="<?= $available_coins ?>" 
+                                           value="<?= htmlspecialchars($_SESSION['coins_applied'] ?? '') ?>">
+                                </div>
+                                <small class="text-muted">1 coin = ₹1 discount</small>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" name="apply_coupon" class="btn btn-success" <?= empty($cart_itemss) ? 'disabled' : '' ?>>
+                                    <i class="fas fa-check-circle me-2"></i>Apply Discounts
+                                </button>
+                                
+                                <?php if (!empty($_SESSION['coupon_code']) || !empty($_SESSION['coins_applied'])): ?>
+                                    <a href="shopping-cart.php?clear_discounts=1" class="btn btn-outline-danger">
+                                        <i class="fas fa-times-circle me-2"></i>Clear Discounts
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-												<tr>
-													<td class="product-thumbnail">
-														<a href="#">
-															<img src="./admin/<?php echo $cart_item['image']; ?>" alt="<?php echo htmlspecialchars($cart_item['product_name']); ?>" width="80">
-														</a>
-													</td>
-													<td class="product-name">
-														<a href="#"><?php echo htmlspecialchars($cart_item['product_name']); ?></a>
-													</td>
-													<td class="product-price">
-														<span class="amount">₹<?php echo number_format($cart_item['price'], 2); ?></span>
-													</td>
-													<td class="product-quantity text-center align-middle">
-														<div class="d-inline-flex align-items-center justify-content-center">
-															<button type="button"
-																class="btn btn-danger btn-sm minus-btn px-3 py-2 fw-bold"
-																aria-label="Decrease quantity"
-																style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
-																−
-															</button>
-
-															<input type="hidden" name="id[]" value="<?php echo $cart_item['id']; ?>">
-															<input type="number"
-																name="quantity[]"
-																class="form-control form-control-sm text-center quantity-input fw-bold"
-																value="<?php echo $cart_item['quantity']; ?>"
-																min="1"
-																max="<?php echo $cart_item['stock']; ?>"
-																aria-label="Quantity"
-																style="width: 70px; border-radius: 0; border-color: #ddd; background-color: #f8f9fa;" />
-
-															<button type="button"
-																class="btn btn-success btn-sm plus-btn px-3 py-2 fw-bold"
-																aria-label="Increase quantity"
-																style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
-																+
-															</button>
-														</div>
-													</td>
-
-
-
-													<td class="product-subtotal">
-														₹<?php echo number_format($cart_item['price'] * $cart_item['quantity'], 2); ?>
-													</td>
-													<td class="product-remove">
-														<a href="shopping-cart.php?action=remove&id=<?= $cart_item['id']; ?>">
-															<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="black" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-																<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-															</svg>
-														</a>
-													</td>
-
-												</tr>
-											<?php
-											endforeach;
-										else:
-											?>
-											<tr>
-												<td colspan="6">🛒 Your cart is empty.</td>
-											</tr>
-										<?php endif; ?>
-									</tbody>
-
-								</table>
-							</div>
-							<div class="row">
-								<div class="col-md-8">
-									<div class="buttons-cart">
-										<input type="submit" value="Update Cart" />
-										<a href="shop.php">Continue Shopping</a>
-									</div>
-						</form>
-						<?php
-						// Get user's available coins using real-time balance
-						$user_coins = $coinSystem->getRealTimeBalance($user_id);
-
-						// Remove or modify this block to only initialize for truly new users
-						// if ($user_coins == 0) {
-						//     $coinSystem->initializeWallet($user_id, 50);
-						//     $user_coins = 50;
-						// }
-
-						// Check for abandoned coins and restore them
-						$coinSystem->checkAbandonedCoins($user_id);
-
-						// Calculate available coins (show actual balance, do not subtract applied coins)
-						$available_coins = $user_coins;
-						?>
-						<form method="POST" id="applyForm">
-							<div class="coupon">
-								<h3>Apply Coupon / Coins</h3>
-								<p>Enter your coupon code and number of coins to apply:</p>
-								<p><strong id="available-coins"><?php echo $available_coins; ?></strong> Available Coins</p>
-								<input type="text" name="coupon_code" placeholder="Coupon code" value="<?php echo $_SESSION['coupon_code'] ?? ''; ?>" />
-								<input type="number" name="coins_to_use" placeholder="Coins to apply" min="0" max="<?php echo $available_coins; ?>" value="<?php echo $_SESSION['coins_applied'] ?? ''; ?>" />
-								<input type="submit" name="apply_coupon" value="Apply" />
-								<?php if (!empty($_SESSION['coupon_code']) || !empty($_SESSION['coins_applied'])): ?>
-									<a href="shopping-cart.php?clear_discounts=1" class="btn btn-danger" style="margin-left: 10px;">Clear Discounts</a>
-								<?php endif; ?>
-							</div>
-						</form>
-
-						<?php
-						// Embed toast info in a hidden div for JS to pick up
-						if (!empty($_SESSION['apply_success'])) {
-							echo '<div id="toast-data" data-type="success" data-message="Coupon and/or coins applied successfully!" style="display:none;"></div>';
-							unset($_SESSION['apply_success']);
-						} elseif (!empty($_SESSION['coupon_error'])) {
-							echo '<div id="toast-data" data-type="error" data-message="' . addslashes($_SESSION['coupon_error']) . '" style="display:none;"></div>';
-							unset($_SESSION['coupon_error']);
-						} elseif (!empty($_SESSION['coins_error'])) {
-							echo '<div id="toast-data" data-type="error" data-message="' . addslashes($_SESSION['coins_error']) . '" style="display:none;"></div>';
-							unset($_SESSION['coins_error']);
-						}
-						?>
-
-
-					</div>
-
-					<div class="col-md-4">
-						<div class="cart_totals">
-							<h2>Cart Totals</h2>
-							<table>
-								<tbody>
-									<tr class="cart-subtotal">
-										<th>Subtotal</th>
-										<td>
-											<span class="amount">₹<?php echo number_format($total, 2); ?></span>
-										</td>
-									</tr>
-
-									<tr class="shipping">
-										<th>Shipping</th>
-										<td>
-											<ul id="shipping_method">
-												<li>
-													<input type="radio" name="shipping_method" value="flat_rate" checked />
-													<label>
-														Flat Rate (18%):
-														<span class="amount">₹<?php echo number_format($flat_rate, 2); ?></span>
-													</label>
-												</li>
-												<li>
-													<input type="radio" name="shipping_method" value="free_shipping" />
-													<label>
-														Free Shipping
-													</label>
-												</li>
-											</ul>
-											<p>
-												<a class="shipping-calculator-button" href="#">Calculate Shipping</a>
-											</p>
-										</td>
-									</tr>
-									<?php if ($coupon_discount > 0): ?>
-										<tr class="coupon-discount">
-											<th>Coupon Discount</th>
-											<td>
-												<span class="amount">-₹<?php echo number_format($coupon_discount, 2); ?></span>
-											</td>
-										</tr>
-									<?php endif; ?>
-									<?php if ($coins_applied > 0): ?>
-										<tr class="coins-discount">
-											<th>Coins Applied</th>
-											<td>
-												<span class="amount">-₹<?php echo number_format($coins_applied, 2); ?></span>
-											</td>
-										</tr>
-									<?php endif; ?>
-									<tr class="order-total">
-										<th>Total</th>
-										<td>
-											<strong>
-												<span class="amount">₹<?php echo number_format($grand_total, 2); ?></span>
-											</strong>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-							<div class="wc-proceed-to-checkout">
-								<form action="checkout.php" method="POST">
-									<input type="hidden" name="user_id" value="<?= $user_id ?>">
-									<input type="hidden" name="order_total" value="<?= $grand_total ?>">
-									<input type="hidden" name="coupon_discount" value="<?= $coupon_discount ?>">
-									<input type="hidden" name="coins_applied" value="<?= $coins_applied ?>">
-									<input type="hidden" name="coupon_code" value="<?= $_SESSION['coupon_code'] ?? '' ?>">
-
-									<?php foreach ($cart_itemss as $item): ?>
-										<input type="hidden" name="products[]" value="<?= $item['id'] ?>">
-										<input type="hidden" name="quantities[<?= $item['id'] ?>]" value="<?= $item['quantity'] ?>">
-									<?php endforeach; ?>
-
-									<button class="wc-proceed-to-checkout" type="submit" name="checkout">Proceed to Checkout</button>
-
-								</form>
-
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	</div>
-	</div>
-	<!-- shopping-cart-end -->
-	<!-- brand-area-start -->
-	<div class="brand-area owl-carousel-space">
-		<div class="container">
-			<div class="row">
-				<div class="brands">
-					<div class="brand-carousel">
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/1.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/2.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/3.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/4.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/5.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/6.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/7.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm rounded-3 sticky-top" style="top: 20px;">
+                    <div class="card-header bg-primary bg-gradient text-white p-3">
+                        <h5 class="mb-0 fw-bold"><i class="fas fa-receipt me-2"></i>Order Summary</h5>
+                    </div>
+                    
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between py-3">
+                                <span>Subtotal (<?= count($cart_itemss) ?> items)</span>
+                                <strong>₹<?= number_format($total, 2) ?></strong>
+                            </li>
+                            
+                            <li class="list-group-item d-flex justify-content-between py-3">
+                                <span>Shipping</span>
+                                <strong>₹<?= number_format($flat_rate, 2) ?></strong>
+                            </li>
+                            
+                            <?php if ($coupon_discount > 0): ?>
+                                <li class="list-group-item d-flex justify-content-between py-3 text-success">
+                                    <span>Coupon Discount</span>
+                                    <strong>-₹<?= number_format($coupon_discount, 2) ?></strong>
+                                </li>
+                            <?php endif; ?>
+                            
+                            <?php if ($coins_applied > 0): ?>
+                                <li class="list-group-item d-flex justify-content-between py-3 text-success">
+                                    <span>Reward Coins Used</span>
+                                    <strong>-₹<?= number_format($coins_applied, 2) ?></strong>
+                                </li>
+                            <?php endif; ?>
+                            
+                            <li class="list-group-item d-flex justify-content-between py-3 border-top-2 border-dark">
+                                <span class="fw-bold fs-5">Total Amount</span>
+                                <strong class="fw-bold fs-5">₹<?= number_format($grand_total, 2) ?></strong>
+                            </li>
+                        </ul>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <form action="checkout.php" method="POST">
+                                <input type="hidden" name="user_id" value="<?= $user_id ?>">
+                                <input type="hidden" name="order_total" value="<?= $grand_total ?>">
+                                <input type="hidden" name="coupon_discount" value="<?= $coupon_discount ?>">
+                                <input type="hidden" name="coins_applied" value="<?= $coins_applied ?>">
+                                <input type="hidden" name="coupon_code" value="<?= $_SESSION['coupon_code'] ?? '' ?>">
+                                <?php foreach ($cart_itemss as $item): ?>
+                                    <input type="hidden" name="products[]" value="<?= $item['id'] ?>">
+                                    <input type="hidden" name="quantities[<?= $item['id'] ?>]" value="<?= $item['quantity'] ?>">
+                                <?php endforeach; ?>
+                                <button type="submit" class="btn btn-success btn-lg w-100 py-3" <?= empty($cart_itemss) ? 'disabled' : '' ?>>
+                                    <i class="fas fa-lock me-2"></i>Proceed to Checkout
+                                </button>
+                            </form>
+                            
+                            <!-- <div class="text-center mt-3">
+                                <img src="img/payment-methods.png" alt="Accepted payment methods" class="img-fluid" style="max-width: 250px;">
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 	<!-- brand-area-end -->
 	<!-- footer-start -->
 
@@ -815,64 +758,74 @@ if (isset($_POST['apply_coupon'])) {
 		});
 	</script>
 
+<!-- JavaScript for enhanced functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Quantity adjustment buttons
+    document.querySelectorAll('.plus-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.quantity-input');
+            const max = parseInt(input.getAttribute('max'));
+            const currentValue = parseInt(input.value);
+            
+            if (currentValue < max) {
+                input.value = currentValue + 1;
+                updateButtonStates(input);
+            }
+        });
+    });
+
+    document.querySelectorAll('.minus-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.quantity-input');
+            const currentValue = parseInt(input.value);
+            
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+                updateButtonStates(input);
+            }
+        });
+    });
+
+    function updateButtonStates(input) {
+        const parentDiv = input.parentElement;
+        const minusBtn = parentDiv.querySelector('.minus-btn');
+        const plusBtn = parentDiv.querySelector('.plus-btn');
+        const max = parseInt(input.getAttribute('max'));
+        const currentValue = parseInt(input.value);
+        
+        minusBtn.disabled = currentValue <= 1;
+        plusBtn.disabled = currentValue >= max;
+    }
+
+    // Sync range and number inputs for coins
+    const coinsRange = document.getElementById('coins_range');
+    const coinsInput = document.getElementById('coins_to_use');
+    
+    if (coinsRange && coinsInput) {
+        coinsRange.addEventListener('input', function() {
+            coinsInput.value = this.value;
+        });
+        
+        coinsInput.addEventListener('input', function() {
+            if (parseInt(this.value) > parseInt(this.max)) {
+                this.value = this.max;
+            }
+            coinsRange.value = this.value;
+        });
+    }
+
+    // Initialize tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+</script>
 
 
 
 
-
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			// Show toast messages if they exist
-			const toastData = document.getElementById('toast-data');
-			if (toastData) {
-				const type = toastData.dataset.type;
-				const message = toastData.dataset.message;
-
-				Swal.fire({
-					toast: true,
-					position: 'top-end',
-					icon: type,
-					title: message,
-					showConfirmButton: false,
-					timer: 3000
-				});
-			}
-
-			// Update balance in real-time
-			updateBalance();
-
-			// Update balance every 30 seconds
-			setInterval(updateBalance, 30000);
-		});
-
-		function updateBalance() {
-			fetch('update_balance.php?t=' + Date.now())
-				.then(response => response.json())
-				.then(data => {
-					if (data.error) {
-						console.error('Error updating balance:', data.error);
-						return;
-					}
-
-					console.log('Balance update:', data);
-
-					// Update the available coins display
-					const availableCoinsElement = document.getElementById('available-coins');
-					if (availableCoinsElement) {
-						availableCoinsElement.textContent = data.available_balance;
-					}
-
-					// Update the max value of coins input
-					const coinsInput = document.querySelector('input[name="coins_to_use"]');
-					if (coinsInput) {
-						coinsInput.max = data.available_balance;
-					}
-				})
-				.catch(error => {
-					console.error('Error updating balance:', error);
-				});
-		}
-	</script>
 
 
 
