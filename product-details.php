@@ -536,7 +536,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 				<div class="col-lg-12">
 					<div class="feature-tab-area">
 						<!-- Nav tabs -->
-						<ul class="tabs nav mb-4" role="tablist">
+						<ul class="tabs nav mb-4" role="tablist" style="color: #000; text-align: center;">
 							<li><a class="active" href="#moreinfo" aria-controls="moreinfo" role="tab"
 									data-bs-toggle="tab">more info</a></li>
 							<li><a href="#datasheet" aria-controls="datasheet" role="tab" data-bs-toggle="tab">data
