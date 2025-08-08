@@ -388,14 +388,36 @@ $cat_sidebar_stmt->close();
 																<?php echo htmlspecialchars($row['product_name']); ?>
 															</a>
 														</h5>
+														<?php
+															$product_id = $row['id']; // Replace 'id' with your actual product ID column name
+														
+															// Get average rating and total reviews for this product
+															$query = "SELECT COUNT(*) AS total_reviews, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
+															$result = mysqli_query($conn, $query);
+
+															if ($result && mysqli_num_rows($result) > 0) {
+																$reviewData = mysqli_fetch_assoc($result);
+																$total_reviews = $reviewData['total_reviews'] ?? 0;
+																$avg_rating = round($reviewData['avg_rating'] ?? 0);
+															} else {
+																$total_reviews = 0;
+																$avg_rating = 0;
+															}
+															?>
+														
+														<!-- ⭐ Reviews Section -->
 														<div class="reviews">
 															<div class="star-content clearfix">
-																<?php for ($i = 0; $i < 5; $i++) : ?>
-																	<span class="star star-on"></span>
+																<?php for ($i = 0; $i < 5; $i++): ?>
+																	<?php if ($i < $avg_rating): ?>
+																		<span class="star star-on"></span>
+																	<?php else: ?>
+																		<span class="star"></span>
+																	<?php endif; ?>
 																<?php endfor; ?>
 															</div>
 															<div class="comment">
-																<span class="reviewcount">1</span> Review(s)
+																<span class="reviewcount"><?php echo $total_reviews; ?></span> Review(s)
 															</div>
 														</div>
 														<div class="price-box">
