@@ -41,8 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = "INSERT INTO signup (company_name, name, email, phone, address, gst, pan, website, password, account_type)
                     VALUES ('$company_name', '$name', '$email', '$phone', '$address', '$gst', '$pan', '$website', '$hashed_password', '$account_type')";
         }
-
+         
         if (mysqli_query($conn, $sql)) {
+
+            $user_id = mysqli_insert_id($conn);
+
+            // Initialize wallet for new user
+            include_once '../includes/coin_system.php';
+            $coinSystem = new CoinSystem($conn);
+            $coinSystem->initializeWallet($user_id, 50); // Give 50 welcome coins
             echo "<script>alert('✅ Signup Successful!'); window.location.href='login.php';</script>";
             exit;
         } else {
