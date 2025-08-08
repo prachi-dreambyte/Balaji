@@ -771,7 +771,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentValue = parseInt(input.value);
             
             if (currentValue < max) {
-                input.value = currentValue + 1;
+                input.value = currentValue ;
                 updateButtonStates(input);
             }
         });
@@ -783,7 +783,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentValue = parseInt(input.value);
             
             if (currentValue > 1) {
-                input.value = currentValue - 1;
+                input.value = currentValue;
                 updateButtonStates(input);
             }
         });

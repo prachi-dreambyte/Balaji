@@ -1,6 +1,31 @@
 <?php
 include 'connect.php';
 
+$category_name = 'CATEGORY';
+$category_link = '#';
+
+if (!empty($product['category_id'])) {
+    $cat_id = (int)$product['category_id'];
+
+    // Get category name from DB
+    $stmt = $conn->prepare("SELECT name FROM categories WHERE id = ? LIMIT 1");
+    $stmt->bind_param('i', $cat_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result && $row = $result->fetch_assoc()) {
+        $category_name = $row['name'];
+        $category_link = "shop.php?category_id=" . $cat_id; // adjust to your category page
+    }
+    $stmt->close();
+}
+// If product already contains category name (alternate schema)
+elseif (!empty($product) && !empty($product['category_name'])) {
+    $category_name = $product['category_name'];
+    if (!empty($product['category_id'])) {
+        $category_link = 'shop.php?category_id=' . (int)$product['category_id'];
+    }
+}
+
 $product = [
 	'product_name' => '',
 	'tag_number' => '',
@@ -48,8 +73,9 @@ if (isset($_GET['id'])) {
 		while ($rel = $rel_result->fetch_assoc()) {
 			$related_products[] = $rel;
 		}
-		$rel_stmt->close();
+		$rel_stmt->cl ose();
 	} else {
+		
 		// 2. If not found in products, check in `home_daily_deal` table
 		$stmt = $conn->prepare("SELECT * FROM home_daily_deal WHERE id = ?");
 		$stmt->bind_param("i", $product_id);
@@ -58,6 +84,7 @@ if (isset($_GET['id'])) {
 		$row = $result->fetch_assoc();
 
 		if ($row) {
+			echo "hello";
 			$product = $row;
 			$product_source = 'home_daily_deal';
 
@@ -270,22 +297,26 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 	<!-- header-end -->
 	<!-- product-details-area-start -->
 	<div class="shop-1-area">
-		<div class="container">
-			<div class="breadcrumb">
-				<a href="index.php" title="Return to Home">
-					<i class="icon-home"></i>
-				</a>
-				<span class="navigation-pipe">></span>
-				<span class="navigation-page">
-					<a href="#" title="CATEGORY ">
-						<span>CATEGORY </span>
-					</a>
-					<span class="navigation-pipe nav-pipe-2">></span>
-					Faded Short Sleeves T-shirt
-				</span>
-			</div>
+		<div class="container-fluid">
+	<div class="breadcrumb">
+    <a href="index.php" title="Return to Home">
+        <i class="icon-home"></i>
+    </a>
+    <span class="navigation-pipe">></span>
+    <span class="navigation-page">
+        <a href="<?php echo htmlspecialchars($category_link); ?>" 
+           title="<?php echo htmlspecialchars($product['category']); ?>">
+            <span><?php echo htmlspecialchars($product['category']); ?></span>
+        </a>
+        <span class="navigation-pipe nav-pipe-2">></span>
+        <?php echo htmlspecialchars($product['product_name'] ?? '---'); ?>
+    </span>
+</div>
+	</div>
+
+        <div class="container">
 			<div class="row">
-				<div class="col-md-5 col-sm-6 col-12">
+				<div class="col-md-5 col-sm-6 col-12 ">
 					<style>
 						.zoom-container {
 							width: 100%;
@@ -308,6 +339,148 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 							transition: background-size 0.3s ease;
 							cursor: zoom-in;
 						}
+                         /* General Page Styling */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Product Title */
+.shop-content h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+ /* background: linear-gradient(45deg, #ff7e5f, #feb47b); */
+    padding: 45px 30px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.breadcrumb a {
+      color:black;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb .navigation-pipe {
+    color: rgba(24, 18, 18, 0.8);
+    font-weight: 400;
+}
+
+
+.breadcrumb .navigation-page a span {
+        color: black;
+}
+
+.breadcrumb .navigation-page {
+    color: black;
+}
+
+.breadcrumb i.icon-home {
+    font-size: 20px;
+    margin-right: 4px;
+}
+
+/* Price Section */
+.content-price .price-new {
+    font-size: 22px;
+    font-weight: bold;
+    color: #e63946;
+}
+.content-price .old-price {
+    font-size: 16px;
+    margin-top: -8px;
+    display: block;
+}
+.reduction-percent {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Add to Cart Button */
+.cart-btn {
+    border-radius: 6px !important;
+    padding: 10px 18px !important;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(45deg, #ff4e50, #f9d423);
+    transition: all 0.3s ease;
+}
+.cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Wishlist Icon */
+.add-wishlist .fa-heart {
+    font-size: 20px;
+    color: #ff4e50;
+    transition: 0.3s;
+}
+.add-wishlist .fa-heart:hover {
+    transform: scale(1.2);
+    color: #e63946;
+}
+
+/* Product Images */
+.zoom-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Review Section */
+.review-block {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    margin-bottom: 15px;
+}
+.review-header {
+    font-size: 16px;
+}
+.review-rating span {
+    font-size: 18px;
+}
+
+/* Tabs */
+.feature-tab-area .tabs a {
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+.feature-tab-area .tabs a.active {
+    background: #007bff;
+    color: white;
+}
+
+/* Mobile Adjustments */
+@media screen and (max-width: 768px) {
+    .shop-content h1 {
+        font-size: 22px;
+    }
+    .cart-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
 					</style>
 
 					<script>
@@ -387,11 +560,12 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 
 				</div>
 				<div class="col-md-7 col-sm-6 col-12 shop-content">
+					<div class="abc">
 					<h1><?php echo $product['product_name'] !== '' ? htmlspecialchars($product['product_name']) : '---'; ?>
 					</h1>
-					<p class="reference"><label>Reference: </label>
+					<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
-					</p>
+					</p> -->
 					<p class="condition"><label>Condition: </label><span>New product</span></p>
 					<div class="content-price">
 						<?php $price = isset($product['price']) ? floatval($product['price']) : 0;
@@ -423,17 +597,29 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 										max="<?php echo $product['stock'] > 0 ? (int) $product['stock'] : 1; ?>"
 										<?php echo $product['stock'] <= 0 ? 'disabled' : ''; ?>>
 								</p>
-								<div class="shop-add-cart" style="margin-top:15px;">
-									<?php if ($product['stock'] <= 0): ?>
-										<button type="button" class="cart-btn disabled"><i
-												class="fa fa-times-circle"></i> Out of Stock</button>
-									<?php else: ?>
-										<a href="shopping-cart.php?action=add&id=<?php echo $product['id']; ?>&qty=1"
-											class="cart-btn" onclick="return addToCart(<?php echo $product['id']; ?>);">
-											<i class="fa fa-shopping-cart"></i> Add to Cart
-										</a>
-									<?php endif; ?>
-								</div>
+								
+								<div class="cart-wishlist-container">
+    <div class="shop-add-cart">
+        <?php if ($product['stock'] <= 0): ?>
+            <button type="button" class="cart-btn disabled"><i
+                    class="fa fa-times-circle"></i> Out of Stock</button>
+        <?php else: ?>
+            <a href="shopping-cart.php?action=add&id=<?php echo $product['id']; ?>&qty=1"
+                class="cart-btn" onclick="return addToCart(<?php echo $product['id']; ?>);">
+                <i class="fa fa-shopping-cart"></i> Add to Cart
+            </a>
+        <?php endif; ?>
+    </div>
+
+    <div class="wishlist-btn">
+        <a class="add-wish" href="wishlist.php?action=add&id=<?= $id ?>" title="Add to wishlist">
+            <i class="fa fa-heart" aria-hidden="true"></i>
+        </a>
+    </div>
+</div>
+
+
+
 							</div>
 						</div>
 					</form>
@@ -442,15 +628,11 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 					$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 					?>
 
-					<p class="add-wishlist">
-						<a class="add-wish" href="wishlist.php?action=add&id=<?= $id ?>" title="Add to wishlist">
-							<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
-						</a>
-					</p>
+					
 
 
 					<div class="size-color">
-						<fieldset class="size">
+						<!-- <fieldset class="size">
 							<label>Size </label>
 							<div class="selector">
 								<select id="group_1" class="form-control" name="group_1">
@@ -464,8 +646,8 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 									<?php } ?>
 								</select>
 							</div>
-						</fieldset>
-					</div>
+						</fieldset> -->
+					<!-- </div> -->
 					<p class="quantity-available"><span><?php echo htmlspecialchars($product['stock']); ?></span>
 						<span>Items</span>
 					</p>
@@ -483,9 +665,16 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 							<?php echo htmlspecialchars($product['weight']); ?></p><?php endif; ?>
 				</div>
 			</div>
+			</div>
 		</div>
 	</div>
 	<style>
+          
+		  .abc{
+			padding-left:10px !important;
+		  }
+		  
+
 		.cart-btn {
 			display: inline-flex;
 			align-items: center;
@@ -524,6 +713,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 				text-align: center;
 			}
 		}
+
 	</style>
 
 	<!-- product-details-area-end -->
@@ -555,6 +745,80 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 								</div>
 							</div>
 							<!-- Data Sheet Tab -->
+
+<style>
+                               
+							   
+.feature-tab-area .tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 20px;
+    gap: 8px;
+}
+
+/* Tab Links */
+.feature-tab-area .tabs li {
+    list-style: none;
+}
+
+.feature-tab-area .tabs a {
+    display: block;
+    padding: 20px 30px !important;
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+    background: #f8f9fa;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+	
+}
+
+.feature-tab-area .tabs a:hover {
+    background: #e9ecef;
+    color: #000;
+}
+
+/* Active Tab */
+.feature-tab-area .tabs a.active {
+    background: #ba4b51ff;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	padding:20px 30px; 
+	margin-bottom: 25px;
+}
+
+/* Tab Content Styling */
+.tab-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Table Styling in Data Sheet */
+.table-data-sheet {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table-data-sheet td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+.table-data-sheet tr:nth-child(odd) {
+    background: #f8f9fa;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+							</style>
 							<div role="tabpanel" class="tab-pane fade" id="datasheet">
 								<div class="tab-box">
 									<table class="table-data-sheet">
@@ -769,318 +1033,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 		</div>
 	</div>
 	<!-- product-details-accessories-start -->
-	<div class="accessories-area">
-		<div class="container">
-			<div class="row ">
-				<div class="col-md-12">
-					<div class="product-title">
-						<h2>
-							<span>accessories</span>
-						</h2>
-					</div>
-					<div class="owl-carousel-space">
-						<div class="row">
-							<div class="accessories">
-								<div class="accessories-carousel">
-									<!-- single-product start -->
-									<div class="col-md-12">
-										<div class="single-product">
-											<div class="product-img">
-												<a href="#">
-													<img src="img/tab-pro/printed-chiffon-dress.jpg" alt="" />
-												</a>
-												<span class="new">new</span>
-												<span class="sale">sale!</span>
-												<div class="product-action">
-													<div class="add-to-links">
-														<ul>
-															<li>
-																<a href="#" title="Add to cart">
-																	<i class="fa fa-shopping-cart"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to wishlist">
-																	<i class="fa fa-heart" aria-hidden="true"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to compare">
-																	<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																</a>
-															</li>
-														</ul>
-														<div class="quick-view">
-															<a href="#" data-bs-toggle="modal" data-target="#myModal"
-																title="Quick view">
-																<span>Quick view</span>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-content">
-												<h5 class="product-name">
-													<a href="#" title="Printed Chiffon Dress">Printed Chiffon Dress</a>
-												</h5>
-												<div class="reviews">
-													<div class="star-content clearfix">
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-													</div>
-													<div class="comment">
-														<span class="reviewcount">1</span>
-														Review(s)
-													</div>
-												</div>
-												<div class="price-box">
-													<span class="price"> £ 19.68 </span>
-													<span class="old-price"> £ 24.60 </span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="single-product">
-											<div class="product-img">
-												<a href="#">
-													<img src="img/tab-pro/lamp.jpg" alt="" />
-												</a>
-												<span class="new">new</span>
-												<div class="product-action">
-													<div class="add-to-links">
-														<ul>
-															<li>
-																<a href="#" title="Add to cart">
-																	<i class="fa fa-shopping-cart"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to wishlist">
-																	<i class="fa fa-heart" aria-hidden="true"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to compare">
-																	<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																</a>
-															</li>
-														</ul>
-														<div class="quick-view">
-															<a href="#" data-bs-toggle="modal" data-target="#myModal"
-																title="Quick view">
-																<span>Quick view</span>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-content">
-												<h5 class="product-name">
-													<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-												</h5>
-												<div class="reviews">
-													<div class="star-content clearfix">
-														<span class="star"></span>
-														<span class="star"></span>
-														<span class="star"></span>
-														<span class="star"></span>
-														<span class="star"></span>
-													</div>
-												</div>
-												<div class="price-box">
-													<span class="price"> £ 36.60 </span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="single-product">
-											<div class="product-img">
-												<a href="#">
-													<img src="img/tab-pro/printed-summer-dress.jpg" alt="" />
-												</a>
-												<span class="new">new</span>
-												<span class="sale">sale!</span>
-												<div class="product-action">
-													<div class="add-to-links">
-														<ul>
-															<li>
-																<a href="#" title="Add to cart">
-																	<i class="fa fa-shopping-cart"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to wishlist">
-																	<i class="fa fa-heart" aria-hidden="true"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to compare">
-																	<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																</a>
-															</li>
-														</ul>
-														<div class="quick-view">
-															<a href="#" data-bs-toggle="modal" data-target="#myModal"
-																title="Quick view">
-																<span>Quick view</span>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-content">
-												<h5 class="product-name">
-													<a href="#" title="Printed Summer Dress">Printed Summer Dress</a>
-												</h5>
-												<div class="reviews">
-													<div class="star-content clearfix">
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-													</div>
-													<div class="comment">
-														<span class="reviewcount">1</span>
-														Review(s)
-													</div>
-												</div>
-												<div class="price-box">
-													<span class="price"> £ 34.78 </span>
-													<span class="old-price"> £ 36.61 </span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="single-product">
-											<div class="product-img">
-												<a href="#">
-													<img src="img/tab-pro/printed-dress.jpg" alt="" />
-												</a>
-												<span class="new">new</span>
-												<div class="product-action">
-													<div class="add-to-links">
-														<ul>
-															<li>
-																<a href="#" title="Add to cart">
-																	<i class="fa fa-shopping-cart"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to wishlist">
-																	<i class="fa fa-heart" aria-hidden="true"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to compare">
-																	<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																</a>
-															</li>
-														</ul>
-														<div class="quick-view">
-															<a href="#" title="Quick view" data-bs-toggle="modal"
-																data-target="#myModal">
-																<span>Quick view</span>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-content">
-												<h5 class="product-name">
-													<a href="#" title="Printed Dress">Printed Dress</a>
-												</h5>
-												<div class="reviews">
-													<div class="star-content clearfix">
-														<span class="star"></span>
-														<span class="star"></span>
-														<span class="star"></span>
-														<span class="star"></span>
-														<span class="star"></span>
-													</div>
-												</div>
-												<div class="price-box">
-													<span class="price"> £ 55.07 </span>
-													<span class="old-price"> £ 61.19 </span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="single-product">
-											<div class="product-img">
-												<a href="#">
-													<img src="img/tab-pro/cup.jpg" alt="" />
-												</a>
-												<span class="new">new</span>
-												<span class="sale">sale</span>
-												<div class="product-action">
-													<div class="add-to-links">
-														<ul>
-															<li>
-																<a href="#" title="Add to cart">
-																	<i class="fa fa-shopping-cart"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to wishlist">
-																	<i class="fa fa-heart" aria-hidden="true"></i>
-																</a>
-															</li>
-															<li>
-																<a href="#" title="Add to compare">
-																	<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																</a>
-															</li>
-														</ul>
-														<div class="quick-view">
-															<a href="#" title="Quick view" data-bs-toggle="modal"
-																data-target="#myModal">
-																<span>Quick view</span>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="product-content">
-												<h5 class="product-name">
-													<a href="#" title="Printed Dress">Printed Dress</a>
-												</h5>
-												<div class="reviews">
-													<div class="star-content clearfix">
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-														<span class="star star-on"></span>
-													</div>
-													<div class="comment">
-														<span class="reviewcount">1</span>
-														Review(s)
-													</div>
-												</div>
-												<div class="price-box">
-													<span class="price"> £ 28.08 </span>
-													<span class="old-price"> £ 31.20 </span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- product-details-accessories-end -->
+		<!-- product-details-accessories-end -->
 	<!-- product-details-other-product-start -->
 	<div class="other-product-area">
 		<div class="container">
@@ -1092,9 +1045,9 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 						</h2>
 					</div>
 					<div class="owl-carousel-space">
-						<div class="row">
-							<!-- <div class="accessories">
-								<div class="accessories-carousel owl-carousel owl-theme">
+						<div class="row"> 
+							<div class="accessories">
+							<div class="accessories-carousel owl-carousel owl-theme">
 									<?php if (!empty($related_products)): ?>
 										<?php foreach ($related_products as $rel):
 											$rel_images = json_decode($rel['images'], true);
@@ -1112,9 +1065,9 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 															<img src="<?php echo $rel_img; ?>"
 																alt="<?php echo htmlspecialchars($rel['product_name']); ?>" />
 														</a>
-														<?php if ($rel_discount > 0): ?>
+														<!-- <?php if ($rel_discount > 0): ?>
 															<span class="badge-sale">Sale</span>
-														<?php endif; ?>
+														<?php endif; ?> -->
 													</div>
 													<div class="product-content">
 														<h5 class="product-name">
@@ -1141,7 +1094,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 										</div>
 									<?php endif; ?>
 								</div>
-							</div> -->
+							</div>
 						</div>
 					</div>
 				</div>
@@ -1218,7 +1171,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="row">
-					<div class="col-md-5 col-sm-5 col-xs-6">
+					<div class="col-md-5 col-sm-5 col-xs-6 ">
 						<div class="modal-pic" title="Printed Chiffon Dress">
 							<a href="#">
 								<img src="img/modal/printed-chiffon-dress.jpg" alt="" />

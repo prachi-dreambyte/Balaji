@@ -2510,9 +2510,9 @@ brand-area
 .add-wish {
   background-color: transparent;
   border-color: transparent;
-  color: #7d7d7d;
+  color: #db4848;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 30px;
   font-weight: normal;
   margin: auto;
   outline: 0 none;
