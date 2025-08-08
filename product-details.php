@@ -536,7 +536,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 				<div class="col-lg-12">
 					<div class="feature-tab-area">
 						<!-- Nav tabs -->
-						<ul class="tabs nav mb-4" role="tablist">
+						<ul class="tabs nav mb-4" role="tablist" style="color: #000; text-align: center;">
 							<li><a class="active" href="#moreinfo" aria-controls="moreinfo" role="tab"
 									data-bs-toggle="tab">more info</a></li>
 							<li><a href="#datasheet" aria-controls="datasheet" role="tab" data-bs-toggle="tab">data
@@ -1093,7 +1093,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 					</div>
 					<div class="owl-carousel-space">
 						<div class="row">
-							<div class="accessories">
+							<!-- <div class="accessories">
 								<div class="accessories-carousel owl-carousel owl-theme">
 									<?php if (!empty($related_products)): ?>
 										<?php foreach ($related_products as $rel):
@@ -1141,7 +1141,7 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 										</div>
 									<?php endif; ?>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>

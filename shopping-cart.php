@@ -20,8 +20,10 @@ $sessionHandler->handleSessionTimeout();
 
 // Check login
 if (!isset($_SESSION['user_id'])) {
-	die("");
+	header("Location: loginSignUp/login.php");
+	exit;
 }
+
 $user_id = (int)$_SESSION['user_id'];
 
 // Handle Add to Cart
