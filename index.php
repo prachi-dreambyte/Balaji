@@ -365,70 +365,75 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         </div>
         <!--=====special-look-end=====-->
         <!--=====daily-deals-start=====-->
-        <div class="home-4-daily-deals-area py-5">
-            <div class="container">
-                <div class="product-title text-center mb-4" id="deals">
-                    <h2><span>Daily Deals</span></h2>
-                </div>
-                <div class="daily-deal">
-                    <div class="daily-deal-carousel owl-carousel owl-theme">
-                        <?php
+       <div class="home-4-daily-deals-area py-5">
+    <div class="container">
+        <div class="product-title text-center mb-4" id="deals">
+            <h2><span>Daily Deals</span></h2>
+        </div>
+        <div class="daily-deal">
+           <div class="owl-carousel-space">
+    <div class="row">
+        <div class="daily-deal">
+            <div class="daily-deal-carousel owl-carousel owl-theme">
+                <?php
+                                $sql = "SELECT * FROM home_daily_deal ORDER BY id DESC LIMIT 10";
+                                $result = $conn->query($sql);
 
-                        $sql = "SELECT * FROM home_daily_deal WHERE deal_end > NOW() ORDER BY id DESC LIMIT 10";
-
-                        $result = $conn->query($sql);
-
-                        while ($row = $result->fetch_assoc()):
-                            $id = (int) $row['id'];
-                            $images = json_decode($row['images'], true);
-                            $firstt = !empty($images[0]) ? $images[0] : 'default-image.jpg'; // fallback
-                            $product_name = htmlspecialchars($row['product_name']);
-                            $price = number_format((float) $row['price'], 2);
-                            $old_price = number_format((float) $row['old_price'], 2);
-                            $deal_end = !empty($row['deal_end']) ? date("Y/m/d H:i:s", strtotime($row['deal_end'])) : '';
-                        ?>
-                            <div class="single-product px-2">
-                                <div class="daily-products border rounded shadow-sm p-3 h-100 d-flex flex-column">
-                                    <div class="product-img mb-3 text-center">
-                                        <a href="product-details.php?id=<?= $id ?>">
-                                            <img src="./admin/<?= htmlspecialchars($firstt) ?>"
-                                                alt="<?= $product_name ?>"
-                                                style="max-height: 200px; width: auto; object-fit: contain;"
-                                                class="img-fluid" />
-                                        </a>
-                                    </div>
-                                    <div class="daily-content text-center flex-grow-1 d-flex flex-column justify-content-between">
-                                        <h5 class="product-name mb-2">
-                                            <a href="product-details.php?id=<?= $id ?>"><?= $product_name ?></a>
-                                        </h5>
-                                        <div class="reviews mb-2">
-                                            <div class="star-content clearfix">
-                                                <span class="star star-on"></span>
-                                                <span class="star star-on"></span>
-                                                <span class="star star-on"></span>
-                                                <span class="star star-on"></span>
-                                                <span class="star star-on"></span>
+                                while ($row = $result->fetch_assoc()):
+                                    $id = (int) $row['id'];
+                                    $images = json_decode($row['images'], true);
+                                    $firstt = !empty($images[0]) ? $images[0] : 'default-image.jpg';
+                                    $product_name = htmlspecialchars($row['product_name']);
+                                    $price = number_format((float) $row['price'], 2);
+                                    $old_price = number_format((float) $row['old_price'], 2);
+                                    $deal_end = !empty($row['deal_end']) ? date("Y/m/d H:i:s", strtotime($row['deal_end'])) : '';
+                                    ?>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="single-product">
+                                            <div class="daily-products">
+                                                <div class="product-img text-center" style="height: auto;">
+                                                    <a href="product-details.php?id=<?= $id ?>">
+                                                        <img src="./admin/<?= htmlspecialchars($firstt) ?>"
+                                                            alt="<?= $product_name ?>" class="img-fluid" />
+                                                    </a>
+                                                    <span class="new">new</span>
+                                                </div>
+                                                <div class="daily-content text-center">
+                                                    <h5 class="product-name">
+                                                        <a href="product-details.php?id=<?= $id ?>"
+                                                            title="<?= $product_name ?>">
+                                                            <?= $product_name ?>
+                                                        </a>
+                                                    </h5>
+                                                    <div class="reviews">
+                                                        <div class="star-content clearfix">
+                                                            <span class="star star-on"></span>
+                                                            <span class="star star-on"></span>
+                                                            <span class="star star-on"></span>
+                                                            <span class="star star-on"></span>
+                                                            <span class="star star-on"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="price-box">
+                                                        <span class="price text-success fw-bold">₹ <?= $price ?> </span><br>
+                                                        <span class="old-price text-muted text-decoration-line-through">₹
+                                                            <?= $old_price ?> </span>
+                                                    </div>
+                                                </div>
+                                                <?php if ($deal_end): ?>
+                                                    <div class="upcoming text-center mt-2" style="margin-top: 0px!important;">
+                                                        <span class="is-countdown"></span>
+                                                        <div data-countdown="<?= $deal_end ?>"></div>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
-                                        <div class="price-box mb-3">
-                                            <span class="price text-success fw-bold">₹ <?= $price ?></span>
-                                            <br>
-                                            <span class="old-price text-muted text-decoration-line-through">₹ <?= $old_price ?></span>
-                                        </div>
                                     </div>
-                                    <?php if ($deal_end): ?>
-                                        <div class="upcoming text-center mt-3">
-                                            <span class="is-countdown"></span>
-                                            <div data-countdown="<?= $deal_end ?>"></div>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
+                                <?php endwhile; ?>
                             </div>
-                        <?php endwhile; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
         <!--=====daily-deals-end=====-->
         <!--=====product-tab-start=====-->
         <div class="home-4-product-tab">
@@ -466,16 +471,37 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                         <span class="badge-new">New</span>
                                                     </div>
                                                     <div class="product-content">
-                                                        <h5 class="product-name">
-                                                            <a href="product-details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['product_name']) ?></a>
+    <h5 class="product-name">
+        <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                <?= htmlspecialchars($product['product_name']) ?>
+                                                            </a>
                                                         </h5>
+                                                    <?php
+                                                        $product_id = $product['id']; // Use correct ID field
+                                                    
+                                                        // Fetch average rating and total reviews
+                                                        $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
+                                                        $result = mysqli_query($conn, $query);
+
+                                                        if ($result && mysqli_num_rows($result) > 0) {
+                                                            $reviewData = mysqli_fetch_assoc($result);
+                                                            $product['review_count'] = $reviewData['review_count'] ?? 0;
+                                                            $product['rating'] = round($reviewData['avg_rating'] ?? 0);
+                                                        } else {
+                                                            $product['review_count'] = 0;
+                                                            $product['rating'] = 0;
+                                                        }
+                                                        ?>
+
                                                         <div class="product-rating">
-                                                            <?= str_repeat('★', $product['rating'] ?? 0) ?>
-                                                            <?= str_repeat('☆', 5 - ($product['rating'] ?? 0)) ?>
-                                                            <?php if (($product['review_count'] ?? 0) > 0): ?>
+                                                            <?= str_repeat('★', $product['rating']) ?>
+                                                            <?= str_repeat('☆', 5 - $product['rating']) ?>
+                                                    
+                                                            <?php if ($product['review_count'] > 0): ?>
                                                                 <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
                                                             <?php endif; ?>
                                                         </div>
+                                                    
                                                         <div class="price-box">
                                                             <span class="price">₹<?= number_format($product['price'], 2) ?></span>
                                                             <?php if ($product['discount'] > 0): ?>
@@ -483,6 +509,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                             <?php endif; ?>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         <?php endforeach; ?>
@@ -509,14 +536,39 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                         <h5 class="product-name">
                                                             <a href="product-details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['product_name']) ?></a>
                                                         </h5>
-                                                        <div class="product-rating">
-                                                            <?= str_repeat('★', $product['rating'] ?? 0) ?>
-                                                            <?= str_repeat('☆', 5 - ($product['rating'] ?? 0)) ?>
-                                                        </div>
-                                                        <div class="price-box">
-                                                            <span class="price">₹<?= number_format($product['price'], 2) ?></span>
+                                                    <?php
+                                                        $product_id = $product['id']; // Use correct ID field
+                                                    
+                                                        // Fetch average rating and total reviews
+                                                        $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
+                                                        $result = mysqli_query($conn, $query);
+
+                                                        if ($result && mysqli_num_rows($result) > 0) {
+                                                            $reviewData = mysqli_fetch_assoc($result);
+                                                            $product['review_count'] = $reviewData['review_count'] ?? 0;
+                                                            $product['rating'] = round($reviewData['avg_rating'] ?? 0);
+                                                        } else {
+                                                            $product['review_count'] = 0;
+                                                            $product['rating'] = 0;
+                                                        }
+                                                        ?>
+                                                    
+                                                    <div class="product-rating">
+                                                        <?= str_repeat('★', $product['rating']) ?>
+                                                        <?= str_repeat('☆', 5 - $product['rating']) ?>
+                                                    
+                                                        <?php if ($product['review_count'] > 0): ?>
+                                                            <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    
+                                                    <div class="price-box">
+                                                        <span class="price">₹<?= number_format($product['price'], 2) ?></span>
+                                                        <?php if ($product['discount'] > 0): ?>
                                                             <span class="old-price">₹<?= number_format($product['price'] + $product['discount'], 2) ?></span>
-                                                        </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
