@@ -138,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </div>
                                 <div class="LoginAccount">
                                   <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
-                                     <p><a href="forgot-password.php">Forgot Password?</a></p>
+                                     <p><a href="forget-password.php">Forget Password?</a></p>
                                  </div>
 
                         </form>
@@ -159,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             </div>
                             <div class="LoginAccount">
                               <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
-                                <p><a href="forgot-password.php">Forgot Password?</a></p>
+                                <p><a href="forget-password.php">Forget Password?</a></p>
                               </div>
 
                         </form>

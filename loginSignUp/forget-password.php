@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Forgot Password</title>
+    <title>Forget Password</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
     body {
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <div class="col-md-6 col-lg-5 mx-auto">
             <div class="card">
-                <h2 class="text-center">Forgot Password</h2>
+                <h2 class="text-center">Forget Password</h2>
                 <p class="text-center text-muted">Enter your email and we'll send you a reset link.</p>
                 
                 <?= $message ?>
