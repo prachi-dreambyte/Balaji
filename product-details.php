@@ -73,7 +73,7 @@ if (isset($_GET['id'])) {
 		while ($rel = $rel_result->fetch_assoc()) {
 			$related_products[] = $rel;
 		}
-		$rel_stmt->cl ose();
+		$rel_stmt->close();
 	} else {
 		
 		// 2. If not found in products, check in `home_daily_deal` table
@@ -84,7 +84,7 @@ if (isset($_GET['id'])) {
 		$row = $result->fetch_assoc();
 
 		if ($row) {
-			echo "hello";
+			
 			$product = $row;
 			$product_source = 'home_daily_deal';
 
