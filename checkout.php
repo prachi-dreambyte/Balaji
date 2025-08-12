@@ -278,207 +278,157 @@ try {
     </div>
 
     <!-- checkout-area start -->
-    <div class="checkout-area">
-        <div class="container">
-            <form  method="POST" id="checkout-form">
-                <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="checkbox-form">
+   <div class="checkout-area py-5">
+    <div class="container">
+        <form method="POST" id="checkout-form">
+            <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+            <div class="row">
+                <!-- Billing Details -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fa fa-map-marker"></i> 1. Billing Details</h4>
+                        </div>
+                        <div class="card-body">
                             <?php if (!empty($error)): ?>
                                 <div class="alert alert-danger"><?php echo $error; ?></div>
                             <?php endif; ?>
-                            
-                            <h3>Billing Details</h3>
-                            
+
                             <?php if (!empty($addresses)): ?>
-                                <div class="row mb-4">
-                                    <div class="col-12">
-                                        <h4>Select a Saved Address:</h4>
-                                    </div>
+                                <h5 class="mb-3">Select a Saved Address:</h5>
+                                <div class="row">
                                     <?php foreach ($addresses as $address): ?>
-                                        <div class="col-md-6">
-                                            <div class="card address-card" onclick="selectAddress(this, <?php echo htmlspecialchars(json_encode($address)); ?>)">
-                                                <div class="card-body">
-                                                    <input type="radio" name="selected_address_id" value="<?php echo $address['id']; ?>" class="address-radio" hidden>
-                                                    <p>
-                                                        <?php echo htmlspecialchars($address['address_line']); ?><br>
-                                                        <?php echo htmlspecialchars($address['city']); ?>,
-                                                        <?php echo htmlspecialchars($address['state']); ?> -
-                                                        <?php echo htmlspecialchars($address['zipcode']); ?><br>
-                                                        <strong>Phone:</strong> <?php echo htmlspecialchars($address['contact_no']); ?>
-                                                    </p>
-                                                </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="address-card p-3 h-100" onclick="selectAddress(this, <?php echo htmlspecialchars(json_encode($address)); ?>)">
+                                                <input type="radio" name="selected_address_id" value="<?php echo $address['id']; ?>" hidden>
+                                                <p class="mb-1"><strong><?php echo htmlspecialchars($address['address_line']); ?></strong></p>
+                                                <p class="mb-1"><?php echo htmlspecialchars($address['city']); ?>, <?php echo htmlspecialchars($address['state']); ?> - <?php echo htmlspecialchars($address['zipcode']); ?></p>
+                                                <small class="text-muted">Phone: <?php echo htmlspecialchars($address['contact_no']); ?></small>
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
                             <?php endif; ?>
-                            
-                            <div class="different-address">
-                                <div class="ship-different-title">
-                                    <h3>
-                                        <label>Ship to a different address?</label>
-                                        <input id="ship-box" type="checkbox" onclick="toggleNewAddress()" />
-                                    </h3>
-                                </div>
-                                <div id="new-address-fields" class="row hidden">
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <label>Address Line <span class="required">*</span></label>
-                                            <input type="text" name="address_line" placeholder="Street address" required />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <label>Town / City <span class="required">*</span></label>
-                                            <input type="text" name="city" placeholder="Town / City" required />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>State <span class="required">*</span></label>
-                                            <input type="text" name="state" placeholder="State" required />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Postcode / Zip <span class="required">*</span></label>
-                                            <input type="text" name="zipcode" placeholder="Postcode / Zip" required />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Phone <span class="required">*</span></label>
-                                            <input type="text" name="contact_no" placeholder="Phone number" required />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="order-notes">
-                                    <div class="checkout-form-list">
-                                        <label>Order Notes</label>
-                                        <textarea name="order_notes" cols="30" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-6 col-md-6">
-                        <div class="your-order">
-                            <h3>Your order</h3>
-                            <div class="your-order-table table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="product-name">Product</th>
-                                            <th class="product-total">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if (!empty($cart_items)): ?>
-                                            <?php foreach ($cart_itemss as $item): ?>
-                                                <tr class="cart_item">
-                                                    <td class="product-name">
-                                                        <img src="admin/<?= htmlspecialchars($item['image']) ?>"
-                                                            alt="<?= htmlspecialchars($item['name']) ?>"
-                                                            style="width: 60px; height: auto; margin-right: 10px;">
-                                                        <?= htmlspecialchars($item['name']) ?>
-                                                        <strong class="product-quantity"> × <?= intval($item['quantity']) ?></strong>
-                                                    </td>
-                                                    <td class="product-total">
-                                                        <span class="amount">₹<?= number_format(floatval($item['subtotal']), 2) ?></span>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <tr>
-                                                <td colspan="2">No items in cart</td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr class="order-total">
-                                            <th>Order Total</th>
-                                            <td><strong><span class="amount">₹<?= number_format($order_total, 2) ?></span></strong></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" id="ship-box" onclick="toggleNewAddress()">
+                                <label class="form-check-label" for="ship-box">
+                                    Ship to a different address?
+                                </label>
                             </div>
-                            <div class="payment-method">
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingOne">
-                                            <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    Direct Bank Transfer
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                            <div class="panel-body">
-                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
-                                                <div class="radio">
-                                                    <label>
-                                                        <input type="radio" name="payment_method" value="bank_transfer" checked>
-                                                        Bank Transfer
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                            <div id="new-address-fields" class="hidden mt-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Address Line</label>
+                                    <input type="text" name="address_line" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">City</label>
+                                    <input type="text" name="city" class="form-control">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">State</label>
+                                        <input type="text" name="state" class="form-control">
                                     </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingTwo">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                    Cash On Delivery
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                            <div class="panel-body">
-                                                <p>Pay with cash when your order is delivered.</p>
-                                                <div class="radio">
-                                                    <label>
-                                                        <input type="radio" name="payment_method" value="cod">
-                                                        Cash On Delivery
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingThree">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                    PayPal
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                            <div class="panel-body">
-                                                <p>Pay via PayPal; you can pay with your credit card if you don't have a PayPal account.</p>
-                                                <div class="radio">
-                                                    <label>
-                                                        <input type="radio" name="razor_pay" value="razor_pay">
-                                                        Razor Pay
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Zipcode</label>
+                                        <input type="text" name="zipcode" class="form-control">
                                     </div>
                                 </div>
-                                <div class="order-button-payment">
-                                    <input type="submit" name="place_order" value="Place order" class="btn btn-primary" />
+                                <div class="mb-3">
+                                    <label class="form-label">Phone</label>
+                                    <input type="text" name="contact_no" class="form-control">
                                 </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Order Notes</label>
+                                <textarea name="order_notes" class="form-control" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+
+                <!-- Order Summary -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0"><i class="fa fa-shopping-cart"></i> 2. Your Order</h4>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-striped mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($cart_itemss as $item): ?>
+                                        <tr>
+                                            <td>
+                                                <img src="admin/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="me-2" style="width:50px;">
+                                                <?= htmlspecialchars($item['name']) ?> × <?= intval($item['quantity']) ?>
+                                            </td>
+                                            <td>₹<?= number_format($item['subtotal'], 2) ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Order Total</th>
+                                        <th>₹<?= number_format($order_total, 2) ?></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Payment -->
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-warning">
+                            <h4 class="mb-0"><i class="fa fa-credit-card"></i> 3. Payment Method</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="payment_method" value="bank_transfer" checked>
+                                <label class="form-check-label">Direct Bank Transfer</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="payment_method" value="cod">
+                                <label class="form-check-label">Cash On Delivery</label>
+                            </div>
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="radio" name="payment_method" value="razorpay">
+                                <label class="form-check-label">Razorpay</label>
+                            </div>
+                            <button type="submit" name="place_order" class="btn btn-lg btn-primary w-100">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
+
+<style>
+.address-card {
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+.address-card:hover {
+    border-color: #007bff;
+    background: #f8f9fa;
+}
+.address-card.selected {
+    border-color: #007bff;
+    background: #e7f1ff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+.hidden { display: none; }
+</style> 
     <!-- checkout-area end -->
 
     <!-- ... (keep existing footer and scripts) ... -->
