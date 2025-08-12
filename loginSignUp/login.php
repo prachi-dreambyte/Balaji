@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         mysqli_stmt_bind_param($stmt, "ss", $email, $account_type);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-       echo 'hello';
+       
         if ($result && mysqli_num_rows($result) === 1) {
             $user = mysqli_fetch_assoc($result);
            

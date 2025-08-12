@@ -6,9 +6,9 @@ include '../connect.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../phpmailer/src/Exception.php';
-require '../phpmailer/src/PHPMailer.php';
-require '../phpmailer/src/SMTP.php';
+require '../PHPMailer/src/Exception.php';
+require '../PHPMailer/src/PHPMailer.php';
+require '../PHPMailer/src/SMTP.php';
 
 $message = '';
 
@@ -33,82 +33,116 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $resetLink = "http://localhost/vonia/loginSignUp/reset-password.php?token=" . $token;
 
-            // Send email using PHPMailer
+            // Send email
             $mail = new PHPMailer(true);
 
             try {
-                //Server settings
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'yourgmail@gmail.com'; // Your Gmail address
-                $mail->Password   = 'your_app_password';   // App Password (not your Gmail password)
+                $mail->Username   = 'princeraj908071@gmail.com';
+                $mail->Password   = 'avvl pbpq rsnb naxg';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
-                //Recipients
                 $mail->setFrom('yourgmail@gmail.com', 'Vonia Support');
                 $mail->addAddress($email);
 
-                // Content
                 $mail->isHTML(true);
                 $mail->Subject = 'Reset your Vonia Password';
                 $mail->Body    = "Click this link to reset your password:<br><a href='$resetLink'>$resetLink</a>";
 
                 $mail->send();
-                $message = "✅ A reset link has been sent to your email.";
+                $message = "<div class='alert alert-success'>✅ A reset link has been sent to your email.</div>";
             } catch (Exception $e) {
-                $message = "❌ Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                $message = "<div class='alert alert-danger'>❌ Mailer Error: {$mail->ErrorInfo}</div>";
             }
-
         } else {
-            $message = "❌ Email not found.";
+            $message = "<div class='alert alert-danger'>❌ Email not found.</div>";
         }
     } else {
-        $message = "❌ Please enter your email.";
+        $message = "<div class='alert alert-warning'>❌ Please enter your email.</div>";
     }
 }
 ?>
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Forgot Password</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        body {
-            padding: 40px;
-            background: #f7f7f7;
-        }
-        .form-container {
-            background: #fff;
-            padding: 30px;
-            max-width: 500px;
-            margin: auto;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        a { color: #007bff; }
-    </style>
+    body {
+        background: 
+            radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1), transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(0,0,0,0.2), transparent 50%),
+            linear-gradient(135deg, #ff9a9e 0%, #fad0c4 25%, #fad0c4 25%, #a18cd1 50%, #fbc2eb 75%, #8fd3f4 100%);
+        background-size: cover;
+        background-attachment: fixed;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        padding: 25px;
+        background: #fff;
+        transition: transform 0.2s ease-in-out;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card h2 {
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    .form-control {
+        height: 48px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+    .btn-custom {
+        height: 48px;
+        font-size: 16px;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        transition: background 0.3s ease;
+    }
+    .btn-custom:hover {
+        background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    }
+</style>
+
 </head>
 <body>
-    <div class="form-container">
-        <h2>Forgot Password</h2>
-        <?php if (!empty($message)) : ?>
-            <p style="color:<?= strpos($message, '✅') !== false ? 'green' : 'red'; ?>">
+    <div class="container">
+        <div class="col-md-6 col-lg-5 mx-auto">
+            <div class="card">
+                <h2 class="text-center">Forgot Password</h2>
+                <p class="text-center text-muted">Enter your email and we'll send you a reset link.</p>
+                
                 <?= $message ?>
-            </p>
-        <?php endif; ?>
-        <form method="POST">
-            <div class="form-group">
-                <label>Enter your email:</label>
-                <input type="email" name="email" class="form-control" required>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-custom w-100 text-white">Send Reset Link</button>
+                </form>
+                <div class="text-center mt-3">
+                    <a href="login.php" class="text-decoration-none">🔙 Back to Login</a>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Send Reset Link</button>
-        </form>
-        <br>
-        <a href="login.php">🔙 Back to Login</a>
+        </div>
     </div>
 </body>
 </html>
-

@@ -160,6 +160,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
                 <input type="submit" name="submit" value="Signup">
             </div>
+
+            <div class="form-group text-center" style="margin-top: 15px;">
+    <a href="login.php" style="color: #2575fc; font-weight: bold; text-decoration: none;">
+        ← Back to Login
+    </a>
+</div>
                     </form>
 
         <!-- Commercial Signup Form -->
@@ -220,6 +226,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
                 <input type="submit" name="submit" value="Signup">
             </div>
+              
+            <div class="form-group text-center" style="margin-top: 15px;">
+    <a href="login.php" style="color: #2575fc; font-weight: bold; text-decoration: none;">
+        ← Back to Login
+    </a>
+</div>
+
                     </form>
                 </div>
 </div>
