@@ -1,5 +1,15 @@
 <style>
-    
+    .Account-body{
+            /* border: 1px solid; */
+    padding: 15px 30px;
+    margin-bottom: 20px;
+    box-shadow: 2px 5px 22px #e9ecef
+    }
+    .account-para{
+        font-size: 18px;
+    color: #555;;
+    font-weight: 400;
+    }
 </style>
 <?php
 session_start();
@@ -241,7 +251,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
         .account-content .section-header {
             font-size: 32px;
             /* Larger heading */
-            color: #2c3e50;
+            color: black;
             margin-bottom: 35px;
             /* More space below header */
             padding-bottom: 15px;
@@ -915,10 +925,16 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
 
                 <div id="support" class="content-section">
+
                     <h3 class="section-header">How Can We Help You?</h3>
-                    <p>If you need help, please don't hesitate to reach out to our support team.</p>
-                    <p>You can contact us directly at <strong>support@voniafurniture.com</strong>.</p>
-                    <p>We aim to respond to all inquiries within 24-48 hours.</p>
+                    <div class="Account-body">
+                    <h3>Conatct Us:</h3>
+                     <p class="mb-1 account-para">+91-8979892185</p></div>
+                     <div class="Account-body">
+                     <h3>Address:</Address></h1>
+                     <p class="mb-1 account-para">Jay Shri Balaji Foam & Furniture, Opp. Mall Of Dehradun, Near Miyawala Underpass, Haridwar Road, Dehradun, Uttarakhand-248005</p></div>
+                     <div class="Account-body">
+                     <h3>Email:</h3><p class="mb-1 account-para">Balajidecor@gmail.com</p></div>
                 </div>
             </div>
         </div>
