@@ -281,8 +281,20 @@ if (isset($_POST['apply_coupon'])) {
 	<link rel="stylesheet" href="style.css">
 
 	<style>
-
-       
+		.shoppingHead{
+			font-size:30px;
+			font-weight:350;
+			color: #fff;
+		}
+		.shoppingTr{
+              font-size: 18px;
+    color: #363636 !important;
+    padding: 20px 10px !important;
+	font-weight:350;
+}  
+.couponShopping{
+	padding: 20px 10px !important;
+}     
 /* Improved Quantity Controls */
 .quantity-control {
     display: flex;
@@ -380,7 +392,7 @@ if (isset($_POST['apply_coupon'])) {
 			border-radius: 12px !important;
 		}
 		.card .card-header.bg-primary {
-			background: linear-gradient(90deg, #d7bbf4ff, #e08debff) !important;
+			background: #c06b81 !important;
 			color: #fff;
 			border-bottom: none;
 			border-top-left-radius: 12px;
@@ -466,8 +478,8 @@ if (isset($_POST['apply_coupon'])) {
 	<?php include 'header.php'; ?>
 
 	<!-- Breadcrumb -->
-	<div class="breadcrumb-area">
-	    <div class="container">
+	<!-- <div class="breadcrumb-area">
+	    <div class="container-fluid">
 	        <nav aria-label="breadcrumb">
 	            <ol class="breadcrumb mb-0">
 	                <li class="breadcrumb-item"><a href="index.php" class="text-decoration-none"><i class="fas fa-home me-1"></i> Home</a></li>
@@ -475,11 +487,11 @@ if (isset($_POST['apply_coupon'])) {
 	            </ol>
 	        </nav>
 	    </div>
-	</div>
+	</div> -->
 
 	<!-- Main content -->
-	<div class="cart-main-area py-5">
-	    <div class="container">
+	<div class="cart-main-area py-5 px-5">
+	    <div class="container-fluid">
 	        <div class="row g-4">
 	            <!-- Cart Items -->
 	            <div class="col-lg-8">
@@ -487,8 +499,8 @@ if (isset($_POST['apply_coupon'])) {
 	                    <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
 	                        <div class="card-header bg-primary bg-gradient text-white p-3">
 	                            <div class="d-flex justify-content-between align-items-center">
-	                                <h4 class="mb-0 fw-bold"><i class="fas fa-shopping-cart me-2"></i>Your Shopping Cart</h4>
-	                                <span class="badge bg-white text-primary fs-6"><?= count($cart_itemss) ?> Items</span>
+	                                <h4 class="mb-0 shoppingHead"><i class="fas fa-shopping-cart me-2"></i>Your Shopping Cart</h4>
+	                                <span class="badge bg-white text-black fs-6"><?= count($cart_itemss) ?> Items</span>
 	                            </div>
 	                        </div>
 	                        
@@ -498,12 +510,12 @@ if (isset($_POST['apply_coupon'])) {
 	                                    <table class="table table-hover align-middle mb-0">
 	                                        <thead class="table-light">
 	                                            <tr>
-	                                                <th scope="col" style="width: 100px;">Image</th>
-	                                                <th scope="col">Product</th>
-	                                                <th scope="col" class="text-end">Price</th>
-	                                                <th scope="col" style="width: 200px;">Quantity</th>
-	                                                <th scope="col" class="text-end">Total</th>
-	                                                <th scope="col" style="width: 60px;"></th>
+	                                                <th scope="col" class="shoppingTr" style="width: 140px;">Image</th>
+	                                                <th scope="col" class="shoppingTr">Product</th>
+	                                                <th scope="col" class="shoppingTr ">Price</th>
+	                                                <th scope="col" class="shoppingTr" style="width: 200px; text-align: center;">Quantity</th>
+	                                                <th scope="col" class="shoppingTr text-end">Total</th>
+	                                                <th scope="col" class="shoppingTr" style="width: 60px;">Remove</th>
 	                                            </tr>
 	                                        </thead>
 	                                        <tbody>
@@ -513,14 +525,14 @@ if (isset($_POST['apply_coupon'])) {
 	                                                        <a href="#" class="d-block">
 	                                                            <img src="./admin/<?= htmlspecialchars($cart_item['image']) ?>" 
 	                                                                 alt="<?= htmlspecialchars($cart_item['product_name']) ?>" 
-	                                                                 class="product-thumb"
+	                                                                 class="product-thumb "
 	                                                                 onerror="this.src='img/default.jpg';">
 	                                                        </a>
 	                                                    </td>
 	                                                    <td>
 	                                                        <h6 class="mb-1"><?= htmlspecialchars($cart_item['product_name']) ?></h6>
 	                                                    </td>
-	                                                    <td class="text-end">₹<?= number_format($cart_item['price'], 2) ?></td>
+	                                                    <td>₹<?= number_format($cart_item['price'], 2) ?></td>
 	                                                    <td>
 	                                                        <div class="input-group input-group-sm align-items-center">
 	                                                            <button type="button" class="btn btn-outline-secondary minus-btn" data-index="<?= $index ?>" <?= $cart_item['quantity'] <= 1 ? 'disabled' : '' ?>>
@@ -528,6 +540,7 @@ if (isset($_POST['apply_coupon'])) {
 	                                                            </button>
 	                                                            <input type="number" name="quantity[]" 
 	                                                                   class="form-control text-center quantity-input" 
+											                            style="padding: 14px;"
 	                                                                   value="<?= $cart_item['quantity'] ?>" 
 	                                                                   min="1" 
 	                                                                   max="<?= $cart_item['stock'] ?>"
@@ -542,7 +555,7 @@ if (isset($_POST['apply_coupon'])) {
 	                                                    <td class="text-end fw-bold">₹<?= number_format($cart_item['subtotal'], 2) ?></td>
 	                                                    <td class="text-center">
 	                                                        <a href="shopping-cart.php?action=remove&id=<?= $cart_item['id'] ?>" 
-	                                                           class="text-danger" 
+	                                                           class="text-black" 
 	                                                           title="Remove item"
 	                                                           onclick="return confirm('Are you sure you want to remove this item?');">
 	                                                            <i class="far fa-trash-alt"></i>
@@ -560,7 +573,7 @@ if (isset($_POST['apply_coupon'])) {
 	                                    </div>
 	                                    <h5 class="mb-3">Your cart is empty</h5>
 	                                    <p class="text-muted mb-4">Looks like you haven't added anything to your cart yet</p>
-	                                    <a href="shop.php" class="btn btn-primary px-4">
+	                                    <a href="shop.php" class="btn btn-outline-secondary px-4">
 	                                        <i class="fas fa-arrow-left me-2"></i>Continue Shopping
 	                                    </a>
 	                                </div>
@@ -569,16 +582,16 @@ if (isset($_POST['apply_coupon'])) {
 	                        
 	                        <?php if (!empty($cart_itemss)): ?>
 	                        <div class="card-footer bg-light">
-	                            <div class="d-flex justify-content-between">
+	                            <div class="d-flex justify-content-between py-4">
 	                                <div>
-	                                    <button type="submit" class="btn btn-outline-primary me-2">
+	                                    <button type="submit" class="btn btn-outline-secondary me-2">
 	                                        <i class="fas fa-sync-alt me-2"></i>Update Cart
 	                                    </button>
 	                                    <!-- <a href="checkout.php" class="btn btn-success me-2">
 	                                        <i class="fas fa-shopping-basket me-2"></i>Buy Now
 	                                    </a> -->
 	                                </div>
-	                                <a href="shop.php" class="btn btn-primary">
+	                                <a href="shop.php" class="btn btn-outline-secondary">
 	                                    <i class="fas fa-plus me-2"></i>Continue Shopping
 	                                </a>
 	                            </div>
@@ -608,7 +621,7 @@ if (isset($_POST['apply_coupon'])) {
 	                                <div class="col-md-6">
 	                                    <label for="coupon_code" class="form-label">Coupon Code</label>
 	                                    <div class="input-group mb-3">
-	                                        <input type="text" class="form-control" id="coupon_code" name="coupon_code" 
+	                                        <input type="text" class="form-control couponShopping" id="coupon_code" name="coupon_code" 
 	                                               placeholder="Enter coupon code" 
 	                                               value="<?= htmlspecialchars($_SESSION['coupon_code'] ?? '') ?>">
 	                                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="tooltip" 
@@ -627,7 +640,7 @@ if (isset($_POST['apply_coupon'])) {
 	                                    </div>
 	                                    <div class="input-group">
 	                                        <span class="input-group-text">₹</span>
-	                                        <input type="number" class="form-control" id="coins_to_use" name="coins_to_use" 
+	                                        <input type="number" class="form-control couponShopping" id="coins_to_use" name="coins_to_use" 
 	                                               min="0" max="<?= $available_coins ?>" 
 	                                               value="<?= htmlspecialchars($_SESSION['coins_applied'] ?? 0) ?>">
 	                                        <button class="btn btn-outline-secondary" type="button" id="maxCoinsBtn">Max</button>
@@ -637,7 +650,7 @@ if (isset($_POST['apply_coupon'])) {
 	                            </div>
 	                            
 	                            <div class="d-flex justify-content-between mt-3">
-	                                <button type="submit" name="apply_coupon" class="btn btn-apply" <?= empty($cart_itemss) ? 'disabled' : '' ?>>
+	                                <button type="submit" name="apply_coupon" class="btn btn-outline-secondary" <?= empty($cart_itemss) ? 'disabled' : '' ?>>
 	                                    <i class="fas fa-check-circle me-2"></i>Apply Discounts
 	                                </button>
 	                                
@@ -656,7 +669,7 @@ if (isset($_POST['apply_coupon'])) {
 	            <div class="col-lg-4">
 	                <div class="card border-0 shadow-sm rounded-3 sticky-top" style="top: 20px;">
 	                    <div class="card-header bg-primary bg-gradient text-white p-3">
-	                        <h5 class="mb-0 fw-bold"><i class="fas fa-receipt me-2"></i>Order Summary</h5>
+	                        <h5 class="mb-0 shoppingHead"><i class="fas fa-receipt me-2"></i>Order Summary</h5>
 	                    </div>
 	                    
 	                    <div class="card-body">
@@ -702,7 +715,7 @@ if (isset($_POST['apply_coupon'])) {
 	                                    <input type="hidden" name="products[]" value="<?= $item['id'] ?>">
 	                                    <input type="hidden" name="quantities[<?= $item['id'] ?>]" value="<?= $item['quantity'] ?>">
 	                                <?php endforeach; ?>
-	                                <button type="submit" class="btn btn-success btn-lg w-100 py-3" <?= empty($cart_itemss) ? 'disabled' : '' ?>>
+	                                <button type="submit" class="btn btn-dark btn-lg w-100 py-3" <?= empty($cart_itemss) ? 'disabled' : '' ?>>
 	                                    <i class="fas fa-lock me-2"></i>Proceed to Checkout
 	                                </button>
 	                            </form>
