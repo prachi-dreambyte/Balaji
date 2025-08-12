@@ -28,11 +28,11 @@ if (isset($_SESSION['user_id'])) {
   $total_price = $row['total_price'] ?? 0;
 }
 
-if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-  session_destroy();
-  header('Location: index.php');
-  exit;
-}
+// if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+//   session_destroy();
+//   header('Location: index.php');
+//   exit;
+// }
 ?>
 <style>
   .img-bg {
@@ -584,7 +584,7 @@ a {
                     </div>
                     
                     <?php if (isset($_SESSION['user'])): ?>
-                          <a href="?action=logout" title="Log out of your customer account" class="text-white d-flex align-items-center header-Side">
+                          <a href="logout.php" title="Log out of your customer account" class="text-white d-flex align-items-center header-Side">
                               <i class="fas fa-lock me-1"></i> Log Out</a>
                     <?php else: ?>
                           <a href="loginSignUp/login.php" title="Log in to your customer account" class="text-white d-flex align-items-center header-Side">

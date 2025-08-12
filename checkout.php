@@ -510,7 +510,7 @@ try {
                 ];
                 
                 for (const field of requiredFields) {
-                    if (!document.querySelector(`input[name="${field}"]`).value.trim()) {
+                    if (!document.querySelector(input[name="${field}"]).value.trim()) {
                         e.preventDefault();
                         alert('Please fill all required address fields');
                         return false;
