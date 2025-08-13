@@ -97,6 +97,7 @@ $totalPages = ceil($totalProducts / $limit);
                                                             <td><?= $row['stock']; ?></td>
                                                             <td>₹<?= number_format($row['price'], 2); ?></td>
                                                             <td>
+                                                                <a href="add_variant.php?product_id=<?= $row['id']; ?>" class="btn btn-sm btn-primary">Add a Variant</a>
                                                                  <a href="product-edit.php?id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
                                                                  <button class="btn btn-sm btn-danger delete-btn" data-id="<?= $row['id']; ?>">Delete</button>
                                                             </td>
