@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 $compare_count = isset($_SESSION['compare_list']) ? count($_SESSION['compare_list']) : 0;
 
@@ -8,6 +7,25 @@ include 'connect.php';
 // Initialize the cart if it doesn't exist
 if (!isset($_SESSION['cart'])) {
 	$_SESSION['cart'] = [];
+}
+
+// 🔹 Fetch account_type from session or DB
+$user_account_type = null;
+if (!empty($_SESSION['account_type'])) {
+	$user_account_type = strtolower(trim($_SESSION['account_type']));
+} elseif (!empty($_SESSION['user_id'])) {
+	$user_id = (int) $_SESSION['user_id'];
+	$stmt = $conn->prepare("SELECT account_type FROM signup WHERE id = ? LIMIT 1");
+	if ($stmt) {
+		$stmt->bind_param("i", $user_id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($row = $result->fetch_assoc()) {
+			$_SESSION['account_type'] = $row['account_type'];
+			$user_account_type = strtolower(trim($row['account_type']));
+		}
+		$stmt->close();
+	}
 }
 
 // Handle Add to Cart
@@ -421,11 +439,35 @@ $cat_sidebar_stmt->close();
 															</div>
 														</div>
 														<div class="price-box">
-															<span class="price">₹ <?php echo $row['price']; ?></span>
-															<?php if (!empty($row['old_price']) && $row['old_price'] > $row['price']) { ?>
-																<span class="old-price">₹ <?php echo $row['old_price']; ?></span>
+    <?php
+																$price = isset($row['price']) ? floatval($row['price']) : 0;
+																$discount = isset($row['discount']) ? floatval($row['discount']) : 0;
+																$corporate_discount = isset($row['corporate_discount']) ? floatval($row['corporate_discount']) : 0;
+
+																// Old/original price
+																$old_price = $price;
+
+																// Apply normal discount
+																$final_price = $price - $discount;
+
+																// Apply corporate discount if applicable
+																if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) {
+																	$final_price -= $corporate_discount;
+																}
+
+																// Show old price first if there's any discount
+																if ($final_price < $old_price) {
+																	echo '<span class="old-price" style="text-decoration:line-through; color:#999;">₹ ' . number_format($old_price, 2) . '</span> ';
+																}
+																?>
+														
+															<span class="price">₹ <?php echo number_format($final_price, 2); ?></span>
+														
+															<?php if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) { ?>
+																<p style="color:green; font-weight:bold; margin:0;">Special Commercial Price Applied</p>
 															<?php } ?>
 														</div>
+
                                                         
 														<div class="stock-info">
                                                          <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
@@ -718,135 +760,8 @@ $cat_sidebar_stmt->close();
 	<!-- brand-area-end -->
 	<!-- footer-start -->
 
-	<!-- <footer>
-			<div class="footer-area">
-				<div class="footer-top">
-					<div class="container">
-						<div class="footer-logo">
-							<a href="#">
-								<img src="img/logo-footer.png" alt="" />
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="footer-middle">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-9 col-sm-9 foot-mar">
-								<div class="row">
-									<div class="col-md-4  col-sm-4 col-xs-12">
-										<h4>Shop Location</h4>
-										<div class="footer-contact">
-											<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-											Duis dignissim erat ut laoreet pharetra....
-											</p>
-											<p class="address add">
-												<span>No. 96, Jecica City, NJ 07305, New York, USA</span>
-											</p>
-											<p class="phone add">
-												<span> +0123456789</span>
-											</p>
-											<p class="email add">
-												<a href="#">demo@example.com</a>
-											</p>
-										</div>
-									</div>
-									<div class="col-md-4 col-sm-4 col-xs-12">
-										<h4>Information</h4>
-										<ul class="toggle-footer">
-											<li>
-												<a title="Specials" href="#">Specials</a>
-											</li>
-											<li>
-												<a title="New products" href="#">New products</a>
-											</li>
-											<li>
-												<a title="Best sellers" href="#">Best sellers</a>
-											</li>
-											<li>
-												<a title="Our stores" href="#">Our stores</a>
-											</li>
-											<li>
-                                              <a href="contact.php">CONTACT</a>
-                                            </li>
-											<li>
-												<a title="Sitemap" href="#">Sitemap</a>
-											</li>
-										</ul>
-									</div>
-									<div class="col-md-4 col-sm-4 col-xs-12">
-										<h4>My account</h4>
-										<ul class="toggle-footer">
-											<li>
-												<a title="My orders" href="#">My orders</a>
-											</li>
-											<li>
-												<a title="My credit slips" href="#"> My credit slips</a>
-											</li>
-											<li>
-												<a title="My addresses" href="#">My addresses</a>
-											</li>
-											<li>
-												<a title="My personal info" href="#">My personal info</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-3">
-								<div class="newsletter">
-									<h4>Newsletter</h4>
-									<div class="newsletter-content">
-										<form action="https://htmldemo.net/vonia/vonia/method">
-											<input class="newsletter-input" type="text" placeholder="Enter your e-mail" size="18" name="email">
-											<button class="btn btn-default newsletter-button" type="submit">
-												<span class="subscribe">Subscribe</span>
-											</button>
-										</form>
-									</div>
-								</div>
-								<div class="footer-social">
-								 <h3>Follow Us</h3>
-									<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-									<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-									<a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a>
-									<a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a>
-									<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-								</div>
-							</div>
-						</div>
-						<div class="payment">
-							<a href="#">
-								<img src="img/payment.png" alt="" />
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="footer-bottom">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-6 col-sm-6 col-xs-12 address"><p class="copyright">&copy; 2021 <strong>Vonia</strong> Made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> by <a href="https://hasthemes.com/"><strong>HasThemes</strong></a>.</p>					</div>
-							<div class="col-md-6 col-sm-6 col-xs-12 footer-link">
-								<ul>
-									<li>
-										<a href="#">Customer Service</a>
-									</li>
-									<li>
-										<a href="#">Secure payment</a>
-									</li>
-									<li>
-										<a href="#">Term of Use</a>
-									</li>
-									<li>
-										<a href="#">About us</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer> -->
+	<?php include('footer.php'); ?>
+
 	<!-- footer-end -->
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">

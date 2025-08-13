@@ -4,6 +4,23 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 include 'connect.php';
 
+// 🔹 Use account_type from session if available, otherwise fetch from DB
+$user_account_type = null;
+if (!empty($_SESSION['account_type'])) {
+    $user_account_type = strtolower(trim($_SESSION['account_type']));
+} elseif (!empty($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("SELECT account_type FROM signup WHERE id = ?");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $_SESSION['account_type'] = $row['account_type'];
+        $user_account_type = strtolower(trim($row['account_type']));
+    }
+    $stmt->close();
+}
+
+// Your existing banner code
 $slider_banners = [];
 $sql = "SELECT * FROM home_banners WHERE type = 'slider' ORDER BY created_at DESC";
 $result = $conn->query($sql);
@@ -18,7 +35,7 @@ function getProductsByTag($conn, $tag)
     // No quotes here, plain text match
     $searchTerm = '%' . $tag . '%';
 
-    $sql_tag = "SELECT * FROM products WHERE tags LIKE ? ORDER BY created_at DESC LIMIT 4";
+    $sql_tag = "SELECT * FROM products WHERE tags LIKE ? ORDER BY created_at DESC LIMIT 8";
     $stmt_tag = $conn->prepare($sql_tag);
     $stmt_tag->bind_param("s", $searchTerm);
     $stmt_tag->execute();
@@ -83,13 +100,15 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!-- modernizr css -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- Owl Carousel CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
 
     <style>
         /* .single-brand{
-		margin-right:30px;
-	} */
+        margin-right:30px;
+    } */
         .product-tabs-section {
             padding: 60px 0;
             background: #f9f9f9;
@@ -278,6 +297,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             background: #3b5de7;
             color: white;
         }
+
         .home-4-latest-blog {
             overflow: hidden !important;
         }
@@ -302,12 +322,14 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 <!-- Slider Image -->
                 <div id="mainslider" class="nivoSlider slider-image">
                     <?php foreach ($slider_banners as $index => $banner): ?>
-                        <img src="./admin/<?php echo htmlspecialchars($banner['image']); ?>" alt="slider" title="#htmlcaption<?php echo $index + 1; ?>" />
+                        <img src="./admin/<?php echo htmlspecialchars($banner['image']); ?>" alt="slider"
+                            title="#htmlcaption<?php echo $index + 1; ?>" />
                     <?php endforeach; ?>
                 </div>
 
                 <?php foreach ($slider_banners as $index => $banner): ?>
-                    <div id="htmlcaption<?php echo $index + 1; ?>" class="nivo-html-caption slider-caption-<?php echo $index + 1; ?>">
+                    <div id="htmlcaption<?php echo $index + 1; ?>"
+                        class="nivo-html-caption slider-caption-<?php echo $index + 1; ?>">
                         <div class="slider-progress"></div>
                         <div class="slide1-text slide-<?php echo $index + 1; ?>">
                             <div class="middle-text">
@@ -365,256 +387,408 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         </div>
         <!--=====special-look-end=====-->
         <!--=====daily-deals-start=====-->
-       <div class="home-4-daily-deals-area py-5">
-    <div class="container">
-        <div class="product-title text-center mb-4" id="deals">
-            <h2><span>Daily Deals</span></h2>
-        </div>
-        <div class="daily-deal">
-           <div class="owl-carousel-space">
-    <div class="row">
-        <div class="daily-deal">
-            <div class="daily-deal-carousel owl-carousel owl-theme">
-                <?php
-                                $sql = "SELECT * FROM home_daily_deal ORDER BY id DESC LIMIT 10";
-                                $result = $conn->query($sql);
-
-                                while ($row = $result->fetch_assoc()):
-                                    $id = (int) $row['id'];
-                                    $images = json_decode($row['images'], true);
-                                    $firstt = !empty($images[0]) ? $images[0] : 'default-image.jpg';
-                                    $product_name = htmlspecialchars($row['product_name']);
-                                    $price = number_format((float) $row['price'], 2);
-                                    $old_price = number_format((float) $row['old_price'], 2);
-                                    $deal_end = !empty($row['deal_end']) ? date("Y/m/d H:i:s", strtotime($row['deal_end'])) : '';
-                                    ?>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="single-product">
-                                            <div class="daily-products">
-                                                <div class="product-img text-center" style="height: auto;">
-                                                    <a href="product-details.php?id=<?= $id ?>">
-                                                        <img src="./admin/<?= htmlspecialchars($firstt) ?>"
-                                                            alt="<?= $product_name ?>" class="img-fluid" />
-                                                    </a>
-                                                    <span class="new">new</span>
-                                                </div>
-                                                <div class="daily-content text-center">
-                                                    <h5 class="product-name">
-                                                        <a href="product-details.php?id=<?= $id ?>"
-                                                            title="<?= $product_name ?>">
-                                                            <?= $product_name ?>
-                                                        </a>
-                                                    </h5>
-                                                    <div class="reviews">
-                                                        <div class="star-content clearfix">
-                                                            <span class="star star-on"></span>
-                                                            <span class="star star-on"></span>
-                                                            <span class="star star-on"></span>
-                                                            <span class="star star-on"></span>
-                                                            <span class="star star-on"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="price-box">
-                                                        <span class="price text-success fw-bold">₹ <?= $price ?> </span><br>
-                                                        <span class="old-price text-muted text-decoration-line-through">₹
-                                                            <?= $old_price ?> </span>
-                                                    </div>
-                                                </div>
-                                                <?php if ($deal_end): ?>
-                                                    <div class="upcoming text-center mt-2" style="margin-top: 0px!important;">
-                                                        <span class="is-countdown"></span>
-                                                        <div data-countdown="<?= $deal_end ?>"></div>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endwhile; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        <!--=====daily-deals-end=====-->
-        <!--=====product-tab-start=====-->
-        <div class="home-4-product-tab">
+        <div class="home-4-daily-deals-area py-5">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="feature-tab-area product-tabs">
-                            <!-- Tab Navigation -->
-                            <div class="tab-nav">
-                                <button class="tab-btn active" data-tab="newarrival">NEW ARRIVAL</button>
-                                <button class="tab-btn" data-tab="onsale">ON SALE</button>
-                                <button class="tab-btn" data-tab="bestseller">BEST SELLER</button>
-                            </div>
+                <div class="product-title text-center mb-4" id="deals">
+                    <h2><span>Daily Deals</span></h2>
+                </div>
+                <div class="daily-deal">
+                    <div class="owl-carousel-space">
+                        <div class="row">
+                            <div class="daily-deal">
+                                <div class="daily-deal-carousel owl-carousel owl-theme">
+                                    <?php
+                                    $sql = "SELECT * FROM home_daily_deal ORDER BY id DESC LIMIT 10";
+                                    $result = $conn->query($sql);
 
-
-
-                            <!-- Tab Content -->
-                            <div class="tab-content">
-                                <!-- New Arrival Products -->
-                                <div class="tab-pane active" id="newarrival">
-
-                                    <div class="row">
-                                        <?php foreach ($newArrivalProducts as $product): ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6">
-                                                <div class="single-product ">
-                                                    <div class="product-img">
-                                                        <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                            <?php
-                                                            $images = json_decode($product['images'], true);
-                                                            if (!empty($images)): ?>
-                                                                <img src="admin/<?= htmlspecialchars($images[0]) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>">
-
-                                                            <?php endif; ?>
+                                    while ($row = $result->fetch_assoc()):
+                                        $id = (int) $row['id'];
+                                        $images = json_decode($row['images'], true);
+                                        $firstt = !empty($images[0]) ? $images[0] : 'default-image.jpg';
+                                        $product_name = htmlspecialchars($row['product_name']);
+                                        $price = number_format((float) $row['price'], 2);
+                                        $old_price = number_format((float) $row['old_price'], 2);
+                                        $deal_end = !empty($row['deal_end']) ? date("Y/m/d H:i:s", strtotime($row['deal_end'])) : '';
+                                        ?>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="single-product">
+                                                <div class="daily-products">
+                                                    <div class="product-img text-center" style="height: auto;">
+                                                        <a href="product-details.php?id=<?= $id ?>">
+                                                            <img src="./admin/<?= htmlspecialchars($firstt) ?>"
+                                                                alt="<?= $product_name ?>" class="img-fluid" />
                                                         </a>
-                                                        <span class="badge-new">New</span>
+                                                        <span class="new">new</span>
                                                     </div>
-                                                    <div class="product-content">
-    <h5 class="product-name">
-        <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                                <?= htmlspecialchars($product['product_name']) ?>
+                                                    <div class="daily-content text-center">
+                                                        <h5 class="product-name">
+                                                            <a href="product-details.php?id=<?= $id ?>"
+                                                                title="<?= $product_name ?>">
+                                                                <?= $product_name ?>
                                                             </a>
                                                         </h5>
-                                                    <?php
-                                                        $product_id = $product['id']; // Use correct ID field
-                                                    
-                                                        // Fetch average rating and total reviews
-                                                        $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
-                                                        $result = mysqli_query($conn, $query);
-
-                                                        if ($result && mysqli_num_rows($result) > 0) {
-                                                            $reviewData = mysqli_fetch_assoc($result);
-                                                            $product['review_count'] = $reviewData['review_count'] ?? 0;
-                                                            $product['rating'] = round($reviewData['avg_rating'] ?? 0);
-                                                        } else {
-                                                            $product['review_count'] = 0;
-                                                            $product['rating'] = 0;
-                                                        }
-                                                        ?>
-
-                                                        <div class="product-rating">
-                                                            <?= str_repeat('★', $product['rating']) ?>
-                                                            <?= str_repeat('☆', 5 - $product['rating']) ?>
-                                                    
-                                                            <?php if ($product['review_count'] > 0): ?>
-                                                                <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    
-                                                        <div class="price-box">
-                                                            <span class="price">₹<?= number_format($product['price'], 2) ?></span>
-                                                            <?php if ($product['discount'] > 0): ?>
-                                                                <span class="old-price">₹<?= number_format($product['price'] + $product['discount'], 2) ?></span>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-
-                                <!-- On Sale Products -->
-                                <div class="tab-pane" id="onsale">
-                                    <div class="row">
-                                        <?php foreach ($onsaleProducts as $product): ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6">
-                                                <div class="single-product">
-                                                    <div class="product-img">
-                                                        <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                            <?php
-                                                            $images = json_decode($product['images'], true);
-                                                            if (!empty($images)): ?>
-                                                                <img src="admin/<?= htmlspecialchars($images[0]) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>">
-                                                            <?php endif; ?>
-                                                        </a>
-                                                        <span class="badge-sale">Sale</span>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <h5 class="product-name">
-                                                            <a href="product-details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['product_name']) ?></a>
-                                                        </h5>
-                                                    <?php
-                                                        $product_id = $product['id']; // Use correct ID field
-                                                    
-                                                        // Fetch average rating and total reviews
-                                                        $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
-                                                        $result = mysqli_query($conn, $query);
-
-                                                        if ($result && mysqli_num_rows($result) > 0) {
-                                                            $reviewData = mysqli_fetch_assoc($result);
-                                                            $product['review_count'] = $reviewData['review_count'] ?? 0;
-                                                            $product['rating'] = round($reviewData['avg_rating'] ?? 0);
-                                                        } else {
-                                                            $product['review_count'] = 0;
-                                                            $product['rating'] = 0;
-                                                        }
-                                                        ?>
-                                                    
-                                                    <div class="product-rating">
-                                                        <?= str_repeat('★', $product['rating']) ?>
-                                                        <?= str_repeat('☆', 5 - $product['rating']) ?>
-                                                    
-                                                        <?php if ($product['review_count'] > 0): ?>
-                                                            <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                    
-                                                    <div class="price-box">
-                                                        <span class="price">₹<?= number_format($product['price'], 2) ?></span>
-                                                        <?php if ($product['discount'] > 0): ?>
-                                                            <span class="old-price">₹<?= number_format($product['price'] + $product['discount'], 2) ?></span>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-
-                                <!-- Best Seller Products -->
-                                <div class="tab-pane" id="bestseller">
-                                    <div class="row">
-                                        <?php foreach ($bestsellerProducts as $product): ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6">
-                                                <div class="single-product">
-                                                    <div class="product-img">
-                                                        <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                            <?php
-                                                            $images = json_decode($product['images'], true);
-                                                            if (!empty($images)): ?>
-                                                                <img src="admin/<?= htmlspecialchars($images[0]) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>">
-                                                            <?php endif; ?>
-                                                        </a>
-                                                        <?php if (strtotime($product['created_at']) > strtotime('-30 days')): ?>
-                                                            <span class="badge-new">Best seller</span>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <h5 class="product-name">
-                                                            <a href="product-details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['product_name']) ?></a>
-                                                        </h5>
-                                                        <div class="product-rating">
-                                                            <?= str_repeat('★', $product['rating'] ?? 0) ?>
-                                                            <?= str_repeat('☆', 5 - ($product['rating'] ?? 0)) ?>
-                                                            <?php if (($product['review_count'] ?? 0) > 0): ?>
-                                                                <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
-                                                            <?php endif; ?>
+                                                        <div class="reviews">
+                                                            <div class="star-content clearfix">
+                                                                <span class="star star-on"></span>
+                                                                <span class="star star-on"></span>
+                                                                <span class="star star-on"></span>
+                                                                <span class="star star-on"></span>
+                                                                <span class="star star-on"></span>
+                                                            </div>
                                                         </div>
                                                         <div class="price-box">
-                                                            <span class="price">₹<?= number_format($product['price'], 2) ?></span>
-                                                            <?php if ($product['discount'] > 0): ?>
-                                                                <span class="old-price">₹<?= number_format($product['price'] + $product['discount'], 2) ?></span>
-                                                            <?php endif; ?>
+                                                            <span class="price text-success fw-bold">₹ <?= $price ?>
+                                                            </span><br>
+                                                            <span
+                                                                class="old-price text-muted text-decoration-line-through">₹
+                                                                <?= $old_price ?> </span>
+                                                        </div>
+                                                    </div>
+                                                    <?php if ($deal_end): ?>
+                                                        <div class="upcoming text-center mt-2"
+                                                            style="margin-top: 0px!important;">
+                                                            <span class="is-countdown"></span>
+                                                            <div data-countdown="<?= $deal_end ?>"></div>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endwhile; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=====daily-deals-end=====-->
+                    <!--=====product-tab-start=====-->
+                    <div class="home-4-product-tab">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="feature-tab-area product-tabs">
+                                        <!-- Tab Navigation -->
+                                        <div class="tab-nav">
+                                            <button class="tab-btn active" data-tab="newarrival">NEW ARRIVAL</button>
+                                            <button class="tab-btn" data-tab="onsale">ON SALE</button>
+                                            <button class="tab-btn" data-tab="bestseller">BEST SELLER</button>
+                                        </div>
+
+
+
+                                        <!-- Tab Content -->
+                                        <div class="tab-content">
+                                            <!-- New Arrival Products -->
+                                            <div class="tab-pane active" id="newarrival">
+    <div style="position: relative;">
+        <!-- Left Arrow -->
+        <button class="scroll-btn left" onclick="scrollNewArrival(-1)">&#10094;</button>
+
+        <!-- Scrollable Row -->
+        <div class="row" id="newarrival-row" style="overflow-x: auto; white-space: nowrap; scroll-behavior: smooth;">
+            <?php foreach ($newArrivalProducts as $product): ?>
+                                                            <div class="col-xl-3 col-lg-4 col-md-6" style="display:inline-block; float:none;">
+                                                                <div class="single-product">
+                                                                    <div class="product-img">
+                                                                        <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                            <?php
+                                                                            $images = json_decode($product['images'], true);
+                                                                            if (!empty($images)): ?>
+                                                                                <img src="admin/<?= htmlspecialchars($images[0]) ?>"
+                                                                                    alt="<?= htmlspecialchars($product['product_name']) ?>">
+                                                                            <?php endif; ?>
+                                                                        </a>
+                                                                        <span class="badge-new">New</span>
+                                                                    </div>
+                                                                    <div class="product-content">
+                                                                        <h5 class="product-name">
+                                                                            <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                                <?= htmlspecialchars($product['product_name']) ?>
+                                                                            </a>
+                                                                        </h5>
+                                                                        <?php
+                                                                        $product_id = $product['id'];
+                                                                        $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
+                                                                        $result = mysqli_query($conn, $query);
+
+                                                                        if ($result && mysqli_num_rows($result) > 0) {
+                                                                            $reviewData = mysqli_fetch_assoc($result);
+                                                                            $product['review_count'] = $reviewData['review_count'] ?? 0;
+                                                                            $product['rating'] = round($reviewData['avg_rating'] ?? 0);
+                                                                        } else {
+                                                                            $product['review_count'] = 0;
+                                                                            $product['rating'] = 0;
+                                                                        }
+                                                                        ?>
+                                            
+                                                                        <div class="product-rating">
+                                                                            <?= str_repeat('★', $product['rating']) ?>
+                                                                            <?= str_repeat('☆', 5 - $product['rating']) ?>
+                                                                            <?php if ($product['review_count'] > 0): ?>
+                                                                                <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
+                                                                            <?php endif; ?>
+                                                                        </div>
+                                            
+                                                                        <div class="price-box">
+                                                                            <?php
+                                                                            $original_price = (float) $product['price'];
+                                                                            $final_price = $original_price;
+                                                                            if (!empty($product['discount']) && $product['discount'] > 0) {
+                                                                                $final_price -= (float) $product['discount'];
+                                                                            }
+                                                                            $user_account_type = !empty($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
+                                                                            $is_commercial = ($user_account_type === 'commercial');
+                                                                            if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0) {
+                                                                                $final_price -= (float) $product['corporate_discount'];
+                                                                            }
+                                                                            ?>
+                                                                            <span class="price">₹<?= number_format($final_price, 2) ?></span>
+                                                                            <span class="old-price">₹<?= number_format($original_price, 2) ?></span>
+                                                                            <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
+                                                                                <div class="corporate-price" style="color:green; font-weight:bold;">
+                                                                                    Special Commercial Price Applied
+                                                                                </div>
+                                                                            <?php endif; ?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                            
+                                                    <!-- Right Arrow -->
+                                                    <button class="scroll-btn right" onclick="scrollNewArrival(1)">&#10095;</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <style>
+                                                .scroll-btn {
+                                                    position: absolute;
+                                                    top: 40%;
+                                                    z-index: 10;
+                                                    background: rgba(0, 0, 0, 0.6);
+                                                    color: white;
+                                                    border: none;
+                                                    font-size: 24px;
+                                                    cursor: pointer;
+                                                    padding: 8px 12px;
+                                                    border-radius: 50%;
+                                                    transition: background 0.3s;
+                                                }
+                                            
+                                                .scroll-btn:hover {
+                                                    background: rgba(0, 0, 0, 0.8);
+                                                }
+                                            
+                                                .scroll-btn.left {
+                                                    left: 0;
+                                                }
+                                            
+                                                .scroll-btn.right {
+                                                    right: 0;
+                                                }
+                                            </style>
+                                            
+                                            <script>
+                                                function scrollNewArrival(direction) {
+                                                    const container = document.getElementById('newarrival-row');
+                                                    const scrollAmount = 300; // Adjust how much to scroll
+                                                    container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+                                                }
+                                            </script>
+
+
+                                            <!-- On Sale Products -->
+                                            <div class="tab-pane" id="onsale">
+                                                <div class="row">
+                                                    <?php foreach ($onsaleProducts as $product): ?>
+                                                        <div class="col-xl-3 col-lg-4 col-md-6">
+                                                            <div class="single-product">
+                                                                <div class="product-img">
+                                                                    <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                        <?php
+                                                                        $images = json_decode($product['images'], true);
+                                                                        if (!empty($images)): ?>
+                                                                            <img src="admin/<?= htmlspecialchars($images[0]) ?>"
+                                                                                alt="<?= htmlspecialchars($product['product_name']) ?>">
+                                                                        <?php endif; ?>
+                                                                    </a>
+                                                                    <span class="badge-sale">Sale</span>
+                                                                </div>
+                                                                <div class="product-content">
+                                                                    <h5 class="product-name">
+                                                                        <a
+                                                                            href="product-details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['product_name']) ?></a>
+                                                                    </h5>
+                                                                    <?php
+                                                                    $product_id = $product['id']; // Use correct ID field
+                                                                
+                                                                    // Fetch average rating and total reviews
+                                                                    $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
+                                                                    $result = mysqli_query($conn, $query);
+
+                                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                                        $reviewData = mysqli_fetch_assoc($result);
+                                                                        $product['review_count'] = $reviewData['review_count'] ?? 0;
+                                                                        $product['rating'] = round($reviewData['avg_rating'] ?? 0);
+                                                                    } else {
+                                                                        $product['review_count'] = 0;
+                                                                        $product['rating'] = 0;
+                                                                    }
+                                                                    ?>
+
+                                                                    <div class="product-rating">
+                                                                        <?= str_repeat('★', $product['rating']) ?>
+                                                                        <?= str_repeat('☆', 5 - $product['rating']) ?>
+
+                                                                        <?php if ($product['review_count'] > 0): ?>
+                                                                            <span
+                                                                                class="review-count"><?= $product['review_count'] ?>
+                                                                                Review(s)</span>
+                                                                        <?php endif; ?>
+                                                                    </div>
+
+                                                                    <div class="price-box">
+    <?php
+                                                                            $original_price = (float) $product['price'];
+                                                                            $final_price = $original_price;
+
+                                                                            // Apply normal discount
+                                                                            if (!empty($product['discount']) && $product['discount'] > 0) {
+                                                                                $final_price -= (float) $product['discount'];
+                                                                            }
+
+                                                                            // Read account type from session
+                                                                            $user_account_type = !empty($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
+                                                                            $is_commercial = ($user_account_type === 'commercial');
+
+                                                                            // Apply corporate discount
+                                                                            if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0) {
+                                                                                $final_price -= (float) $product['corporate_discount'];
+                                                                            }
+                                                                            ?>
+                                                                    
+                                                                        <span class="price">₹
+                                                                            <?= number_format($final_price, 2) ?>
+                                                                        </span>
+                                                                        <span class="old-price">₹
+                                                                            <?= number_format($original_price, 2) ?>
+                                                                        </span>
+                                                                    
+                                                                        <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
+                                                                                <div class="corporate-price" style="color:green; font-weight:bold;">
+                                                                                    Special Commercial Price Applied
+                                                                                </div>
+                                                                        <?php endif; ?>
+                                                                    
+                                                                        <!-- Temporary debug
+                                                                        <div style="margin-top:5px; font-size:14px; color:blue;">
+                                                                            Account Type (Debug): <?= htmlspecialchars($user_account_type ?? 'Not Set') ?>
+                                                                    </div> -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+
+                                        <!-- Best Seller Products -->
+                                        <div class="tab-pane" id="bestseller">
+                                            <div class="row">
+                                                <?php foreach ($bestsellerProducts as $product): ?>
+                                                    <div class="col-xl-3 col-lg-4 col-md-6">
+                                                        <div class="single-product">
+                                                            <div class="product-img">
+                                                                <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                    <?php
+                                                                    $images = json_decode($product['images'], true);
+                                                                    if (!empty($images)): ?>
+                                                                        <img src="admin/<?= htmlspecialchars($images[0]) ?>"
+                                                                            alt="<?= htmlspecialchars($product['product_name']) ?>">
+                                                                    <?php endif; ?>
+                                                                </a>
+                                                                <?php if (strtotime($product['created_at']) > strtotime('-30 days')): ?>
+                                                                    <span class="badge-new">Best seller</span>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <?php
+                                                            // Fetch product rating & review count dynamically
+                                                            $product_id = $product['id']; // Ensure this is the correct field name
+                                                        
+                                                            $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating 
+          FROM reviews 
+          WHERE product_id = $product_id";
+                                                            $result = mysqli_query($conn, $query);
+
+                                                            if ($result && mysqli_num_rows($result) > 0) {
+                                                                $reviewData = mysqli_fetch_assoc($result);
+                                                                $product['review_count'] = (int) ($reviewData['review_count'] ?? 0);
+                                                                $product['rating'] = round($reviewData['avg_rating'] ?? 0);
+                                                            } else {
+                                                                $product['review_count'] = 0;
+                                                                $product['rating'] = 0;
+                                                            }
+                                                            ?>
+
+                                                            <div class="product-content">
+                                                                <h5 class="product-name">
+                                                                    <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                        <?= htmlspecialchars($product['product_name']) ?>
+                                                                    </a>
+                                                                </h5>
+
+                                                                <div class="product-rating">
+                                                                    <?= str_repeat('★', $product['rating']) ?>
+                                                                    <?= str_repeat('☆', 5 - $product['rating']) ?>
+                                                                    <?php if ($product['review_count'] > 0): ?>
+                                                                        <span class="review-count">
+                                                                            <?= $product['review_count'] ?> Review(s)
+                                                                        </span>
+                                                                    <?php endif; ?>
+                                                                </div>
+
+                                                               <div class="price-box">
+    <?php
+    $original_price = (float)$product['price'];
+    $final_price = $original_price;
+
+    // Apply normal discount
+    if (!empty($product['discount']) && $product['discount'] > 0) {
+        $final_price -= (float)$product['discount'];
+    }
+
+    // Read account type from session
+    $user_account_type = !empty($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
+    $is_commercial = ($user_account_type === 'commercial');
+
+    // Apply corporate discount
+    if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0) {
+        $final_price -= (float)$product['corporate_discount'];
+    }
+    ?>
+
+    <span class="price">₹<?= number_format($final_price, 2) ?></span>
+    <span class="old-price">₹<?= number_format($original_price, 2) ?></span>
+
+    <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
+        <div class="corporate-price" style="color:green; font-weight:bold;">
+            Special Commercial Price Applied
+        </div>
+    <?php endif; ?>
+
+    <!-- Temporary debug
+    <div style="margin-top:5px; font-size:14px; color:blue;">
+        Account Type (Debug): <?= htmlspecialchars($user_account_type ?? 'Not Set') ?>
+    </div> -->
+</div>
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        <?php endforeach; ?>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -622,191 +796,268 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     </div>
                 </div>
             </div>
-        </div>
-        <!--=====product-tab-end=====-->
-        <!-- service-start -->
-        <div class="home-4-service home-2-service service-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-12 service">
-                        <div class="service-logo">
-                            <img src="img/service/2.1.png" alt="" />
-                        </div>
-                        <div class="service-info">
-                            <h2>100% money back guarantee</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit auctor nibh.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 service">
-                        <div class="service-logo">
-                            <img src="img/service/2.2.png" alt="" />
-                        </div>
-                        <div class="service-info">
-                            <h2>Free shipping on oder over 500$</h2>
-                            <p>Duis luctus libero in quam convallis, idpla cerat tellus convallis.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 service">
-                        <div class="service-logo">
-                            <img src="img/service/2.3.png" alt="" />
-                        </div>
-                        <div class="service-info">
-                            <h2>online support 24/7</h2>
-                            <p>Etiam ac purus at lorem commodo vestibulum elementum sed felis.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--=====service-end=====-->
-
-        <!-- feature-product-start -->
-        <div class="feature-product-area">
-            <div class="container">
-                <div class="row">
-                    <div class="product-title text-left">
-                        <h2>
-                            <span>FEATURED PRODUCTS</span>
-                        </h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <?php if (!empty($featuredProducts)): ?>
-                        <?php foreach ($featuredProducts as $product): ?>
-                            <div class="col-xl-3 col-lg-4 col-md-6">
-                                <div class="single-product">
-                                    <div class="product-img">
-                                        <a href="product-details.php?id=<?= $product['id'] ?>">
-                                            <?php
-                                            $images = json_decode($product['images'], true);
-                                            if (!empty($images)): ?>
-                                                <img src="admin/<?= htmlspecialchars($images[0]) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>">
-                                            <?php endif; ?>
-                                        </a>
-                                        <span class="badge-new">Featured</span>
-                                    </div>
-                                    <div class="product-content">
-                                        <h5 class="product-name">
-                                            <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                <?= htmlspecialchars($product['product_name']) ?>
-                                            </a>
-                                        </h5>
-                                        <div class="product-rating">
-                                            <?= str_repeat('★', $product['rating'] ?? 0) ?>
-                                            <?= str_repeat('☆', 5 - ($product['rating'] ?? 0)) ?>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="price">₹<?= number_format($product['price'], 2) ?></span>
-                                            <?php if ($product['discount'] > 0): ?>
-                                                <span class="old-price">₹<?= number_format($product['price'] + $product['discount'], 2) ?></span>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="col-12 text-center">
-                            <p>No featured products found.</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-        <!-- feature-product-end -->
-
-        <!--===== banner-2-start =====-->
-        <!-- <div class="home-4-banner-2">
-				<div class="container">
-					<div class="banner-box">
-						<a href="#">
-							<img src="img/banner/9_1.jpg" alt="" />
-						</a>
-					</div>
-				</div>
-			</div> -->
-        <!--===== banner-2-end =====-->
-
-        <!--===== latest-blog-start =====-->
-
-        <div class="home-4-latest-blog">
-            <div class="blog">
-                <div class="product-title">
-                    <h2><span>Latest Blog</span></h2>
-                </div>
-                <div class="owl-carousel-space">
+            <!--=====product-tab-end=====-->
+            <!-- service-start -->
+            <div class="home-4-service home-2-service service-area">
+                <div class="container">
                     <div class="row">
-                        <div class="blogs-carousel">
-                            <?php
-                            // Fetch latest 4 blogs
-                            $blogQuery = "SELECT title, slug, main_content, main_images, created_at FROM blog ORDER BY created_at DESC LIMIT 4";
-                            $blogResult = $conn->query($blogQuery);
-
-                            if ($blogResult->num_rows > 0) {
-                                while ($blog = $blogResult->fetch_assoc()) {
-                                    $title = htmlspecialchars($blog['title']);
-                                    $slug = htmlspecialchars($blog['slug']);
-                                    $content = strip_tags($blog['main_content']); // remove HTML tags
-                                    $contentShort = substr($content, 0, 100) . "...";
-                                    $image = !empty($blog['main_images']) ? $blog['main_images'] : 'img/latest-blog/default.jpg';
-                                    $date = date("F d, Y", strtotime($blog['created_at'])); // formatted date
-                                    $link = "blog/" . urlencode($slug);
-                            ?>
-                                    <div class="col-md-12">
-                                        <div class="single-blog">
-                                            <div class="blog-img">
-                                                <a href="<?= $link ?>">
-                                                    <img src="<?= $image ?>" alt="<?= $title ?>" />
-                                                </a>
-                                            </div>
-                                            <div class="blog-content">
-                                                <h4 class="blog-title">
-                                                    <a href="<?= $link ?>"><?= $title ?></a>
-                                                </h4>
-                                                <p><?= $contentShort ?></p>
-                                                <span class="blog-date"><?= $date ?></span>
-                                                <a class="blog-read-more" href="<?= $link ?>">
-                                                    <span>Read More</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                            <?php
-                                }
-                            } else {
-                                echo "<p>No blogs found.</p>";
-                            }
-                            ?>
+                        <div class="col-md-4 col-sm-4 col-xs-12 service">
+                            <div class="service-logo">
+                                <img src="img/service/2.1.png" alt="" />
+                            </div>
+                            <div class="service-info">
+                                <h2>100% money back guarantee</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit auctor nibh.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 service">
+                            <div class="service-logo">
+                                <img src="img/service/2.2.png" alt="" />
+                            </div>
+                            <div class="service-info">
+                                <h2>Free shipping on oder over 500$</h2>
+                                <p>Duis luctus libero in quam convallis, idpla cerat tellus convallis.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 service">
+                            <div class="service-logo">
+                                <img src="img/service/2.3.png" alt="" />
+                            </div>
+                            <div class="service-info">
+                                <h2>online support 24/7</h2>
+                                <p>Etiam ac purus at lorem commodo vestibulum elementum sed felis.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--=====service-end=====-->
+
+            <!-- feature-product-start -->
+            <div class="feature-product-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="product-title text-left">
+                            <h2>
+                                <span>FEATURED PRODUCTS</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php if (!empty($featuredProducts)): ?>
+                            <?php foreach ($featuredProducts as $product): ?>
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                <?php
+                                                $images = json_decode($product['images'], true);
+                                                if (!empty($images)): ?>
+                                                    <img src="admin/<?= htmlspecialchars($images[0]) ?>"
+                                                        alt="<?= htmlspecialchars($product['product_name']) ?>">
+                                                <?php endif; ?>
+                                            </a>
+                                            <span class="badge-new">Featured</span>
+                                        </div>
+                                        <?php
+                                        // Fetch product rating & review count dynamically
+                                        $product_id = $product['id']; // Ensure this is the correct field name
+                                
+                                        $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating 
+          FROM reviews 
+          WHERE product_id = $product_id";
+                                        $result = mysqli_query($conn, $query);
+
+                                        if ($result && mysqli_num_rows($result) > 0) {
+                                            $reviewData = mysqli_fetch_assoc($result);
+                                            $product['review_count'] = (int) ($reviewData['review_count'] ?? 0);
+                                            $product['rating'] = round($reviewData['avg_rating'] ?? 0);
+                                        } else {
+                                            $product['review_count'] = 0;
+                                            $product['rating'] = 0;
+                                        }
+                                        ?>
+
+                                        <div class="product-content">
+                                            <h5 class="product-name">
+                                                <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                    <?= htmlspecialchars($product['product_name']) ?>
+                                                </a>
+                                            </h5>
+
+                                            <div class="product-rating">
+        <?= str_repeat('★', $product['rating']) ?>
+        <?= str_repeat('☆', 5 - $product['rating']) ?>
+        <?php if ($product['review_count'] > 0): ?>
+            <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
+        <?php endif; ?>
+    </div>
+
+                                            <div class="price-box">
+    <?php
+    $original_price = (float)$product['price'];
+    $final_price = $original_price;
+
+    // Apply normal discount
+    if (!empty($product['discount']) && $product['discount'] > 0) {
+        $final_price -= (float)$product['discount'];
+    }
+
+    // Read account type from session
+    $user_account_type = !empty($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
+    $is_commercial = ($user_account_type === 'commercial');
+
+    // Apply corporate discount
+    if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0) {
+        $final_price -= (float)$product['corporate_discount'];
+    }
+    ?>
+
+    <span class="price">₹<?= number_format($final_price, 2) ?></span>
+    <span class="old-price">₹<?= number_format($original_price, 2) ?></span>
+
+    <!-- <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
+        <div class="corporate-price" style="color:green; font-weight:bold;">
+            Special Commercial Price Applied
         </div>
+    <?php endif; ?> -->
+
+    <!-- Temporary debug -->
+    <!-- <div style="margin-top:5px; font-size:14px; color:blue;">
+        Account Type (Debug): <?= htmlspecialchars($user_account_type ?? 'Not Set') ?>
+    </div> -->
+</div>
 
 
-        <!--===== latest-blog-end =====-->
 
-        <!--===== testimonial-area-start =====-->
-        <div class="testimonial-area">
-    <div class="container" style="background: transparent;">
-        <div class="testimonial">
-            <div class="testimonial-container">
-                <!-- ⭐ LIVE GOOGLE REVIEWS WIDGET (iframe version) ⭐ -->
-                <h3 class="section-header" style="text-align:center; margin-bottom: 20px;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="col-12 text-center">
+                                <p>No featured products found.</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            <!-- feature-product-end -->
+
+            <!--===== banner-2-start =====-->
+            <!-- <div class="home-4-banner-2">
+                <div class="container">
+                    <div class="banner-box">
+                        <a href="#">
+                            <img src="img/banner/9_1.jpg" alt="" />
+                        </a>
+                    </div>
+                </div>
+            </div> -->
+            <!--===== banner-2-end =====-->
+
+            <!--===== latest-blog-start =====-->
+
+            <div class="home-4-latest-blog">
+                <div class="blog">
+                    <div class="product-title">
+                        <h2><span>Latest Blog</span></h2>
+                    </div>
+                    <div class="owl-carousel-space">
+                        <div class="row">
+                            <div class="blogs-carousel">
+                                <?php
+                                // Fetch latest 4 blogs
+                                $blogQuery = "SELECT title, slug, main_content, main_images, created_at FROM blog ORDER BY created_at DESC LIMIT 4";
+                                $blogResult = $conn->query($blogQuery);
+
+                                if ($blogResult->num_rows > 0) {
+                                    while ($blog = $blogResult->fetch_assoc()) {
+                                        $title = htmlspecialchars($blog['title']);
+                                        $slug = htmlspecialchars($blog['slug']);
+                                        $content = strip_tags($blog['main_content']); // remove HTML tags
+                                        $contentShort = substr($content, 0, 100) . "...";
+                                        $image = !empty($blog['main_images']) ? $blog['main_images'] : 'img/latest-blog/default.jpg';
+                                        $date = date("F d, Y", strtotime($blog['created_at'])); // formatted date
+                                        $link = "blog/" . urlencode($slug);
+                                        ?>
+                                        <div class="col-md-12">
+                                            <div class="single-blog">
+                                                <div class="blog-img">
+                                                    <a href="<?= $link ?>">
+                                                        <img src="<?= $image ?>" alt="<?= $title ?>" />
+                                                    </a>
+                                                </div>
+                                                <div class="blog-content">
+                                                    <h4 class="blog-title">
+                                                        <a href="<?= $link ?>"><?= $title ?></a>
+                                                    </h4>
+                                                    <p><?= $contentShort ?></p>
+                                                    <span class="blog-date"><?= $date ?></span>
+                                                    <a class="blog-read-more" href="<?= $link ?>">
+                                                        <span>Read More</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                } else {
+                                    echo "<p>No blogs found.</p>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--===== latest-blog-end =====-->
+
+            <!--===== testimonial-area-start =====-->
+<!-- testimonial-area-start -->
+<div class="testimonial-area py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);">
+    <div class="container">
+        <div class="testimonial text-center">
+            <div class="testimonial-container shadow-sm p-4 rounded" style="background: #fff;">
+                
+                <!-- Header -->
+                <h3 class="section-header mb-2" style="font-weight: 700; color: #333;">
+                    <!-- <i class="fas fa-quote-left" style="color: #ff9800; margin-right: 8px;"></i> -->
                     What Our Customers Say
                 </h3>
-                <iframe 
-                    src="https://widgets.sociablekit.com/google-reviews/iframe/25584908" 
-                    frameborder="0" 
-                    width="100%" 
-                    height="1000"
-                    style="border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.05); background: transparent;">
-                </iframe>
+                <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
+                    Real Google reviews from our valued customers.
+                </p>
+
+                <!-- Google reviews iframe -->
+                <div class="responsive-iframe" style="max-width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                    <iframe src="https://widgets.sociablekit.com/google-reviews/iframe/25584908"
+                        frameborder="0"
+                        allowfullscreen
+                        loading="lazy"
+                        style="width:100%; height:500px; border:0;">
+                    </iframe>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
-        <!-- <div class="testimonial-area">
+<!-- testimonial-area-end -->
+
+
+<style>
+    @media (max-width: 768px) {
+        .testimonial-container iframe {
+            height: 400px !important;
+        }
+    }
+</style>
+
+            <!-- <div class="testimonial-area">
             <div class="container">
                 <div class="testimonial">
                     <div class="testimonial-container">
@@ -844,264 +1095,344 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
             </div>
         </div> -->
-        <!-- testimonial-area-end -->
-        <!-- brand-area-start -->
-        <div class="home-4-brand-area">
-            <div class="container owl-carousel-space">
-                <div class="row">
-                    <div class="brands">
-                        <div class="brand-carousel">
-                            <div class="col-md-12">
-                                <div class="single-brand">
-                                    <a href="#">
-                                        <img src="img/brand/1.jpg" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="single-brand">
-                                    <a href="#">
-                                        <img src="img/brand/2.jpg" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="single-brand">
-                                    <a href="#">
-                                        <img src="img/brand/3.jpg" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="single-brand">
-                                    <a href="#">
-                                        <img src="img/brand/4.jpg" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="single-brand">
-                                    <a href="#">
-                                        <img src="img/brand/5.jpg" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="single-brand">
-                                    <a href="#">
-                                        <img src="img/brand/6.jpg" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="single-brand">
-                                    <a href="#">
-                                        <img src="img/brand/7.jpg" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- brand-area-end -->
-        <!-- footer-start -->
-        <?php include 'footer.php'; ?>
-        <!-- footer-end -->
-    </div>
-    <!-- modal start -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="row">
-                    <div class="col-md-5 col-sm-5 col-xs-6">
-                        <div class="modal-pic" title="Printed Chiffon Dress">
-                            <a href="#">
-                                <img src="img/modal/printed-chiffon-dress.jpg" alt="" />
-                            </a>
-                            <span class="new">new</span>
-                            <span class="sale">sale</span>
-                        </div>
-                    </div>
-                    <div class="col-md-7 col-sm-7 col-xs-6">
-                        <h1>Faded Short Sleeves T-shirt</h1>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <p class="reference">
-                            <label>Reference: </label>
-                            <span>demo_1</span>
-                        </p>
-                        <p class="condition">
-                            <label>Condition: </label>
-                            <span>New product</span>
-                        </p>
-                        <div class="content-price">
-                            <p class="price-new">
-                                <span class="price-box">£ 16.84</span>
-                                <span class="price-tax"> tax incl.</span>
-                            </p>
-                        </div>
-                        <div class="short-description">
-                            <p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit.
-                                Accessorize with a straw hat and you're ready for summer!
-                            </p>
-                        </div>
-                        <form action="#">
-                            <div class="shop-product-add">
-                                <div class="add-cart">
-                                    <p class="quantity cart-plus-minus">
-                                        <label>Quantity</label>
-                                        <input id="quantity_wanted" class="text" type="text" value="1" name="qty" style="border: 1px solid rgb(189, 194, 201);">
-
-                                    </p>
-                                    <div class="shop-add-cart">
-                                        <button class="exclusive">
-                                            <span>Add to cart</span>
-                                        </button>
+            <!-- testimonial-area-end -->
+            <!-- brand-area-start -->
+            <div class="home-4-brand-area">
+                <div class="container owl-carousel-space">
+                    <div class="row">
+                        <div class="brands">
+                            <div class="brand-carousel">
+                                <div class="col-md-12">
+                                    <div class="single-brand">
+                                        <a href="#">
+                                            <img src="img/brand/1.jpg" alt="" />
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>
-                                <div class="size-color">
-                                    <fieldset class="size">
-                                        <label>Size </label>
-                                        <div class="selector">
-                                            <select id="group_1" class="form-control" name="group_1">
-                                                <option title="S" selected="selected" value="1">S</option>
-                                                <option title="M" value="2">M</option>
-                                                <option title="L" value="3">L</option>
-                                            </select>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset class="color">
-                                        <label>Color</label>
-                                        <div class="color-selector">
-                                            <ul>
-                                                <li><a class="color-1" href="#"></a></li>
-                                                <li><a class="color-2" href="#"></a></li>
-                                            </ul>
-                                        </div>
-                                    </fieldset>
+                                <div class="col-md-12">
+                                    <div class="single-brand">
+                                        <a href="#">
+                                            <img src="img/brand/2.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="single-brand">
+                                        <a href="#">
+                                            <img src="img/brand/3.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="single-brand">
+                                        <a href="#">
+                                            <img src="img/brand/4.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="single-brand">
+                                        <a href="#">
+                                            <img src="img/brand/5.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="single-brand">
+                                        <a href="#">
+                                            <img src="img/brand/6.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="single-brand">
+                                        <a href="#">
+                                            <img src="img/brand/7.jpg" alt="" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-                        <div class="clearfix"></div>
-                        <p class="quantity-available">
-                            <span>299</span>
-                            <span>Items</span>
-                        </p>
-                        <p class="availability-status">
-                            <span>In stock</span>
-                        </p>
-                        <p class="social-sharing">
-                            <button class="btn btn-default btn-twitter">
-                                <i class="icon-twitter"></i>
-                                Tweet
-                            </button>
-                            <button class="btn btn-default btn-facebook">
-                                <i class="icon-facebook"></i>
-                                Share
-                            </button>
-                            <button class="btn btn-default btn-google-plus">
-                                <i class="icon-google-plus"></i>
-                                Google+
-                            </button>
-                            <button class="btn btn-default btn-pinterest">
-                                <i class="icon-pinterest"></i>
-                                Pinterest
-                            </button>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <!-- brand-area-end -->
+            <!-- footer-start -->
+            <?php include 'footer.php'; ?>
+            <!-- footer-end -->
         </div>
-    </div>
-    <!-- modal end -->
-    <!-- all js here -->
-    <!-- jquery latest version -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap js -->
-    <script src="js/bootstrap.min.js"></script>
-    <!--jquery scrollUp js -->
-    <script src="js/jquery.scrollUp.js"></script>
-    <!-- owl.carousel js -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- meanmenu js -->
-    <script src="js/jquery.meanmenu.js"></script>
-    <!-- jquery-ui js -->
-    <script src="js/jquery-ui.min.js"></script>
-    <!-- wow js -->
-    <script src="js/wow.min.js"></script>
-    <!-- nivo slider js -->
-    <script src="js/jquery.nivo.slider.pack.js"></script>
-    <!-- countdown js -->
-    <script src="js/countdown.js"></script>
-    <!-- plugins js -->
-    <script src="js/plugins.js"></script>
-    <!-- main js -->
-    <script src="js/main.js"></script>
+        <!-- modal start -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5 col-xs-6">
+                            <div class="modal-pic" title="Printed Chiffon Dress">
+                                <a href="#">
+                                    <img src="img/modal/printed-chiffon-dress.jpg" alt="" />
+                                </a>
+                                <span class="new">new</span>
+                                <span class="sale">sale</span>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-7 col-xs-6">
+                            <h1>Faded Short Sleeves T-shirt</h1>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <p class="reference">
+                                <label>Reference: </label>
+                                <span>demo_1</span>
+                            </p>
+                            <p class="condition">
+                                <label>Condition: </label>
+                                <span>New product</span>
+                            </p>
+                            <div class="content-price">
+                                <p class="price-new">
+                                    <span class="price-box">£ 16.84</span>
+                                    <span class="price-tax"> tax incl.</span>
+                                </p>
+                            </div>
+                            <div class="short-description">
+                                <p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a
+                                    comfortable fit.
+                                    Accessorize with a straw hat and you're ready for summer!
+                                </p>
+                            </div>
+                            <form action="#">
+                                <div class="shop-product-add">
+                                    <div class="add-cart">
+                                        <p class="quantity cart-plus-minus">
+                                            <label>Quantity</label>
+                                            <input id="quantity_wanted" class="text" type="text" value="1" name="qty"
+                                                style="border: 1px solid rgb(189, 194, 201);">
+
+                                        </p>
+                                        <div class="shop-add-cart">
+                                            <button class="exclusive">
+                                                <span>Add to cart</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="size-color">
+                                        <fieldset class="size">
+                                            <label>Size </label>
+                                            <div class="selector">
+                                                <select id="group_1" class="form-control" name="group_1">
+                                                    <option title="S" selected="selected" value="1">S</option>
+                                                    <option title="M" value="2">M</option>
+                                                    <option title="L" value="3">L</option>
+                                                </select>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset class="color">
+                                            <label>Color</label>
+                                            <div class="color-selector">
+                                                <ul>
+                                                    <li><a class="color-1" href="#"></a></li>
+                                                    <li><a class="color-2" href="#"></a></li>
+                                                </ul>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="clearfix"></div>
+                            <p class="quantity-available">
+                                <span>299</span>
+                                <span>Items</span>
+                            </p>
+                            <p class="availability-status">
+                                <span>In stock</span>
+                            </p>
+                            <p class="social-sharing">
+                                <button class="btn btn-default btn-twitter">
+                                    <i class="icon-twitter"></i>
+                                    Tweet
+                                </button>
+                                <button class="btn btn-default btn-facebook">
+                                    <i class="icon-facebook"></i>
+                                    Share
+                                </button>
+                                <button class="btn btn-default btn-google-plus">
+                                    <i class="icon-google-plus"></i>
+                                    Google+
+                                </button>
+                                <button class="btn btn-default btn-pinterest">
+                                    <i class="icon-pinterest"></i>
+                                    Pinterest
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- modal end -->
+        <!-- all js here -->
+        <!-- jquery latest version -->
+        <script src="js/vendor/jquery-1.12.4.min.js"></script>
+        <!-- bootstrap js -->
+        <script src="js/bootstrap.min.js"></script>
+        <!--jquery scrollUp js -->
+        <script src="js/jquery.scrollUp.js"></script>
+        <!-- owl.carousel js -->
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- meanmenu js -->
+        <script src="js/jquery.meanmenu.js"></script>
+        <!-- jquery-ui js -->
+        <script src="js/jquery-ui.min.js"></script>
+        <!-- wow js -->
+        <script src="js/wow.min.js"></script>
+        <!-- nivo slider js -->
+        <script src="js/jquery.nivo.slider.pack.js"></script>
+        <!-- countdown js -->
+        <script src="js/countdown.js"></script>
+        <!-- plugins js -->
+        <script src="js/plugins.js"></script>
+        <!-- main js -->
+        <script src="js/main.js"></script>
 
 
-    <!-- jQuery (required) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- jQuery (required) -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Owl Carousel JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+        <!-- Owl Carousel JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const tabPanes = document.querySelectorAll('.tab-pane');
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const tabBtns = document.querySelectorAll('.tab-btn');
+                const tabPanes = document.querySelectorAll('.tab-pane');
 
-            // Show first tab by default
-            document.querySelector('.tab-pane').classList.add('active');
+                // Show first tab by default
+                document.querySelector('.tab-pane').classList.add('active');
 
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remove active class from all buttons and panes
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    tabPanes.forEach(pane => pane.classList.remove('active'));
+                tabBtns.forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        // Remove active class from all buttons and panes
+                        tabBtns.forEach(b => b.classList.remove('active'));
+                        tabPanes.forEach(pane => pane.classList.remove('active'));
 
-                    // Add active class to clicked button
-                    this.classList.add('active');
+                        // Add active class to clicked button
+                        this.classList.add('active');
 
-                    // Show corresponding tab content
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
+                        // Show corresponding tab content
+                        const tabId = this.getAttribute('data-tab');
+                        document.getElementById(tabId).classList.add('active');
+                    });
                 });
             });
-        });
-    </script>
+        </script>
 
-    <script>
-        $(document).ready(function() {
-            $('[data-countdown]').each(function() {
-                var $this = $(this);
-                var finalDate = $(this).data('countdown');
+        <script>
+            $(document).ready(function () {
+                $('[data-countdown]').each(function () {
+                    var $this = $(this);
+                    var finalDate = $(this).data('countdown');
 
-                // Show countdown
-                $this.countdown(finalDate, function(event) {
+                    // Show countdown
+                    $this.countdown(finalDate, function (event) {
                         $(this).html(event.strftime('%D days %H:%M:%S'));
                     })
 
-                    // When countdown finishes, remove product card
-                    .on('finish.countdown', function() {
-                        // Adjust this selector if needed
-                        $(this).closest('.daily-products').parent('.single-product').fadeOut('slow');
-                    });
+                        // When countdown finishes, remove product card
+                        .on('finish.countdown', function () {
+                            // Adjust this selector if needed
+                            $(this).closest('.daily-products').parent('.single-product').fadeOut('slow');
+                        });
+                });
             });
-        });
-    </script>
+        </script>
 
 
-    <script>
-        // Optional: Auto-refresh only the deals section every 60 seconds
-        setInterval(function() {
-            $('#deals').load(location.href + " #deals>*", "");
-        }, 60000); // 60,000ms = 1 minute
-    </script>
+        <script>
+            // Optional: Auto-refresh only the deals section every 60 seconds
+            setInterval(function () {
+                $('#deals').load(location.href + " #deals>*", "");
+            }, 60000); // 60,000ms = 1 minute
+        </script>
+
+        <style>
+/* Container */
+.product-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  width: 100%;
+  background: #fff;
+  padding: 10px 0;
+  border: 1px solid #ddd;
+}
+
+/* Wrapper that scrolls */
+.product-marquee-content {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+/* Each product box */
+.product-box {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+  margin: 0 15px;
+  text-align: center;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-box img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.product-box h4 {
+  font-size: 16px;
+  margin: 8px 0 0;
+}
+
+/* Animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+</style>
+
+<div class="product-marquee">
+  <div class="product-marquee-content" id="marqueeContent">
+    <div class="product-box">
+      <img src="https://via.placeholder.com/150" alt="Product 1">
+      <h4>Product 1</h4>
+    </div>
+    <div class="product-box">
+      <img src="https://via.placeholder.com/150" alt="Product 2">
+      <h4>Product 2</h4>
+    </div>
+    <div class="product-box">
+      <img src="https://via.placeholder.com/150" alt="Product 3">
+      <h4>Product 3</h4>
+    </div>
+    <div class="product-box">
+      <img src="https://via.placeholder.com/150" alt="Product 4">
+      <h4>Product 4</h4>
+    </div>
+  </div>
+</div>
+
+<script>
+// Duplicate content for smooth infinite scroll
+const marquee = document.getElementById('marqueeContent');
+marquee.innerHTML += marquee.innerHTML;
+</script>
+
+
 
 
 </body>

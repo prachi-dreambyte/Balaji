@@ -476,8 +476,6 @@ a {
           <li><a href="index.php#deals" class="text-light text-decoration-none footer-para">Offer</a></li>
           <li><a href="blog.php" class="text-light text-decoration-none footer-para">Blog</a></li>
           <li><a href="shop.php" class="text-light text-decoration-none footer-para">Shop</a></li>
-          <li><a href="#" class="text-light text-decoration-none footer-para">Customers</a></li>
-          <li><a href="#" class="text-light text-decoration-none footer-para">Reviews</a></li>
         </ul>
       </div>
 
