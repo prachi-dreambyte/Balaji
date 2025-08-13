@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 $compare_count = isset($_SESSION['compare_list']) ? count($_SESSION['compare_list']) : 0;
 
@@ -8,6 +7,25 @@ include 'connect.php';
 // Initialize the cart if it doesn't exist
 if (!isset($_SESSION['cart'])) {
 	$_SESSION['cart'] = [];
+}
+
+// 🔹 Fetch account_type from session or DB
+$user_account_type = null;
+if (!empty($_SESSION['account_type'])) {
+	$user_account_type = strtolower(trim($_SESSION['account_type']));
+} elseif (!empty($_SESSION['user_id'])) {
+	$user_id = (int) $_SESSION['user_id'];
+	$stmt = $conn->prepare("SELECT account_type FROM signup WHERE id = ? LIMIT 1");
+	if ($stmt) {
+		$stmt->bind_param("i", $user_id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($row = $result->fetch_assoc()) {
+			$_SESSION['account_type'] = $row['account_type'];
+			$user_account_type = strtolower(trim($row['account_type']));
+		}
+		$stmt->close();
+	}
 }
 
 // Handle Add to Cart
@@ -421,11 +439,35 @@ $cat_sidebar_stmt->close();
 															</div>
 														</div>
 														<div class="price-box">
-															<span class="price">₹ <?php echo $row['price']; ?></span>
-															<?php if (!empty($row['old_price']) && $row['old_price'] > $row['price']) { ?>
-																<span class="old-price">₹ <?php echo $row['old_price']; ?></span>
+    <?php
+																$price = isset($row['price']) ? floatval($row['price']) : 0;
+																$discount = isset($row['discount']) ? floatval($row['discount']) : 0;
+																$corporate_discount = isset($row['corporate_discount']) ? floatval($row['corporate_discount']) : 0;
+
+																// Old/original price
+																$old_price = $price;
+
+																// Apply normal discount
+																$final_price = $price - $discount;
+
+																// Apply corporate discount if applicable
+																if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) {
+																	$final_price -= $corporate_discount;
+																}
+
+																// Show old price first if there's any discount
+																if ($final_price < $old_price) {
+																	echo '<span class="old-price" style="text-decoration:line-through; color:#999;">₹ ' . number_format($old_price, 2) . '</span> ';
+																}
+																?>
+														
+															<span class="price">₹ <?php echo number_format($final_price, 2); ?></span>
+														
+															<?php if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) { ?>
+																<p style="color:green; font-weight:bold; margin:0;">Special Commercial Price Applied</p>
 															<?php } ?>
 														</div>
+
                                                         
 														<div class="stock-info">
                                                          <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>

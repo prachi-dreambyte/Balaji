@@ -246,6 +246,15 @@ $result = $stmt->get_result();
                                                   </div>
                                                   <div class="col-lg-4">
 
+                                                       <label for="product-discount" class="form-label">Corporate Discount	</label>
+                                                       <div class="input-group mb-3">
+                                                            <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
+                                                            <input type="number" id="product-discount" class="form-control" name="corporate_discount" placeholder="000">
+                                                       </div>
+
+                                                  </div>
+                                                  <div class="col-lg-4">
+
                                                        <label for="product-tex" class="form-label">Tex</label>
                                                        <div class="input-group mb-3">
                                                             <span class="input-group-text fs-20"><i class='bx bxs-file-txt'></i></span>
@@ -334,6 +343,7 @@ $sql = "CREATE TABLE IF NOT EXISTS products (
      tags TEXT,
      price DECIMAL(10,2),
      discount DECIMAL(10,2),
+     corporate_discount DECIMAL(10,2),	
      tax DECIMAL(10,2),
      images TEXT,  
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -364,6 +374,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $tags = isset($_POST['tag']) ? (is_array($_POST['tag']) ? implode(',', $_POST['tag']) : $_POST['tag']) : '';
      $price = $_POST['price'];
      $discount = $_POST['discount'];
+     $corporate_discount	 = $_POST['corporate_discount'];
      $tax = $_POST['tex'];
 
      // Image upload handling
@@ -401,11 +412,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      } else {
           // Insert data into database
           $sql = "INSERT INTO products 
-                (product_name, category, brand, weight, size, short_description, description, tag_number, stock, tags, price, discount, tax, images) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (product_name, category, brand, weight, size, short_description, description, tag_number, stock, tags, price, discount, corporate_discount, tax, images) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
           $stmt = $conn->prepare($sql);
-          $stmt->bind_param("ssssssssissdds", $product_name, $category, $brand, $weight, $size, $short_description, $description, $tag_number, $stock, $tags, $price, $discount, $tax, $imagesJSON);
+          $stmt->bind_param("ssssssssissddds", $product_name, $category, $brand, $weight, $size, $short_description, $description, $tag_number, $stock, $tags, $price, $discount, $corporate_discount, $tax, $imagesJSON);
 
           if ($stmt->execute()) {
                echo "<script>
