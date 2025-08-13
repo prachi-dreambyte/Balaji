@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
-include 'connect.php';
+include_once 'connect.php';
 
 // Fetch categories for menu
 $sql = "SELECT * FROM categories";
@@ -445,30 +445,30 @@ a {
                         $sql = "SELECT DISTINCT * FROM categories ORDER BY category_name ASC";
                         $result = mysqli_query($conn, $sql);
 
-                        $gradientMap = [
-                          "Executive Chair" => "gradient-blue",
-                          "Mesh Chair" => "gradient-brown",
-                          "Plastic Baby Chairs" => "gradient-purple",
-                          "Plastic Chair" => "gradient-green",
-                          "Plastic Table" => "gradient-yellow",
-                          "Staff Chairs" => "gradient-orange",
-                          "Visitor Chair" => "gradient-pink"
-                        ];
+                        // $gradientMap = [
+                        //   "Executive Chair" => "gradient-blue",
+                        //   "Mesh Chair" => "gradient-brown",
+                        //   "Plastic Baby Chairs" => "gradient-purple",
+                        //   "Plastic Chair" => "gradient-green",
+                        //   "Plastic Table" => "gradient-yellow",
+                        //   "Staff Chairs" => "gradient-orange",
+                        //   "Visitor Chair" => "gradient-pink"
+                        // ];
 
                         if ($result && mysqli_num_rows($result) > 0) {
                           echo '<ul class="category-list">';
-                          echo '
-                <li>
-                    <a href="shop.php#product-list">
-                        <div class="img-bg gradient-default">
-                            <i class="fas fa-boxes" style="font-size: 24px;"></i>
-                        </div>
-                        <div class="text">
-                            <h4>All Products</h4>
-                            <p>View all items</p>
-                        </div>
-                    </a>
-                </li>';
+                          // echo '
+                          // <li>
+                          //   <a href="shop.php#product-list">
+                          //   <div class="img-bg gradient-default">
+                          //   <i class="fas fa-boxes" style="font-size: 24px;"></i>
+                          //   </div>
+                          //   <div class="text">
+                          //   <h4>All Products</h4>
+                          //   <p>View all items</p>
+                          //   </div>
+                          //   </a>
+                          // </li>;
 
                           while ($row = mysqli_fetch_assoc($result)) {
                             $name = htmlspecialchars($row['category_name']);
@@ -480,14 +480,14 @@ a {
                             $gradientClass = $gradientMap[$name] ?? 'gradient-default';
 
                             echo '
-                    <li>
+                          <li>
                         <a href="shop.php?category=' . urlencode($name) . '#product-list">
                             <div class="img-bg ">
                                 <img src="' . $imagePath . '" alt="' . $name . '">
                             </div>
                             <div class="text">
                                 <h4>' . $name . '</h4>
-                                <p>' . $name . '</p>
+                               
                             </div>
                         </a>
                     </li>';
@@ -611,18 +611,18 @@ a {
                         if ($result && mysqli_num_rows($result) > 0) {
                           echo '<ul class="category-list">';
                           // Add "All Products" option for mobile
-                          echo '
-                            <li>
-                                <a href="shop.php#product-list">
-                                    <div class="img-bg gradient-default">
-                                        <i class="fas fa-boxes" style="font-size: 24px;"></i>
-                                    </div>
-                                    <div class="text">
-                                        <h4>All Products</h4>
-                                        <p>View all items</p>
-                                    </div>
-                                </a>
-                            </li>';
+                          // echo '
+                          //   <li>
+                          //       <a href="shop.php#product-list">
+                          //           <div class="img-bg gradient-default">
+                          //               <i class="fas fa-boxes" style="font-size: 24px;"></i>
+                          //           </div>
+                          //           <div class="text">
+                          //               <h4>All Products</h4>
+                          //               <p>View all items</p>
+                          //           </div>
+                          //       </a>
+                          //   </li>';
 
                           while ($row = mysqli_fetch_assoc($result)) {
                             $name = htmlspecialchars($row['category_name']);
