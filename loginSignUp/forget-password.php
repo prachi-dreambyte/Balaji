@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <button type="submit" class="btn btn-custom w-100 text-white">Send Reset Link</button>
                 </form>
                 <div class="text-center mt-3">
-                    <a href="login.php" class="text-decoration-none">🔙 Back to Login</a>
+                    <a href="login.php" class="text-decoration-none">Back to Login</a>
                 </div>
             </div>
         </div>
