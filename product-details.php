@@ -1,54 +1,136 @@
 <?php
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
+
 include 'connect.php';
 
 $category_name = 'CATEGORY';
 $category_link = '#';
 
-if (!empty($product['category_id'])) {
-    $cat_id = (int)$product['category_id'];
+// 🔹 Use account_type from session if available, otherwise fetch from DB
+$user_account_type = null;
+if (!empty($_SESSION['account_type'])) {
+	$user_account_type = strtolower(trim($_SESSION['account_type']));
+} elseif (!empty($_SESSION['user_id'])) {
+	$user_id = (int) $_SESSION['user_id']; // cast to int for safety
+	$stmt = $conn->prepare("SELECT account_type FROM signup WHERE id = ? LIMIT 1");
+	if ($stmt) {
+		$stmt->bind_param("i", $user_id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($row = $result->fetch_assoc()) {
+			$_SESSION['account_type'] = $row['account_type'];
+			$user_account_type = strtolower(trim($row['account_type']));
+		}
+		$stmt->close();
+	}
+}
 
-    // Get category name from DB
-    $stmt = $conn->prepare("SELECT name FROM categories WHERE id = ? LIMIT 1");
-    $stmt->bind_param('i', $cat_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result && $row = $result->fetch_assoc()) {
-        $category_name = $row['name'];
-        $category_link = "shop.php?category_id=" . $cat_id; // adjust to your category page
-    }
-    $stmt->close();
+if (!empty($product['category_id'])) {
+	$cat_id = (int) $product['category_id'];
+
+	// Get category name from DB
+	$stmt = $conn->prepare("SELECT name FROM categories WHERE id = ? LIMIT 1");
+	$stmt->bind_param('i', $cat_id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($result && $row = $result->fetch_assoc()) {
+		$category_name = $row['name'];
+		$category_link = "shop.php?category_id=" . $cat_id; // adjust to your category page
+	}
+	$stmt->close();
 }
 // If product already contains category name (alternate schema)
 elseif (!empty($product) && !empty($product['category_name'])) {
-    $category_name = $product['category_name'];
-    if (!empty($product['category_id'])) {
-        $category_link = 'shop.php?category_id=' . (int)$product['category_id'];
-    }
+	$category_name = $product['category_name'];
+	if (!empty($product['category_id'])) {
+		$category_link = 'shop.php?category_id=' . (int) $product['category_id'];
+	}
 }
 
+
+// -------------------------
+// Fetch all variants for this product
+// Initialize product and other arrays
 $product = [
+	'id' => 0,
 	'product_name' => '',
 	'tag_number' => '',
-	'price' => '',
-	'discount' => '',
-	'short_description ' => '',
-	'stock' => '',
+	'price' => 0.0,
+	'discount' => 0.0,
+	'short_description' => '',
+	'stock' => 0,
 	'brand' => '',
 	'weight' => '',
 	'size' => '',
 	'category' => '',
 	'tags' => '',
-	'images' => ''
+	'images' => '',
+	'main_product_colour' => ''
 ];
+
 $images = [];
 $related_products = [];
+$variants = [];
+
+// Get product ID safely from GET
+$product_id = intval($_GET['id'] ?? 0);
+
+if ($product_id > 0) {
+	// Fetch main product details from products table
+	$stmt = $conn->prepare("
+        SELECT id, images, product_name, price, discount, stock
+        FROM products
+        WHERE id = ?
+    ");
+	$stmt->bind_param("i", $product_id);
+	$stmt->execute();
+	$product_result = $stmt->get_result();
+
+	if ($product_row = $product_result->fetch_assoc()) {
+		$product['id'] = $product_row['id'];
+		$product['images'] = $product_row['images'] ?? '';
+		$product['product_name'] = $product_row['product_name'] ?? '';
+		$product['price'] = floatval($product_row['price'] ?? 0);
+		$product['discount'] = floatval($product_row['discount'] ?? 0);
+		$product['stock'] = intval($product_row['stock'] ?? 0);
+
+		// Convert images string into an array (comma separated)
+		$images = !empty($product['images']) ? array_map('trim', explode(',', $product['images'])) : [];
+	}
+	$stmt->close();
+
+	// Fetch variants from variants table for this product
+	$stmt = $conn->prepare("SELECT * FROM variants WHERE product_id = ?");
+	$stmt->bind_param("i", $product_id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	while ($row = $result->fetch_assoc()) {
+		$variants[] = $row;
+	}
+	$stmt->close();
+
+	// Set main product colour using first variant's Main_Product_Colour or fallback to color or empty string
+	if (!empty($variants)) {
+		$product['main_product_colour'] = $variants[0]['Main_Product_Colour'] ?? $variants[0]['color'] ?? '';
+	} else {
+		$product['main_product_colour'] = '';
+	}
+
+} else {
+	error_log("No valid product ID found while fetching product and variants.");
+}
+
+
 
 if (isset($_GET['id'])) {
-	$product_id = intval($_GET['id']);
+	
 	$product = null;
 	$product_source = '';
 	$related_products = [];
-
 	// 1. First, try to fetch from `products` table
 	$stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
 	$stmt->bind_param("i", $product_id);
@@ -73,7 +155,7 @@ if (isset($_GET['id'])) {
 		while ($rel = $rel_result->fetch_assoc()) {
 			$related_products[] = $rel;
 		}
-		$rel_stmt->cl ose();
+		$rel_stmt->close();
 	} else {
 		
 		// 2. If not found in products, check in `home_daily_deal` table
@@ -84,10 +166,9 @@ if (isset($_GET['id'])) {
 		$row = $result->fetch_assoc();
 
 		if ($row) {
-			echo "hello";
+			
 			$product = $row;
 			$product_source = 'home_daily_deal';
-
 			// Decode images
 			$images = json_decode($product['images'], true);
 			if (!is_array($images))
@@ -104,9 +185,7 @@ if (isset($_GET['id'])) {
 			$rel_stmt->close();
 		}
 	}
-
 	$stmt->close();
-
 	// If product not found in either table, redirect to 404
 	if (!$product) {
 		header("Location: 404.php");
@@ -118,7 +197,6 @@ if (isset($_GET['id'])) {
 $sizes = array_filter(array_map('trim', explode(',', $product['size'])));
 // Parse tags
 $tags = array_filter(array_map('trim', explode(',', $product['tags'] ?? '')));
-
 // Debug: Show product source (can be removed in production)
 if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 	echo "<div style='background: #f0f0f0; padding: 10px; margin: 10px; border: 1px solid #ccc;'>";
@@ -417,7 +495,7 @@ body {
     padding: 10px 18px !important;
     font-size: 16px;
     font-weight: 600;
-    background: linear-gradient(45deg, #ff4e50, #f9d423);
+    background: linear-gradient(45deg, #C06B81, #C06B81);
     transition: all 0.3s ease;
 }
 .cart-btn:hover {
@@ -428,12 +506,12 @@ body {
 /* Wishlist Icon */
 .add-wishlist .fa-heart {
     font-size: 20px;
-    color: #ff4e50;
+    color: #C06B81;
     transition: 0.3s;
 }
 .add-wishlist .fa-heart:hover {
     transform: scale(1.2);
-    color: #e63946;
+    color: #C06B81;
 }
 
 /* Product Images */
@@ -568,21 +646,122 @@ body {
 					</p> -->
 					<p class="condition"><label>Condition: </label><span>New product</span></p>
 					<div class="content-price">
-						<?php $price = isset($product['price']) ? floatval($product['price']) : 0;
+    <?php
+						$price = isset($product['price']) ? floatval($product['price']) : 0;
 						$discount = isset($product['discount']) ? floatval($product['discount']) : 0;
-						$old_price = $price + $discount;
-						$discount_percent = ($old_price > 0 && $discount > 0) ? ($discount / $old_price) * 100 : 0; ?>
-						<p class="price-new"><span class="price-box">₹
-								<?php echo number_format($price, 2); ?></span> <span class="price-tax"> tax
-								incl.</span></p>
-						<?php if ($discount > 0): ?>
-							<p class="old-price" style="text-decoration:line-through;color:#999;">₹
-								<?php echo number_format($old_price, 2); ?> <span class="price-tax"> tax incl.</span>
-							</p><?php endif; ?>
+						$corporate_discount = isset($product['corporate_discount']) ? floatval($product['corporate_discount']) : 0;
+
+						// Old static price before any discount
+						$old_price = $price;
+
+						// Apply normal discount
+						$final_price = $price - $discount;
+
+						// Apply corporate discount if user is commercial
+						if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) {
+							$final_price -= $corporate_discount;
+						}
+
+						// Ensure price doesn't go below zero
+						$final_price = max($final_price, 0);
+
+						// Calculate total discount percentage
+						$total_discount = $old_price - $final_price;
+						$discount_percent = ($old_price > 0 && $total_discount > 0) ? ($total_discount / $old_price) * 100 : 0;
+						?>
+					
+						<p class="price-new">
+							<span class="price-box">₹<?php echo number_format($final_price, 2); ?></span>
+							<span class="price-tax"> tax incl.</span>
+						</p>
+					
+						<?php if ($total_discount > 0): ?>
+							<p class="old-price" style="text-decoration:line-through;color:#999;">
+								₹<?php echo number_format($old_price, 2); ?> <span class="price-tax"> tax incl.</span>
+							</p>
+						<?php endif; ?>
+					
 						<?php if ($discount_percent > 0): ?>
-							<p class="reduction-percent" style="color:green;">-<?php echo round($discount_percent); ?>%
-								OFF</p><?php endif; ?>
+							<p class="reduction-percent" style="color:green;">
+								-<?php echo round($discount_percent); ?>% OFF
+							</p>
+						<?php endif; ?>
+					
+						<?php if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0): ?>
+							<p style="color:green; font-weight:bold;">Special Commercial Price Applied</p>
+						<?php endif; ?>
 					</div>
+<?php
+// Show main product colour and variants if any
+if (!empty($product['main_product_colour']) || !empty($variants)):
+
+	// Main product color (from variants first record or empty)
+	$main_color = $product['main_product_colour'] ?? '';
+
+	// Main product image: take first from products.images
+	$main_images = !empty($product['images']) ? array_map('trim', explode(',', $product['images'])) : [];
+	$main_image = $main_images[0] ?? '';
+
+	?>
+	<div class="product-variants">
+		<h4>Select Colour:</h4>
+		<div class="variant-options" style="display: flex; gap: 10px; flex-wrap: wrap;">
+
+			<!-- Main Product Colour shown once with main product image -->
+			<?php if (!empty($main_color)): ?>
+				<div class="variant-item main-product-color"
+					data-main-product-id="<?= htmlspecialchars($product['id'] ?? $product_id); ?>"
+					style="cursor:pointer; text-align:center; border:2px solid #007bff; padding:5px; border-radius:6px; width:70px;">
+					<?php if (!empty($main_image)): ?>
+						<img src="<?= (strpos($main_image, 'admin/') === 0) ? htmlspecialchars($main_image) : 'admin/' . htmlspecialchars($main_image); ?>"
+							alt="<?= htmlspecialchars($main_color); ?>"
+							style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
+					<?php else: ?>
+						<div
+							style="width:60px; height:60px; background:#eee; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#888;">
+							No Image
+						</div>
+					<?php endif; ?>
+					<div style="font-size:13px; margin-top:5px;"><?= htmlspecialchars($main_color); ?></div>
+				</div>
+			<?php endif; ?>
+
+			<!-- Variants list -->
+			<?php if (!empty($variants)): ?>
+				<?php foreach ($variants as $variant): ?>
+					<?php
+					// Skip variant if its Main_Product_Colour matches main_color to avoid duplicate
+					if (!empty($main_color) && ($variant['Main_Product_Colour'] ?? '') === $main_color) {
+						continue;
+					}
+					?>
+					<div class="variant-item" data-variant-id="<?= htmlspecialchars($variant['id']); ?>"
+						style="cursor:pointer; text-align:center; border:1px solid #ddd; padding:5px; border-radius:6px; width:70px;">
+						<?php if (!empty($variant['image'])): ?>
+							<img src="<?= (strpos($variant['image'], 'admin/') === 0) ? htmlspecialchars($variant['image']) : 'admin/' . htmlspecialchars($variant['image']); ?>"
+								alt="<?= htmlspecialchars($variant['color'] ?? ''); ?>"
+								style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
+						<?php else: ?>
+							<div
+								style="width:60px; height:60px; background:#eee; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#888;">
+								No Image
+							</div>
+						<?php endif; ?>
+						<div style="font-size:13px; margin-top:5px;"><?= htmlspecialchars($variant['color'] ?? ''); ?></div>
+					</div>
+				<?php endforeach; ?>
+			<?php endif; ?>
+
+		</div>
+	</div>
+<?php else: ?>
+	<p>No variants available for this product.</p>
+<?php endif; ?>
+
+
+
+
+
 					<div class="short-description">
 						<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : '---'; ?>
 						</p>
@@ -694,7 +873,7 @@ body {
 
 		.cart-btn:hover {
 			transform: translateY(-2px);
-			background-color: #111;
+			color: #ffffff;
 		}
 
 		.cart-btn.disabled {
@@ -782,7 +961,7 @@ body {
 
 /* Active Tab */
 .feature-tab-area .tabs a.active {
-    background: #ba4b51ff;
+    background: #C06B81;
     color: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 	padding:20px 30px; 
@@ -1311,6 +1490,78 @@ body {
 	<script src="js/plugins.js"></script>
 	<!-- main js -->
 	<script src="js/main.js"></script>
+<script>
+document.querySelectorAll('.variant-item').forEach(item => {
+    item.addEventListener('click', function () {
+        const id = this.dataset.variantId || this.dataset.mainProductId; // Support main product color too
+        if (!id) {
+            console.error('No variant or main product ID found on element.');
+            return;
+        }
+        loadVariant(id, this);
+    });
+});
+
+function loadVariant(id, el) {
+    fetch(`get_variant.php?id=${encodeURIComponent(id)}`)
+        .then(res => {
+            if (!res.ok) throw new Error(`Network error: ${res.status}`);
+            return res.json();
+        })
+        .then(data => {
+            if (!data || data.error) {
+                alert(data?.error || 'No variant data found');
+                return;
+            }
+
+            // Update product image (works with your zoom-image background)
+            const zoomEl = document.querySelector('.zoom-image');
+            if (zoomEl && data.image) {
+                // Use full path if your backend returns just filenames
+                zoomEl.style.backgroundImage = `url('admin/${data.image}')`;
+            }
+
+            // Update final price
+            const priceEl = document.querySelector('.price-new .price-box');
+            if (priceEl) {
+                priceEl.textContent = '₹' + parseFloat(data.final_price || 0).toFixed(2);
+            }
+
+            // Update old price (only show if exists and is greater than final price)
+            const oldPriceEl = document.querySelector('.old-price');
+            if (oldPriceEl) {
+                if (data.old_price && parseFloat(data.old_price) > parseFloat(data.final_price)) {
+                    oldPriceEl.textContent = '₹' + parseFloat(data.old_price).toFixed(2) + ' tax incl.';
+                    oldPriceEl.style.display = '';
+                } else {
+                    oldPriceEl.style.display = 'none';
+                }
+            }
+
+            // Update stock count
+            const stockEl = document.querySelector('.quantity-available span:first-child');
+            if (stockEl) {
+                stockEl.textContent = data.stock ?? '0';
+            }
+
+            // Update availability status
+            const availabilityEl = document.querySelector('.availability-status span');
+            if (availabilityEl) {
+                availabilityEl.textContent = (data.stock > 0) ? 'In stock' : 'Out of stock';
+            }
+
+            // Highlight selected variant
+            document.querySelectorAll('.variant-item').forEach(e => e.style.border = '1px solid #ddd');
+            if (el) el.style.border = '2px solid #007bff';
+        })
+        .catch(err => {
+            console.error('Error loading variant:', err);
+            alert('Error loading variant details: ' + err.message);
+        });
+}
+</script>
+
+
 
 	<script>
 		function addToCart(productId) {
