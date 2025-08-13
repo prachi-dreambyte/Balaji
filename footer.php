@@ -462,8 +462,8 @@ a {
         </ul>
         <h5 class="text-uppercase footer-Heading fw-bold mt-3">Legal</h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-light text-decoration-none footer-para">Privacy Notice</a></li>
-          <li><a href="#" class="text-light text-decoration-none footer-para">Terms of Use</a></li>
+          <li><a href="privacy-pilicy.php" class="text-light text-decoration-none footer-para">Privacy Notice</a></li>
+          <li><a href="terms-and-condition.php" class="text-light text-decoration-none footer-para">Terms of Use</a></li>
         </ul>
       </div>
 
