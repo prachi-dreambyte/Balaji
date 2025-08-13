@@ -145,93 +145,96 @@ if (!isset($_SESSION['user_id'])) {
 
 
 <?php
-
 $tableQuery = "CREATE TABLE IF NOT EXISTS categories (
-     id INT AUTO_INCREMENT PRIMARY KEY,
-     category_name VARCHAR(255) NOT NULL UNIQUE,
-     category_image TEXT,
-     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
- )";
- $conn->query($tableQuery);
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(255) NOT NULL UNIQUE,
+    category_image TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+$conn->query($tableQuery);
 
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     $category = trim($_POST['category']);
-     $imageName = $_FILES['category_image']['tmp_name'];
-     echo $imageName;
- 
-     // Image upload handling
-     if (!empty($_FILES['category_image']['name'])) {
-         $targetDir = "uploads/";
-         $imageName = basename($_FILES['category_image']['name']);
-         $targetFile = $targetDir . $imageName;
-         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
- 
-         // Validate file type
-         $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-         if (!in_array($imageFileType, $allowedTypes)) {
-             echo "<script>
-                 Swal.fire({
-                     icon: 'error',
-                     title: 'Invalid File Type!',
-                     text: 'Only JPG, PNG, and GIF files are allowed.',
-                     confirmButtonText: 'OK'
-                 });
-             </script>";
-             exit();
-         }
- 
-         // Move uploaded file
-         if (!move_uploaded_file($_FILES['category_image']['tmp_name'], $targetFile)) {
-             echo "<script>
-                 Swal.fire({
-                     icon: 'error',
-                     title: 'Upload Failed!',
-                     text: 'There was an error uploading the file.',
-                     confirmButtonText: 'OK'
-                 });
-             </script>";
-             exit();
-         }
-     }
- 
-     if (!empty($category)) {
-         // Insert category with image into database
-         $stmt = $conn->prepare("INSERT INTO categories (category_name, category_image) VALUES (?, ?)");
-         $stmt->bind_param("ss", $category, $imageName);
- 
-         if ($stmt->execute()) {
-             echo "<script>
-                 Swal.fire({
-                     icon: 'success',
-                     title: 'Category Added!',
-                     text: 'Your category has been successfully added.',
-                     confirmButtonText: 'OK'
-                 }).then(() => {
-                     window.location.href = 'category-add.php';
-                 });
-             </script>";
-         } else {
-             echo "<script>
-                 Swal.fire({
-                     icon: 'error',
-                     title: 'Error!',
-                     text: 'Category could not be added. It might already exist.',
-                     confirmButtonText: 'Try Again'
-                 });
-             </script>";
-         }
-         $stmt->close();
-     } else {
-         echo "<script>
-             Swal.fire({
-                 icon: 'warning',
-                 title: 'Empty Field!',
-                 text: 'Please enter a category name.',
-                 confirmButtonText: 'OK'
-             });
-         </script>";
-     }
- }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $category = trim($_POST['category']);
 
+    // Default to empty image name
+    $imageName = '';
 
+    // Image upload handling
+    if (!empty($_FILES['category_image']['name'])) {
+        $targetDir = "uploads/";
+        $imageName = basename($_FILES['category_image']['name']); // Only filename
+        $targetFile = $targetDir . $imageName;
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+        // Validate file type
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (!in_array($imageFileType, $allowedTypes)) {
+            echo "<script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid File Type!',
+                    text: 'Only JPG, PNG, GIF, and WEBP files are allowed.',
+                    confirmButtonText: 'OK'
+                });
+            </script>";
+            exit();
+        }
+
+        // Create uploads folder if not exists
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        // Move uploaded file
+        if (!move_uploaded_file($_FILES['category_image']['tmp_name'], $targetFile)) {
+            echo "<script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Upload Failed!',
+                    text: 'There was an error uploading the file.',
+                    confirmButtonText: 'OK'
+                });
+            </script>";
+            exit();
+        }
+    }
+
+    if (!empty($category)) {
+        // Insert category with image into database
+        $stmt = $conn->prepare("INSERT INTO categories (category_name, category_image) VALUES (?, ?)");
+        $stmt->bind_param("ss", $category, $targetFile);
+
+        if ($stmt->execute()) {
+            echo "<script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Category Added!',
+                    text: 'Your category has been successfully added.',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = 'category-add.php';
+                });
+            </script>";
+        } else {
+            echo "<script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Category could not be added. It might already exist.',
+                    confirmButtonText: 'Try Again'
+                });
+            </script>";
+        }
+        $stmt->close();
+    } else {
+        echo "<script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Empty Field!',
+                text: 'Please enter a category name.',
+                confirmButtonText: 'OK'
+            });
+        </script>";
+    }
+}
 ?>

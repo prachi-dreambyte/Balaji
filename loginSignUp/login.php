@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         mysqli_stmt_bind_param($stmt, "ss", $email, $account_type);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-       echo 'hello';
+       
         if ($result && mysqli_num_rows($result) === 1) {
             $user = mysqli_fetch_assoc($result);
            
@@ -138,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </div>
                                 <div class="LoginAccount">
                                   <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
-                                     <p><a href="forgot-password.php">Forgot Password?</a></p>
+                                     <p><a href="forget-password.php">Forget Password?</a></p>
                                  </div>
 
                         </form>
@@ -159,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             </div>
                             <div class="LoginAccount">
                               <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
-                                <p><a href="forgot-password.php">Forgot Password?</a></p>
+                                <p><a href="forget-password.php">Forget Password?</a></p>
                               </div>
 
                         </form>
