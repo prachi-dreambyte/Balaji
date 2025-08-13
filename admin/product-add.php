@@ -4,19 +4,15 @@ include 'db_connect.php';
 if (!isset($_SESSION['user_id'])) {
      header("Location: auth-signin.php");
      exit;
- }
+}
 $stmt = $conn->prepare('SELECT * FROM categories');
 $stmt->execute();
 $result = $stmt->get_result();
 
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
      <!-- Title Meta -->
@@ -49,9 +45,7 @@ $result = $stmt->get_result();
      <div class="wrapper">
 
           <!-- ========== Topbar Start ========== -->
-          <?php
-          include 'header.php';
-          ?>
+          <?php include 'header.php'; ?>
 
           <!-- ==================================================== -->
           <!-- Start right Content here -->
@@ -82,7 +76,6 @@ $result = $stmt->get_result();
                                                        </span>
                                                   </div>
                                              </div>
-
                                         </div>
                                    </div>
                                    <div class="card">
@@ -92,15 +85,12 @@ $result = $stmt->get_result();
                                         <div class="card-body">
                                              <div class="row">
                                                   <div class="col-lg-6">
-
                                                        <div class="mb-3">
                                                             <label for="product-name" class="form-label">Product Name</label>
                                                             <input type="text" name="name" id="product-name" class="form-control" placeholder="Items Name">
                                                        </div>
-
                                                   </div>
                                                   <div class="col-lg-6">
-
                                                        <label for="product-categories" class="form-label">Product Categories</label>
                                                        <select class="form-control" name="category" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories">
                                                             <option value="">Choose a category</option>
@@ -114,32 +104,197 @@ $result = $stmt->get_result();
                                              </div>
                                              <div class="row">
                                                   <div class="col-lg-4">
-
                                                        <div class="mb-3">
                                                             <label for="product-brand" class="form-label">Brand</label>
                                                             <input type="text" id="product-brand" name="brand" class="form-control" placeholder="Brand Name">
                                                        </div>
-
                                                   </div>
                                                   <div class="col-lg-4">
-
                                                        <div class="mb-3">
                                                             <label for="product-weight" class="form-label">Weight</label>
                                                             <input type="text" id="product-weight" name="weight" class="form-control" placeholder="In gm & kg">
                                                        </div>
-
                                                   </div>
-                                                  <!-- <div class="col-lg-4">
-                                                  <form method="post">
-                                                       <label for="gender" class="form-label">Gender</label>
-                                                       <select class="form-control" id="gender" data-choices data-choices-groups data-placeholder="Select Gender">
-                                                            <option value="">Select Gender</option>
-                                                            <option value="Men">Men</option>
-                                                            <option value="Women">Women</option>
-                                                            <option value="Other">Other</option>
-                                                       </select>
-                                                  </form>
-                                             </div> -->
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="product-weight" class="form-label">Product Weight</label>
+                                                            <input type="text" id="product-weight" name="product_weight" class="form-control" placeholder="Product weight">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="total-height" class="form-label">Total Height</label>
+                                                            <input type="text" id="total-height" name="total_height" class="form-control" placeholder="Total height">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="total-width" class="form-label">Total Width</label>
+                                                            <input type="text" id="total-width" name="total_width" class="form-control" placeholder="Total width">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="material" class="form-label">Material</label>
+                                                            <input type="text" id="material" name="material" class="form-control" placeholder="Material">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="seat-height" class="form-label">Seat Height</label>
+                                                            <input type="text" id="seat-height" name="seat_height" class="form-control" placeholder="Seat height">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="seat-thickness" class="form-label">Seat Thickness</label>
+                                                            <input type="text" id="seat-thickness" name="seat_thickness" class="form-control" placeholder="Seat thickness">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="seat-depth" class="form-label">Seat Depth</label>
+                                                            <input type="text" id="seat-depth" name="seat_depth" class="form-control" placeholder="Seat depth">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="seat-material-type" class="form-label">Seat Material Type</label>
+                                                            <input type="text" id="seat-material-type" name="seat_material_type" class="form-control" placeholder="Seat material type">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="backrest-height" class="form-label">Backrest Height From Seat</label>
+                                                            <input type="text" id="backrest-height" name="backrest_height_from_seat" class="form-control" placeholder="Backrest height from seat">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="backrest-material-type" class="form-label">Backrest Material Type</label>
+                                                            <input type="text" id="backrest-material-type" name="backrest_material_type" class="form-control" placeholder="Backrest material type">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="pedestal-base" class="form-label">Pedestal Base</label>
+                                                            <input type="text" id="pedestal-base" name="pedestal_base" class="form-control" placeholder="Pedestal base">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="seat-adjusting-range" class="form-label">Seat Height Adjusting Range</label>
+                                                            <input type="text" id="seat-adjusting-range" name="seat_height_adjusting_range" class="form-control" placeholder="Seat height adjusting range">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="handle-type" class="form-label">Handle Type</label>
+                                                            <input type="text" id="handle-type" name="handle_type" class="form-control" placeholder="Handle type">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="wheel-type" class="form-label">Wheel Type</label>
+                                                            <input type="text" id="wheel-type" name="wheel_type" class="form-control" placeholder="Wheel type">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="mechanical-system" class="form-label">Mechanical System Type</label>
+                                                            <input type="text" id="mechanical-system" name="mechanical_system_type" class="form-control" placeholder="Mechanical system type">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="color-available" class="form-label">Color Available</label>
+                                                            <input type="text" id="color-available" name="color_available" class="form-control" placeholder="Color available">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="backrest-size" class="form-label">Backrest Size</label>
+                                                            <input type="text" id="backrest-size" name="backrest_size" class="form-control" placeholder="Backrest size">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="adjuster-size" class="form-label">Adjuster Size</label>
+                                                            <input type="text" id="adjuster-size" name="adjuster_size" class="form-control" placeholder="Adjuster size">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="guarantee" class="form-label">Guarantee</label>
+                                                            <input type="text" id="guarantee" name="guarantee" class="form-control" placeholder="Guarantee">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="chair-arms" class="form-label">Chair Arms</label>
+                                                            <input type="text" id="chair-arms" name="chair_arms" class="form-control" placeholder="Chair arms">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="table-top-size" class="form-label">Table Top Size</label>
+                                                            <input type="text" id="table-top-size" name="table_top_size" class="form-control" placeholder="Table top size">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="sitting-capacity" class="form-label">Sitting Capacity</label>
+                                                            <input type="number" id="sitting-capacity" name="sitting_capacity" class="form-control" placeholder="Sitting capacity">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="no-of-top" class="form-label">No. of Top</label>
+                                                            <input type="number" id="no-of-top" name="no_of_top" class="form-control" placeholder="No. of top">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="table-type" class="form-label">Table Type</label>
+                                                            <input type="text" id="table-type" name="table_type" class="form-control" placeholder="Table type">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="shape" class="form-label">Shape</label>
+                                                            <input type="text" id="shape" name="shape" class="form-control" placeholder="Shape">
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="wheels" class="form-label">Wheels</label>
+                                                            <input type="text" id="wheels" name="wheels" class="form-control" placeholder="Wheels">
+                                                       </div>
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                       <div class="mb-3">
+                                                            <label for="size" class="form-label">Size</label>
+                                                            <input type="text" id="size" name="size" class="form-control" placeholder="Size">
+                                                       </div>
+                                                  </div>
                                              </div>
                                              <div class="row mb-4">
                                                   <div class="col-lg-4">
@@ -162,52 +317,40 @@ $result = $stmt->get_result();
                                                                  <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-xxl1">XXL</label>
                                                                  <input type="checkbox" class="btn-check" id="size-3xl1">
                                                                  <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-3xl1">3XL</label>
-
                                                             </div>
                                                        </div>
                                                   </div>
-
-                                             </div class= "row">
+                                             </div>
+                                             <div class="row">
                                                   <div class="col-lg-12">
-
                                                        <div class="mb-3">
                                                             <label for="short_description" class="form-label">Short Description(30-40Words)</label>
                                                             <textarea class="form-control bg-light-subtle" name="short_description" id="short_description" rows="7" placeholder="Short description about the product"></textarea>
                                                        </div>
-
                                                   </div>
                                              </div>
                                              <div class="row">
                                                   <div class="col-lg-12">
-
                                                        <div class="mb-3">
                                                             <label for="description" class="form-label">More Info.</label>
                                                             <textarea class="form-control bg-light-subtle" name="description" id="description" rows="7" placeholder="More Info. about the product"></textarea>
                                                        </div>
-
                                                   </div>
                                              </div>
                                              <div class="row">
                                                   <div class="col-lg-4">
-
                                                        <div class="mb-3">
                                                             <label for="product-id" class="form-label">Tag Number</label>
                                                             <input type="number" name="tagnumber" id="product-id" class="form-control" placeholder="#******">
                                                        </div>
-
-
                                                   </div>
                                                   <div class="col-lg-4">
-
                                                        <div class="mb-3">
                                                             <label for="product-stock" class="form-label">Stock</label>
                                                             <input type="number" name="stock" id="product-stock" class="form-control" placeholder="Quantity">
                                                        </div>
-
-
                                                   </div>
                                                   <div class="col-lg-4">
-
                                                        <label for="product-stock" class="form-label">Tag</label>
                                                        <select class="form-control" name="tag[]" id="choices-multiple-remove-button" data-choices data-choices-removeItem name="choices-multiple-remove-button" multiple>
                                                             <option value="FEATURED PRODUCTS" selected>FEATURED PRODUCTS</option>
@@ -215,7 +358,6 @@ $result = $stmt->get_result();
                                                             <option value="ONSALE">ONSALE</option>
                                                             <option value="BESTSELLER">BESTSELLER</option>
                                                        </select>
-
                                                   </div>
                                              </div>
                                         </div>
@@ -227,37 +369,30 @@ $result = $stmt->get_result();
                                         <div class="card-body">
                                              <div class="row">
                                                   <div class="col-lg-4">
-
                                                        <label for="product-price" class="form-label">Price</label>
                                                        <div class="input-group mb-3">
                                                             <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
                                                             <input type="number" id="product-price" name="price" class="form-control" placeholder="000">
                                                        </div>
-
                                                   </div>
                                                   <div class="col-lg-4">
-
                                                        <label for="product-discount" class="form-label">Discount</label>
                                                        <div class="input-group mb-3">
                                                             <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
                                                             <input type="number" id="product-discount" class="form-control" name="discount" placeholder="000">
                                                        </div>
-
                                                   </div>
                                                   <div class="col-lg-4">
-
-                                                       <label for="product-tex" class="form-label">Tex</label>
+                                                       <label for="product-tex" class="form-label">Tax</label>
                                                        <div class="input-group mb-3">
                                                             <span class="input-group-text fs-20"><i class='bx bxs-file-txt'></i></span>
                                                             <input type="number" name="tex" id="product-tex" class="form-control" placeholder="000">
                                                        </div>
-
                                                   </div>
                                              </div>
                                         </div>
                                    </div>
                                    <div class="p-3 bg-light mb-3 rounded">
-
                                         <div class="row justify-content-end g-2">
                                              <div class="col-lg-2">
                                                   <button type="submit" name="add" class="btn btn-outline-secondary w-100">Create Product</button>
@@ -292,7 +427,6 @@ $result = $stmt->get_result();
           <!-- End Page Content -->
           <!-- ==================================================== -->
 
-
      </div>
      <!-- END Wrapper -->
 
@@ -319,7 +453,7 @@ include 'db_connect.php';
 
 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
 
-// Create products table if not exists
+// Create products table if not exists with all columns
 $sql = "CREATE TABLE IF NOT EXISTS products (
      id INT AUTO_INCREMENT PRIMARY KEY,
      product_name VARCHAR(255),
@@ -327,10 +461,36 @@ $sql = "CREATE TABLE IF NOT EXISTS products (
      brand VARCHAR(255),
      weight VARCHAR(50),
      size VARCHAR(255),
-     short_description TEXT,
+     total_height VARCHAR(50),
+     total_width VARCHAR(50),
+     material VARCHAR(100),
+     seat_height VARCHAR(50),
+     seat_thickness VARCHAR(50),
+     seat_depth VARCHAR(50),
+     seat_material_type VARCHAR(100),
+     backrest_height_from_seat VARCHAR(50),
+     backrest_material_type VARCHAR(100),
+     pedestal_base VARCHAR(100),
+     seat_height_adjusting_range VARCHAR(50),
+     handle_type VARCHAR(100),
+     wheel_type VARCHAR(100),
+     mechanical_system_type VARCHAR(100),
+     color_available VARCHAR(255),
+     product_weight VARCHAR(50),
+     backrest_size VARCHAR(50),
+     adjuster_size VARCHAR(50),
+     guarantee VARCHAR(50),
+     chair_arms VARCHAR(50),
+     table_top_size VARCHAR(50),
+     sitting_capacity INT(11),
+     no_of_top INT(11),
+     table_type VARCHAR(100),
+     shape VARCHAR(50),
+     wheels VARCHAR(50),
+     short_description VARCHAR(200),
      description TEXT,
      tag_number VARCHAR(50) UNIQUE,
-     stock INT,
+     stock INT(11),
      tags TEXT,
      price DECIMAL(10,2),
      discount DECIMAL(10,2),
@@ -351,13 +511,40 @@ if ($conn->query($sql) === FALSE) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     // Collect form data
+     echo "dsfdfggdf";
+     // Collect form data for all fields
      $product_name = $_POST['name'];
      $category = $_POST['category'];
      $brand = $_POST['brand'];
      $weight = $_POST['weight'];
-     $size = isset($_POST['size']) ? implode(',', $_POST['size']) : ''; // Convert array to string
-     $short_description = $_POST['short_description']; // Assuming this is the short description
+     $size = $_POST['size'];
+     $total_height = $_POST['total_height'];
+     $total_width = $_POST['total_width'];
+     $material = $_POST['material'];
+     $seat_height = $_POST['seat_height'];
+     $seat_thickness = $_POST['seat_thickness'];
+     $seat_depth = $_POST['seat_depth'];
+     $seat_material_type = $_POST['seat_material_type'];
+     $backrest_height_from_seat = $_POST['backrest_height_from_seat'];
+     $backrest_material_type = $_POST['backrest_material_type'];
+     $pedestal_base = $_POST['pedestal_base'];
+     $seat_height_adjusting_range = $_POST['seat_height_adjusting_range'];
+     $handle_type = $_POST['handle_type'];
+     $wheel_type = $_POST['wheel_type'];
+     $mechanical_system_type = $_POST['mechanical_system_type'];
+     $color_available = $_POST['color_available'];
+     $product_weight = $_POST['product_weight'];
+     $backrest_size = $_POST['backrest_size'];
+     $adjuster_size = $_POST['adjuster_size'];
+     $guarantee = $_POST['guarantee'];
+     $chair_arms = $_POST['chair_arms'];
+     $table_top_size = $_POST['table_top_size'];
+     $sitting_capacity = $_POST['sitting_capacity'];
+     $no_of_top = $_POST['no_of_top'];
+     $table_type = $_POST['table_type'];
+     $shape = $_POST['shape'];
+     $wheels = $_POST['wheels'];
+     $short_description = $_POST['short_description'];
      $description = $_POST['description'];
      $tag_number = $_POST['tagnumber'];
      $stock = $_POST['stock'];
@@ -399,13 +586,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                });
           </script>";
      } else {
-          // Insert data into database
+          // Insert data into database with all columns
           $sql = "INSERT INTO products 
-                (product_name, category, brand, weight, size, short_description, description, tag_number, stock, tags, price, discount, tax, images) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (product_name, category, brand, weight, size, total_height, total_width, material, 
+                seat_height, seat_thickness, seat_depth, seat_material_type, backrest_height_from_seat, 
+                backrest_material_type, pedestal_base, seat_height_adjusting_range, handle_type, 
+                wheel_type, mechanical_system_type, color_available, product_weight, backrest_size, 
+                adjuster_size, guarantee, chair_arms, table_top_size, sitting_capacity, no_of_top, 
+                table_type, shape, wheels, short_description, description, tag_number, stock, tags, 
+                price, discount, tax, images) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 
           $stmt = $conn->prepare($sql);
-          $stmt->bind_param("ssssssssissdds", $product_name, $category, $brand, $weight, $size, $short_description, $description, $tag_number, $stock, $tags, $price, $discount, $tax, $imagesJSON);
+          $stmt->bind_param("ssssssssssssssssssssssssssssssssssssssss", 
+               $product_name, $category, $brand, $weight, $size, $total_height, $total_width, $material,
+               $seat_height, $seat_thickness, $seat_depth, $seat_material_type, $backrest_height_from_seat,
+               $backrest_material_type, $pedestal_base, $seat_height_adjusting_range, $handle_type,
+               $wheel_type, $mechanical_system_type, $color_available, $product_weight, $backrest_size,
+               $adjuster_size, $guarantee, $chair_arms, $table_top_size, $sitting_capacity, $no_of_top,
+               $table_type, $shape, $wheels, $short_description, $description, $tag_number, $stock, $tags,
+               $price, $discount, $tax, $imagesJSON);
 
           if ($stmt->execute()) {
                echo "<script>

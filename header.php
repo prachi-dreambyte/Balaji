@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
-include 'connect.php';
+include_once 'connect.php';
 
 // Fetch categories for menu
 $sql = "SELECT * FROM categories";
