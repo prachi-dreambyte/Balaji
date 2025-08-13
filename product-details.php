@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
 	session_start();
@@ -55,20 +56,45 @@ elseif (!empty($product) && !empty($product['category_name'])) {
 // Fetch all variants for this product
 // Initialize product and other arrays
 $product = [
-	'id' => 0,
-	'product_name' => '',
-	'tag_number' => '',
-	'price' => 0.0,
-	'discount' => 0.0,
-	'short_description' => '',
-	'stock' => 0,
-	'brand' => '',
-	'weight' => '',
-	'size' => '',
-	'category' => '',
-	'tags' => '',
-	'images' => '',
-	'main_product_colour' => ''
+    'product_name' => '',
+    'tag_number' => '',
+    'price' => '',
+    'discount' => '',
+    'short_description ' => '',
+    'stock' => '',
+    'brand' => '',
+    'weight' => '',
+    'size' => '',
+    'category' => '',
+    'tags' => '',
+    'images' => '',
+    
+    'total_height' => '',
+    'total_width' => '',
+    'material' => '',
+    'seat_height' => '',
+    'seat_thickness' => '',
+    'seat_depth' => '',
+    'seat_material_type' => '',
+    'backrest_height_from_seat' => '',
+    'backrest_material_type' => '',
+    'pedestal_base' => '',
+    'seat_height_adjusting_range' => '',
+    'handle_type' => '',
+    'wheel_type' => '',
+    'mechanical_system_type' => '',
+    'color_available' => '',
+    'product_weight' => '',
+    'backrest_size' => '',
+    'adjuster_size' => '',
+    'guarantee' => '',
+    'chair_arms' => '',
+    'table_top_size' => '',
+    'sitting_capacity' => '',
+    'no_of_top' => '',
+    'table_type' => '',
+    'shape' => '',
+    'wheels' => ''
 ];
 
 $images = [];
@@ -361,6 +387,32 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 				height: 70px;
 			}
 		}
+		 .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+		 }
+         .spec-item {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #ba4b51ff;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        .spec-value {
+            font-size: 15px;
+        }
+
+        
+
+
 	</style>
 
 
@@ -847,6 +899,9 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 			</div>
 		</div>
 	</div>
+	
+	
+	
 	<style>
           
 		  .abc{
@@ -928,114 +983,288 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 <style>
                                
 							   
+/* ---------- Tabs Section ---------- */
 .feature-tab-area .tabs {
     display: flex;
     justify-content: center;
-    border-bottom: 2px solid #eee;
-    margin-bottom: 20px;
-    gap: 8px;
+    border-bottom: none;
+    margin-bottom: 25px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-/* Tab Links */
 .feature-tab-area .tabs li {
     list-style: none;
 }
 
 .feature-tab-area .tabs a {
     display: block;
-    padding: 20px 30px !important;
+    padding: 14px 28px !important;
     font-size: 15px;
     font-weight: 600;
-    color: #555;
-    background: #f8f9fa;
+    color: #444;
+    background: linear-gradient(145deg, #f8f9fa, #ffffff);
     border-radius: 30px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     text-transform: capitalize;
-	
 }
 
 .feature-tab-area .tabs a:hover {
-    background: #e9ecef;
+    background: linear-gradient(145deg, #f0f1f2, #ffffff);
     color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Active Tab */
 .feature-tab-area .tabs a.active {
-    background: #C06B81;
+    background: linear-gradient(145deg, #c06b81, #a75669);
     color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-	padding:20px 30px; 
-	margin-bottom: 25px;
+    box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
+    transform: translateY(-2px);
 }
 
-/* Tab Content Styling */
+/* ---------- Tab Content Box ---------- */
 .tab-box {
     background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    animation: fadeIn 0.3s ease;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.4s ease;
 }
 
-/* Table Styling in Data Sheet */
-.table-data-sheet {
-    width: 100%;
-    border-collapse: collapse;
-}
-.table-data-sheet td {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-}
-.table-data-sheet tr:nth-child(odd) {
-    background: #f8f9fa;
+/* ---------- Specs Grid ---------- */
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
 }
 
-/* Animation */
+.spec-item {
+    background: linear-gradient(145deg, #fdfdfd, #f7f8f9);
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 14px 18px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+}
+
+.spec-item:hover {
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    transform: translateY(-3px);
+}
+
+.spec-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+
+.spec-value {
+    font-size: 15px;
+    color: #222;
+}
+
+/* ---------- Animation ---------- */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+	</style>
+	
+							    <div role="tabpanel" class="tab-pane fade" id="datasheet">
+                                <div class="tab-box">
+                                    <div class="specs-grid">
+                                        <?php if ($product['total_height']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Total Height</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['total_height']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['total_width']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Total Width</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['total_width']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['material']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Material</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['material']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['seat_height']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Seat Height</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_height']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['seat_thickness']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Seat Thickness</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_thickness']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['seat_depth']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Seat Depth</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_depth']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['seat_material_type']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Seat Material</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_material_type']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['backrest_height_from_seat']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Backrest Height</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['backrest_height_from_seat']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['backrest_material_type']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Backrest Material</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['backrest_material_type']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['pedestal_base']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Pedestal Base</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['pedestal_base']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['seat_height_adjusting_range']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Height Adjustment Range</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_height_adjusting_range']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['handle_type']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Handle Type</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['handle_type']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['wheel_type']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Wheel Type</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['wheel_type']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['mechanical_system_type']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Mechanical System</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['mechanical_system_type']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['color_available']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Available Colors</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['color_available']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['product_weight']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Product Weight</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['product_weight']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['backrest_size']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Backrest Size</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['backrest_size']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['adjuster_size']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Adjuster Size</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['adjuster_size']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['guarantee']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Guarantee</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['guarantee']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['chair_arms']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Chair Arms</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['chair_arms']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['table_top_size']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Table Top Size</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['table_top_size']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['sitting_capacity']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Sitting Capacity</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['sitting_capacity']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['no_of_top']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Number of Tops</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['no_of_top']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['table_type']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Table Type</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['table_type']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['shape']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Shape</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['shape']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($product['wheels']): ?>
+                                            <div class="spec-item">
+                                                <div class="spec-label">Wheels</div>
+                                                <div class="spec-value"><?php echo htmlspecialchars($product['wheels']); ?></div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
 
-							</style>
-							<div role="tabpanel" class="tab-pane fade" id="datasheet">
-								<div class="tab-box">
-									<table class="table-data-sheet">
-										<tbody>
-											<tr class="odd">
-												<td>Brand</td>
-												<td><?php echo $product['brand'] !== '' ? htmlspecialchars($product['brand']) : '---'; ?>
-												</td>
-											</tr>
-											<tr class="even">
-												<td>Weight</td>
-												<td><?php echo $product['weight'] !== '' ? htmlspecialchars($product['weight']) : '---'; ?>
-												</td>
-											</tr>
-											<tr class="odd">
-												<td>Size</td>
-												<td><?php echo $product['size'] !== '' ? htmlspecialchars($product['size']) : '---'; ?>
-												</td>
-											</tr>
-											<tr class="even">
-												<td>Category</td>
-												<td><?php echo $product['category'] !== '' ? htmlspecialchars($product['category']) : '---'; ?>
-												</td>
-											</tr>
-											<tr class="odd">
-												<td>Stock</td>
-												<td><?php echo $product['stock'] !== '' ? htmlspecialchars($product['stock']) : '---'; ?>
-												</td>
-											</tr>
-											<tr class="even">
-												<td>Tag Number</td>
-												<td><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
+
 							<!-- ⭐ REVIEW SECTION START -->
 							<div role="tabpanel" class="tab-pane fade in " id="reviews">
 								<div class="tab-box">
@@ -1341,7 +1570,7 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 			</div>
 		</div>
 	</div>
-	<?php include 'footer.php'; ?>
+	<?php include('footer.php'); ?>
 	<!-- footer-end -->
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">

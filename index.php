@@ -35,7 +35,7 @@ function getProductsByTag($conn, $tag)
     // No quotes here, plain text match
     $searchTerm = '%' . $tag . '%';
 
-    $sql_tag = "SELECT * FROM products WHERE tags LIKE ? ORDER BY created_at DESC LIMIT 4";
+    $sql_tag = "SELECT * FROM products WHERE tags LIKE ? ORDER BY created_at DESC LIMIT 8";
     $stmt_tag = $conn->prepare($sql_tag);
     $stmt_tag->bind_param("s", $searchTerm);
     $stmt_tag->execute();
@@ -1017,22 +1017,46 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <!--===== latest-blog-end =====-->
 
             <!--===== testimonial-area-start =====-->
-            <div class="testimonial-area">
-                <div class="container" style="background: transparent;">
-                    <div class="testimonial">
-                        <div class="testimonial-container">
-                            <!-- ⭐ LIVE GOOGLE REVIEWS WIDGET (iframe version) ⭐ -->
-                            <h3 class="section-header" style="text-align:center; margin-bottom: 20px;">
-                                What Our Customers Say
-                            </h3>
-                            <iframe src="https://widgets.sociablekit.com/google-reviews/iframe/25584908" frameborder="0"
-                                width="100%" height="1000"
-                                style="border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.05); background: transparent;">
-                            </iframe>
-                        </div>
-                    </div>
+<!-- testimonial-area-start -->
+<div class="testimonial-area py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);">
+    <div class="container">
+        <div class="testimonial text-center">
+            <div class="testimonial-container shadow-sm p-4 rounded" style="background: #fff;">
+                
+                <!-- Header -->
+                <h3 class="section-header mb-2" style="font-weight: 700; color: #333;">
+                    <!-- <i class="fas fa-quote-left" style="color: #ff9800; margin-right: 8px;"></i> -->
+                    What Our Customers Say
+                </h3>
+                <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
+                    Real Google reviews from our valued customers.
+                </p>
+
+                <!-- Google reviews iframe -->
+                <div class="responsive-iframe" style="max-width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                    <iframe src="https://widgets.sociablekit.com/google-reviews/iframe/25584908"
+                        frameborder="0"
+                        allowfullscreen
+                        loading="lazy"
+                        style="width:100%; height:500px; border:0;">
+                    </iframe>
                 </div>
+
             </div>
+        </div>
+    </div>
+</div>
+<!-- testimonial-area-end -->
+
+
+<style>
+    @media (max-width: 768px) {
+        .testimonial-container iframe {
+            height: 400px !important;
+        }
+    }
+</style>
+
             <!-- <div class="testimonial-area">
             <div class="container">
                 <div class="testimonial">
