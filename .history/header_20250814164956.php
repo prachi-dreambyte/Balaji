@@ -28,12 +28,15 @@ if (isset($_SESSION['user_id'])) {
     $total_price = $row['total_price'] ?? 0;
 }
 
-
+// if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+//   session_destroy();
+//   header('Location: index.php');
+//   exit;
+// }
 ?>
+
 <!-- Font Awesome 5 (solid icons) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-
 <style>
     .img-bg {
         width: 60px;

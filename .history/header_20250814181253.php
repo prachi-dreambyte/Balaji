@@ -501,24 +501,16 @@ if (isset($_SESSION['user_id'])) {
                             echo '<p>No categories found.</p>';
                         }
                         ?>
+                      </div>
                     </div>
-                </div>
 
 
-
-                <p class="headerText"><a href="index.php#deals"
-                        class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a>
-                </p>
-                <p class="headerText"><a href="contact.php"
-                        class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a>
-                </p>
-                <p class="headerText"><a href="about-us.php"
-                        class="nav-link text-white <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT
-                        US</a></p>
-                <p class="headerText"><a href="blog.php"
-                        class="nav-link text-white <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a>
-                </p>
-            </nav>
+                    
+                    <p class="headerText"><a href="index.php#deals" class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a></p>
+                    <p class="headerText"><a href="contact.php" class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a></p>
+                    <p class="headerText"><a href="about-us.php" class="nav-link text-white <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT US</a></p>
+                    <p class="headerText"><a href="blog.php" class="nav-link text-white <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a></p>
+                </nav>
 
             <!-- Search + Account Icons -->
             <div class="d-flex align-items-center gap-3 flex-wrap justify-content-end">

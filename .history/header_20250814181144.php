@@ -302,7 +302,7 @@ if (isset($_SESSION['user_id'])) {
         text-align: center;
     }
 
-    /* .category-list .img-bg {
+/* .category-list .img-bg {
     width: 50px;
     height: 50px;
     
@@ -321,7 +321,7 @@ if (isset($_SESSION['user_id'])) {
         object-fit: cover;
     }
 
-    /* .category-list li:hover .img-bg {
+/* .category-list li:hover .img-bg {
     transform: scale(1.05);
 } */
 
@@ -458,30 +458,30 @@ if (isset($_SESSION['user_id'])) {
                         //   "Staff Chairs" => "gradient-orange",
                         //   "Visitor Chair" => "gradient-pink"
                         // ];
-                        
+
                         if ($result && mysqli_num_rows($result) > 0) {
-                            echo '<ul class="category-list">';
-                            // echo '
-                            // <li>
-                            //   <a href="shop.php#product-list">
-                            //   <div class="img-bg gradient-default">
-                            //   <i class="fas fa-boxes" style="font-size: 24px;"></i>
-                            //   </div>
-                            //   <div class="text">
-                            //   <h4>All Products</h4>
-                            //   <p>View all items</p>
-                            //   </div>
-                            //   </a>
-                            // </li>;
-                        
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $name = htmlspecialchars($row['category_name']);
-                                $imageFile = isset($row['category_image']) ? $row['category_image'] : '';
-                                $imagePath = 'admin/' . htmlspecialchars($imageFile);
-                                if (empty($imageFile) || !file_exists($imagePath)) {
-                                    $imagePath = 'assets/images/placeholder.png';
-                                }
-                                $gradientClass = $gradientMap[$name] ?? 'gradient-default';
+                          echo '<ul class="category-list">';
+                          // echo '
+                          // <li>
+                          //   <a href="shop.php#product-list">
+                          //   <div class="img-bg gradient-default">
+                          //   <i class="fas fa-boxes" style="font-size: 24px;"></i>
+                          //   </div>
+                          //   <div class="text">
+                          //   <h4>All Products</h4>
+                          //   <p>View all items</p>
+                          //   </div>
+                          //   </a>
+                          // </li>;
+
+                          while ($row = mysqli_fetch_assoc($result)) {
+                            $name = htmlspecialchars($row['category_name']);
+                            $imageFile = isset($row['category_image']) ? $row['category_image'] : '';
+                            $imagePath = 'admin/uploads/' . htmlspecialchars($imageFile);
+                            if (empty($imageFile) || !file_exists($imagePath)) {
+                              $imagePath = 'assets/images/placeholder.png';
+                            }
+                            $gradientClass = $gradientMap[$name] ?? 'gradient-default';
 
                                 echo '
                           <li>
@@ -501,24 +501,16 @@ if (isset($_SESSION['user_id'])) {
                             echo '<p>No categories found.</p>';
                         }
                         ?>
+                      </div>
                     </div>
-                </div>
 
 
-
-                <p class="headerText"><a href="index.php#deals"
-                        class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a>
-                </p>
-                <p class="headerText"><a href="contact.php"
-                        class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a>
-                </p>
-                <p class="headerText"><a href="about-us.php"
-                        class="nav-link text-white <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT
-                        US</a></p>
-                <p class="headerText"><a href="blog.php"
-                        class="nav-link text-white <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a>
-                </p>
-            </nav>
+                    
+                    <p class="headerText"><a href="index.php#deals" class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a></p>
+                    <p class="headerText"><a href="contact.php" class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a></p>
+                    <p class="headerText"><a href="about-us.php" class="nav-link text-white <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT US</a></p>
+                    <p class="headerText"><a href="blog.php" class="nav-link text-white <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a></p>
+                </nav>
 
             <!-- Search + Account Icons -->
             <div class="d-flex align-items-center gap-3 flex-wrap justify-content-end">
