@@ -28,12 +28,12 @@ if (isset($_SESSION['user_id'])) {
   $total_price = $row['total_price'] ?? 0;
 }
 
-// if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-//   session_destroy();
-//   header('Location: index.php');
-//   exit;
-// }
+
 ?>
+<!-- Font Awesome 5 (solid icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
 <style>
   .img-bg {
     width: 60px;
@@ -300,18 +300,7 @@ a {
     text-align: center;
 }
 
-/* .category-list .img-bg {
-    width: 50px;
-    height: 50px;
-    
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: #f5f5f5;
-    transition: transform 0.2s ease-in-out;
-} */
+
 
 .category-list .img-bg img {
     width: 100%;
@@ -319,9 +308,6 @@ a {
     object-fit: cover;
 }
 
-/* .category-list li:hover .img-bg {
-    transform: scale(1.05);
-} */
 
 .category-list h4 {
     font-size: 14px;
@@ -445,30 +431,11 @@ a {
                         $sql = "SELECT DISTINCT * FROM categories ORDER BY category_name ASC";
                         $result = mysqli_query($conn, $sql);
 
-                        // $gradientMap = [
-                        //   "Executive Chair" => "gradient-blue",
-                        //   "Mesh Chair" => "gradient-brown",
-                        //   "Plastic Baby Chairs" => "gradient-purple",
-                        //   "Plastic Chair" => "gradient-green",
-                        //   "Plastic Table" => "gradient-yellow",
-                        //   "Staff Chairs" => "gradient-orange",
-                        //   "Visitor Chair" => "gradient-pink"
-                        // ];
+                    
 
                         if ($result && mysqli_num_rows($result) > 0) {
                           echo '<ul class="category-list">';
-                          // echo '
-                          // <li>
-                          //   <a href="shop.php#product-list">
-                          //   <div class="img-bg gradient-default">
-                          //   <i class="fas fa-boxes" style="font-size: 24px;"></i>
-                          //   </div>
-                          //   <div class="text">
-                          //   <h4>All Products</h4>
-                          //   <p>View all items</p>
-                          //   </div>
-                          //   </a>
-                          // </li>;
+                       
 
                           while ($row = mysqli_fetch_assoc($result)) {
                             $name = htmlspecialchars($row['category_name']);
@@ -500,8 +467,6 @@ a {
                       </div>
                     </div>
 
-
-                    
                     <p class="headerText"><a href="index.php#deals" class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a></p>
                     <p class="headerText"><a href="contact.php" class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a></p>
                     <p class="headerText"><a href="about-us.php" class="nav-link text-white <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT US</a></p>

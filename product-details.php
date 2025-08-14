@@ -558,12 +558,12 @@ body {
 /* Wishlist Icon */
 .add-wishlist .fa-heart {
     font-size: 20px;
-    color: #C06B81;
+    color: #efe7e9ff;
     transition: 0.3s;
 }
 .add-wishlist .fa-heart:hover {
     transform: scale(1.2);
-    color: #C06B81;
+    color: #f7f0f2ff;
 }
 
 /* Product Images */
@@ -1573,128 +1573,7 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 	<?php include('footer.php'); ?>
 	<!-- footer-end -->
 	<!-- modal start -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="row">
-					<div class="col-md-5 col-sm-5 col-xs-6 ">
-						<div class="modal-pic" title="Printed Chiffon Dress">
-							<a href="#">
-								<img src="img/modal/printed-chiffon-dress.jpg" alt="" />
-							</a>
-							<span class="new">new</span>
-							<span class="sale">sale</span>
-						</div>
-					</div>
-					<div class="col-md-7 col-sm-7 col-xs-6">
-						<h1>Faded Short Sleeves T-shirt</h1>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-								aria-hidden="true">&times;</span></button>
-						<p class="reference">
-							<label>Reference: </label>
-							<span>demo_1</span>
-						</p>
-						<p class="condition">
-							<label>Condition: </label>
-							<span>New product</span>
-						</p>
-						<div class="content-price">
-							<p class="price-new">
-								<span class="price-box">£ 16.84</span>
-								<span class="price-tax"> tax incl.</span>
-							</p>
-						</div>
-						<div class="short-description">
-							<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a
-								comfortable fit.
-								Accessorize with a straw hat and you're ready for summer!
-							</p>
-						</div>
-						<form action="#">
-							<div class="shop-product-add">
-								<div class="add-cart">
-									<p class="quantity cart-plus-minus">
-										<label>Quantity</label>
-										<input class="text" type="text" value="1">
-
-									</p>
-									<div class="shop-add-cart">
-										<button class="exclusive">
-											<span>Add to cart</span>
-										</button>
-									</div>
-									<ul class="usefull-links">
-										<li class="sendtofriend">
-											<a class="send-friend-button" href="#"> Send to a friend </a>
-										</li>
-										<li class="print">
-											<a class="#" href="#"> Print </a>
-										</li>
-									</ul>
-									<p class="add-wishlist">
-										<a class="add-wish" href="#">
-											Add to wishlist
-										</a>
-									</p>
-								</div>
-								<div class="clearfix"></div>
-								<div class="size-color">
-									<fieldset class="size">
-										<label>Size </label>
-										<div class="selector">
-											<select class="form-control" name="group_1">
-												<option title="S" selected="selected" value="1">S</option>
-												<option title="M" value="2">M</option>
-												<option title="L" value="3">L</option>
-											</select>
-										</div>
-									</fieldset>
-									<fieldset class="color">
-										<label>Color</label>
-										<div class="color-selector">
-											<ul>
-												<li><a class="color-1" href="#"></a></li>
-												<li><a class="color-2" href="#"></a></li>
-											</ul>
-										</div>
-									</fieldset>
-								</div>
-							</div>
-						</form>
-						<div class="clearfix"></div>
-						<p class="quantity-available">
-							<span>299</span>
-							<span>Items</span>
-						</p>
-						<p class="availability-status">
-							<span>In stock</span>
-						</p>
-						<p class="social-sharing">
-							<button class="btn btn-default btn-twitter">
-								<i class="icon-twitter"></i>
-								Tweet
-							</button>
-							<button class="btn btn-default btn-facebook">
-								<i class="icon-facebook"></i>
-								Share
-							</button>
-							<button class="btn btn-default btn-google-plus">
-								<i class="icon-google-plus"></i>
-								Google+
-							</button>
-							<button class="btn btn-default btn-pinterest">
-								<i class="icon-pinterest"></i>
-								Pinterest
-							</button>
-						</p>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
+	
 	<!-- modal end -->
 	<!-- all js here -->
 	<!-- jquery latest version -->
@@ -1793,55 +1672,62 @@ function loadVariant(id, el) {
 
 
 	<script>
-		function addToCart(productId) {
-			var quantity = document.getElementById('quantity_wanted').value;
-			if (quantity < 1) quantity = 1;
+    function addToCart(productId) {
+        var quantityInput = document.getElementById('quantity_wanted');
+        var min = parseInt(quantityInput.min) || 1;
+        var max = parseInt(quantityInput.max) || 9999;
+        var quantity = parseInt(quantityInput.value) || min;
 
-			// Redirect to shopping cart with quantity
-			window.location.href = 'shopping-cart.php?action=add&id=' + productId + '&qty=' + quantity;
-			return false;
-		}
+        // Clamp quantity between min and max
+        if (quantity < min) quantity = min;
+        if (quantity > max) quantity = max;
 
-		// Update add to cart link when quantity changes
-		document.addEventListener('DOMContentLoaded', function() {
-			var quantityInput = document.getElementById('quantity_wanted');
-			var addToCartLink = document.querySelector('.cart-btn[onclick]');
+        // Redirect to shopping cart with quantity
+        window.location.href = 'shopping-cart.php?action=add&id=' + productId + '&qty=' + quantity;
+        return false;
+    }
 
-			if (quantityInput && addToCartLink) {
-				quantityInput.addEventListener('change', function() {
-					var productId = addToCartLink.getAttribute('onclick').match(/\d+/)[0];
-					var newQuantity = this.value;
-					if (newQuantity < 1) newQuantity = 1;
+    document.addEventListener('DOMContentLoaded', function () {
+        var quantityInput = document.getElementById('quantity_wanted');
+        var addToCartLink = document.querySelector('.cart-btn[onclick]');
 
-					addToCartLink.href = 'shopping-cart.php?action=add&id=' + productId + '&qty=' + newQuantity;
-				});
-			}
+        if (quantityInput && addToCartLink) {
+            quantityInput.addEventListener('input', function () {
+                var min = parseInt(this.min) || 1;
+                var max = parseInt(this.max) || 9999;
+                var value = parseInt(this.value) || min;
 
-			// Initialize Owl Carousel for related products
-			if (typeof $ !== 'undefined' && $.fn.owlCarousel) {
-				$('.accessories-carousel').owlCarousel({
-					loop: true,
-					margin: 20,
-					nav: true,
-					dots: true,
-					autoplay: true,
-					autoplayTimeout: 5000,
-					autoplayHoverPause: true,
-					responsive: {
-						0: {
-							items: 1
-						},
-						600: {
-							items: 2
-						},
-						1000: {
-							items: 4
-						}
-					}
-				});
-			}
-		});
-	</script>
+                // Clamp value to min/max
+                if (value < min) value = min;
+                if (value > max) value = max;
+                this.value = value;
+
+                // Update link
+                var productId = addToCartLink.getAttribute('onclick').match(/\d+/)[0];
+                addToCartLink.href = 'shopping-cart.php?action=add&id=' + productId + '&qty=' + value;
+            });
+        }
+
+        // Initialize Owl Carousel for related products
+        if (typeof $ !== 'undefined' && $.fn.owlCarousel) {
+            $('.accessories-carousel').owlCarousel({
+                loop: true,
+                margin: 20,
+                nav: true,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1000: { items: 4 }
+                }
+            });
+        }
+    });
+</script>
+
 </body>
 
 </html>
