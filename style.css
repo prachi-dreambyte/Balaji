@@ -2510,7 +2510,7 @@ brand-area
 .add-wish {
   background-color: transparent;
   border-color: transparent;
-  color: #db4848;
+  color: #e75c5c;
   cursor: pointer;
   font-size: 30px;
   font-weight: normal;
@@ -3157,9 +3157,9 @@ label {
   display: inline-block;
 }
 .action ul .cart a {
-  background: #cccccc none repeat scroll 0 0;
+  background:#c06b81 ;
   border: 1px solid #cccccc;
-  color: white;
+  color: rgb(239, 116, 116);
   display: block;
   font-size: 13px;
   font-weight: 600;
@@ -3182,11 +3182,11 @@ label {
   padding: 13px 15px;
   transition: all 300ms ease-in 0s;
 }
-.action ul .cart a:hover,.action li a:hover {
-  background: #c06b81 none repeat scroll 0 0;
-  border-color: #c06b81;
+/* .action ul .cart a:hover,.action li a:hover {
+  background: #f5f0f1 none repeat scroll 0 0;
+  border-color: #f3ebed;
   color: white;
-}
+} */
 .availability {
   display: block;
   margin-left: -1px;
@@ -3624,7 +3624,7 @@ div.uploader span.action {
   transition: all 0.3s ease 0s;
 }
 .wishlist-area .wishlist-table a:hover,.wishlist-table table .wishlist-in-stock {
-  color: #c06b81;
+  color: #f3ecee;
 }
 .wishlist-table table .product-add-to-cart {
   width: 240px;
