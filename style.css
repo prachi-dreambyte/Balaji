@@ -1039,7 +1039,7 @@ header .header-top nav {
   position: relative;
 }
 .single-product .product-img .new,.modal-pic .new{
-  background: #cccccc none repeat scroll 0 0;
+  background: #ffffff none repeat scroll 0 0;
   border-radius: 100%;
   color: white;
   display: inline-block;

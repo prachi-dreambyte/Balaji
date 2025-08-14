@@ -147,6 +147,29 @@ $cat_sidebar_stmt->close();
 	<!-- modernizr js -->
 	<script src="js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
+<style>
+	.single-product .product-img a {
+    text-decoration: none !important;
+}
+.AddCart a ::before {
+  display: inline-block;
+  font-family: "FontAwesome";
+  font-size: 14px;
+  font-weight: normal;
+  padding: 6px 10px;
+  content:none;
+}
+.AddCart a {
+	padding: 5px 15px;
+}
+.sort-by label,.show label,.show span {
+
+  font-size: 18px !important;
+  font-weight:450 !important;
+  }
+  .single-product .product-img .new,.modal-pic .new{
+  background: #ffffff none repeat scroll 0 0 !important;}
+</style>
 
 <body>
 	<!-- header-start -->
@@ -730,6 +753,6 @@ if ($total_pages > 1): ?>
 
 	
 </body>
-
+<?php include 'footer.php'; ?>
 
 </html>

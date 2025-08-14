@@ -74,7 +74,7 @@ $totalPages = ceil($totalOrders / $limit);
                                                   <?php while ($row = $result->fetch_assoc()) { ?>
 
                                                        <tr>
-                                                            <td><?= $row['id']; ?></td>
+                                                            <td><?= $row['order_id']; ?></td>
                                                             <td><?= $row['user_id']; ?></td>
                                                             <td>₹<?= number_format($row['amount'], 2); ?></td>
                                                             <td>₹<?= number_format($row['discount'], 2); ?></td>
@@ -82,11 +82,11 @@ $totalPages = ceil($totalOrders / $limit);
                                                             <td><?= ucfirst($row['status']); ?></td>
                                                             <td>
                                                                  <!-- Edit Button -->
-                                                                 <button class="btn btn-sm btn-warning edit-btn" data-id="<?= $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">
+                                                                 <button class="btn btn-sm btn-warning edit-btn" data-id="<?= $row['order_id']; ?>" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">
                                                                       <span class="iconify" data-icon="mdi:pencil-outline"></span>
                                                                  </button>
                                                                  <!-- Delete Button with AJAX -->
-                                                                 <button class="btn btn-sm btn-danger delete-btn" data-id="<?= $row['id']; ?>">
+                                                                 <button class="btn btn-sm btn-danger delete-btn" data-id="<?= $row['order_id']; ?>">
                                                                       <span class="iconify" data-icon="mdi:trash-can-outline"></span>
                                                                  </button>
                                                             </td>
