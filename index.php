@@ -481,7 +481,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                             <div class="tab-pane active" id="newarrival">
     <div style="position: relative;">
         <!-- Left Arrow -->
-        <button class="scroll-btn left" onclick="scrollNewArrival(-1)">&#10094;</button>
+        <!-- <button class="scroll-btn left" onclick="scrollNewArrival(-1)">&#10094;</button> -->
 
         <!-- Scrollable Row -->
         <div class="row" id="newarrival-row" style="overflow-x: auto; white-space: nowrap; scroll-behavior: smooth;">
@@ -556,45 +556,11 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                     </div>
                                             
                                                     <!-- Right Arrow -->
-                                                    <button class="scroll-btn right" onclick="scrollNewArrival(1)">&#10095;</button>
+                                                    <!-- <button class="scroll-btn right" onclick="scrollNewArrival(1)">&#10095;</button> -->
                                                 </div>
                                             </div>
                                             
-                                            <style>
-                                                .scroll-btn {
-                                                    position: absolute;
-                                                    top: 40%;
-                                                    z-index: 10;
-                                                    background: rgba(0, 0, 0, 0.6);
-                                                    color: white;
-                                                    border: none;
-                                                    font-size: 24px;
-                                                    cursor: pointer;
-                                                    padding: 8px 12px;
-                                                    border-radius: 50%;
-                                                    transition: background 0.3s;
-                                                }
                                             
-                                                .scroll-btn:hover {
-                                                    background: rgba(0, 0, 0, 0.8);
-                                                }
-                                            
-                                                .scroll-btn.left {
-                                                    left: 0;
-                                                }
-                                            
-                                                .scroll-btn.right {
-                                                    right: 0;
-                                                }
-                                            </style>
-                                            
-                                            <script>
-                                                function scrollNewArrival(direction) {
-                                                    const container = document.getElementById('newarrival-row');
-                                                    const scrollAmount = 300; // Adjust how much to scroll
-                                                    container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-                                                }
-                                            </script>
 
 
                                             <!-- On Sale Products -->
@@ -1279,7 +1245,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 
         <!-- Owl Carousel JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
+        
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const tabBtns = document.querySelectorAll('.tab-btn');
@@ -1305,108 +1271,12 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             });
         </script>
 
-        <script>
-            $(document).ready(function () {
-                $('[data-countdown]').each(function () {
-                    var $this = $(this);
-                    var finalDate = $(this).data('countdown');
-
-                    // Show countdown
-                    $this.countdown(finalDate, function (event) {
-                        $(this).html(event.strftime('%D days %H:%M:%S'));
-                    })
-
-                        // When countdown finishes, remove product card
-                        .on('finish.countdown', function () {
-                            // Adjust this selector if needed
-                            $(this).closest('.daily-products').parent('.single-product').fadeOut('slow');
-                        });
-                });
-            });
-        </script>
 
 
-        <script>
-            // Optional: Auto-refresh only the deals section every 60 seconds
-            setInterval(function () {
-                $('#deals').load(location.href + " #deals>*", "");
-            }, 60000); // 60,000ms = 1 minute
-        </script>
 
-        <style>
-/* Container */
-.product-marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  box-sizing: border-box;
-  width: 100%;
-  background: #fff;
-  padding: 10px 0;
-  border: 1px solid #ddd;
-}
 
-/* Wrapper that scrolls */
-.product-marquee-content {
-  display: inline-block;
-  animation: marquee 20s linear infinite;
-}
 
-/* Each product box */
-.product-box {
-  display: inline-block;
-  vertical-align: top;
-  width: 200px;
-  margin: 0 15px;
-  text-align: center;
-  background: #f9f9f9;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
 
-.product-box img {
-  max-width: 100%;
-  border-radius: 5px;
-}
-
-.product-box h4 {
-  font-size: 16px;
-  margin: 8px 0 0;
-}
-
-/* Animation */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-</style>
-
-<div class="product-marquee">
-  <div class="product-marquee-content" id="marqueeContent">
-    <div class="product-box">
-      <img src="https://via.placeholder.com/150" alt="Product 1">
-      <h4>Product 1</h4>
-    </div>
-    <div class="product-box">
-      <img src="https://via.placeholder.com/150" alt="Product 2">
-      <h4>Product 2</h4>
-    </div>
-    <div class="product-box">
-      <img src="https://via.placeholder.com/150" alt="Product 3">
-      <h4>Product 3</h4>
-    </div>
-    <div class="product-box">
-      <img src="https://via.placeholder.com/150" alt="Product 4">
-      <h4>Product 4</h4>
-    </div>
-  </div>
-</div>
-
-<script>
-// Duplicate content for smooth infinite scroll
-const marquee = document.getElementById('marqueeContent');
-marquee.innerHTML += marquee.innerHTML;
-</script>
 
 
 

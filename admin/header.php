@@ -409,13 +409,16 @@
     <!-- Sidebar Logo -->
     <div class="logo-box">
         <a href="index.html" class="logo-dark">
-            <img src="assets/images/logo-sm.png" class="logo-sm" alt="logo sm">
-            <img src="assets/images/logo-dark.png" class="logo-lg" alt="logo dark">
+            <img src="..\img\balaji-logo-top.png" class="logo-sm  dashboard-img" style="height: 191px;
+    width: 210px;" alt="logo sm">
+            <img src="..\img\balaji-logo-top.png" class="logo-lg dashboard-img" alt="logo dark">
         </a>
 
         <a href="index.html" class="logo-light">
-            <img src="assets/images/logo-sm.png" class="logo-sm" alt="logo sm">
-            <img src="assets/images/logo-light.png" class="logo-lg" alt="logo light">
+            <img src="..\img\balaji-logo-top.png" class="logo-sm dashboard-img" style="height: 191px;
+    width: 210px;"alt="logo sm">
+            <img src="..\img\balaji-logo-top.png" class="logo-lg dashboard-img" style="height: 191px;
+    width: 210px;"alt="logo light">
         </a>
     </div>
 
@@ -515,6 +518,24 @@
 
                         <li class="sub-nav-item">
                             <a class="sub-nav-link" href="orders-list.php">List</a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </li>
+
+             <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarOrders">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Customer Details </span>
+                </a>
+                <div class="collapse" id="sidebarOrders">
+                    <ul class="nav sub-navbar-nav">
+
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="customer-details.php">List</a>
                         </li>
                        
                     </ul>
