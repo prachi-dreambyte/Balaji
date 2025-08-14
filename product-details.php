@@ -56,45 +56,45 @@ elseif (!empty($product) && !empty($product['category_name'])) {
 // Fetch all variants for this product
 // Initialize product and other arrays
 $product = [
-    'product_name' => '',
-    'tag_number' => '',
-    'price' => '',
-    'discount' => '',
-    'short_description ' => '',
-    'stock' => '',
-    'brand' => '',
-    'weight' => '',
-    'size' => '',
-    'category' => '',
-    'tags' => '',
-    'images' => '',
-    
-    'total_height' => '',
-    'total_width' => '',
-    'material' => '',
-    'seat_height' => '',
-    'seat_thickness' => '',
-    'seat_depth' => '',
-    'seat_material_type' => '',
-    'backrest_height_from_seat' => '',
-    'backrest_material_type' => '',
-    'pedestal_base' => '',
-    'seat_height_adjusting_range' => '',
-    'handle_type' => '',
-    'wheel_type' => '',
-    'mechanical_system_type' => '',
-    'color_available' => '',
-    'product_weight' => '',
-    'backrest_size' => '',
-    'adjuster_size' => '',
-    'guarantee' => '',
-    'chair_arms' => '',
-    'table_top_size' => '',
-    'sitting_capacity' => '',
-    'no_of_top' => '',
-    'table_type' => '',
-    'shape' => '',
-    'wheels' => ''
+	'product_name' => '',
+	'tag_number' => '',
+	'price' => '',
+	'discount' => '',
+	'short_description ' => '',
+	'stock' => '',
+	'brand' => '',
+	'weight' => '',
+	'size' => '',
+	'category' => '',
+	'tags' => '',
+	'images' => '',
+
+	'total_height' => '',
+	'total_width' => '',
+	'material' => '',
+	'seat_height' => '',
+	'seat_thickness' => '',
+	'seat_depth' => '',
+	'seat_material_type' => '',
+	'backrest_height_from_seat' => '',
+	'backrest_material_type' => '',
+	'pedestal_base' => '',
+	'seat_height_adjusting_range' => '',
+	'handle_type' => '',
+	'wheel_type' => '',
+	'mechanical_system_type' => '',
+	'color_available' => '',
+	'product_weight' => '',
+	'backrest_size' => '',
+	'adjuster_size' => '',
+	'guarantee' => '',
+	'chair_arms' => '',
+	'table_top_size' => '',
+	'sitting_capacity' => '',
+	'no_of_top' => '',
+	'table_type' => '',
+	'shape' => '',
+	'wheels' => ''
 ];
 
 $images = [];
@@ -153,7 +153,7 @@ if ($product_id > 0) {
 
 
 if (isset($_GET['id'])) {
-	
+
 	$product = null;
 	$product_source = '';
 	$related_products = [];
@@ -183,7 +183,7 @@ if (isset($_GET['id'])) {
 		}
 		$rel_stmt->close();
 	} else {
-		
+
 		// 2. If not found in products, check in `home_daily_deal` table
 		$stmt = $conn->prepare("SELECT * FROM home_daily_deal WHERE id = ?");
 		$stmt->bind_param("i", $product_id);
@@ -192,7 +192,7 @@ if (isset($_GET['id'])) {
 		$row = $result->fetch_assoc();
 
 		if ($row) {
-			
+
 			$product = $row;
 			$product_source = 'home_daily_deal';
 			// Decode images
@@ -388,29 +388,29 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 			}
 		}
 		 .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			gap: 15px;
+			margin-top: 20px;
 		 }
-         .spec-item {
-            background: #f9f9f9;
-            padding: 12px;
-            border-radius: 6px;
-            border-left: 3px solid #ba4b51ff;
-        }
-        
-        .spec-label {
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 5px;
-        }
-        
-        .spec-value {
-            font-size: 15px;
-        }
+		 .spec-item {
+			background: #f9f9f9;
+			padding: 12px;
+			border-radius: 6px;
+			border-left: 3px solid #ba4b51ff;
+		}
+		
+		.spec-label {
+			font-weight: 600;
+			color: #555;
+			margin-bottom: 5px;
+		}
+		
+		.spec-value {
+			font-size: 15px;
+		}
 
-        
+		
 
 
 	</style>
@@ -420,8 +420,8 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 
 <body>
 	<!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
 	<!-- header-start -->
 	<?php include 'header.php'; ?>
 	<!-- header-end -->
@@ -429,22 +429,22 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 	<div class="shop-1-area">
 		<div class="container-fluid">
 	<div class="breadcrumb">
-    <a href="index.php" title="Return to Home">
-        <i class="icon-home"></i>
-    </a>
-    <span class="navigation-pipe">></span>
-    <span class="navigation-page">
-        <a href="<?php echo htmlspecialchars($category_link); ?>" 
-           title="<?php echo htmlspecialchars($product['category']); ?>">
-            <span><?php echo htmlspecialchars($product['category']); ?></span>
-        </a>
-        <span class="navigation-pipe nav-pipe-2">></span>
-        <?php echo htmlspecialchars($product['product_name'] ?? '---'); ?>
-    </span>
+	<a href="index.php" title="Return to Home">
+		<i class="icon-home"></i>
+	</a>
+	<span class="navigation-pipe">></span>
+	<span class="navigation-page">
+		<a href="<?php echo htmlspecialchars($category_link); ?>" 
+		   title="<?php echo htmlspecialchars($product['category']); ?>">
+			<span><?php echo htmlspecialchars($product['category']); ?></span>
+		</a>
+		<span class="navigation-pipe nav-pipe-2">></span>
+		<?php echo htmlspecialchars($product['product_name'] ?? '---'); ?>
+	</span>
 </div>
 	</div>
 
-        <div class="container">
+		<div class="container">
 			<div class="row">
 				<div class="col-md-5 col-sm-6 col-12 ">
 					<style>
@@ -469,145 +469,145 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 							transition: background-size 0.3s ease;
 							cursor: zoom-in;
 						}
-                         /* General Page Styling */
+						 /* General Page Styling */
 body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #f8f9fa;
+	font-family: 'Open Sans', sans-serif;
+	background-color: #f8f9fa;
 }
 
 /* Product Title */
 .shop-content h1 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #222;
+	font-size: 28px;
+	font-weight: 700;
+	margin-bottom: 10px;
+	color: #222;
 }
 
 /* Breadcrumb */
 .breadcrumb {
  /* background: linear-gradient(45deg, #ff7e5f, #feb47b); */
-    padding: 45px 30px;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+	padding: 45px 30px;
+	border-radius: 8px;
+	font-size: 18px;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 .breadcrumb a {
-      color:black;
-    text-decoration: none;
-    transition: all 0.3s ease;
+	  color:black;
+	text-decoration: none;
+	transition: all 0.3s ease;
 }
 
 .breadcrumb a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .breadcrumb .navigation-pipe {
-    color: rgba(24, 18, 18, 0.8);
-    font-weight: 400;
+	color: rgba(24, 18, 18, 0.8);
+	font-weight: 400;
 }
 
 
 .breadcrumb .navigation-page a span {
-        color: black;
+		color: black;
 }
 
 .breadcrumb .navigation-page {
-    color: black;
+	color: black;
 }
 
 .breadcrumb i.icon-home {
-    font-size: 20px;
-    margin-right: 4px;
+	font-size: 20px;
+	margin-right: 4px;
 }
 
 /* Price Section */
 .content-price .price-new {
-    font-size: 22px;
-    font-weight: bold;
-    color: #e63946;
+	font-size: 22px;
+	font-weight: bold;
+	color: #e63946;
 }
 .content-price .old-price {
-    font-size: 16px;
-    margin-top: -8px;
-    display: block;
+	font-size: 16px;
+	margin-top: -8px;
+	display: block;
 }
 .reduction-percent {
-    font-size: 14px;
-    font-weight: 600;
+	font-size: 14px;
+	font-weight: 600;
 }
 
 /* Add to Cart Button */
 .cart-btn {
-    border-radius: 6px !important;
-    padding: 10px 18px !important;
-    font-size: 16px;
-    font-weight: 600;
-    background: linear-gradient(45deg, #C06B81, #C06B81);
-    transition: all 0.3s ease;
+	border-radius: 6px !important;
+	padding: 10px 18px !important;
+	font-size: 16px;
+	font-weight: 600;
+	background: linear-gradient(45deg, #C06B81, #C06B81);
+	transition: all 0.3s ease;
 }
 .cart-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* Wishlist Icon */
 .add-wishlist .fa-heart {
-    font-size: 20px;
-    color: #C06B81;
-    transition: 0.3s;
+	font-size: 20px;
+	color: #C06B81;
+	transition: 0.3s;
 }
 .add-wishlist .fa-heart:hover {
-    transform: scale(1.2);
-    color: #C06B81;
+	transform: scale(1.2);
+	color: #C06B81;
 }
 
 /* Product Images */
 .zoom-container {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* Review Section */
 .review-block {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    margin-bottom: 15px;
+	background: #fff;
+	padding: 15px;
+	border-radius: 8px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+	margin-bottom: 15px;
 }
 .review-header {
-    font-size: 16px;
+	font-size: 16px;
 }
 .review-rating span {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 /* Tabs */
 .feature-tab-area .tabs a {
-    padding: 10px 20px;
-    font-weight: 600;
-    border-radius: 4px;
+	padding: 10px 20px;
+	font-weight: 600;
+	border-radius: 4px;
 }
 .feature-tab-area .tabs a.active {
-    background: #007bff;
-    color: white;
+	background: #007bff;
+	color: white;
 }
 
 /* Mobile Adjustments */
 @media screen and (max-width: 768px) {
-    .shop-content h1 {
-        font-size: 22px;
-    }
-    .cart-btn {
-        width: 100%;
-        justify-content: center;
-    }
+	.shop-content h1 {
+		font-size: 22px;
+	}
+	.cart-btn {
+		width: 100%;
+		justify-content: center;
+	}
 }
 
 
@@ -641,49 +641,49 @@ body {
 						<ul class="pic-tabs nav" role="tablist">
 							<?php if (!empty($images)) {
 								foreach ($images as $idx => $img): ?>
+											<li>
+												<a class="<?php echo $idx === 0 ? 'active' : ''; ?>"
+													href="#picture-<?php echo $idx + 1; ?>" data-bs-toggle="tab">
+													<img src="admin/<?php echo htmlspecialchars($img); ?>" alt="" />
+												</a>
+											</li>
+									<?php endforeach;
+							} else { ?>
 									<li>
-										<a class="<?php echo $idx === 0 ? 'active' : ''; ?>"
-											href="#picture-<?php echo $idx + 1; ?>" data-bs-toggle="tab">
-											<img src="admin/<?php echo htmlspecialchars($img); ?>" alt="" />
+										<a class="active" href="#picture-1" data-bs-toggle="tab">
+											<img src="img/no-image.png" alt="No image" />
 										</a>
 									</li>
-								<?php endforeach;
-							} else { ?>
-								<li>
-									<a class="active" href="#picture-1" data-bs-toggle="tab">
-										<img src="img/no-image.png" alt="No image" />
-									</a>
-								</li>
 							<?php } ?>
 						</ul>
 
 						<div class="tab-content">
 							<?php if (!empty($images)) {
 								foreach ($images as $idx => $img): ?>
-									<div class="tab-pane fade<?php echo $idx === 0 ? ' show active' : ''; ?>"
-										id="picture-<?php echo $idx + 1; ?>">
+											<div class="tab-pane fade<?php echo $idx === 0 ? ' show active' : ''; ?>"
+												id="picture-<?php echo $idx + 1; ?>">
+												<div class="single-product">
+													<div class="product-img">
+														<div class="zoom-container">
+															<div class="zoom-image"
+																style="background-image: url('admin/<?php echo htmlspecialchars($img); ?>');">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+									<?php endforeach;
+							} else { ?>
+									<div class="tab-pane fade show active" id="picture-1">
 										<div class="single-product">
 											<div class="product-img">
 												<div class="zoom-container">
 													<div class="zoom-image"
-														style="background-image: url('admin/<?php echo htmlspecialchars($img); ?>');">
-													</div>
+														style="background-image: url('img/no-image.png');"></div>
 												</div>
 											</div>
 										</div>
 									</div>
-								<?php endforeach;
-							} else { ?>
-								<div class="tab-pane fade show active" id="picture-1">
-									<div class="single-product">
-										<div class="product-img">
-											<div class="zoom-container">
-												<div class="zoom-image"
-													style="background-image: url('img/no-image.png');"></div>
-											</div>
-										</div>
-									</div>
-								</div>
 							<?php } ?>
 						</div>
 					</div>
@@ -698,29 +698,29 @@ body {
 					</p> -->
 					<p class="condition"><label>Condition: </label><span>New product</span></p>
 					<div class="content-price">
-    <?php
-						$price = isset($product['price']) ? floatval($product['price']) : 0;
-						$discount = isset($product['discount']) ? floatval($product['discount']) : 0;
-						$corporate_discount = isset($product['corporate_discount']) ? floatval($product['corporate_discount']) : 0;
+	<?php
+	$price = isset($product['price']) ? floatval($product['price']) : 0;
+	$discount = isset($product['discount']) ? floatval($product['discount']) : 0;
+	$corporate_discount = isset($product['corporate_discount']) ? floatval($product['corporate_discount']) : 0;
 
-						// Old static price before any discount
-						$old_price = $price;
+	// Old static price before any discount
+	$old_price = $price;
 
-						// Apply normal discount
-						$final_price = $price - $discount;
+	// Apply normal discount
+	$final_price = $price - $discount;
 
-						// Apply corporate discount if user is commercial
-						if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) {
-							$final_price -= $corporate_discount;
-						}
+	// Apply corporate discount if user is commercial
+	if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) {
+		$final_price -= $corporate_discount;
+	}
 
-						// Ensure price doesn't go below zero
-						$final_price = max($final_price, 0);
+	// Ensure price doesn't go below zero
+	$final_price = max($final_price, 0);
 
-						// Calculate total discount percentage
-						$total_discount = $old_price - $final_price;
-						$discount_percent = ($old_price > 0 && $total_discount > 0) ? ($total_discount / $old_price) * 100 : 0;
-						?>
+	// Calculate total discount percentage
+	$total_discount = $old_price - $final_price;
+	$discount_percent = ($old_price > 0 && $total_discount > 0) ? ($total_discount / $old_price) * 100 : 0;
+	?>
 					
 						<p class="price-new">
 							<span class="price-box">₹<?php echo number_format($final_price, 2); ?></span>
@@ -728,19 +728,19 @@ body {
 						</p>
 					
 						<?php if ($total_discount > 0): ?>
-							<p class="old-price" style="text-decoration:line-through;color:#999;">
-								₹<?php echo number_format($old_price, 2); ?> <span class="price-tax"> tax incl.</span>
-							</p>
+								<p class="old-price" style="text-decoration:line-through;color:#999;">
+									₹<?php echo number_format($old_price, 2); ?> <span class="price-tax"> tax incl.</span>
+								</p>
 						<?php endif; ?>
 					
 						<?php if ($discount_percent > 0): ?>
-							<p class="reduction-percent" style="color:green;">
-								-<?php echo round($discount_percent); ?>% OFF
-							</p>
+								<p class="reduction-percent" style="color:green;">
+									-<?php echo round($discount_percent); ?>% OFF
+								</p>
 						<?php endif; ?>
 					
 						<?php if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0): ?>
-							<p style="color:green; font-weight:bold;">Special Commercial Price Applied</p>
+								<p style="color:green; font-weight:bold;">Special Commercial Price Applied</p>
 						<?php endif; ?>
 					</div>
 <?php
@@ -755,59 +755,59 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 	$main_image = $main_images[0] ?? '';
 
 	?>
-	<div class="product-variants">
-		<h4>Select Colour:</h4>
-		<div class="variant-options" style="display: flex; gap: 10px; flex-wrap: wrap;">
+		<div class="product-variants">
+			<h4>Select Colour:</h4>
+			<div class="variant-options" style="display: flex; gap: 10px; flex-wrap: wrap;">
 
-			<!-- Main Product Colour shown once with main product image -->
-			<?php if (!empty($main_color)): ?>
-				<div class="variant-item main-product-color"
-					data-main-product-id="<?= htmlspecialchars($product['id'] ?? $product_id); ?>"
-					style="cursor:pointer; text-align:center; border:2px solid #007bff; padding:5px; border-radius:6px; width:70px;">
-					<?php if (!empty($main_image)): ?>
-						<img src="<?= (strpos($main_image, 'admin/') === 0) ? htmlspecialchars($main_image) : 'admin/' . htmlspecialchars($main_image); ?>"
-							alt="<?= htmlspecialchars($main_color); ?>"
-							style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
-					<?php else: ?>
-						<div
-							style="width:60px; height:60px; background:#eee; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#888;">
-							No Image
+				<!-- Main Product Colour shown once with main product image -->
+				<?php if (!empty($main_color)): ?>
+						<div class="variant-item main-product-color"
+							data-main-product-id="<?= htmlspecialchars($product['id'] ?? $product_id); ?>"
+							style="cursor:pointer; text-align:center; border:2px solid #007bff; padding:5px; border-radius:6px; width:70px;">
+							<?php if (!empty($main_image)): ?>
+									<img src="<?= (strpos($main_image, 'admin/') === 0) ? htmlspecialchars($main_image) : 'admin/' . htmlspecialchars($main_image); ?>"
+										alt="<?= htmlspecialchars($main_color); ?>"
+										style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
+							<?php else: ?>
+									<div
+										style="width:60px; height:60px; background:#eee; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#888;">
+										No Image
+									</div>
+							<?php endif; ?>
+							<div style="font-size:13px; margin-top:5px;"><?= htmlspecialchars($main_color); ?></div>
 						</div>
-					<?php endif; ?>
-					<div style="font-size:13px; margin-top:5px;"><?= htmlspecialchars($main_color); ?></div>
-				</div>
-			<?php endif; ?>
+				<?php endif; ?>
 
-			<!-- Variants list -->
-			<?php if (!empty($variants)): ?>
-				<?php foreach ($variants as $variant): ?>
-					<?php
-					// Skip variant if its Main_Product_Colour matches main_color to avoid duplicate
-					if (!empty($main_color) && ($variant['Main_Product_Colour'] ?? '') === $main_color) {
-						continue;
-					}
-					?>
-					<div class="variant-item" data-variant-id="<?= htmlspecialchars($variant['id']); ?>"
-						style="cursor:pointer; text-align:center; border:1px solid #ddd; padding:5px; border-radius:6px; width:70px;">
-						<?php if (!empty($variant['image'])): ?>
-							<img src="<?= (strpos($variant['image'], 'admin/') === 0) ? htmlspecialchars($variant['image']) : 'admin/' . htmlspecialchars($variant['image']); ?>"
-								alt="<?= htmlspecialchars($variant['color'] ?? ''); ?>"
-								style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
-						<?php else: ?>
-							<div
-								style="width:60px; height:60px; background:#eee; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#888;">
-								No Image
-							</div>
-						<?php endif; ?>
-						<div style="font-size:13px; margin-top:5px;"><?= htmlspecialchars($variant['color'] ?? ''); ?></div>
-					</div>
-				<?php endforeach; ?>
-			<?php endif; ?>
+				<!-- Variants list -->
+				<?php if (!empty($variants)): ?>
+						<?php foreach ($variants as $variant): ?>
+								<?php
+								// Skip variant if its Main_Product_Colour matches main_color to avoid duplicate
+								if (!empty($main_color) && ($variant['Main_Product_Colour'] ?? '') === $main_color) {
+									continue;
+								}
+								?>
+								<div class="variant-item" data-variant-id="<?= htmlspecialchars($variant['id']); ?>"
+									style="cursor:pointer; text-align:center; border:1px solid #ddd; padding:5px; border-radius:6px; width:70px;">
+									<?php if (!empty($variant['image'])): ?>
+											<img src="<?= (strpos($variant['image'], 'admin/') === 0) ? htmlspecialchars($variant['image']) : 'admin/' . htmlspecialchars($variant['image']); ?>"
+												alt="<?= htmlspecialchars($variant['color'] ?? ''); ?>"
+												style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
+									<?php else: ?>
+											<div
+												style="width:60px; height:60px; background:#eee; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#888;">
+												No Image
+											</div>
+									<?php endif; ?>
+									<div style="font-size:13px; margin-top:5px;"><?= htmlspecialchars($variant['color'] ?? ''); ?></div>
+								</div>
+						<?php endforeach; ?>
+				<?php endif; ?>
 
+			</div>
 		</div>
-	</div>
 <?php else: ?>
-	<p>No variants available for this product.</p>
+		<p>No variants available for this product.</p>
 <?php endif; ?>
 
 
@@ -830,23 +830,23 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 								</p>
 								
 								<div class="cart-wishlist-container">
-    <div class="shop-add-cart">
-        <?php if ($product['stock'] <= 0): ?>
-            <button type="button" class="cart-btn disabled"><i
-                    class="fa fa-times-circle"></i> Out of Stock</button>
-        <?php else: ?>
-            <a href="shopping-cart.php?action=add&id=<?php echo $product['id']; ?>&qty=1"
-                class="cart-btn" onclick="return addToCart(<?php echo $product['id']; ?>);">
-                <i class="fa fa-shopping-cart"></i> Add to Cart
-            </a>
-        <?php endif; ?>
-    </div>
+	<div class="shop-add-cart">
+		<?php if ($product['stock'] <= 0): ?>
+				<button type="button" class="cart-btn disabled"><i
+						class="fa fa-times-circle"></i> Out of Stock</button>
+		<?php else: ?>
+				<a href="shopping-cart.php?action=add&id=<?php echo $product['id']; ?>&qty=1"
+					class="cart-btn" onclick="return addToCart(<?php echo $product['id']; ?>);">
+					<i class="fa fa-shopping-cart"></i> Add to Cart
+				</a>
+		<?php endif; ?>
+	</div>
 
-    <div class="wishlist-btn">
-        <a class="add-wish" href="wishlist.php?action=add&id=<?= $id ?>" title="Add to wishlist">
-            <i class="fa fa-heart" aria-hidden="true"></i>
-        </a>
-    </div>
+	<div class="wishlist-btn">
+		<a class="add-wish" href="wishlist.php?action=add&id=<?= $id ?>" title="Add to wishlist">
+			<i class="fa fa-heart" aria-hidden="true"></i>
+		</a>
+	</div>
 </div>
 
 
@@ -886,14 +886,14 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 						<span><?php echo ($product['stock'] > 0) ? 'In stock' : 'Out of stock'; ?></span>
 					</p>
 					<?php if (!empty($tags)): ?>
-						<p class="product-tags"><strong>Tags:</strong>
-							<?php echo implode(', ', array_map('htmlspecialchars', $tags)); ?></p><?php endif; ?>
+							<p class="product-tags"><strong>Tags:</strong>
+								<?php echo implode(', ', array_map('htmlspecialchars', $tags)); ?></p><?php endif; ?>
 					<?php if ($product['brand']): ?>
-						<p class="product-brand"><strong>Brand:</strong>
-							<?php echo htmlspecialchars($product['brand']); ?></p><?php endif; ?>
+							<p class="product-brand"><strong>Brand:</strong>
+								<?php echo htmlspecialchars($product['brand']); ?></p><?php endif; ?>
 					<?php if ($product['weight']): ?>
-						<p class="product-weight"><strong>Weight:</strong>
-							<?php echo htmlspecialchars($product['weight']); ?></p><?php endif; ?>
+							<p class="product-weight"><strong>Weight:</strong>
+								<?php echo htmlspecialchars($product['weight']); ?></p><?php endif; ?>
 				</div>
 			</div>
 			</div>
@@ -903,7 +903,7 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 	
 	
 	<style>
-          
+		  
 		  .abc{
 			padding-left:10px !important;
 		  }
@@ -981,288 +981,288 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 							<!-- Data Sheet Tab -->
 
 <style>
-                               
+							   
 							   
 /* ---------- Tabs Section ---------- */
 .feature-tab-area .tabs {
-    display: flex;
-    justify-content: center;
-    border-bottom: none;
-    margin-bottom: 25px;
-    gap: 12px;
-    flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	border-bottom: none;
+	margin-bottom: 25px;
+	gap: 12px;
+	flex-wrap: wrap;
 }
 
 .feature-tab-area .tabs li {
-    list-style: none;
+	list-style: none;
 }
 
 .feature-tab-area .tabs a {
-    display: block;
-    padding: 14px 28px !important;
-    font-size: 15px;
-    font-weight: 600;
-    color: #444;
-    background: linear-gradient(145deg, #f8f9fa, #ffffff);
-    border-radius: 30px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    text-transform: capitalize;
+	display: block;
+	padding: 14px 28px !important;
+	font-size: 15px;
+	font-weight: 600;
+	color: #444;
+	background: linear-gradient(145deg, #f8f9fa, #ffffff);
+	border-radius: 30px;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+	transition: all 0.3s ease;
+	text-transform: capitalize;
 }
 
 .feature-tab-area .tabs a:hover {
-    background: linear-gradient(145deg, #f0f1f2, #ffffff);
-    color: #000;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+	background: linear-gradient(145deg, #f0f1f2, #ffffff);
+	color: #000;
+	transform: translateY(-2px);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
 .feature-tab-area .tabs a.active {
-    background: linear-gradient(145deg, #c06b81, #a75669);
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
-    transform: translateY(-2px);
+	background: linear-gradient(145deg, #c06b81, #a75669);
+	color: #fff;
+	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
+	transform: translateY(-2px);
 }
 
 /* ---------- Tab Content Box ---------- */
 .tab-box {
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-    animation: fadeIn 0.4s ease;
+	background: #fff;
+	padding: 25px;
+	border-radius: 12px;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+	animation: fadeIn 0.4s ease;
 }
 
 /* ---------- Specs Grid ---------- */
 .specs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 18px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: 18px;
 }
 
 .spec-item {
-    background: linear-gradient(145deg, #fdfdfd, #f7f8f9);
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 14px 18px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-    transition: all 0.3s ease;
+	background: linear-gradient(145deg, #fdfdfd, #f7f8f9);
+	border: 1px solid #eee;
+	border-radius: 10px;
+	padding: 14px 18px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+	transition: all 0.3s ease;
 }
 
 .spec-item:hover {
-    background: linear-gradient(145deg, #ffffff, #f5f5f5);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-    transform: translateY(-3px);
+	background: linear-gradient(145deg, #ffffff, #f5f5f5);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+	transform: translateY(-3px);
 }
 
 .spec-label {
-    font-weight: 600;
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
-    text-transform: capitalize;
+	font-weight: 600;
+	font-size: 14px;
+	color: #555;
+	margin-bottom: 5px;
+	text-transform: capitalize;
 }
 
 .spec-value {
-    font-size: 15px;
-    color: #222;
+	font-size: 15px;
+	color: #222;
 }
 
 /* ---------- Animation ---------- */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+	from { opacity: 0; transform: translateY(10px); }
+	to { opacity: 1; transform: translateY(0); }
 }
 
 	</style>
 	
-							    <div role="tabpanel" class="tab-pane fade" id="datasheet">
-                                <div class="tab-box">
-                                    <div class="specs-grid">
-                                        <?php if ($product['total_height']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Total Height</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['total_height']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['total_width']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Total Width</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['total_width']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['material']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Material</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['material']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['seat_height']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Seat Height</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_height']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['seat_thickness']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Seat Thickness</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_thickness']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['seat_depth']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Seat Depth</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_depth']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['seat_material_type']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Seat Material</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_material_type']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['backrest_height_from_seat']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Backrest Height</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['backrest_height_from_seat']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['backrest_material_type']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Backrest Material</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['backrest_material_type']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['pedestal_base']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Pedestal Base</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['pedestal_base']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['seat_height_adjusting_range']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Height Adjustment Range</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['seat_height_adjusting_range']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['handle_type']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Handle Type</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['handle_type']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['wheel_type']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Wheel Type</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['wheel_type']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['mechanical_system_type']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Mechanical System</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['mechanical_system_type']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['color_available']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Available Colors</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['color_available']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['product_weight']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Product Weight</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['product_weight']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['backrest_size']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Backrest Size</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['backrest_size']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['adjuster_size']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Adjuster Size</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['adjuster_size']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['guarantee']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Guarantee</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['guarantee']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['chair_arms']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Chair Arms</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['chair_arms']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['table_top_size']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Table Top Size</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['table_top_size']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['sitting_capacity']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Sitting Capacity</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['sitting_capacity']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['no_of_top']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Number of Tops</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['no_of_top']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['table_type']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Table Type</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['table_type']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['shape']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Shape</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['shape']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        
-                                        <?php if ($product['wheels']): ?>
-                                            <div class="spec-item">
-                                                <div class="spec-label">Wheels</div>
-                                                <div class="spec-value"><?php echo htmlspecialchars($product['wheels']); ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
+								<div role="tabpanel" class="tab-pane fade" id="datasheet">
+								<div class="tab-box">
+									<div class="specs-grid">
+										<?php if ($product['total_height']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Total Height</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['total_height']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['total_width']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Total Width</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['total_width']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['material']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Material</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['material']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['seat_height']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Seat Height</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['seat_height']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['seat_thickness']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Seat Thickness</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['seat_thickness']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['seat_depth']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Seat Depth</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['seat_depth']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['seat_material_type']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Seat Material</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['seat_material_type']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['backrest_height_from_seat']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Backrest Height</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['backrest_height_from_seat']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['backrest_material_type']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Backrest Material</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['backrest_material_type']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['pedestal_base']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Pedestal Base</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['pedestal_base']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['seat_height_adjusting_range']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Height Adjustment Range</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['seat_height_adjusting_range']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['handle_type']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Handle Type</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['handle_type']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['wheel_type']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Wheel Type</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['wheel_type']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['mechanical_system_type']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Mechanical System</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['mechanical_system_type']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['color_available']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Available Colors</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['color_available']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['product_weight']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Product Weight</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['product_weight']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['backrest_size']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Backrest Size</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['backrest_size']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['adjuster_size']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Adjuster Size</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['adjuster_size']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['guarantee']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Guarantee</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['guarantee']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['chair_arms']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Chair Arms</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['chair_arms']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['table_top_size']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Table Top Size</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['table_top_size']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['sitting_capacity']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Sitting Capacity</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['sitting_capacity']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['no_of_top']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Number of Tops</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['no_of_top']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['table_type']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Table Type</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['table_type']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['shape']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Shape</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['shape']); ?></div>
+												</div>
+										<?php endif; ?>
+										
+										<?php if ($product['wheels']): ?>
+												<div class="spec-item">
+													<div class="spec-label">Wheels</div>
+													<div class="spec-value"><?php echo htmlspecialchars($product['wheels']); ?></div>
+												</div>
+										<?php endif; ?>
+									</div>
+								</div>
+							</div>
 
 
 							<!-- ⭐ REVIEW SECTION START -->
@@ -1281,9 +1281,9 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 											<label style="font-weight: 500;">Your Rating:</label>
 											<div id="star-rating" style="font-size: 38px; margin-bottom: 10px;">
 												<?php for ($i = 5; $i >= 1; $i--): ?>
-													<input type="radio" id="star<?php echo $i; ?>" name="rating"
-														value="<?php echo $i; ?>" required>
-													<label for="star<?php echo $i; ?>">★</label>
+														<input type="radio" id="star<?php echo $i; ?>" name="rating"
+															value="<?php echo $i; ?>" required>
+														<label for="star<?php echo $i; ?>">★</label>
 												<?php endfor; ?>
 											</div>
 											<label style="font-weight: 500;">Your Review:</label>
@@ -1309,77 +1309,77 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 											while ($review = mysqli_fetch_assoc($result)):
 												$shownReviews++;
 												$images = json_decode($review['image_path'], true);
-										?>
-												<div class="review-block"
-													style="border-bottom: 1.5px solid #e0e0e0; padding: 18px 0 12px 0;">
-													<div class="review-header"
-														style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
-														<div
-															style="font-weight: 600; font-size: 17px; color: #222; letter-spacing: 0.2px;">
-															<i class="fa fa-user-circle"
-																style="font-size: 20px; color: #888; margin-right: 4px;"></i>
-															<?php echo htmlspecialchars($review['user_name']); ?>
+												?>
+														<div class="review-block"
+															style="border-bottom: 1.5px solid #e0e0e0; padding: 18px 0 12px 0;">
+															<div class="review-header"
+																style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+																<div
+																	style="font-weight: 600; font-size: 17px; color: #222; letter-spacing: 0.2px;">
+																	<i class="fa fa-user-circle"
+																		style="font-size: 20px; color: #888; margin-right: 4px;"></i>
+																	<?php echo htmlspecialchars($review['user_name']); ?>
+																</div>
+																<div class="review-rating"
+																	style="font-size: 22px; color: #f39c12; margin-left: 10px;">
+																	<?php
+																	for ($i = 1; $i <= 5; $i++) {
+																		echo '<span style="color:' . ($i <= $review['rating'] ? '#f39c12' : '#ddd') . ';">★</span>';
+																	}
+																	?>
+																</div>
+															</div>
+															<?php if (!empty($images) && is_array($images)): ?>
+																	<div class="review-images" style="display: flex; gap: 8px; margin-bottom: 8px;">
+																		<?php foreach ($images as $img):
+																			$imgPath = (strpos($img, 'uploads/') === 0) ? $img : ('uploads/review-images/' . ltrim($img, '/'));
+																			?>
+																				<img src="<?php echo htmlspecialchars($imgPath); ?>" alt="Review Image"
+																					style="width: 70px; height: 70px; object-fit: cover; border-radius: 4px; border: 1px solid #ccc;">
+																		<?php endforeach; ?>
+																	</div>
+															<?php endif; ?>
+															<div class="review-text"
+																style="font-size: 15.5px; margin-top: 2px; color: #222;">
+																<?php echo nl2br(htmlspecialchars($review['review_text'])); ?>
+															</div>
+															<div class="review-date" style="font-size: 13px; color: #777; margin-top: 6px;">
+																<?php echo date("d M Y, h:i A", strtotime($review['created_at'])); ?>
+															</div>
 														</div>
-														<div class="review-rating"
-															style="font-size: 22px; color: #f39c12; margin-left: 10px;">
-															<?php
-															for ($i = 1; $i <= 5; $i++) {
-																echo '<span style="color:' . ($i <= $review['rating'] ? '#f39c12' : '#ddd') . ';">★</span>';
-															}
-															?>
-														</div>
-													</div>
-													<?php if (!empty($images) && is_array($images)): ?>
-														<div class="review-images" style="display: flex; gap: 8px; margin-bottom: 8px;">
-															<?php foreach ($images as $img):
-																$imgPath = (strpos($img, 'uploads/') === 0) ? $img : ('uploads/review-images/' . ltrim($img, '/'));
-															?>
-																<img src="<?php echo htmlspecialchars($imgPath); ?>" alt="Review Image"
-																	style="width: 70px; height: 70px; object-fit: cover; border-radius: 4px; border: 1px solid #ccc;">
-															<?php endforeach; ?>
-														</div>
-													<?php endif; ?>
-													<div class="review-text"
-														style="font-size: 15.5px; margin-top: 2px; color: #222;">
-														<?php echo nl2br(htmlspecialchars($review['review_text'])); ?>
-													</div>
-													<div class="review-date" style="font-size: 13px; color: #777; margin-top: 6px;">
-														<?php echo date("d M Y, h:i A", strtotime($review['created_at'])); ?>
-													</div>
-												</div>
-											<?php endwhile;
+												<?php endwhile;
 										else: ?>
-											<p>No reviews yet. Be the first to review this product!</p>
+												<p>No reviews yet. Be the first to review this product!</p>
 										<?php endif; ?>
 									</div>
 									<?php if ($totalReviews > 3): ?>
-										<div style="text-align: center; margin-top: 20px;">
-											<button class="review-btn" id="loadMoreReviewsBtn">View More</button>
-										</div>
-										<script>
-											let reviewOffset = 3;
-											document.getElementById('loadMoreReviewsBtn').addEventListener('click', function() {
-												const btn = this;
-												btn.disabled = true;
-												btn.textContent = 'Loading...';
-												const xhr = new XMLHttpRequest();
-												xhr.open('GET', 'load-more-reviews.php?product_id=<?php echo $productId; ?>&offset=' + reviewOffset + '&limit=5', true);
-												xhr.onload = function() {
-													if (xhr.status === 200) {
-														const newReviews = xhr.responseText;
-														document.getElementById('reviewList').insertAdjacentHTML('beforeend', newReviews);
-														reviewOffset += 5;
-														if (reviewOffset >= <?php echo $totalReviews; ?>) {
-															btn.style.display = 'none';
-														} else {
-															btn.disabled = false;
-															btn.textContent = 'View More';
+											<div style="text-align: center; margin-top: 20px;">
+												<button class="review-btn" id="loadMoreReviewsBtn">View More</button>
+											</div>
+											<script>
+												let reviewOffset = 3;
+												document.getElementById('loadMoreReviewsBtn').addEventListener('click', function() {
+													const btn = this;
+													btn.disabled = true;
+													btn.textContent = 'Loading...';
+													const xhr = new XMLHttpRequest();
+													xhr.open('GET', 'load-more-reviews.php?product_id=<?php echo $productId; ?>&offset=' + reviewOffset + '&limit=5', true);
+													xhr.onload = function() {
+														if (xhr.status === 200) {
+															const newReviews = xhr.responseText;
+															document.getElementById('reviewList').insertAdjacentHTML('beforeend', newReviews);
+															reviewOffset += 5;
+															if (reviewOffset >= <?php echo $totalReviews; ?>) {
+																btn.style.display = 'none';
+															} else {
+																btn.disabled = false;
+																btn.textContent = 'View More';
+															}
 														}
-													}
-												};
-												xhr.send();
-											});
-										</script>
+													};
+													xhr.send();
+												});
+											</script>
 									<?php endif; ?>
 									<script>
 										function previewReviewImages(input) {
@@ -1457,49 +1457,49 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 							<div class="accessories">
 							<div class="accessories-carousel owl-carousel owl-theme">
 									<?php if (!empty($related_products)): ?>
-										<?php foreach ($related_products as $rel):
-											$rel_images = json_decode($rel['images'], true);
-											$rel_img = (!empty($rel_images) && !empty($rel_images[0])) ? 'admin/' . $rel_images[0] : 'img/no-image.png';
+											<?php foreach ($related_products as $rel):
+												$rel_images = json_decode($rel['images'], true);
+												$rel_img = (!empty($rel_images) && !empty($rel_images[0])) ? 'admin/' . $rel_images[0] : 'img/no-image.png';
 
-											// Calculate price display
-											$rel_price = isset($rel['price']) ? floatval($rel['price']) : 0;
-											$rel_discount = isset($rel['discount']) ? floatval($rel['discount']) : 0;
-											$rel_old_price = $rel_price + $rel_discount;
-										?>
-											<div class="item">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="product-details.php?id=<?php echo $rel['id']; ?>">
-															<img src="<?php echo $rel_img; ?>"
-																alt="<?php echo htmlspecialchars($rel['product_name']); ?>" />
-														</a>
-														<!-- <?php if ($rel_discount > 0): ?>
+												// Calculate price display
+												$rel_price = isset($rel['price']) ? floatval($rel['price']) : 0;
+												$rel_discount = isset($rel['discount']) ? floatval($rel['discount']) : 0;
+												$rel_old_price = $rel_price + $rel_discount;
+												?>
+													<div class="item">
+														<div class="single-product">
+															<div class="product-img">
+																<a href="product-details.php?id=<?php echo $rel['id']; ?>">
+																	<img src="<?php echo $rel_img; ?>"
+																		alt="<?php echo htmlspecialchars($rel['product_name']); ?>" />
+																</a>
+																<!-- <?php if ($rel_discount > 0): ?>
 															<span class="badge-sale">Sale</span>
 														<?php endif; ?> -->
-													</div>
-													<div class="product-content">
-														<h5 class="product-name">
-															<a href="product-details.php?id=<?php echo $rel['id']; ?>"
-																title="<?php echo htmlspecialchars($rel['product_name']); ?>">
-																<?php echo htmlspecialchars($rel['product_name']); ?>
-															</a>
-														</h5>
-														<div class="price-box">
-															<span class="price">₹
-																<?php echo number_format($rel_price, 2); ?></span>
-															<?php if ($rel_discount > 0): ?>
-																<span class="old-price">₹
-																	<?php echo number_format($rel_old_price, 2); ?></span>
-															<?php endif; ?>
+															</div>
+															<div class="product-content">
+																<h5 class="product-name">
+																	<a href="product-details.php?id=<?php echo $rel['id']; ?>"
+																		title="<?php echo htmlspecialchars($rel['product_name']); ?>">
+																		<?php echo htmlspecialchars($rel['product_name']); ?>
+																	</a>
+																</h5>
+																<div class="price-box">
+																	<span class="price">₹
+																		<?php echo number_format($rel_price, 2); ?></span>
+																	<?php if ($rel_discount > 0): ?>
+																			<span class="old-price">₹
+																				<?php echo number_format($rel_old_price, 2); ?></span>
+																	<?php endif; ?>
+																</div>
+															</div>
 														</div>
 													</div>
-												</div>
-											</div>
-										<?php endforeach; ?>
+											<?php endforeach; ?>
 									<?php else: ?>
-										<div class="item">
-											<p>No related products found.</p>
-										</div>
+											<div class="item">
+												<p>No related products found.</p>
+											</div>
 									<?php endif; ?>
 								</div>
 							</div>
@@ -1721,72 +1721,72 @@ if (!empty($product['main_product_colour']) || !empty($variants)):
 	<script src="js/main.js"></script>
 <script>
 document.querySelectorAll('.variant-item').forEach(item => {
-    item.addEventListener('click', function () {
-        const id = this.dataset.variantId || this.dataset.mainProductId; // Support main product color too
-        if (!id) {
-            console.error('No variant or main product ID found on element.');
-            return;
-        }
-        loadVariant(id, this);
-    });
+	item.addEventListener('click', function () {
+		const id = this.dataset.variantId || this.dataset.mainProductId; // Support main product color too
+		if (!id) {
+			console.error('No variant or main product ID found on element.');
+			return;
+		}
+		loadVariant(id, this);
+	});
 });
 
 function loadVariant(id, el) {
-    fetch(`get_variant.php?id=${encodeURIComponent(id)}`)
-        .then(res => {
-            if (!res.ok) throw new Error(`Network error: ${res.status}`);
-            return res.json();
-        })
-        .then(data => {
-            if (!data || data.error) {
-                alert(data?.error || 'No variant data found');
-                return;
-            }
+	fetch(`get_variant.php?id=${encodeURIComponent(id)}`)
+		.then(res => {
+			if (!res.ok) throw new Error(`Network error: ${res.status}`);
+			return res.json();
+		})
+		.then(data => {
+			if (!data || data.error) {
+				alert(data?.error || 'No variant data found');
+				return;
+			}
 
-            // Update product image (works with your zoom-image background)
-            const zoomEl = document.querySelector('.zoom-image');
-            if (zoomEl && data.image) {
-                // Use full path if your backend returns just filenames
-                zoomEl.style.backgroundImage = `url('admin/${data.image}')`;
-            }
+			// Update product image (works with your zoom-image background)
+			const zoomEl = document.querySelector('.zoom-image');
+			if (zoomEl && data.image) {
+				// Use full path if your backend returns just filenames
+				zoomEl.style.backgroundImage = `url('admin/${data.image}')`;
+			}
 
-            // Update final price
-            const priceEl = document.querySelector('.price-new .price-box');
-            if (priceEl) {
-                priceEl.textContent = '₹' + parseFloat(data.final_price || 0).toFixed(2);
-            }
+			// Update final price
+			const priceEl = document.querySelector('.price-new .price-box');
+			if (priceEl) {
+				priceEl.textContent = '₹' + parseFloat(data.final_price || 0).toFixed(2);
+			}
 
-            // Update old price (only show if exists and is greater than final price)
-            const oldPriceEl = document.querySelector('.old-price');
-            if (oldPriceEl) {
-                if (data.old_price && parseFloat(data.old_price) > parseFloat(data.final_price)) {
-                    oldPriceEl.textContent = '₹' + parseFloat(data.old_price).toFixed(2) + ' tax incl.';
-                    oldPriceEl.style.display = '';
-                } else {
-                    oldPriceEl.style.display = 'none';
-                }
-            }
+			// Update old price (only show if exists and is greater than final price)
+			const oldPriceEl = document.querySelector('.old-price');
+			if (oldPriceEl) {
+				if (data.old_price && parseFloat(data.old_price) > parseFloat(data.final_price)) {
+					oldPriceEl.textContent = '₹' + parseFloat(data.old_price).toFixed(2) + ' tax incl.';
+					oldPriceEl.style.display = '';
+				} else {
+					oldPriceEl.style.display = 'none';
+				}
+			}
 
-            // Update stock count
-            const stockEl = document.querySelector('.quantity-available span:first-child');
-            if (stockEl) {
-                stockEl.textContent = data.stock ?? '0';
-            }
+			// Update stock count
+			const stockEl = document.querySelector('.quantity-available span:first-child');
+			if (stockEl) {
+				stockEl.textContent = data.stock ?? '0';
+			}
 
-            // Update availability status
-            const availabilityEl = document.querySelector('.availability-status span');
-            if (availabilityEl) {
-                availabilityEl.textContent = (data.stock > 0) ? 'In stock' : 'Out of stock';
-            }
+			// Update availability status
+			const availabilityEl = document.querySelector('.availability-status span');
+			if (availabilityEl) {
+				availabilityEl.textContent = (data.stock > 0) ? 'In stock' : 'Out of stock';
+			}
 
-            // Highlight selected variant
-            document.querySelectorAll('.variant-item').forEach(e => e.style.border = '1px solid #ddd');
-            if (el) el.style.border = '2px solid #007bff';
-        })
-        .catch(err => {
-            console.error('Error loading variant:', err);
-            alert('Error loading variant details: ' + err.message);
-        });
+			// Highlight selected variant
+			document.querySelectorAll('.variant-item').forEach(e => e.style.border = '1px solid #ddd');
+			if (el) el.style.border = '2px solid #007bff';
+		})
+		.catch(err => {
+			console.error('Error loading variant:', err);
+			alert('Error loading variant details: ' + err.message);
+		});
 }
 </script>
 

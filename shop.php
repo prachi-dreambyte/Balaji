@@ -1003,8 +1003,8 @@ $cat_sidebar_stmt->close();
 	</script>
 
 
-	<?php include 'footer.php'; ?>
+	
 </body>
-
+<?php include 'footer.php'; ?>
 
 </html>

@@ -6,7 +6,7 @@
 
 //
 // Conversions
-// 
+//
 var options = {
     chart: {
         height: 292,
@@ -70,157 +70,75 @@ var options = {
             left: 0
         }
     }
-}
+};
 
 var chart = new ApexCharts(
     document.querySelector("#conversions"),
     options
 );
-
 chart.render();
 
 
 //
-//Performance-chart
+// Performance-chart - Total Revenue from DB
 //
-var options = {
-    series: [{
-            name: "Page Views",
-            type: "bar",
-            data: [34, 65, 46, 68, 49, 61, 42, 44, 78, 52, 63, 67],
-        },
-        {
-            name: "Clicks",
-            type: "area",
-            data: [8, 12, 7, 17, 21, 11, 5, 9, 7, 29, 12, 35],
-        },
-    ],
-    chart: {
-        height: 313,
-        type: "line",
-        toolbar: {
-            show: false,
-        },
-    },
-    stroke: {
-        dashArray: [0, 0],
-        width: [0, 2],
-        curve: 'smooth'
-    },
-    fill: {
-        opacity: [1, 1],
-        type: ['solid','gradient'],
-        gradient: {
-            type: "vertical",
-            inverseColors: false,
-            opacityFrom: 0.5,
-            opacityTo: 0,
-            stops: [0, 90]
-        },
-    },
-    markers: {
-        size: [0, 0],
-        strokeWidth: 2,
-        hover: {
-            size: 4,
-        },
-    },
-    xaxis: {
-        categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-        ],
-        axisTicks: {
-            show: false,
-        },
-        axisBorder: {
-            show: false,
-        },
-    },
-    yaxis: {
-        min: 0,
-        axisBorder: {
-            show: false,
-        }
-    },
-    grid: {
-        show: true,
-        strokeDashArray: 3,
-        xaxis: {
-            lines: {
-                show: false,
+fetch('get_revenue_data.php')
+    .then(res => res.json())
+    .then(chartData => {
+        var options = {
+            series: [{
+                name: "Total Revenue",
+                type: "line",
+                data: chartData.revenues
+            }],
+            chart: {
+                height: 313,
+                type: "line",
+                toolbar: { show: false },
             },
-        },
-        yaxis: {
-            lines: {
+            stroke: {
+                width: 2,
+                curve: 'smooth'
+            },
+            fill: {
+                opacity: 1,
+                type: 'solid'
+            },
+            markers: {
+                size: 4,
+                strokeWidth: 2,
+                hover: { size: 6 },
+            },
+            xaxis: {
+                categories: chartData.months,
+                axisTicks: { show: false },
+                axisBorder: { show: false },
+            },
+            yaxis: {
+                min: 0,
+                labels: {
+                    formatter: val => "₹" + val.toLocaleString()
+                },
+                axisBorder: { show: false }
+            },
+            grid: {
                 show: true,
+                strokeDashArray: 3,
+                padding: { top: 0, right: -2, bottom: 0, left: 10 }
             },
-        },
-        padding: {
-            top: 0,
-            right: -2,
-            bottom: 0,
-            left: 10,
-        },
-    },
-    legend: {
-        show: true,
-        horizontalAlign: "center",
-        offsetX: 0,
-        offsetY: 5,
-        markers: {
-            width: 9,
-            height: 9,
-            radius: 6,
-        },
-        itemMargin: {
-            horizontal: 10,
-            vertical: 0,
-        },
-    },
-    plotOptions: {
-        bar: {
-            columnWidth: "30%",
-            barHeight: "70%",
-            borderRadius: 3,
-        },
-    },
-    colors: ["#7f56da", "#22c55e"],
-    tooltip: {
-        shared: true,
-        y: [{
-                formatter: function (y) {
-                    if (typeof y !== "undefined") {
-                        return y.toFixed(1) + "k";
-                    }
-                    return y;
-                },
-            },
-            {
-                formatter: function (y) {
-                    if (typeof y !== "undefined") {
-                        return  y.toFixed(1) + "k";
-                    }
-                    return y;
-                },
-            },
-        ],
-    },
-}
+            legend: { show: false },
+            colors: ["#22c55e"],
+            tooltip: {
+                y: {
+                    formatter: val => "₹" + val.toLocaleString()
+                }
+            }
+        };
 
-var chart = new ApexCharts(
-    document.querySelector("#dash-performance-chart"),
-    options
-);
-
-chart.render();
+        var chart = new ApexCharts(
+            document.querySelector("#dash-performance-chart"),
+            options
+        );
+        chart.render();
+    })
+    .catch(err => console.error('Error loading revenue chart data:', err));
