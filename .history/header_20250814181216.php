@@ -1,7 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-    session_start();
 }
 include_once 'connect.php';
 
@@ -15,9 +14,7 @@ $total_price = 0;
 
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    $user_id = $_SESSION['user_id'];
 
-    $stmt = $conn->prepare("SELECT SUM(quantity) as total_items, SUM(quantity * p.price) as total_price
     $stmt = $conn->prepare("SELECT SUM(quantity) as total_items, SUM(quantity * p.price) as total_price
                             FROM cart c
                             JOIN products p ON c.product_id = p.id
@@ -26,26 +23,16 @@ if (isset($_SESSION['user_id'])) {
     $stmt->execute();
     $cart_result = $stmt->get_result();
     $row = $cart_result->fetch_assoc();
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $cart_result = $stmt->get_result();
-    $row = $cart_result->fetch_assoc();
 
-    $cart_count = $row['total_items'] ?? 0;
-    $total_price = $row['total_price'] ?? 0;
     $cart_count = $row['total_items'] ?? 0;
     $total_price = $row['total_price'] ?? 0;
 }
 
-// if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-//   session_destroy();
-//   header('Location: index.php');
-//   exit;
-// }
-?>
 
+?>
 <!-- Font Awesome 5 (solid icons) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
 <style>
     .img-bg {
@@ -57,21 +44,7 @@ if (isset($_SESSION['user_id'])) {
         justify-content: center;
         margin-right: 15px;
     }
-    .img-bg {
-        width: 60px;
-        height: 60px;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 15px;
-    }
 
-    .img-bg img {
-        max-width: 100%;
-        max-height: 100%;
-        border-radius: 4px;
-    }
     .img-bg img {
         max-width: 100%;
         max-height: 100%;
@@ -82,14 +55,7 @@ if (isset($_SESSION['user_id'])) {
     .gradient-blue {
         background: linear-gradient(135deg, #cceaff, #99d6ff);
     }
-    /* Match your first screenshot colors */
-    .gradient-blue {
-        background: linear-gradient(135deg, #cceaff, #99d6ff);
-    }
 
-    .gradient-brown {
-        background: linear-gradient(135deg, #f5d2b0, #e8b27a);
-    }
     .gradient-brown {
         background: linear-gradient(135deg, #f5d2b0, #e8b27a);
     }
@@ -97,13 +63,7 @@ if (isset($_SESSION['user_id'])) {
     .gradient-purple {
         background: linear-gradient(135deg, #e5ccff, #c299ff);
     }
-    .gradient-purple {
-        background: linear-gradient(135deg, #e5ccff, #c299ff);
-    }
 
-    .gradient-green {
-        background: linear-gradient(135deg, #e0f8d8, #a8e6a3);
-    }
     .gradient-green {
         background: linear-gradient(135deg, #e0f8d8, #a8e6a3);
     }
@@ -111,20 +71,11 @@ if (isset($_SESSION['user_id'])) {
     .gradient-yellow {
         background: linear-gradient(135deg, #fff3c2, #ffe699);
     }
-    .gradient-yellow {
-        background: linear-gradient(135deg, #fff3c2, #ffe699);
-    }
 
     .gradient-orange {
         background: linear-gradient(135deg, #ffd6b3, #ffb366);
     }
-    .gradient-orange {
-        background: linear-gradient(135deg, #ffd6b3, #ffb366);
-    }
 
-    .gradient-default {
-        background: linear-gradient(135deg, #f0f0f0, #cccccc);
-    }
     .gradient-default {
         background: linear-gradient(135deg, #f0f0f0, #cccccc);
     }
@@ -133,7 +84,7 @@ if (isset($_SESSION['user_id'])) {
         max-height: 400px;
         overflow-y: auto;
         padding-right: 5px;
-        background: #111; 
+        background: #111;
         color: white;
         position: absolute;
         top: 100%;
@@ -141,18 +92,11 @@ if (isset($_SESSION['user_id'])) {
         left: 0;
         width: 250px;
         border-radius: 8px;
-        box-shadow: 0px 5px 15px rgba(66, 49, 49, 0.3);
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
         margin-top: 5px;
         /* Added small gap */
-
-        
     }
 
-    /* Scrollbar styles */
-    .category-list::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-    }
     /* Scrollbar styles */
     .category-list::-webkit-scrollbar {
         width: 10px;
@@ -514,30 +458,30 @@ if (isset($_SESSION['user_id'])) {
                         //   "Staff Chairs" => "gradient-orange",
                         //   "Visitor Chair" => "gradient-pink"
                         // ];
-                        
+
                         if ($result && mysqli_num_rows($result) > 0) {
-                            echo '<ul class="category-list">';
-                            // echo '
-                            // <li>
-                            //   <a href="shop.php#product-list">
-                            //   <div class="img-bg gradient-default">
-                            //   <i class="fas fa-boxes" style="font-size: 24px;"></i>
-                            //   </div>
-                            //   <div class="text">
-                            //   <h4>All Products</h4>
-                            //   <p>View all items</p>
-                            //   </div>
-                            //   </a>
-                            // </li>;
-                        
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $name = htmlspecialchars($row['category_name']);
-                                $imageFile = isset($row['category_image']) ? $row['category_image'] : '';
-                                $imagePath = 'admin/' . htmlspecialchars($imageFile);
-                                if (empty($imageFile) || !file_exists($imagePath)) {
-                                    $imagePath = 'assets/images/placeholder.png';
-                                }
-                                $gradientClass = $gradientMap[$name] ?? 'gradient-default';
+                          echo '<ul class="category-list">';
+                          // echo '
+                          // <li>
+                          //   <a href="shop.php#product-list">
+                          //   <div class="img-bg gradient-default">
+                          //   <i class="fas fa-boxes" style="font-size: 24px;"></i>
+                          //   </div>
+                          //   <div class="text">
+                          //   <h4>All Products</h4>
+                          //   <p>View all items</p>
+                          //   </div>
+                          //   </a>
+                          // </li>;
+
+                          while ($row = mysqli_fetch_assoc($result)) {
+                            $name = htmlspecialchars($row['category_name']);
+                            $imageFile = isset($row['category_image']) ? $row['category_image'] : '';
+                            $imagePath = 'admin/uploads/' . htmlspecialchars($imageFile);
+                            if (empty($imageFile) || !file_exists($imagePath)) {
+                              $imagePath = 'assets/images/placeholder.png';
+                            }
+                            $gradientClass = $gradientMap[$name] ?? 'gradient-default';
 
                                 echo '
                           <li>
@@ -557,24 +501,16 @@ if (isset($_SESSION['user_id'])) {
                             echo '<p>No categories found.</p>';
                         }
                         ?>
+                      </div>
                     </div>
-                </div>
 
 
-
-                <p class="headerText"><a href="index.php#deals"
-                        class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a>
-                </p>
-                <p class="headerText"><a href="contact.php"
-                        class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a>
-                </p>
-                <p class="headerText"><a href="about-us.php"
-                        class="nav-link text-white <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT
-                        US</a></p>
-                <p class="headerText"><a href="blog.php"
-                        class="nav-link text-white <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a>
-                </p>
-            </nav>
+                    
+                    <p class="headerText"><a href="index.php#deals" class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a></p>
+                    <p class="headerText"><a href="contact.php" class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a></p>
+                    <p class="headerText"><a href="about-us.php" class="nav-link text-white <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT US</a></p>
+                    <p class="headerText"><a href="blog.php" class="nav-link text-white <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a></p>
+                </nav>
 
             <!-- Search + Account Icons -->
             <div class="d-flex align-items-center gap-3 flex-wrap justify-content-end">
