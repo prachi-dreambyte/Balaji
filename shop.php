@@ -429,9 +429,9 @@ $cat_sidebar_stmt->close();
 															<a href="product-details.php?id=<?php echo $row['id']; ?>">
 																<img src="./admin/<?php echo $firstImage; ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
 															</a>
-															<?php if (strtotime($row['created_at']) > strtotime('-30 days')): ?>
+															<!-- <?php if (strtotime($row['created_at']) > strtotime('-30 days')): ?>
 																<span class="new">new</span>
-															<?php endif; ?>
+															<?php endif; ?> -->
 															<?php if ($discount > 0): ?>
 																<span class="sale">sale</span>
 															<?php endif; ?>
@@ -489,9 +489,9 @@ $cat_sidebar_stmt->close();
 																	</a>
 																</li>
 
-																<li class="wishlist">
+																<li class="wishlists">
 																	<a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
-																		<i class="fa fa-heart" aria-hidden="true"></i>
+																		<i class="fa fa-heart" aria-hidden="true" style="color: #676162ff;"></i>
 																	</a>
 																</li>
 																<!-- <li>
@@ -513,7 +513,7 @@ $cat_sidebar_stmt->close();
 
 										
 										
-				<div class="shop-pagination">
+				<!-- <div class="shop-pagination">
 					<div class="row">
 						<div class="col-md-6 col-xs-6">
 							<div class="product-count">
@@ -544,14 +544,11 @@ $cat_sidebar_stmt->close();
 						</div>
 						<div class="col-md-6 col-xs-6">
 
-							<!-- <div class="compare">
-								<a href="compare.php"> compare (<span class="compare-count"><?php echo $compare_count; ?></span>) </a>
-								<i class="fa fa-angle-right"></i>
-							</div> -->
+							
 
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
