@@ -1,112 +1,52 @@
 <?php
 session_start();
 $compare_count = isset($_SESSION['compare_list']) ? count($_SESSION['compare_list']) : 0;
-
 include 'connect.php';
 
-// Initialize the cart if it doesn't exist
+// Initialize the cart if needed
 if (!isset($_SESSION['cart'])) {
-	$_SESSION['cart'] = [];
+    $_SESSION['cart'] = [];
 }
 
-// 🔹 Fetch account_type from session or DB
+// Get user account type
 $user_account_type = null;
 if (!empty($_SESSION['account_type'])) {
-	$user_account_type = strtolower(trim($_SESSION['account_type']));
+    $user_account_type = strtolower(trim($_SESSION['account_type']));
 } elseif (!empty($_SESSION['user_id'])) {
-	$user_id = (int) $_SESSION['user_id'];
-	$stmt = $conn->prepare("SELECT account_type FROM signup WHERE id = ? LIMIT 1");
-	if ($stmt) {
-		$stmt->bind_param("i", $user_id);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		if ($row = $result->fetch_assoc()) {
-			$_SESSION['account_type'] = $row['account_type'];
-			$user_account_type = strtolower(trim($row['account_type']));
-		}
-		$stmt->close();
-	}
+    $user_id = (int) $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT account_type FROM signup WHERE id = ? LIMIT 1");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $_SESSION['account_type'] = $row['account_type'];
+        $user_account_type = strtolower(trim($row['account_type']));
+    }
+    $stmt->close();
 }
 
-// Handle Add to Cart
-if (isset($_GET['action']) && $_GET['action'] == 'add') {
-	$product_id = intval($_GET['id']);
-
-	$stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
-	$stmt->bind_param("i", $product_id);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$product = $result->fetch_assoc();
-
-	if ($product) {
-		if (!isset($_SESSION['cart'])) {
-			$_SESSION['cart'] = [];
-		}
-
-		if (isset($_SESSION['cart'][$product_id])) {
-			$_SESSION['cart'][$product_id]['quantity'] += 1;
-		} else {
-			// Extract image first
-			$image_array = json_decode($product['images'], true);
-			$image = isset($image_array[0]) ? $image_array[0] : 'default.jpg';
-
-			// Add to session cart
-			$_SESSION['cart'][$product_id] = [
-				'id' => $product['id'],
-				'name' => $product['product_name'],
-				'price' => $product['price'],
-				'quantity' => 1,
-				'image' => $image
-			];
-		}
-
-		header("Location: shop.php?added=1#product-list");
-		exit;
-	} else {
-		echo "Product not found.";
-	}
-}
-
-// Get category_name from URL parameter
-$category_raw = isset($_GET['category']) ? trim($_GET['category']) : '';
-$category_raw = urldecode($category_raw); // decode %20 to space
-$category_names = array_map('trim', explode(',', $category_raw));
-$category_names = array_filter($category_names, function ($c) {
-	return $c !== '';
-});
-// $category_name = isset($_GET['category']) ? trim($_GET['category']) : '';
-
-// Default limit: 12 products per page
+// ---------- Pagination Variables ----------
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 12;
+$page = isset($_GET['page']) && $_GET['page'] > 0 ? intval($_GET['page']) : 1;
+$offset = ($page - 1) * $limit;
 
+// ---------- Filters & Search ----------
+$category_raw = isset($_GET['category']) ? trim(urldecode($_GET['category'])) : '';
+$category_names = array_filter(array_map('trim', explode(',', $category_raw)));
 $search_term = isset($_GET['search']) ? trim($_GET['search']) : '';
-
-
-// Get sort_by from URL
 $sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : '';
 
-// Build ORDER BY condition
 $order_by = '';
 switch ($sort_by) {
-	case 'price_asc':
-		$order_by = ' ORDER BY price ASC';
-		break;
-	case 'price_desc':
-		$order_by = ' ORDER BY price DESC';
-		break;
-	case 'name_asc':
-		$order_by = ' ORDER BY product_name ASC';
-		break;
-	case 'name_desc':
-		$order_by = ' ORDER BY product_name DESC';
-		break;
-	default:
-		$order_by = ''; // no sorting
+    case 'price_asc': $order_by = ' ORDER BY price ASC'; break;
+    case 'price_desc': $order_by = ' ORDER BY price DESC'; break;
+    case 'name_asc': $order_by = ' ORDER BY product_name ASC'; break;
+    case 'name_desc': $order_by = ' ORDER BY product_name DESC'; break;
 }
 
 $like = "%$search_term%";
 $params = [];
-$types = '';
+$types = [];
 $conditions = [];
 
 $min_price = isset($_GET['min_price']) ? floatval($_GET['min_price']) : 0;
@@ -114,61 +54,57 @@ $max_price = isset($_GET['max_price']) ? floatval($_GET['max_price']) : 0;
 $enable_price_filter = $min_price > 0 && $max_price > 0;
 
 if (!empty($category_names)) {
-	$placeholders = implode(',', array_fill(0, count($category_names), '?'));
-	$conditions[] = "category IN ($placeholders)";
-	$params = array_merge($params, $category_names);
-	$types .= str_repeat('s', count($category_names));
+    $placeholders = implode(',', array_fill(0, count($category_names), '?'));
+    $conditions[] = "category IN ($placeholders)";
+    $params = array_merge($params, $category_names);
+    $types[] = str_repeat('s', count($category_names));
 }
 
 if (!empty($search_term)) {
-	$conditions[] = "(product_name LIKE ? OR category LIKE ?)";
-	$params[] = $like;
-	$params[] = $like;
-	$types .= 'ss';
+    $conditions[] = "(product_name LIKE ? OR category LIKE ?)";
+    $params[] = $like;
+    $params[] = $like;
+    $types[] = 'ss';
 }
 
 if ($enable_price_filter) {
-	$conditions[] = "price BETWEEN ? AND ?";
-	$params[] = $min_price;
-	$params[] = $max_price;
-	$types .= 'dd';
+    $conditions[] = "price BETWEEN ? AND ?";
+    $params[] = $min_price;
+    $params[] = $max_price;
+    $types[] = 'dd';
 }
 
 $where = !empty($conditions) ? ' WHERE ' . implode(' AND ', $conditions) : '';
+$type_str = implode('', $types);
 
-$sql = "SELECT * FROM products" . $where . $order_by . " LIMIT ?";
-$params[] = $limit;
-$types .= 'i';
+// ---------- Get Total Products ----------
+$count_sql = "SELECT COUNT(*) AS total FROM products" . $where;
+$count_stmt = $conn->prepare($count_sql);
+if ($type_str) $count_stmt->bind_param($type_str, ...$params);
+$count_stmt->execute();
+$total_products = $count_stmt->get_result()->fetch_assoc()['total'];
+$count_stmt->close();
+
+// ---------- Get Products for Current Page ----------
+$sql = "SELECT * FROM products" . $where . $order_by . " LIMIT ?, ?";
+$params_with_limit = array_merge($params, [$offset, $limit]);
+$type_str_with_limit = $type_str . 'ii';
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param($types, ...$params);
-
-
-
-$debug_info['sql'] = $sql;
-
-
+$stmt->bind_param($type_str_with_limit, ...$params_with_limit);
 $stmt->execute();
 $result = $stmt->get_result();
 $allRows = $result->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
 
-// Debug: Get all unique categories from products table
-$debug_sql = "SELECT DISTINCT category FROM products ORDER BY category";
-$debug_stmt = $conn->prepare($debug_sql);
-$debug_stmt->execute();
-$debug_result = $debug_stmt->get_result();
-$debug_categories = $debug_result->fetch_all(MYSQLI_ASSOC);
-$debug_info['available_categories'] = array_column($debug_categories, 'category');
-$debug_stmt->close();
-
-// Get all categories for sidebar
+// ---------- Categories for sidebar ----------
 $cat_sidebar_sql = "SELECT * FROM categories ORDER BY created_at DESC";
 $cat_sidebar_stmt = $conn->prepare($cat_sidebar_sql);
 $cat_sidebar_stmt->execute();
-$cat_sidebar_result = $cat_sidebar_stmt->get_result();
-$categories = $cat_sidebar_result->fetch_all(MYSQLI_ASSOC);
+$categories = $cat_sidebar_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $cat_sidebar_stmt->close();
 ?>
+
 
 
 
@@ -252,21 +188,7 @@ $cat_sidebar_stmt->close();
 			</div>
 		</div>
 	</section>
-	<!-- <div class="breadcrumb">
-					<a href="index.php" title="Return to Home">
-						<i class="icon-home"></i>
-					</a>
-					<span class="navigation-pipe">></span>
-					<span class="navigation-page">
-						<?php if (!empty($category_name)): ?>
-							<a href="shop.php" title="All Products">FURNITURE</a>
-							<span class="navigation-pipe">></span>
-							<?php echo htmlspecialchars($category_name); ?>
-						<?php else: ?>
-							FURNITURE
-						<?php endif; ?>
-					</span>
-				</div> -->
+	
 				<section class="shopSection">
 	<div class="container">
 		<div class="row">
@@ -392,31 +314,15 @@ $cat_sidebar_stmt->close();
 														<a href="product-details.php?id=<?php echo $row['id']; ?>">
 															<img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
 														</a>
-														<span class="new"><a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
-															<i class="fa fa-heart" aria-hidden="true" style="color: brown;"></i>
-														</a></span>
+														 <div class="wishlist-btn" style="position: absolute; top: 10px; right: 10px; z-index: 2;">
+                <a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
+                    <i class="fa fa-heart" aria-hidden="true" style="color: #c06b81;"></i>
+                </a>
+            </div>
 
 														<div class="product-action">
 															<div class="add-to-links">
-																<ul>
-																	<!-- <li>
-																		<a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
-																			<i class="fa fa-heart" aria-hidden="true"></i>
-																		</a>
-																	</li> -->
-																	<!-- <li>
-									<a href="#" title="Add to compare">
-										<i class="fa fa-bar-chart" aria-hidden="true"></i>
-									</a>
-								</li> -->
-																	<!-- <li>
-																		<a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
-																			<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																		</a>
-																	</li> -->
-
-																</ul>
-																<div class="AddCart">
+																		<div class="AddCart">
 																	<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
 																			<span>add to cart</span>																
 																</div>
@@ -425,7 +331,7 @@ $cat_sidebar_stmt->close();
 													</div>
 													<div class="product-content">
 														<h5 class="product-name">
-															<a href="#" title="<?php echo htmlspecialchars($row['product_name']); ?>">
+															<a href="product-details.php?id=<?php echo $row['id']; ?>" title="<?php echo htmlspecialchars($row['product_name']); ?>">
 																<?php echo htmlspecialchars($row['product_name']); ?>
 															</a>
 														</h5>
@@ -529,7 +435,7 @@ $cat_sidebar_stmt->close();
 															<?php if ($discount > 0): ?>
 																<span class="sale">sale</span>
 															<?php endif; ?>
-															<div class="product-action">
+															<!-- <div class="product-action">
 																<div class="add-to-links">
 																	<div class="quick-view">
 																		<a href="product-details.php?id=<?php echo $row['id']; ?>" title="Quick view">
@@ -537,7 +443,7 @@ $cat_sidebar_stmt->close();
 																		</a>
 																	</div>
 																</div>
-															</div>
+															</div> -->
 														</div>
 													</div>
 												</div>
@@ -605,74 +511,7 @@ $cat_sidebar_stmt->close();
 											</div>
 										<?php endforeach; ?>
 
-										<!-- <div class="list-view-single row list-view-mar">
-											<div class="col-md-4">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="#">
-															<img src="img/tab-pro/chair.jpg" alt="" />
-														</a>
-														<span class="new">new</span>
-														<span class="sale">sale</span>
-														<div class="product-action">
-															<div class="add-to-links">
-																<div class="quick-view">
-																	<a href="#" title="Quick view" data-bs-toggle="modal" data-target="#myModal">
-																		<span>Quick view</span>
-																	</a>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div> -->
-											<!-- <div class="col-md-8">
-												<div class="product-content">
-													<h5 class="product-name">
-														<a href="#" title=" Faded Short Sleeves T-shirt "> Faded Short Sleeves T-shirt </a>
-													</h5>
-													<div class="reviews">
-														<div class="star-content clearfix">
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-															<span class="star"></span>
-														</div>
-													</div>
-													<div class="price-box">
-														<span class="price"> £ 61.19 </span>
-													</div>
-													<p class="product-desc">Printed evening dress with straight
-														sleeves with black thin waist belt and ruffled linings.
-													</p>
-													<div class="action">
-														<ul>
-															<li class="cart">
-																<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
-																	<i class="fa fa-shopping-cart"></i>
-																	<span>add to cart</span>
-																</a>
-															</li>
-
-															<li class="wishlist">
-																<a href="#" title="Add to wishlist">
-																	<i class="fa fa-heart" aria-hidden="true"></i>
-																</a>
-															</li>
-															<!-- <li> -->
-																<!-- <a href="#" class="add-to-compare" data-id="<?php echo $row['id']; ?>" title="Add to compare">
-																	<i class="fa fa-bar-chart" aria-hidden="true"></i>
-																</a>
-															</li> -->
-
-														<!-- </ul>
-													</div> -->
-													<!-- <span class="availability">
-														<span> In stock </span>
-													</span>
-												</div>
-											</div> -->
+										
 										
 				<div class="shop-pagination">
 					<div class="row">
@@ -717,6 +556,31 @@ $cat_sidebar_stmt->close();
 		</div>
 	</div>
 	</div>
+
+	<?php
+$total_pages = ceil($total_products / $limit);
+if ($total_pages > 1): ?>
+<div class="shop-pagination">
+    <ul class="pagination">
+        <?php if ($page > 1): ?>
+            <li><a href="?<?php echo http_build_query(array_merge($_GET, ['page' => $page - 1])); ?>">&laquo;</a></li>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+            <li class="<?php echo ($i == $page) ? 'active' : ''; ?>">
+                <a href="?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>">
+                    <?php echo $i; ?>
+                </a>
+            </li>
+        <?php endfor; ?>
+
+        <?php if ($page < $total_pages): ?>
+            <li><a href="?<?php echo http_build_query(array_merge($_GET, ['page' => $page + 1])); ?>">&raquo;</a></li>
+        <?php endif; ?>
+    </ul>
+</div>
+<?php endif; ?>
+
 															</section>
 	<!--=====shop-2-area-end=====-->
 
@@ -784,130 +648,14 @@ $cat_sidebar_stmt->close();
 	<!-- footer-start -->
 
 	<?php include('footer.php'); ?>
-
+	
 	<!-- footer-end -->
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
-			<!-- <div class="modal-content">
-				<div class="row">
-					<div class="col-md-5 col-sm-5 col-xs-6">
-						<div class="modal-pic" title="Printed Chiffon Dress">
-							<a href="#">
-								<img src="img/modal/printed-chiffon-dress.jpg" alt="" />
-							</a>
-							<span class="new">new</span>
-							<span class="sale">sale</span>
-						</div>
-					</div>
-					<div class="col-md-7 col-sm-7 col-xs-6">
-						<h1>Faded Short Sleeves T-shirt</h1>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<p class="reference">
-							<label>Reference: </label>
-							<span>demo_1</span>
-						</p>
-						<p class="condition">
-							<label>Condition: </label>
-							<span>New product</span>
-						</p>
-						<div class="content-price">
-							<p class="price-new">
-								<span class="price-box">£ 16.84</span>
-								<span class="price-tax"> tax incl.</span>
-							</p>
-						</div>
-						<div class="short-description">
-							<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit.
-								Accessorize with a straw hat and you're ready for summer!
-							</p>
-						</div>
-						<form action="#">
-							<div class="shop-product-add">
-								<div class="add-cart">
-									<p class="quantity cart-plus-minus">
-										<label>Quantity</label>
-										<input id="quantity_wanted" class="text" type="text" value="1">
-
-									</p>
-									<div class="shop-add-cart">
-										<button class="exclusive">
-											<span>Add to cart</span>
-										</button>
-									</div>
-									<ul class="usefull-links">
-										<li class="sendtofriend">
-											<a class="send-friend-button" href="#"> Send to a friend </a>
-										</li>
-										<li class="print">
-											<a class="#" href="#"> Print </a>
-										</li>
-									</ul>
-									<p class="add-wishlist">
-										<a class="add-wish" href="#">
-											Add to wishlist
-										</a>
-									</p>
-								</div>
-								<div class="clearfix"></div>
-								<div class="size-color">
-									<fieldset class="size">
-										<label>Size </label>
-										<div class="selector">
-											<select id="group_1" class="form-control" name="group_1">
-												<option title="S" selected="selected" value="1">S</option>
-												<option title="M" value="2">M</option>
-												<option title="L" value="3">L</option>
-											</select>
-										</div>
-									</fieldset>
-									<fieldset class="color">
-										<label>Color</label>
-										<div class="color-selector">
-											<ul>
-												<li><a class="color-1" href="#"></a></li>
-												<li><a class="color-2" href="#"></a></li>
-											</ul>
-										</div>
-									</fieldset>
-								</div>
-							</div>
-						</form>
-						<div class="clearfix"></div>
-						<p class="quantity-available">
-							<span>299</span>
-							<span>Items</span>
-						</p>
-						<p class="availability-status">
-							<span>In stock</span>
-						</p>
-						<p class="social-sharing">
-							<button class="btn btn-default btn-twitter">
-								<i class="icon-twitter"></i>
-								Tweet
-							</button>
-							<button class="btn btn-default btn-facebook">
-								<i class="icon-facebook"></i>
-								Share
-							</button>
-							<button class="btn btn-default btn-google-plus">
-								<i class="icon-google-plus"></i>
-								Google+
-							</button>
-							<button class="btn btn-default btn-pinterest">
-								<i class="icon-pinterest"></i>
-								Pinterest
-							</button>
-						</p>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	</div> -->
+			
 	<!-- modal end -->
 	<!-- all js here -->
 	<!-- jquery latest version -->
