@@ -293,7 +293,7 @@ $cat_sidebar_stmt->close();
 														</a>
 														 <div class="wishlist-btn" style="position: absolute; top: 10px; right: 10px; z-index: 2;">
                 <a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
-                    <i class="fa fa-heart" aria-hidden="true" style="color: brown;"></i>
+                    <i class="fa fa-heart" aria-hidden="true" style="color: #c06b81;"></i>
                 </a>
             </div>
 
