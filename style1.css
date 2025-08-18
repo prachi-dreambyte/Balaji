@@ -65,6 +65,14 @@
 }
 }
 
+/* *********************HOMEPAGE********************** */
+
+.action ul .cart a:hover,.action li a:hover {
+  background: #f5f0f1 none repeat scroll 0 0 !important;
+  border-color: #f3ebed !important;
+  color: white !important;
+}
+
   @media (max-width: 1169.98px) {
  
   }
