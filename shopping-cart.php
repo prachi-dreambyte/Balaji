@@ -500,7 +500,7 @@ if (isset($_POST['apply_coupon'])) {
 	                        <div class="card-header bg-primary bg-gradient text-white p-3">
 	                            <div class="d-flex justify-content-between align-items-center">
 	                                <h4 class="mb-0 shoppingHead"><i class="fas fa-shopping-cart me-2"></i>Your Shopping Cart</h4>
-	                                <span class="badge bg-white text-black fs-6"><?= count($cart_itemss) ?> Items</span>
+	                                <span class="badge bg-white text-black fs-6"><?php echo $cart_count . ' Item' . ($cart_count > 1 ? 's' : ''); ?>
 	                            </div>
 	                        </div>
 	                        
@@ -675,7 +675,7 @@ if (isset($_POST['apply_coupon'])) {
 	                    <div class="card-body">
 	                        <ul class="list-group list-group-flush">
 	                            <li class="list-group-item d-flex justify-content-between py-2">
-	                                <span>Subtotal (<?= count($cart_itemss) ?> items)</span>
+	                                <span>Subtotal (<?php echo $cart_count . ' item' . ($cart_count > 1 ? 's' : ''); ?>)</span>
 	                                <strong>₹<?= number_format($total, 2) ?></strong>
 	                            </li>
 	                            
@@ -729,7 +729,7 @@ if (isset($_POST['apply_coupon'])) {
 	<!-- brand-area-end -->
 	<!-- footer-start -->
 
-	<?php include 'footer.php'; ?>
+	
 
 	<!-- footer-end -->
 	<!-- all js here -->

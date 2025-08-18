@@ -45,7 +45,7 @@ $result = $stmt->get_result();
                               <div class="card">
                                    <div class="card-body text-center">
                                         <div class="rounded bg-secondary-subtle d-flex align-items-center justify-content-center mx-auto">
-                                             <img src="uploads/<?php echo $row['category_image']; ?>" alt="" class="avatar-xl">
+                                             <img src="<?php echo $row['category_image']; ?>" alt="" class="avatar-xl">
                                         </div>
                                         <h4 class="mt-3 mb-0"><?php echo htmlspecialchars($row['category_name']); ?></h4>
                                         

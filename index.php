@@ -970,7 +970,10 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                         $slug = htmlspecialchars($blog['slug']);
                                         $content = strip_tags($blog['main_content']); // remove HTML tags
                                         $contentShort = substr($content, 0, 100) . "...";
-                                        $image = !empty($blog['main_images']) ? $blog['main_images'] : 'img/latest-blog/default.jpg';
+                                        $image = !empty($blog['main_images'])
+                                            ? "img/latest-blog/" . $blog['main_images']
+                                            : "img/latest-blog/default.jpg";
+
                                         $date = date("F d, Y", strtotime($blog['created_at'])); // formatted date
                                         $link = "blog/" . urlencode($slug);
                                         ?>
@@ -1261,7 +1264,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- modal end -->
@@ -1320,18 +1322,5 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 });
             });
         </script>
-
-
-
-
-
-
-
-
-
-
-
 </body>
-
-
 </html>
