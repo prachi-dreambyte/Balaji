@@ -45,7 +45,48 @@
     font-size: 25px !important;
 }
 
-
+/* ----------------------READ MORE BUTTON-------------------------------- */
+   .readmore-btn {
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    padding: 15px 30px;
+    text-decoration: none;
+    background: #c06b81 ! important;
+    color: white;
+    overflow: hidden;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 10px;
+    font-size: 15px
+   }
+    .readmore-btn:hover{
+     background-color: #e393a7 !important;
+     color:#fff;
+    }
+    /* ---------------------END----------------- */
+    .add-to-cart-Btn{
+        font-family: Poppins, sans-serif;
+    font-weight: 400;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    padding: 15px 30px;
+    text-decoration: none;
+    background: #c06b81 ! important;
+    color: white;
+    overflow: hidden;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-size: 15px
+    }
+    .add-to-cart-Btn:hover{
+     background-color: #e393a7 !important;
+     color:#fff;
+    }
  /* RESPONSIVE-----BLOG-DETAILS------PAGE */
   @media (min-width: 1921px) and (max-width: 2561px) {
 }
@@ -72,6 +113,9 @@
   border-color: #f3ebed !important;
   color: white !important;
 }
+
+
+
 
   @media (max-width: 1169.98px) {
  
@@ -117,3 +161,7 @@
 @media(max-width: 360.98px){
 
 }
+
+
+
+

@@ -301,7 +301,35 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         .home-4-latest-blog {
             overflow: hidden !important;
         }
+
+        /* ----------------------READ MORE BUTTON-------------------------------- */
+   .readmore-btn {
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    padding: 15px 30px;
+    text-decoration: none;
+    background: #c06b81 ! important;
+    color: white;
+    overflow: hidden;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 10px;
+    font-size: 15px
+   }
+    .readmore-btn:hover{
+     background-color: #e393a7 !important;
+     color:#fff;
+    }
+
+    .extra-text-decoration{
+        text-decoration:none;
+        font-size: 15px;
+    }
     </style>
+
 
 
 </head>
@@ -422,7 +450,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                     </div>
                                                     <div class="daily-content text-center">
                                                         <h5 class="product-name">
-                                                            <a href="product-details.php?id=<?= $id ?>"
+                                                            <a class="text-decoration-none" href="product-details.php?id=<?= $id ?>"
                                                                 title="<?= $product_name ?>">
                                                                 <?= $product_name ?>
                                                             </a>
@@ -501,7 +529,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                                     </div>
                                                                     <div class="product-content">
                                                                         <h5 class="product-name">
-                                                                            <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                            <a  class="extra-text-decoration" href="product-details.php?id=<?= $product['id'] ?>">
                                                                                 <?= htmlspecialchars($product['product_name']) ?>
                                                                             </a>
                                                                         </h5>
@@ -614,7 +642,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                                     </div>
 
                                                                     <div class="price-box">
-    <?php
+                                                                             <?php
                                                                             $original_price = (float) $product['price'];
                                                                             $final_price = $original_price;
 
@@ -925,7 +953,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 
             <!--===== latest-blog-start =====-->
 
-            <div class="home-4-latest-blog">
+            <div class="home-4-latest-blog px-5">
                 <div class="blog">
                     <div class="product-title">
                         <h2><span>Latest Blog</span></h2>
@@ -961,8 +989,8 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                     </h4>
                                                     <p><?= $contentShort ?></p>
                                                     <span class="blog-date"><?= $date ?></span>
-                                                    <a class="blog-read-more" href="<?= $link ?>">
-                                                        <span>Read More</span>
+                                                    <a class="readmore-btn" href="<?= $link ?>">
+                                                        Read More
                                                     </a>
                                                 </div>
                                             </div>

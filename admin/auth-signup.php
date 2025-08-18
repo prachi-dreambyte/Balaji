@@ -50,6 +50,25 @@ $conn->query($query)
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
      <!-- SweetAlert2 JS -->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <style>
+        .adminButton{
+           background: #c06b81;
+    color: #ffffff;
+    font-size: 18px;
+        }
+        .adminButton:hover{
+           background: #c06b81;
+    color: #ffffff;
+    font-size: 18px;
+        }
+        .adminInstruction{
+             box-shadow: 0px 10px 10px rgba(3, 4, 28, 0.06);
+             padding: 15px 9px;
+             font-size: 18px;
+             text-align: center;
+             color: #c06b81;
+        }
+    </style>
 
 </head>
 
@@ -62,44 +81,44 @@ $conn->query($query)
                               <div class="col-lg-6 py-lg-5">
                                    <div class="d-flex flex-column h-100 justify-content-center">
                                         <div class="auth-logo mb-4">
-                                             <a href="index.php" class="logo-dark">
-                                                  <img src="assets/images/logo-dark.png" height="24" alt="logo dark">
+                                             <a href="index.php" class="logo-dark text-center">
+                                                  <img src="assets\images\balaji-TOP-LOGO.png" height="124" alt="logo dark">
                                              </a>
 
-                                             <a href="index.php" class="logo-light">
-                                                  <img src="assets/images/logo-light.png" height="24" alt="logo light">
+                                             <a href="index.php" class="logo-light text-center">
+                                                  <img src="assets\images\balaji-TOP-LOGO.png" height="124" alt="logo light">
                                              </a>
                                         </div>
 
-                                        <h2 class="fw-bold fs-24">Sign Up</h2>
+                                        <h2 class="fw-bold fs-35 text-center">Sign Up</h2>
 
-                                        <p class="text-muted mt-1 mb-4">New to our platform? Sign up now! It only takes a minute</p>
+                                        <p class="mt-3 mb-3 adminInstruction">New to our platform? Sign up now! It only takes a minute</p>
 
-                                        <div>
+                                        <div class="mb-5">
                                              <form method="POST" class="authentication-form">
-                                                  <div class="mb-3">
-                                                       <label class="form-label" for="example-name">Name</label>
-                                                       <input type="name" id="example-name" name="example-name" class="form-control" placeholder="Enter your name">
+                                                  <div class="mb-3 pt-3">
+                                                       <label class="form-label fs-25 text-dark " for="example-name">Name</label>
+                                                       <input type="name" id="example-name" name="example-name" class="form-control  fs-18" placeholder="Enter your name">
                                                   </div>
-                                                  <div class="mb-3">
-                                                       <label class="form-label" for="example-email">Email</label>
-                                                       <input type="email" id="example-email" name="example-email" class="form-control bg-" placeholder="Enter your email">
+                                                  <div class="mb-3 pt-3">
+                                                       <label class="form-label fs-25 text-dark" for="example-email">Email</label>
+                                                       <input type="email" id="example-email" name="example-email" class="form-control fs-18" placeholder="Enter your email">
                                                   </div>
-                                                  <div class="mb-3">
-                                                       <label class="form-label" for="example-password">Password</label>
-                                                       <input type="text" name="example-password" id="example-password" class="form-control" placeholder="Enter your password">
+                                                  <div class="mb-3 pt-3">
+                                                       <label class="form-label fs-25 text-dark" for="example-password">Password</label>
+                                                       <input type="text" name="example-password" id="example-password" class="form-control fs-18" placeholder="Enter your password">
                                                   </div>
                                                  
 
                                                   <div class="mb-1 text-center d-grid">
-                                                       <button class="btn btn-soft-primary" type="submit">Sign Up</button>
+                                                       <button class="btn adminButton" type="submit">Sign Up</button>
                                                   </div>
                                              </form>
 
 
                                         </div>
 
-                                        <p class="mt-auto text-danger text-center">I already have an account <a href="auth-signin.php" class="text-dark fw-bold ms-1">Sign In</a></p>
+                                        <p class="fs-15 text-center">I already have an account <a href="auth-signin.php" class="text-dark fs-18 fw-bold ms-1">Sign In</a></p>
                                    </div>
                               </div>
                          </div>
@@ -108,7 +127,7 @@ $conn->query($query)
                     <div class="col-xxl-5 d-none d-xxl-flex">
                          <div class="card h-100 mb-0 overflow-hidden">
                               <div class="d-flex flex-column h-100">
-                                   <img src="assets/images/small/img-10.jpg" alt="" class="w-100 h-100">
+                                   <img src="assets\images\login.jpg" alt="" class="w-100 h-100">
                               </div>
                          </div> <!-- end card -->
                     </div>
