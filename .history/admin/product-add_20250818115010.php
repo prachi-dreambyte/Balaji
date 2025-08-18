@@ -9,13 +9,7 @@ $stmt = $conn->prepare('SELECT * FROM categories');
 $stmt->execute();
 $result = $stmt->get_result();
 
-try {
-     $product_stmt = $conn->prepare('SELECT id, product_name FROM products');
-     $product_stmt->execute();
-     $product_result = $product_stmt->get_result();
-} catch (Exception $e) {
-     error_log("product not found" . $e->getMessage());
-}
+
 
 ?>
 
