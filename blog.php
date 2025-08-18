@@ -24,7 +24,7 @@ $totalPages = ceil($totalProducts / $limit);
  <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Blog || Vonia</title>
+        <title>Balaji Blog</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">

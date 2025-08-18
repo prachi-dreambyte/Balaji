@@ -5,7 +5,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Contact us || Balaji</title>
+        <title>Wishlist || Vonia</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
@@ -42,9 +42,6 @@
 		<!-- header-start -->
 		<header>
 			<div class="header-top">
-
-			<?php include 'header.php'; ?>
-			
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6 col-sm-7 d-none d-sm-block">
@@ -90,10 +87,10 @@
 										<a class="link-wishlist wishlist_block" title="My wishlist" href="#">My wishlist</a>
 									</li>
 									<li>
-										<a class="link-checkout" title="checkout" href="#">Checkout</a>
+										<a class="link-checkout" title="Checkout" href="http://localhost/vonia/checkout.php">Checkout</a>
 									</li>
 									<li>
-										<a class="login" title="Log in to your customer account" rel="nofollow" href="loginSignUp/login.php">Log in</a>
+										<a class="login" title="Log in to your customer account" rel="nofollow" href="#">Log in</a>
 									</li>
 								</ul>
 							</div>
@@ -112,8 +109,8 @@
 						</div>
 						<div class="col-md-4 col-sm-6 col-6">
 							<div class="pos-logo">
-								<a href="index.php">
-									<img class="logo img-responsive" src="img/logo.png" alt="" />
+								<a href="index11.php">
+									<img class="logo img-responsive" src="img/balaji-TOP-LOGO.png" alt="" />
 								</a>
 							</div>
 						</div>						
@@ -176,7 +173,7 @@
 				</div>
 			</div>
 			<!-- mainmenu-area-start -->
-		<div class="main-menu-area d-none d-lg-block">
+			<div class="main-menu-area d-none d-lg-block">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
@@ -185,87 +182,9 @@
 									<ul>
 										<li>
 											<a class="active" href="index.php">home</a>
-											<!-- <a class="active" href="index11.php">home</a> -->
-											<!-- <div class="version">
-												<span>
-													<a href="index.html">Homepage version-1</a>
-													<a href="index-2.html">Homepage version-2</a>
-													<a href="index-3.html">Homepage version-3</a>
-													<a href="index-4.html">Homepage version-4</a>
-												</span>
-											</div>
-										</li>
-
-										<li>
-    <a href="shop.php">CATEGORY</a>
-    <div class="mega-menu">
-        <span style="display: grid; grid-template-columns: 200px 200px; gap: 10px;">
-
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Executive Chair</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Chair</a>
-
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Mesh Chair</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Table</a>
-
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Staff Chairs</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Baby Chairs</a>
-
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Visitor Chair</a>
-            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Stools</a>
-        </span>
-    </div>
-</li>
-
-										
-										<li>
-											<a href="shop.php">OFFER</a>
 											
 										</li>
-										<li>
-                                          <a href="contact.php">CONTACT</a>
-                                         </li>
-										<li>
-											<a href="#">ABOUT</a>
-											<div class="version pages">
-												<span>
-													<a href="blog.php">Blog</a>
-													
-                                                    <a href="contact.php">CONTACT</a>
-
-													<a href="checkout.php">Checkout</a>
-													<a href="my-account.php">My account</a>
-													<a href="product-details.php">Product details</a>
-													<a href="shop.php">Shop Page</a>
-													<a href="shopping-cart.php">Shoping Cart</a>
-													<a href="wishlist.php">Wishlist</a>
-													<a href="404.php">404 Error</a>
-												</span>
-											</div>
-										</li>
-									</ul>
-								</nav>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>	<!-- mainmenu-area-end -->
-			<!-- mobile-menu-area-start -->
-			<div class="mobile-menu-area d-lg-none d-block">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="mobile_menu">
-								<nav id="mobile_menu_active">
-									<ul>
-										<li><a href="index.php">Home</a>
-											<!-- <ul>
-												<li><a href="index11.php">Home 1</a></li>
-												<li><a href="index-2.php">Home 2</a></li>
-												<li><a href="index-3.php">Home 3</a></li>
-												<li><a href="index.php">Home 4</a></li>
-											</ul> -->
-										</li>
-											<li style="position: relative;">
+									<li style="position: relative;">
     <a href="shop.php">CATEGORY</a>
 
     <div class="mega-menu" style="
@@ -295,13 +214,15 @@
     </div>
 </li>
 
-
+	
+										
 										<li>
 											<a href="shop.php">OFFER</a>
 											
+											
 										</li>
 										<li>
-                                        <a href="contact.php">CONTACT</a>
+                                         <a href="contact.php">CONTACT</a>
                                          </li>
 										<li>
 											<a href="#">ABOUT</a>
@@ -309,7 +230,7 @@
 												<span>
 													<a href="blog.php">Blog</a>
 													<!-- <a href="contact-us.php">Contact Us</a> -->
-													<a href="checkout.php">Checkout</a>
+													<a class="link-checkout" title="Checkout" href="http://localhost/vonia/checkout.php">Checkout</a>
 													<a href="my-account.php">My account</a>
 													<a href="product-details.php">Product details</a>
 													<a href="shop.php">Shop Page</a>
@@ -317,8 +238,75 @@
 													<a href="wishlist.php">Wishlist</a>
 													<!-- <a href="404.php">404 Error</a> -->
 												</span>
-										
+												</div>
 										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- mainmenu-area-end -->
+			<!-- mobile-menu-area-start -->
+			<div class="mobile-menu-area d-lg-none d-block">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="mobile_menu">
+								<nav id="mobile_menu_active">
+									<ul>
+										<li><a href="index.php">Home</a>
+											<!-- <ul>
+												<li><a href="index11.php">Home 1</a></li>
+												<li><a href="index-2.php">Home 2</a></li>
+												<li><a href="index-3.php">Home 3</a></li>
+												<li><a href="index.php">Home 4</a></li>
+											</ul> -->
+										</li>
+										<li>
+    <a href="shop.php">CATEGORY</a>
+    <div class="mega-menu">
+        <span style="display: grid; grid-template-columns: 200px 200px; gap: 10px;">
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Executive Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Chair</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Mesh Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Table</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Staff Chairs</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Baby Chairs</a>
+
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Visitor Chair</a>
+            <a href="#" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plastic Stools</a>
+        </span>
+    </div>
+</li>
+
+										
+										<li>
+											<a href="shop.php">OFFER</a>
+											
+										</li>
+										<li>
+                                           <a href="contact.php">CONTACT</a>
+                                         </li>
+										<li>
+											<a href="#">ABOUT</a>
+											<div class="version pages">
+												<span>
+													<a href="blog.php">Blog</a>
+													<!-- <a href="contact-us.php">Contact Us</a> -->
+													<a class="link-checkout" title="Checkout" href="http://localhost/vonia/checkout.php">Checkout</a>
+													<a href="my-account.php">My account</a>
+													<a href="product-details.php">Product details</a>
+													<a href="shop.php">Shop Page</a>
+													<a href="shopping-cart.php">Shoping Cart</a>
+													<a href="wishlist.php">Wishlist</a>
+													<a href="404.php">404 Error</a>
+												</span>
+							</li>
 									</ul>
 								</nav>
 							</div>
@@ -329,91 +317,125 @@
 			<!-- mobile-menu-area-end -->
 		</header>
 		<!-- header-end -->
-		<!-- contact-us-start -->
-		<div class="contact-us-area">
+		<!-- wishlist-start -->
+		<div class="breadcrumb-area">
 			<div class="container">
-				<div class="breadcrumb-area">
-					<div class="container">
-						<div class="breadcrumb">
-							<a href="index.php" title="Return to Home">
-								<i class="icon-home"></i>
-							</a>
-							<span class="navigation-pipe">></span>
-							<span class="navigation-page">
-								Contact
-							</span>
-						</div>
-					</div>
+				<div class="breadcrumb">
+					<a href="index.php" title="Return to Home">
+						<i class="icon-home"></i>
+					</a>
+					<span class="navigation-pipe">></span>
+					<span class="navigation-page">
+						Wishlist
+					</span>
 				</div>
+			</div>
+		</div>
+		<div class="wishlist-area">
+			<div class="container">
 				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="col-md-12">
 						<div class="entry-header">
-							<h1 class="entry-title">Customer service - Contact us</h1>
+							<h1 class="entry-title">Wishlist</h1>
 						</div>
-						<form action="https://htmldemo.net/vonia/vonia/mail.php" method="POST" class="contact-form-box">
-							<fieldset>
-								<h3 class="page-subheading">send a message</h3>
-								<div class="row">
-									<div class="col-xs-12 col-md-3">
-										<div class="form-group">
-											<label>Subject Heading</label>
-											<div class="shop-select" id="uniform-id_contact">
-												<select name="id_contact" id="id_contact">
-													<option selected="selected">-- Choose --</option>
-													<option>Customer service</option>
-													<option>Webmaster</option>
-												</select>
-											</div>											
-										</div>
-										<div class="form-group">
-											<label>Email address</label>
-											<div class="shop-select">
-												<input type="email" value="" name="email" id="email">
-											</div>											
-										</div>
-										<div class="form-group">
-											<label>Order reference</label>
-											<div class="shop-select">
-												<input type="text" value="" id="id_order" name="id_order">
-											</div>											
-										</div>
-										<div class="form-group">
-											<label>Attach File</label>
-											<input type="hidden" name="MAX_FILE_SIZE" value="8388608">
-											<div id="uniform-fileUpload" class="uploader">
-                                                <input type="file" class="form-control" id="fileUpload" name="fileUpload">
-												<span class="filename">No file selected</span>
-												<span class="action">Choose File</span>    
-											</div>
-										</div> 
-									</div>
-									<div class="col-xs-12 col-md-9">
-											<div class="form-group">
-												<label for="message">Message</label>
-												<div class="shop-select">
-												<textarea name="message" id="message"></textarea>
-												</div>											
-											</div>										
-									</div>
+						<div class="wishlist-content">
+							<form action="#">
+								<div class="wishlist-table table-responsive">
+									<table>
+										<thead>
+											<tr>
+												<th class="product-remove">
+													<span class="nobr">Remove</span>
+												</th>
+												<th class="product-thumbnail">Image</th>
+												<th class="product-name">
+													<span class="nobr">Product Name</span>
+												</th>
+												<th class="product-price">
+													<span class="nobr"> Unit Price </span>
+												</th>
+												<th class="product-stock-stauts">
+													<span class="nobr"> Stock Status </span>
+												</th>
+												<th class="product-add-to-cart">
+													<span class="nobr">add-to-cart </span>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="product-remove">
+													<a href="#">×</a>
+												</td>
+												<td class="product-thumbnail">
+													<a href="#">
+														<img src="img/wishlist/1.jpg" alt="" />
+													</a>
+												</td>
+												<td class="product-name">
+													<a href="#">Vestibulum suscipit</a>
+												</td>
+												<td class="product-price">
+													<span class="amount">£165.00</span>
+												</td>
+												<td class="product-stock-status">
+													<span class="wishlist-in-stock">In Stock</span>
+												</td>
+												<td class="product-add-to-cart">
+													<a href="#"> Add to Cart</a>
+												</td>
+											</tr>
+											<tr>
+												<td class="product-remove">
+													<a href="#">×</a>
+												</td>
+												<td class="product-thumbnail">
+													<a href="#">
+														<img src="img/wishlist/2.jpg" alt="" />
+													</a>
+												</td>
+												<td class="product-name">
+													<a href="#">Vestibulum dictum magna</a>
+												</td>
+												<td class="product-price">
+													<span class="amount">£50.00</span>
+												</td>
+												<td class="product-stock-status">
+													<span class="wishlist-in-stock">In Stock</span>
+												</td>
+												<td class="product-add-to-cart">
+													<a href="#"> Add to Cart</a>
+												</td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr>
+												<td colspan="6">
+													<div class="wishlist-share">
+														<h4 class="wishlist-share-title">Share on:</h4>
+														<ul>
+															<li><a class="facebook" href="#"></a></li>
+															<li><a class="twitter" href="#"></a></li>
+															<li><a class="pinterest" href="#"></a></li>
+															<li><a class="googleplus" href="#"></a></li>
+															<li><a class="email" href="#"></a></li>
+														</ul>
+													</div>
+												</td>
+											</tr>
+										</tfoot>
+									</table>
 								</div>
-								<div class="submit">
-									<button class="button btn btn-default button-medium" type="submit">
-										<span>
-											send
-											<i class="icon-chevron-right right"></i>
-										</span>
-									</button>
-								</div>
-							</fieldset>
-						</form>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- contact-us-end -->
+		<!-- wishlist-end -->
 		<!-- brand-area-start -->
-		<div class="brand-area">
-			<div class="container owl-carousel-space">
+		<div class="brand-area owl-carousel-space">
+			<div class="container">
 				<div class="row">
 					<div class="brands">
 						<div class="brand-carousel">
@@ -522,8 +544,8 @@
 												<a title="Our stores" href="#">Our stores</a>
 											</li>
 											<li>
-												<a title="Contact us" href="#">Contact us</a>
-											</li>
+                                               <a href="contact.php">CONTACT</a>
+<                                            /li>
 											<li>
 												<a title="Sitemap" href="#">Sitemap</a>
 											</li>
@@ -580,7 +602,7 @@
 				<div class="footer-bottom">
 					<div class="container">
 						<div class="row">
-							<div class="col-md-6 col-sm-6 col-xs-12 address"><p class="copyright">&copy; 2021 <strong>Balaji</strong> Made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> by <a href="https://hasthemes.com/"><strong>HasThemes</strong></a>.</p>					</div>
+							<div class="col-md-6 col-sm-6 col-xs-12 address"><p class="copyright">&copy; 2021 <strong>Vonia</strong> Made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> by <a href="https://hasthemes.com/"><strong>HasThemes</strong></a>.</p>					</div>
 							<div class="col-md-6 col-sm-6 col-xs-12 footer-link">
 								<ul>
 									<li>

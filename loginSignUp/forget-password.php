@@ -45,11 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
-                $mail->setFrom('yourgmail@gmail.com', 'Vonia Support');
+                $mail->setFrom('yourgmail@gmail.com', 'Balaji Support');
                 $mail->addAddress($email);
 
                 $mail->isHTML(true);
-                $mail->Subject = 'Reset your Vonia Password';
+                $mail->Subject = 'Reset your Balaji Password';
                 $mail->Body    = "Click this link to reset your password:<br><a href='$resetLink'>$resetLink</a>";
 
                 $mail->send();

@@ -226,7 +226,7 @@ if ($varaints_id > 0) {
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Product Details || Vonia</title>
+	<title>Product Details || Balaji</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">

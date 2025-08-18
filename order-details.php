@@ -20,7 +20,7 @@ if (!$order_id) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Error - Vonia</title>
+        <title>Error - Balaji</title>
         <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
@@ -50,7 +50,7 @@ if ($stmt_order === false) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Error - Vonia</title>
+        <title>Error - Balaji</title>
         <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
@@ -81,7 +81,7 @@ if ($result_order->num_rows === 0) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Order Not Found - Vonia</title>
+        <title>Order Not Found - Balaji</title>
         <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
@@ -120,7 +120,7 @@ if ($stmt_items === false) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Error - Vonia</title>
+        <title>Error - Balaji</title>
         <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
@@ -175,7 +175,7 @@ $stmt_items->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Details - Vonia</title>
+    <title>Order Details - Balaji</title>
     <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>

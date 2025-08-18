@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html class="no-js" lang="">
 <head> <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Login Page|| Vonia</title>
+        <title>Login Page|| Balaji</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
