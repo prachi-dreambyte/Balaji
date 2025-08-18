@@ -473,8 +473,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                             <button class="tab-btn" data-tab="bestseller">BEST SELLER</button>
                                         </div>
 
-
-
                                         <!-- Tab Content -->
                                         <div class="tab-content">
                                             <!-- New Arrival Products -->

@@ -48,6 +48,11 @@ if (isset($_SESSION['user_id'])) {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <style>
+
+    .dropdown-toggle::after {
+    display: none !important;
+}
+
     .img-bg {
         width: 60px;
         height: 60px;
