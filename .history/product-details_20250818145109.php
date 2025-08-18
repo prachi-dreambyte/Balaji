@@ -228,7 +228,6 @@ try {
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>Product Details || Vonia</title>
-	<title>Product Details || Vonia</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
@@ -671,7 +670,7 @@ try {
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
 					</p> -->
-						<p class="condition"><label>Price: </label></p>
+						<p class="condition"><label>Condition: </label><span>New product</span></p>
 						<div class="content-price">
 							<?php
 							$price = isset($product['price']) ? floatval($product['price']) : 0;
@@ -720,7 +719,7 @@ try {
 						</div>
 
 
-
+						// Show main product colour and variants if any
 
 						<div class="product-variants">
 							<h4>Select Colour:</h4>
@@ -776,7 +775,7 @@ try {
 
 
 						<div class="short-description">
-							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : ''; ?>
+							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : '---'; ?>
 							</p>
 						</div>
 						<form action="#">
@@ -945,33 +944,11 @@ try {
 	gap: 12px;
 	flex-wrap: wrap;
 }
-	display: flex;
-	justify-content: center;
-	border-bottom: none;
-	margin-bottom: 25px;
-	gap: 12px;
-	flex-wrap: wrap;
-}
 
 .feature-tab-area .tabs li {
 	list-style: none;
 }
-.feature-tab-area .tabs li {
-	list-style: none;
-}
 
-.feature-tab-area .tabs a {
-	display: block;
-	padding: 14px 28px !important;
-	font-size: 15px;
-	font-weight: 600;
-	color: #444;
-	background: linear-gradient(145deg, #f8f9fa, #ffffff);
-	border-radius: 30px;
-	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-	transition: all 0.3s ease;
-	text-transform: capitalize;
-}
 .feature-tab-area .tabs a {
 	display: block;
 	padding: 14px 28px !important;
@@ -991,12 +968,6 @@ try {
 	transform: translateY(-2px);
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
-.feature-tab-area .tabs a:hover {
-	background: linear-gradient(145deg, #f0f1f2, #ffffff);
-	color: #000;
-	transform: translateY(-2px);
-	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-}
 
 .feature-tab-area .tabs a.active {
 	background: linear-gradient(145deg, #c06b81, #a75669);
@@ -1004,62 +975,7 @@ try {
 	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
 	transform: translateY(-2px);
 }
-.feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #c06b81, #a75669);
-	color: #fff;
-	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
-	transform: translateY(-2px);
-}
 
-/* ---------- Tab Content Box ---------- */
-.tab-box {
-	background: #fff;
-	padding: 25px;
-	border-radius: 12px;
-	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-	animation: fadeIn 0.4s ease;
-}
-
-/* ---------- Specs Grid ---------- */
-.specs-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-	gap: 18px;
-}
-
-.spec-item {
-	background: linear-gradient(145deg, #fdfdfd, #f7f8f9);
-	border: 1px solid #eee;
-	border-radius: 10px;
-	padding: 14px 18px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-	transition: all 0.3s ease;
-}
-
-.spec-item:hover {
-	background: linear-gradient(145deg, #ffffff, #f5f5f5);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-	transform: translateY(-3px);
-}
-
-.spec-label {
-	font-weight: 600;
-	font-size: 14px;
-	color: #555;
-	margin-bottom: 5px;
-	text-transform: capitalize;
-}
-
-.spec-value {
-	font-size: 15px;
-	color: #222;
-}
-
-/* ---------- Animation ---------- */
-@keyframes fadeIn {
-	from { opacity: 0; transform: translateY(10px); }
-	to { opacity: 1; transform: translateY(0); }
-}
 /* ---------- Tab Content Box ---------- */
 .tab-box {
 	background: #fff;

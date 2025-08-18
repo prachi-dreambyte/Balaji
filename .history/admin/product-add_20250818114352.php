@@ -9,14 +9,6 @@ $stmt = $conn->prepare('SELECT * FROM categories');
 $stmt->execute();
 $result = $stmt->get_result();
 
-try {
-     $product_stmt = $conn->prepare('SELECT id, product_name FROM products');
-     $product_stmt->execute();
-     $product_result = $product_stmt->get_result();
-} catch (Exception $e) {
-     error_log("product not found" . $e->getMessage());
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -103,9 +95,9 @@ try {
                                                        <select class="form-control" name="category" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories">
                                                             <option value="">Choose a category</option>
                                                             <?php while ($row = $result->fetch_assoc()) { ?>
-                                                                      <option value="<?php echo htmlspecialchars($row['category_name']); ?>">
-                                                                           <?php echo htmlspecialchars($row['category_name']); ?>
-                                                                      </option>
+                                                                 <option value="<?php echo htmlspecialchars($row['category_name']); ?>">
+                                                                      <?php echo htmlspecialchars($row['category_name']); ?>
+                                                                 </option>
                                                             <?php } ?>
                                                        </select>
                                                   </div>
@@ -142,12 +134,12 @@ try {
                                                                  <option value="">Choose a variant</option>
                                                                  <?php if ($product_result && $product_result->num_rows > 0) {
                                                                       while ($row = $product_result->fetch_assoc()) { ?>
-                                                                                     <option value="<?php echo htmlspecialchars($row['id']); ?>">
-                                                                                          <?php echo htmlspecialchars($row['product_name']); ?>
-                                                                                     </option>
-                                                                           <?php }
+                                                                           <option value="<?php echo htmlspecialchars($row['id']); ?>">
+                                                                                <?php echo htmlspecialchars($row['product_name']); ?>
+                                                                           </option>
+                                                                      <?php }
                                                                  } else { ?>
-                                                                           <option value="">No variants found</option>
+                                                                      <option value="">No variants found</option>
                                                                  <?php } ?>
                                                             </select>
                                                        </div>
@@ -603,7 +595,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $tags = isset($_POST['tag']) ? (is_array($_POST['tag']) ? implode(',', $_POST['tag']) : $_POST['tag']) : '';
      $price = $_POST['price'];
      $discount = $_POST['discount'];
-     $corporate_discount = $_POST['corporate_discount'];
+     $corporate_discount	 = $_POST['corporate_discount'];
      $tax = $_POST['tex'];
      $variants = !empty($_POST['variants']) ? $_POST['variants'] : null; // ✅ If empty, will handle later
      $colour = $_POST['colour'];
@@ -653,62 +645,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?,?,?, ?, ?)";
 
           $stmt = $conn->prepare($sql);
-          $stmt->bind_param(
-               "ssssssssssssssssssssssssssssssssssssssssss",
-               $product_name,
-               $category,
-               $brand,
-               $size,
-               $total_height,
-               $total_width,
-               $material,
-               $seat_height,
-               $seat_thickness,
-               $seat_depth,
-               $seat_material_type,
-               $backrest_height_from_seat,
-               $backrest_material_type,
-               $pedestal_base,
-               $seat_height_adjusting_range,
-               $handle_type,
-               $wheel_type,
-               $mechanical_system_type,
-               $color_available,
-               $product_weight,
-               $backrest_size,
-               $adjuster_size,
-               $guarantee,
-               $chair_arms,
-               $table_top_size,
-               $sitting_capacity,
-               $no_of_top,
-               $table_type,
-               $shape,
-               $wheels,
-               $short_description,
-               $description,
-               $tag_number,
-               $stock,
-               $tags,
-               $price,
-               $discount,
-               $corporate_discount,
-               $tax,
-               $imagesJSON,
-               $variants,
-               $colour
-          );
+ $stmt->bind_param("ssssssssssssssssssssssssssssssssssssssssss", 
+               $product_name, $category, $brand, $size, $total_height, $total_width, $material,
+               $seat_height, $seat_thickness, $seat_depth, $seat_material_type, $backrest_height_from_seat,
+               $backrest_material_type, $pedestal_base, $seat_height_adjusting_range, $handle_type,
+               $wheel_type, $mechanical_system_type, $color_available, $product_weight, $backrest_size,
+               $adjuster_size, $guarantee, $chair_arms, $table_top_size, $sitting_capacity, $no_of_top,
+               $table_type, $shape, $wheels, $short_description, $description, $tag_number, $stock, $tags,
+               $price, $discount, $corporate_discount, $tax, $imagesJSON,$variants, $colour);
 
           if ($stmt->execute()) {
                $newProductId = $conn->insert_id;
 
-               // ✅ If no variant was provided, set variant = self id
-               if (empty($variants)) {
-                    $update = $conn->prepare("UPDATE products SET variants = ? WHERE id = ?");
-                    $update->bind_param("ii", $newProductId, $newProductId);
-                    $update->execute();
-                    $update->close();
-               }
+            // ✅ If no variant was provided, set variant = self id
+            if (empty($variants)) {
+                $update = $conn->prepare("UPDATE products SET variants = ? WHERE id = ?");
+                $update->bind_param("ii", $newProductId, $newProductId);
+                $update->execute();
+                $update->close();
+            }
                echo "<script>
                     Swal.fire({
                          icon: 'success',

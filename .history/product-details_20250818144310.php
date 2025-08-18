@@ -68,7 +68,7 @@ $product = [
 	'category' => '',
 	'tags' => '',
 	'images' => '',
-	'main_product_colour' => '',
+	'main_product_colour' => ''
 ];
 
 $images = [];
@@ -140,7 +140,6 @@ if (isset($_GET['id'])) {
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$row = $result->fetch_assoc();
-	echo $row['product_weight'];
 
 	if ($row) {
 		$products = $row;
@@ -209,15 +208,15 @@ if (isset($_GET['debug']) && $_GET['debug'] == 1) {
 }
 
 $varaints_id = $product['variants'];
-if($varaints_id >0){
-try {
-	$variant_stmt = $conn->prepare("SELECT * FROM products WHERE variants = ?");
-	$variant_stmt->bind_param("i", $varaints_id);
-	$variant_stmt->execute();
-	$variant_result = $variant_stmt->get_result();
-} catch (Exception $e) {
-	error_log("Failed to fetch the product: " . $e->getMessage());
-}
+if ($varaints_id > 0) {
+	try {
+		$variant_stmt = $conn->prepare("SELECT * FROM products WHERE variants = ?");
+		$variant_stmt->bind_param("i", $varaints_id);
+		$variant_stmt->execute();
+		$variant_result = $variant_stmt->get_result();
+	} catch (Exception $e) {
+		error_log("Failed to fetch the product: " . $e->getMessage());
+	}
 }
 
 ?>
@@ -227,8 +226,7 @@ try {
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Product Details || Vonia</title>
-	<title>Product Details || Vonia</title>
+	<title>Product Details || Balaji</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
@@ -386,8 +384,8 @@ try {
 
 <body>
 	<!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
 	<!-- header-start -->
 	<?php include 'header.php'; ?>
 	<!-- header-end -->
@@ -616,49 +614,49 @@ try {
 							<?php if (!empty($images)) {
 
 								foreach ($images as $idx => $img): ?>
+											<li>
+												<a class="<?php echo $idx === 0 ? 'active' : ''; ?>"
+													href="#picture-<?php echo $idx + 1; ?>" data-bs-toggle="tab">
+													<img src="admin/<?php echo htmlspecialchars($img); ?>" alt="" />
+												</a>
+											</li>
+									<?php endforeach;
+							} else { ?>
 									<li>
-										<a class="<?php echo $idx === 0 ? 'active' : ''; ?>"
-											href="#picture-<?php echo $idx + 1; ?>" data-bs-toggle="tab">
-											<img src="admin/<?php echo htmlspecialchars($img); ?>" alt="" />
+										<a class="active" href="#picture-1" data-bs-toggle="tab">
+											<img src="img/no-image.png" alt="No image" />
 										</a>
 									</li>
-								<?php endforeach;
-							} else { ?>
-								<li>
-									<a class="active" href="#picture-1" data-bs-toggle="tab">
-										<img src="img/no-image.png" alt="No image" />
-									</a>
-								</li>
 							<?php } ?>
 						</ul>
 
 						<div class="tab-content">
 							<?php if (!empty($images)) {
 								foreach ($images as $idx => $img): ?>
-									<div class="tab-pane fade<?php echo $idx === 0 ? ' show active' : ''; ?>"
-										id="picture-<?php echo $idx + 1; ?>">
+											<div class="tab-pane fade<?php echo $idx === 0 ? ' show active' : ''; ?>"
+												id="picture-<?php echo $idx + 1; ?>">
+												<div class="single-product">
+													<div class="product-img">
+														<div class="zoom-container">
+															<div class="zoom-image"
+																style="background-image: url('admin/<?php echo htmlspecialchars($img); ?>');">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+									<?php endforeach;
+							} else { ?>
+									<div class="tab-pane fade show active" id="picture-1">
 										<div class="single-product">
 											<div class="product-img">
 												<div class="zoom-container">
 													<div class="zoom-image"
-														style="background-image: url('admin/<?php echo htmlspecialchars($img); ?>');">
-													</div>
+														style="background-image: url('img/no-image.png');"></div>
 												</div>
 											</div>
 										</div>
 									</div>
-								<?php endforeach;
-							} else { ?>
-								<div class="tab-pane fade show active" id="picture-1">
-									<div class="single-product">
-										<div class="product-img">
-											<div class="zoom-container">
-												<div class="zoom-image"
-													style="background-image: url('img/no-image.png');"></div>
-											</div>
-										</div>
-									</div>
-								</div>
 							<?php } ?>
 						</div>
 					</div>
@@ -671,7 +669,7 @@ try {
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
 					</p> -->
-						<p class="condition"><label>Price: </label></p>
+						<p class="condition"><label>Condition: </label><span>New product</span></p>
 						<div class="content-price">
 							<?php
 							$price = isset($product['price']) ? floatval($product['price']) : 0;
@@ -703,24 +701,24 @@ try {
 							</p>
 
 							<?php if ($total_discount > 0): ?>
-								<p class="old-price" style="text-decoration:line-through;color:#999;">
-									₹<?php echo number_format($old_price, 2); ?> <span class="price-tax"> tax incl.</span>
-								</p>
+									<p class="old-price" style="text-decoration:line-through;color:#999;">
+										₹<?php echo number_format($old_price, 2); ?> <span class="price-tax"> tax incl.</span>
+									</p>
 							<?php endif; ?>
 
 							<?php if ($discount_percent > 0): ?>
-								<p class="reduction-percent" style="color:green;">
-									-<?php echo round($discount_percent); ?>% OFF
-								</p>
+									<p class="reduction-percent" style="color:green;">
+										-<?php echo round($discount_percent); ?>% OFF
+									</p>
 							<?php endif; ?>
 
 							<?php if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0): ?>
-								<p style="color:green; font-weight:bold;">Special Commercial Price Applied</p>
+									<p style="color:green; font-weight:bold;">Special Commercial Price Applied</p>
 							<?php endif; ?>
 						</div>
 
 
-
+						
 
 						<div class="product-variants">
 							<h4>Select Colour:</h4>
@@ -730,40 +728,40 @@ try {
 
 								<!-- Variants list -->
 								<?php if (!empty($variant_result)): ?>
-									<?php while ($variant = $variant_result->fetch_assoc()): ?>
-										<a href="product-details.php?id=<?= urlencode($variant['id']); ?>" style="text-decoration:none;">
-										<div class="variant-item"
+										<?php while ($variant = $variant_result->fetch_assoc()): ?>
+												<a href="product-details.php?id=<?= urlencode($variant['id']); ?>" style="text-decoration:none;">
+												<div class="variant-item"
 											
-											style="cursor:pointer; text-align:center; border:1px solid #ddd; padding:5px; border-radius:6px; width:70px;">
+													style="cursor:pointer; text-align:center; border:1px solid #ddd; padding:5px; border-radius:6px; width:70px;">
 
-											<?php
-											$firstImag = null;
-											if (!empty($variant['images'])) {
-												$decodedImags = json_decode($variant['images'], true);
-												if (is_array($decodedImags) && !empty($decodedImags)) {
-													$firstImag = $decodedImags[0];
-												}
-											}
-											?>
+													<?php
+													$firstImag = null;
+													if (!empty($variant['images'])) {
+														$decodedImags = json_decode($variant['images'], true);
+														if (is_array($decodedImags) && !empty($decodedImags)) {
+															$firstImag = $decodedImags[0];
+														}
+													}
+													?>
 
-											<?php if ($firstImag): ?>
-												<img src="<?= (strpos($firstImag, 'admin/') === 0) ? htmlspecialchars($firstImag) : 'admin/' . htmlspecialchars($firstImag); ?>"
-													alt="<?= htmlspecialchars($variant['colour'] ?? ''); ?>"
-													style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
-											<?php else: ?>
-												<div style="width:60px; height:60px; background:#eee; border-radius:4px; 
-                        display:flex; align-items:center; justify-content:center; 
-                        font-size:10px; color:#888;">
-													No Image
+													<?php if ($firstImag): ?>
+															<img src="<?= (strpos($firstImag, 'admin/') === 0) ? htmlspecialchars($firstImag) : 'admin/' . htmlspecialchars($firstImag); ?>"
+																alt="<?= htmlspecialchars($variant['colour'] ?? ''); ?>"
+																style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
+													<?php else: ?>
+															<div style="width:60px; height:60px; background:#eee; border-radius:4px; 
+						display:flex; align-items:center; justify-content:center; 
+						font-size:10px; color:#888;">
+																No Image
+															</div>
+													<?php endif; ?>
+
+													<div style="font-size:13px; margin-top:5px;">
+														<?= htmlspecialchars($variant['colour'] ?? ''); ?>
+													</div>
 												</div>
-											<?php endif; ?>
-
-											<div style="font-size:13px; margin-top:5px;">
-												<?= htmlspecialchars($variant['colour'] ?? ''); ?>
-											</div>
-										</div>
-										</a>
-									<?php endwhile; ?>
+												</a>
+										<?php endwhile; ?>
 
 								<?php endif; ?>
 
@@ -793,13 +791,13 @@ try {
 									<div class="cart-wishlist-container">
 										<div class="shop-add-cart">
 											<?php if ($product['stock'] <= 0): ?>
-												<button type="button" class="cart-btn disabled"><i
-														class="fa fa-times-circle"></i> Out of Stock</button>
+													<button type="button" class="cart-btn disabled"><i
+															class="fa fa-times-circle"></i> Out of Stock</button>
 											<?php else: ?>
-												<a href="shopping-cart.php?action=add&id=<?php echo $product['id']; ?>&qty=1"
-													class="cart-btn" onclick="return addToCart(<?php echo $product['id']; ?> , );">
-													<i class="fa fa-shopping-cart"></i> Add to Cart
-												</a>
+													<a href="shopping-cart.php?action=add&id=<?php echo $product['id']; ?>&qty=1"
+														class="cart-btn" onclick="return addToCart(<?php echo $product['id']; ?> , );">
+														<i class="fa fa-shopping-cart"></i> Add to Cart
+													</a>
 											<?php endif; ?>
 										</div>
 
@@ -847,14 +845,14 @@ try {
 								<span><?php echo ($product['stock'] > 0) ? 'In stock' : 'Out of stock'; ?></span>
 							</p>
 							<?php if (!empty($tags)): ?>
-								<p class="product-tags"><strong>Tags:</strong>
-									<?php echo implode(', ', array_map('htmlspecialchars', $tags)); ?></p><?php endif; ?>
+									<p class="product-tags"><strong>Tags:</strong>
+										<?php echo implode(', ', array_map('htmlspecialchars', $tags)); ?></p><?php endif; ?>
 							<?php if ($product['brand']): ?>
-								<p class="product-brand"><strong>Brand:</strong>
-									<?php echo htmlspecialchars($product['brand']); ?></p><?php endif; ?>
+									<p class="product-brand"><strong>Brand:</strong>
+										<?php echo htmlspecialchars($product['brand']); ?></p><?php endif; ?>
 							<?php if ($product['weight']): ?>
-								<p class="product-weight"><strong>Weight:</strong>
-									<?php echo htmlspecialchars($product['weight']); ?></p><?php endif; ?>
+									<p class="product-weight"><strong>Weight:</strong>
+										<?php echo htmlspecialchars($product['weight']); ?></p><?php endif; ?>
 						</div>
 					</div>
 				</div>
@@ -938,364 +936,119 @@ try {
 
 								<style>
 									.feature-tab-area .tabs {
-	display: flex;
-	justify-content: center;
-	border-bottom: none;
-	margin-bottom: 25px;
-	gap: 12px;
-	flex-wrap: wrap;
-}
-	display: flex;
-	justify-content: center;
-	border-bottom: none;
-	margin-bottom: 25px;
-	gap: 12px;
-	flex-wrap: wrap;
-}
+										display: flex;
+										justify-content: center;
+										border-bottom: 2px solid #eee;
+										margin-bottom: 20px;
+										gap: 8px;
+									}
 
-.feature-tab-area .tabs li {
-	list-style: none;
-}
-.feature-tab-area .tabs li {
-	list-style: none;
-}
+									/* Tab Links */
+									.feature-tab-area .tabs li {
+										list-style: none;
+									}
 
-.feature-tab-area .tabs a {
-	display: block;
-	padding: 14px 28px !important;
-	font-size: 15px;
-	font-weight: 600;
-	color: #444;
-	background: linear-gradient(145deg, #f8f9fa, #ffffff);
-	border-radius: 30px;
-	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-	transition: all 0.3s ease;
-	text-transform: capitalize;
-}
-.feature-tab-area .tabs a {
-	display: block;
-	padding: 14px 28px !important;
-	font-size: 15px;
-	font-weight: 600;
-	color: #444;
-	background: linear-gradient(145deg, #f8f9fa, #ffffff);
-	border-radius: 30px;
-	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-	transition: all 0.3s ease;
-	text-transform: capitalize;
-}
+									.feature-tab-area .tabs a {
+										display: block;
+										padding: 20px 30px !important;
+										font-size: 15px;
+										font-weight: 600;
+										color: #555;
+										background: #f8f9fa;
+										border-radius: 30px;
+										transition: all 0.3s ease;
+										text-transform: capitalize;
 
-.feature-tab-area .tabs a:hover {
-	background: linear-gradient(145deg, #f0f1f2, #ffffff);
-	color: #000;
-	transform: translateY(-2px);
-	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-}
-.feature-tab-area .tabs a:hover {
-	background: linear-gradient(145deg, #f0f1f2, #ffffff);
-	color: #000;
-	transform: translateY(-2px);
-	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-}
+									}
 
-.feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #c06b81, #a75669);
-	color: #fff;
-	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
-	transform: translateY(-2px);
-}
-.feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #c06b81, #a75669);
-	color: #fff;
-	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
-	transform: translateY(-2px);
-}
+									.feature-tab-area .tabs a:hover {
+										background: #e9ecef;
+										color: #000;
+									}
 
-/* ---------- Tab Content Box ---------- */
-.tab-box {
-	background: #fff;
-	padding: 25px;
-	border-radius: 12px;
-	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-	animation: fadeIn 0.4s ease;
-}
+									/* Active Tab */
+									.feature-tab-area .tabs a.active {
+										background: #C06B81;
+										color: #fff;
+										box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+										padding: 20px 30px;
+										margin-bottom: 25px;
+									}
 
-/* ---------- Specs Grid ---------- */
-.specs-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-	gap: 18px;
-}
+									/* Tab Content Styling */
+									.tab-box {
+										background: #fff;
+										padding: 20px;
+										border-radius: 8px;
+										box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+										animation: fadeIn 0.3s ease;
+									}
 
-.spec-item {
-	background: linear-gradient(145deg, #fdfdfd, #f7f8f9);
-	border: 1px solid #eee;
-	border-radius: 10px;
-	padding: 14px 18px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-	transition: all 0.3s ease;
-}
+									/* Table Styling in Data Sheet */
+									.table-data-sheet {
+										width: 100%;
+										border-collapse: collapse;
+									}
 
-.spec-item:hover {
-	background: linear-gradient(145deg, #ffffff, #f5f5f5);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-	transform: translateY(-3px);
-}
+									.table-data-sheet td {
+										padding: 12px;
+										border-bottom: 1px solid #eee;
+									}
 
-.spec-label {
-	font-weight: 600;
-	font-size: 14px;
-	color: #555;
-	margin-bottom: 5px;
-	text-transform: capitalize;
-}
+									.table-data-sheet tr:nth-child(odd) {
+										background: #f8f9fa;
+									}
 
-.spec-value {
-	font-size: 15px;
-	color: #222;
-}
+									/* Animation */
+									@keyframes fadeIn {
+										from {
+											opacity: 0;
+											transform: translateY(10px);
+										}
 
-/* ---------- Animation ---------- */
-@keyframes fadeIn {
-	from { opacity: 0; transform: translateY(10px); }
-	to { opacity: 1; transform: translateY(0); }
-}
-/* ---------- Tab Content Box ---------- */
-.tab-box {
-	background: #fff;
-	padding: 25px;
-	border-radius: 12px;
-	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-	animation: fadeIn 0.4s ease;
-}
-
-/* ---------- Specs Grid ---------- */
-.specs-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-	gap: 18px;
-}
-
-.spec-item {
-	background: linear-gradient(145deg, #fdfdfd, #f7f8f9);
-	border: 1px solid #eee;
-	border-radius: 10px;
-	padding: 14px 18px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-	transition: all 0.3s ease;
-}
-
-.spec-item:hover {
-	background: linear-gradient(145deg, #ffffff, #f5f5f5);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-	transform: translateY(-3px);
-}
-
-.spec-label {
-	font-weight: 600;
-	font-size: 14px;
-	color: #555;
-	margin-bottom: 5px;
-	text-transform: capitalize;
-}
-
-.spec-value {
-	font-size: 15px;
-	color: #222;
-}
-
-/* ---------- Animation ---------- */
-@keyframes fadeIn {
-	from { opacity: 0; transform: translateY(10px); }
-	to { opacity: 1; transform: translateY(0); }
-}
+										to {
+											opacity: 1;
+											transform: translateY(0);
+										}
+									}
 								</style>
 								<div role="tabpanel" class="tab-pane fade" id="datasheet">
 									<div class="tab-box">
-									<div class="specs-grid">
-										<?php if ($products['total_height']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Total Height</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['total_height']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['total_width']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Total Width</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['total_width']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['material']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Material</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['material']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_height']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Seat Height</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['seat_height']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_thickness']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Seat Thickness</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['seat_thickness']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_depth']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Seat Depth</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['seat_depth']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_material_type']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Seat Material</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['seat_material_type']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['backrest_height_from_seat']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Backrest Height</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['backrest_height_from_seat']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['backrest_material_type']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Backrest Material</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['backrest_material_type']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['pedestal_base']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Pedestal Base</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['pedestal_base']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_height_adjusting_range']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Height Adjustment Range</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['seat_height_adjusting_range']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['handle_type']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Handle Type</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['handle_type']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['wheel_type']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Wheel Type</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['wheel_type']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['mechanical_system_type']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Mechanical System</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['mechanical_system_type']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['color_available']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Available Colors</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['color_available']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['product_weight']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Products Weight</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['product_weight']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['backrest_size']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Backrest Size</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['backrest_size']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['adjuster_size']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Adjuster Size</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['adjuster_size']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['guarantee']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Guarantee</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['guarantee']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['chair_arms']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Chair Arms</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['chair_arms']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['table_top_size']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Table Top Size</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['table_top_size']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['sitting_capacity']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Sitting Capacity</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['sitting_capacity']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['no_of_top']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Number of Tops</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['no_of_top']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['table_type']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Table Type</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['table_type']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['shape']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Shape</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['shape']); ?></div>
-												</div>
-										<?php endif; ?>
-										
-										<?php if ($products['wheels']): ?>
-												<div class="spec-item">
-													<div class="spec-label">Wheels</div>
-													<div class="spec-value"><?php echo htmlspecialchars($products['wheels']); ?></div>
-												</div>
-										<?php endif; ?>
+										<table class="table-data-sheet">
+											<tbody>
+												<tr class="odd">
+													<td>Brand</td>
+													<td><?php echo $products['brand'] !== '' ? htmlspecialchars($products['brand']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="even">
+													<td>Weight</td>
+													<td><?php echo $products['weight'] !== '' ? htmlspecialchars($products['weight']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="odd">
+													<td>Size</td>
+													<td><?php echo $products['size'] !== '' ? htmlspecialchars($products['size']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="even">
+													<td>Category</td>
+													<td><?php echo $products['category'] !== '' ? htmlspecialchars($products['category']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="odd">
+													<td>Stock</td>
+													<td><?php echo $products['stock'] !== '' ? htmlspecialchars($products['stock']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="even">
+													<td>Tag Number</td>
+													<td><?php echo $products['tag_number'] !== '' ? htmlspecialchars($products['tag_number']) : '---'; ?>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
-								</div>
 								</div>
 								<!-- ⭐ REVIEW SECTION START -->
 								<div role="tabpanel" class="tab-pane fade in " id="reviews">
@@ -1313,9 +1066,9 @@ try {
 												<label style="font-weight: 500;">Your Rating:</label>
 												<div id="star-rating" style="font-size: 38px; margin-bottom: 10px;">
 													<?php for ($i = 5; $i >= 1; $i--): ?>
-														<input type="radio" id="star<?php echo $i; ?>" name="rating"
-															value="<?php echo $i; ?>" required>
-														<label for="star<?php echo $i; ?>">★</label>
+															<input type="radio" id="star<?php echo $i; ?>" name="rating"
+																value="<?php echo $i; ?>" required>
+															<label for="star<?php echo $i; ?>">★</label>
 													<?php endfor; ?>
 												</div>
 												<label style="font-weight: 500;">Your Review:</label>
@@ -1341,77 +1094,77 @@ try {
 												while ($review = mysqli_fetch_assoc($result)):
 													$shownReviews++;
 													$images = json_decode($review['image_path'], true);
-											?>
-													<div class="review-block"
-														style="border-bottom: 1.5px solid #e0e0e0; padding: 18px 0 12px 0;">
-														<div class="review-header"
-															style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
-															<div
-																style="font-weight: 600; font-size: 17px; color: #222; letter-spacing: 0.2px;">
-																<i class="fa fa-user-circle"
-																	style="font-size: 20px; color: #888; margin-right: 4px;"></i>
-																<?php echo htmlspecialchars($review['user_name']); ?>
+													?>
+															<div class="review-block"
+																style="border-bottom: 1.5px solid #e0e0e0; padding: 18px 0 12px 0;">
+																<div class="review-header"
+																	style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+																	<div
+																		style="font-weight: 600; font-size: 17px; color: #222; letter-spacing: 0.2px;">
+																		<i class="fa fa-user-circle"
+																			style="font-size: 20px; color: #888; margin-right: 4px;"></i>
+																		<?php echo htmlspecialchars($review['user_name']); ?>
+																	</div>
+																	<div class="review-rating"
+																		style="font-size: 22px; color: #f39c12; margin-left: 10px;">
+																		<?php
+																		for ($i = 1; $i <= 5; $i++) {
+																			echo '<span style="color:' . ($i <= $review['rating'] ? '#f39c12' : '#ddd') . ';">★</span>';
+																		}
+																		?>
+																	</div>
+																</div>
+																<?php if (!empty($images) && is_array($images)): ?>
+																		<div class="review-images" style="display: flex; gap: 8px; margin-bottom: 8px;">
+																			<?php foreach ($images as $img):
+																				$imgPath = (strpos($img, 'uploads/') === 0) ? $img : ('uploads/review-images/' . ltrim($img, '/'));
+																				?>
+																					<img src="<?php echo htmlspecialchars($imgPath); ?>" alt="Review Image"
+																						style="width: 70px; height: 70px; object-fit: cover; border-radius: 4px; border: 1px solid #ccc;">
+																			<?php endforeach; ?>
+																		</div>
+																<?php endif; ?>
+																<div class="review-text"
+																	style="font-size: 15.5px; margin-top: 2px; color: #222;">
+																	<?php echo nl2br(htmlspecialchars($review['review_text'])); ?>
+																</div>
+																<div class="review-date" style="font-size: 13px; color: #777; margin-top: 6px;">
+																	<?php echo date("d M Y, h:i A", strtotime($review['created_at'])); ?>
+																</div>
 															</div>
-															<div class="review-rating"
-																style="font-size: 22px; color: #f39c12; margin-left: 10px;">
-																<?php
-																for ($i = 1; $i <= 5; $i++) {
-																	echo '<span style="color:' . ($i <= $review['rating'] ? '#f39c12' : '#ddd') . ';">★</span>';
-																}
-																?>
-															</div>
-														</div>
-														<?php if (!empty($images) && is_array($images)): ?>
-															<div class="review-images" style="display: flex; gap: 8px; margin-bottom: 8px;">
-																<?php foreach ($images as $img):
-																	$imgPath = (strpos($img, 'uploads/') === 0) ? $img : ('uploads/review-images/' . ltrim($img, '/'));
-																?>
-																	<img src="<?php echo htmlspecialchars($imgPath); ?>" alt="Review Image"
-																		style="width: 70px; height: 70px; object-fit: cover; border-radius: 4px; border: 1px solid #ccc;">
-																<?php endforeach; ?>
-															</div>
-														<?php endif; ?>
-														<div class="review-text"
-															style="font-size: 15.5px; margin-top: 2px; color: #222;">
-															<?php echo nl2br(htmlspecialchars($review['review_text'])); ?>
-														</div>
-														<div class="review-date" style="font-size: 13px; color: #777; margin-top: 6px;">
-															<?php echo date("d M Y, h:i A", strtotime($review['created_at'])); ?>
-														</div>
-													</div>
-												<?php endwhile;
+													<?php endwhile;
 											else: ?>
-												<p>No reviews yet. Be the first to review this product!</p>
+													<p>No reviews yet. Be the first to review this product!</p>
 											<?php endif; ?>
 										</div>
 										<?php if ($totalReviews > 3): ?>
-											<div style="text-align: center; margin-top: 20px;">
-												<button class="review-btn" id="loadMoreReviewsBtn">View More</button>
-											</div>
-											<script>
-												let reviewOffset = 3;
-												document.getElementById('loadMoreReviewsBtn').addEventListener('click', function() {
-													const btn = this;
-													btn.disabled = true;
-													btn.textContent = 'Loading...';
-													const xhr = new XMLHttpRequest();
-													xhr.open('GET', 'load-more-reviews.php?product_id=<?php echo $productId; ?>&offset=' + reviewOffset + '&limit=5', true);
-													xhr.onload = function() {
-														if (xhr.status === 200) {
-															const newReviews = xhr.responseText;
-															document.getElementById('reviewList').insertAdjacentHTML('beforeend', newReviews);
-															reviewOffset += 5;
-															if (reviewOffset >= <?php echo $totalReviews; ?>) {
-																btn.style.display = 'none';
-															} else {
-																btn.disabled = false;
-																btn.textContent = 'View More';
+												<div style="text-align: center; margin-top: 20px;">
+													<button class="review-btn" id="loadMoreReviewsBtn">View More</button>
+												</div>
+												<script>
+													let reviewOffset = 3;
+													document.getElementById('loadMoreReviewsBtn').addEventListener('click', function() {
+														const btn = this;
+														btn.disabled = true;
+														btn.textContent = 'Loading...';
+														const xhr = new XMLHttpRequest();
+														xhr.open('GET', 'load-more-reviews.php?product_id=<?php echo $productId; ?>&offset=' + reviewOffset + '&limit=5', true);
+														xhr.onload = function() {
+															if (xhr.status === 200) {
+																const newReviews = xhr.responseText;
+																document.getElementById('reviewList').insertAdjacentHTML('beforeend', newReviews);
+																reviewOffset += 5;
+																if (reviewOffset >= <?php echo $totalReviews; ?>) {
+																	btn.style.display = 'none';
+																} else {
+																	btn.disabled = false;
+																	btn.textContent = 'View More';
+																}
 															}
-														}
-													};
-													xhr.send();
-												});
-											</script>
+														};
+														xhr.send();
+													});
+												</script>
 										<?php endif; ?>
 										<script>
 											function previewReviewImages(input) {
@@ -1489,49 +1242,49 @@ try {
 								<div class="accessories">
 									<div class="accessories-carousel owl-carousel owl-theme">
 										<?php if (!empty($related_products)): ?>
-											<?php foreach ($related_products as $rel):
-												$rel_images = json_decode($rel['images'], true);
-												$rel_img = (!empty($rel_images) && !empty($rel_images[0])) ? 'admin/' . $rel_images[0] : 'img/no-image.png';
+												<?php foreach ($related_products as $rel):
+													$rel_images = json_decode($rel['images'], true);
+													$rel_img = (!empty($rel_images) && !empty($rel_images[0])) ? 'admin/' . $rel_images[0] : 'img/no-image.png';
 
-												// Calculate price display
-												$rel_price = isset($rel['price']) ? floatval($rel['price']) : 0;
-												$rel_discount = isset($rel['discount']) ? floatval($rel['discount']) : 0;
-												$rel_old_price = $rel_price + $rel_discount;
-											?>
-												<div class="item">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="product-details.php?id=<?php echo $rel['id']; ?>">
-																<img src="<?php echo $rel_img; ?>"
-																	alt="<?php echo htmlspecialchars($rel['product_name']); ?>" />
-															</a>
-															<!-- <?php if ($rel_discount > 0): ?>
+													// Calculate price display
+													$rel_price = isset($rel['price']) ? floatval($rel['price']) : 0;
+													$rel_discount = isset($rel['discount']) ? floatval($rel['discount']) : 0;
+													$rel_old_price = $rel_price + $rel_discount;
+													?>
+														<div class="item">
+															<div class="single-product">
+																<div class="product-img">
+																	<a href="product-details.php?id=<?php echo $rel['id']; ?>">
+																		<img src="<?php echo $rel_img; ?>"
+																			alt="<?php echo htmlspecialchars($rel['product_name']); ?>" />
+																	</a>
+																	<!-- <?php if ($rel_discount > 0): ?>
 															<span class="badge-sale">Sale</span>
 														<?php endif; ?> -->
-														</div>
-														<div class="product-content">
-															<h5 class="product-name">
-																<a href="product-details.php?id=<?php echo $rel['id']; ?>"
-																	title="<?php echo htmlspecialchars($rel['product_name']); ?>">
-																	<?php echo htmlspecialchars($rel['product_name']); ?>
-																</a>
-															</h5>
-															<div class="price-box">
-																<span class="price">₹
-																	<?php echo number_format($rel_price, 2); ?></span>
-																<?php if ($rel_discount > 0): ?>
-																	<span class="old-price">₹
-																		<?php echo number_format($rel_old_price, 2); ?></span>
-																<?php endif; ?>
+																</div>
+																<div class="product-content">
+																	<h5 class="product-name">
+																		<a href="product-details.php?id=<?php echo $rel['id']; ?>"
+																			title="<?php echo htmlspecialchars($rel['product_name']); ?>">
+																			<?php echo htmlspecialchars($rel['product_name']); ?>
+																		</a>
+																	</h5>
+																	<div class="price-box">
+																		<span class="price">₹
+																			<?php echo number_format($rel_price, 2); ?></span>
+																		<?php if ($rel_discount > 0): ?>
+																				<span class="old-price">₹
+																					<?php echo number_format($rel_old_price, 2); ?></span>
+																		<?php endif; ?>
+																	</div>
+																</div>
 															</div>
 														</div>
-													</div>
-												</div>
-											<?php endforeach; ?>
+												<?php endforeach; ?>
 										<?php else: ?>
-											<div class="item">
-												<p>No related products found.</p>
-											</div>
+												<div class="item">
+													<p>No related products found.</p>
+												</div>
 										<?php endif; ?>
 									</div>
 								</div>
@@ -1795,35 +1548,35 @@ try {
 								// Add thumbnails for each image
 								data.image.forEach((img, idx) => {
 									picTabs.innerHTML += `
-                            <li>
-                                <a class="${idx === 0 ? 'active' : ''}" 
-                                   href="#picture-${idx + 1}" data-bs-toggle="tab">
-                                   <img src="admin/${img}" alt="" />
-                                </a>
-                            </li>
-                        `;
+							<li>
+								<a class="${idx === 0 ? 'active' : ''}" 
+								   href="#picture-${idx + 1}" data-bs-toggle="tab">
+								   <img src="admin/${img}" alt="" />
+								</a>
+							</li>
+						`;
 								});
 							} else if (window.defaultProductImages && defaultProductImages.length > 0) {
 								// Fallback to default product images
 								defaultProductImages.forEach((img, idx) => {
 									picTabs.innerHTML += `
-                            <li>
-                                <a class="${idx === 0 ? 'active' : ''}" 
-                                   href="#picture-${idx + 1}" data-bs-toggle="tab">
-                                   <img src="admin/${img}" alt="" />
-                                </a>
-                            </li>
-                        `;
+							<li>
+								<a class="${idx === 0 ? 'active' : ''}" 
+								   href="#picture-${idx + 1}" data-bs-toggle="tab">
+								   <img src="admin/${img}" alt="" />
+								</a>
+							</li>
+						`;
 								});
 							} else {
 								// No images available
 								picTabs.innerHTML = `
-                        <li>
-                            <a class="active" href="#picture-1" data-bs-toggle="tab">
-                                <img src="img/no-image.png" alt="No image" />
-                            </a>
-                        </li>
-                    `;
+						<li>
+							<a class="active" href="#picture-1" data-bs-toggle="tab">
+								<img src="img/no-image.png" alt="No image" />
+							</a>
+						</li>
+					`;
 							}
 						}
 
