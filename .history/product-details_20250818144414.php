@@ -68,7 +68,7 @@ $product = [
 	'category' => '',
 	'tags' => '',
 	'images' => '',
-	'main_product_colour' => '',
+	'main_product_colour' => ''
 ];
 
 $images = [];
@@ -140,7 +140,6 @@ if (isset($_GET['id'])) {
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$row = $result->fetch_assoc();
-
 
 	if ($row) {
 		$products = $row;
@@ -227,7 +226,7 @@ if ($varaints_id > 0) {
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Product Details || Vonia</title>
+	<title>Product Details || Balaji</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
@@ -670,7 +669,7 @@ if ($varaints_id > 0) {
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
 					</p> -->
-						<p class="condition"><label>Price: </label></p>
+						<p class="condition"><label>Condition: </label><span>New product</span></p>
 						<div class="content-price">
 							<?php
 							$price = isset($product['price']) ? floatval($product['price']) : 0;
@@ -719,7 +718,7 @@ if ($varaints_id > 0) {
 						</div>
 
 
-
+						
 
 						<div class="product-variants">
 							<h4>Select Colour:</h4>
@@ -937,281 +936,119 @@ if ($varaints_id > 0) {
 
 								<style>
 									.feature-tab-area .tabs {
-	display: flex;
-	justify-content: center;
-	border-bottom: none;
-	margin-bottom: 25px;
-	gap: 12px;
-	flex-wrap: wrap;
-}
+										display: flex;
+										justify-content: center;
+										border-bottom: 2px solid #eee;
+										margin-bottom: 20px;
+										gap: 8px;
+									}
 
-.feature-tab-area .tabs li {
-	list-style: none;
-}
+									/* Tab Links */
+									.feature-tab-area .tabs li {
+										list-style: none;
+									}
 
-.feature-tab-area .tabs a {
-	display: block;
-	padding: 14px 28px !important;
-	font-size: 15px;
-	font-weight: 600;
-	color: #444;
-	background: linear-gradient(145deg, #f8f9fa, #ffffff);
-	border-radius: 30px;
-	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-	transition: all 0.3s ease;
-	text-transform: capitalize;
-}
+									.feature-tab-area .tabs a {
+										display: block;
+										padding: 20px 30px !important;
+										font-size: 15px;
+										font-weight: 600;
+										color: #555;
+										background: #f8f9fa;
+										border-radius: 30px;
+										transition: all 0.3s ease;
+										text-transform: capitalize;
 
-.feature-tab-area .tabs a:hover {
-	background: linear-gradient(145deg, #f0f1f2, #ffffff);
-	color: #000;
-	transform: translateY(-2px);
-	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-}
+									}
 
-.feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #c06b81, #a75669);
-	color: #fff;
-	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
-	transform: translateY(-2px);
-}
+									.feature-tab-area .tabs a:hover {
+										background: #e9ecef;
+										color: #000;
+									}
 
-/* ---------- Tab Content Box ---------- */
-.tab-box {
-	background: #fff;
-	padding: 25px;
-	border-radius: 12px;
-	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-	animation: fadeIn 0.4s ease;
-}
+									/* Active Tab */
+									.feature-tab-area .tabs a.active {
+										background: #C06B81;
+										color: #fff;
+										box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+										padding: 20px 30px;
+										margin-bottom: 25px;
+									}
 
-/* ---------- Specs Grid ---------- */
-.specs-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-	gap: 18px;
-}
+									/* Tab Content Styling */
+									.tab-box {
+										background: #fff;
+										padding: 20px;
+										border-radius: 8px;
+										box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+										animation: fadeIn 0.3s ease;
+									}
 
-.spec-item {
-	background: linear-gradient(145deg, #fdfdfd, #f7f8f9);
-	border: 1px solid #eee;
-	border-radius: 10px;
-	padding: 14px 18px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-	transition: all 0.3s ease;
-}
+									/* Table Styling in Data Sheet */
+									.table-data-sheet {
+										width: 100%;
+										border-collapse: collapse;
+									}
 
-.spec-item:hover {
-	background: linear-gradient(145deg, #ffffff, #f5f5f5);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-	transform: translateY(-3px);
-}
+									.table-data-sheet td {
+										padding: 12px;
+										border-bottom: 1px solid #eee;
+									}
 
-.spec-label {
-	font-weight: 600;
-	font-size: 14px;
-	color: #555;
-	margin-bottom: 5px;
-	text-transform: capitalize;
-}
+									.table-data-sheet tr:nth-child(odd) {
+										background: #f8f9fa;
+									}
 
-.spec-value {
-	font-size: 15px;
-	color: #222;
-}
+									/* Animation */
+									@keyframes fadeIn {
+										from {
+											opacity: 0;
+											transform: translateY(10px);
+										}
 
-/* ---------- Animation ---------- */
-@keyframes fadeIn {
-	from { opacity: 0; transform: translateY(10px); }
-	to { opacity: 1; transform: translateY(0); }
-}
+										to {
+											opacity: 1;
+											transform: translateY(0);
+										}
+									}
 								</style>
 								<div role="tabpanel" class="tab-pane fade" id="datasheet">
 									<div class="tab-box">
-									<div class="specs-grid">
-										<?php if ($products['total_height']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Total Height</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['total_height']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['total_width']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Total Width</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['total_width']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['material']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Material</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['material']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_height']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Seat Height</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['seat_height']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_thickness']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Seat Thickness</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['seat_thickness']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_depth']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Seat Depth</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['seat_depth']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_material_type']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Seat Material</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['seat_material_type']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['backrest_height_from_seat']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Backrest Height</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['backrest_height_from_seat']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['backrest_material_type']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Backrest Material</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['backrest_material_type']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['pedestal_base']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Pedestal Base</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['pedestal_base']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['seat_height_adjusting_range']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Height Adjustment Range</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['seat_height_adjusting_range']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['handle_type']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Handle Type</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['handle_type']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['wheel_type']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Wheel Type</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['wheel_type']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['mechanical_system_type']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Mechanical System</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['mechanical_system_type']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['color_available']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Available Colors</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['color_available']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['product_weight']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Products Weight</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['product_weight']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['backrest_size']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Backrest Size</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['backrest_size']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['adjuster_size']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Adjuster Size</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['adjuster_size']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['guarantee']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Guarantee</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['guarantee']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['chair_arms']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Chair Arms</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['chair_arms']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['table_top_size']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Table Top Size</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['table_top_size']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['sitting_capacity']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Sitting Capacity</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['sitting_capacity']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['no_of_top']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Number of Tops</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['no_of_top']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['table_type']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Table Type</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['table_type']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['shape']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Shape</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['shape']); ?></div>
-													</div>
-										<?php endif; ?>
-										
-										<?php if ($products['wheels']): ?>
-													<div class="spec-item">
-														<div class="spec-label">Wheels</div>
-														<div class="spec-value"><?php echo htmlspecialchars($products['wheels']); ?></div>
-													</div>
-										<?php endif; ?>
+										<table class="table-data-sheet">
+											<tbody>
+												<tr class="odd">
+													<td>Brand</td>
+													<td><?php echo $products['brand'] !== '' ? htmlspecialchars($products['brand']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="even">
+													<td>Weight</td>
+													<td><?php echo $products['weight'] !== '' ? htmlspecialchars($products['weight']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="odd">
+													<td>Size</td>
+													<td><?php echo $products['size'] !== '' ? htmlspecialchars($products['size']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="even">
+													<td>Category</td>
+													<td><?php echo $products['category'] !== '' ? htmlspecialchars($products['category']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="odd">
+													<td>Stock</td>
+													<td><?php echo $products['stock'] !== '' ? htmlspecialchars($products['stock']) : '---'; ?>
+													</td>
+												</tr>
+												<tr class="even">
+													<td>Tag Number</td>
+													<td><?php echo $products['tag_number'] !== '' ? htmlspecialchars($products['tag_number']) : '---'; ?>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
-								</div>
 								</div>
 								<!-- ⭐ REVIEW SECTION START -->
 								<div role="tabpanel" class="tab-pane fade in " id="reviews">
@@ -1544,10 +1381,10 @@ if ($varaints_id > 0) {
 								<label>Reference: </label>
 								<span>demo_1</span>
 							</p>
-							<p class="condition">
+							<!-- <p class="condition">
 								<label>Condition: </label>
 								<span>New product</span>
-							</p>
+							</p> -->
 							<div class="content-price">
 								<p class="price-new">
 									<span class="price-box">£ 16.84</span>

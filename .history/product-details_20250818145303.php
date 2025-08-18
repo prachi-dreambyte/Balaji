@@ -775,7 +775,7 @@ if ($varaints_id > 0) {
 
 
 						<div class="short-description">
-							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : ''; ?>
+							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : '---'; ?>
 							</p>
 						</div>
 						<form action="#">
