@@ -378,6 +378,9 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         </div>
 
         <!--=====slider-end=====-->
+         
+        
+
         <!--=====special-look-start=====-->
         <div class="home-4-special-look">
             <div class="container">
@@ -414,6 +417,139 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             </div>
         </div>
         <!--=====special-look-end=====-->
+        <!--===== Categories Section =====-->
+<section class="home-categories-section py-5">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h2>Shop By Categories</h2>
+            <p>Explore our wide range of products</p>
+        </div>
+        
+        <div class="row">
+            <?php
+            // Get all categories from database
+            $sql = "SELECT * FROM categories ORDER BY category_name ASC";
+            $result = mysqli_query($conn, $sql);
+            
+            if ($result && mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $name = htmlspecialchars($row['category_name']);
+                    $imageFile = isset($row['category_image']) ? $row['category_image'] : '';
+                    $imagePath = 'admin/' . htmlspecialchars($imageFile);
+                    
+                    // Use placeholder if image doesn't exist
+                    if (empty($imageFile) || !file_exists($imagePath)) {
+                        $imagePath = 'img/placeholder-category.jpg';
+                    }
+                    
+                    echo '
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="category-card">
+                            <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-link">
+                                <div class="category-img-container">
+                                    <img src="' . $imagePath . '" alt="' . $name . '" class="img-fluid category-img">
+                                    <div class="category-overlay"></div>
+                                </div>
+                                <div class="category-info text-center p-3">
+                                    <h3 class="category-title">' . $name . '</h3>
+                                    <span class="btn btn-outline-primary btn-sm">View Products</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>';
+                }
+            } else {
+                echo '<div class="col-12 text-center"><p>No categories found.</p></div>';
+            }
+            ?>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="shop.php" class="btn btn-primary">View All Categories</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Categories Section Styles */
+    .home-categories-section {
+        background-color: #f8f9fa;
+    }
+    
+    .section-title h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    
+    .section-title p {
+        color: #6c757d;
+        font-size: 1.1rem;
+    }
+    
+    .category-card {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .category-img-container {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+    
+    .category-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .category-card:hover .category-img {
+        transform: scale(1.05);
+    }
+    
+    .category-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+    }
+    
+    .category-info {
+        background: #fff;
+    }
+    
+    .category-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    
+    .category-link {
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    @media (max-width: 767px) {
+        .category-img-container {
+            height: 150px;
+        }
+    }
+</style>
+
         <!--=====daily-deals-start=====-->
         <div class="home-4-daily-deals-area py-5">
             <div class="container">
@@ -465,10 +601,10 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                             </div>
                                                         </div>
                                                         <div class="price-box">
-                                                            <span class="price text-success fw-bold">₹ <?= $price ?>
+                                                            <span class="price text-white fw-bold">₹ <?= $price ?>
                                                             </span><br>
                                                             <span
-                                                                class="old-price text-muted text-decoration-line-through">₹
+                                                                class="old-price text-white text-muted text-decoration-line-through">₹
                                                                 <?= $old_price ?> </span>
                                                         </div>
                                                     </div>
