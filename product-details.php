@@ -69,6 +69,7 @@ $product = [
 	'tags' => '',
 	'images' => '',
 	'main_product_colour' => '',
+	'main_product_colour' => '',
 ];
 
 $images = [];
@@ -672,6 +673,7 @@ try {
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
 					</p> -->
 						<p class="condition"><label>Price: </label></p>
+						<p class="condition"><label>Price: </label></p>
 						<div class="content-price">
 							<?php
 							$price = isset($product['price']) ? floatval($product['price']) : 0;
@@ -718,6 +720,7 @@ try {
 								<p style="color:green; font-weight:bold;">Special Commercial Price Applied</p>
 							<?php endif; ?>
 						</div>
+
 
 
 
@@ -776,6 +779,7 @@ try {
 
 
 						<div class="short-description">
+							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : ''; ?>
 							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : ''; ?>
 							</p>
 						</div>
