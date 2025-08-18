@@ -719,7 +719,7 @@ if ($varaints_id > 0) {
 						</div>
 
 
-
+						// Show main product colour and variants if any
 
 						<div class="product-variants">
 							<h4>Select Colour:</h4>
@@ -775,7 +775,7 @@ if ($varaints_id > 0) {
 
 
 						<div class="short-description">
-							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : ''; ?>
+							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : '---'; ?>
 							</p>
 						</div>
 						<form action="#">

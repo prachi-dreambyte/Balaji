@@ -670,7 +670,7 @@ if ($varaints_id > 0) {
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
 					</p> -->
-						<p class="condition"><label>Price: </label></p>
+						<p class="condition"><label>: </label></p>
 						<div class="content-price">
 							<?php
 							$price = isset($product['price']) ? floatval($product['price']) : 0;
@@ -719,7 +719,7 @@ if ($varaints_id > 0) {
 						</div>
 
 
-
+						// Show main product colour and variants if any
 
 						<div class="product-variants">
 							<h4>Select Colour:</h4>
@@ -775,7 +775,7 @@ if ($varaints_id > 0) {
 
 
 						<div class="short-description">
-							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : ''; ?>
+							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : '---'; ?>
 							</p>
 						</div>
 						<form action="#">
