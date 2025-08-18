@@ -68,7 +68,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Home four || Vonia</title>
+    <title>Home Balaji</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
@@ -823,7 +823,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                         alt="<?= htmlspecialchars($product['product_name']) ?>">
                                                 <?php endif; ?>
                                             </a>
-                                            <span class="badge-new">Featured</span>
+                                            <!-- <span class="badge-new">Featured</span> -->
                                         </div>
                                         <?php
                                         // Fetch product rating & review count dynamically

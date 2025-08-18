@@ -267,7 +267,7 @@ if (isset($_POST['apply_coupon'])) {
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Shopping cart || Vonia</title>
+	<title>Shopping cart balaji</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
