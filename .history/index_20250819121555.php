@@ -415,17 +415,12 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         <!--=====special-look-end=====-->
         <!--===== Categories Section =====-->
 <!--===== Categories Section =====-->
-<!--===== Categories Section =====-->
 <section class="home-categories-section py-5">
     <div class="container">
-        <div class="product-title text-center mb-4" id="deals">
-                    <h2><span>Shop by Category</span></h2>
-                </div>
-
-        <div class="row justify-content-center">
-        <div class="product-title text-center mb-4" id="deals">
-                    <h2><span>Shop by Category</span></h2>
-                </div>
+        <div class="section-title text-center mb-5">
+            <h2>Shop By Categories</h2>
+            <p>Explore our wide range of products</p>
+        </div>
 
         <div class="row justify-content-center">
             <?php
@@ -452,13 +447,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                             </div>
                             <p class="category-name mt-2">' . $name . '</p>
                         </a>
-                    <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
-                        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
-                            <div class="circle-img">
-                                <img src="' . $imagePath . '" alt="' . $name . '">
-                            </div>
-                            <p class="category-name mt-2">' . $name . '</p>
-                        </a>
                     </div>';
                 }
             } else {
@@ -474,6 +462,36 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 </section>
 
 <style>
+    .section-title {
+        position: relative;
+        padding-top: 40px;
+        /* space for bg image */
+        margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+        position: relative;
+    }
+
+    /* Decorative underline image */
+    .section-title::before {
+        content: "";
+        background: rgba(0, 0, 0, 0) url("img/bg_title.png") no-repeat scroll center top;
+        position: absolute;
+        top: 0;
+        /* show just above heading */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        /* adjust width to your bg image */
+        height: 40px;
+        /* adjust height to your bg image */
+    }
+
+
     /* Categories Section */
     .home-categories-section {
         background-color: #fff;
@@ -490,30 +508,25 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         transform: translateY(-5px);
         text-decoration: none;
     }
+/* Circle Image */
+.circle-img {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;  /* makes sure image stays inside circle */
+    transition: box-shadow 0.2s ease;
+}
 
-    /* Circle Image */
-    /* Circle Image */
-    .circle-img {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-        border-radius: 50%;
-        background-color: #f8f8f8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        /* makes sure image stays inside circle */
-        transition: box-shadow 0.2s ease;
-    }
-
-    .circle-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        /* ensures image fills the circle */
-    }
-
+.circle-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* ensures image fills the circle */
+}
 
     .category-circle:hover .circle-img {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);

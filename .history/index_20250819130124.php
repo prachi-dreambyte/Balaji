@@ -423,11 +423,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
 
         <div class="row justify-content-center">
-        <div class="product-title text-center mb-4" id="deals">
-                    <h2><span>Shop by Category</span></h2>
-                </div>
-
-        <div class="row justify-content-center">
             <?php
             // Get all categories from database
             $sql = "SELECT * FROM categories ORDER BY category_name ASC";
@@ -445,13 +440,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     }
 
                     echo '
-                    <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
-                        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
-                            <div class="circle-img">
-                                <img src="' . $imagePath . '" alt="' . $name . '">
-                            </div>
-                            <p class="category-name mt-2">' . $name . '</p>
-                        </a>
                     <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
                         <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
                             <div class="circle-img">

@@ -359,8 +359,18 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <div id="htmlcaption<?php echo $index + 1; ?>"
                         class="nivo-html-caption slider-caption-<?php echo $index + 1; ?>">
                         <div class="slider-progress"></div>
-                       
-                            
+                        <div class="slide1-text slide-<?php echo $index + 1; ?>">
+                            <div class="middle-text">
+                                <div class="cap-dec wow bounceIn" data-wow-duration="1s" data-wow-delay="0s">
+                                    <h1><?php echo htmlspecialchars($banner['caption']); ?></h1>
+                                </div>
+                                <div class="cap-title wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                                    <h3>From the collection</h3>
+                                </div>
+                                <div class="cap-readmore wow bounceIn" data-wow-duration="1.1s" data-wow-delay="0.5s">
+                                    <a href="shop.php<?php echo htmlspecialchars($banner['link']); ?>">Shop Now</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -414,51 +424,44 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         </div>
         <!--=====special-look-end=====-->
         <!--===== Categories Section =====-->
-<!--===== Categories Section =====-->
-<!--===== Categories Section =====-->
 <section class="home-categories-section py-5">
     <div class="container">
-        <div class="product-title text-center mb-4" id="deals">
-                    <h2><span>Shop by Category</span></h2>
-                </div>
-
-        <div class="row justify-content-center">
-        <div class="product-title text-center mb-4" id="deals">
-                    <h2><span>Shop by Category</span></h2>
-                </div>
-
-        <div class="row justify-content-center">
+        <div class="section-title text-center mb-5">
+            <h2>Shop By Categories</h2>
+            <p>Explore our wide range of products</p>
+        </div>
+        
+        <div class="row">
             <?php
             // Get all categories from database
             $sql = "SELECT * FROM categories ORDER BY category_name ASC";
             $result = mysqli_query($conn, $sql);
-
+            
             if ($result && mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $name = htmlspecialchars($row['category_name']);
                     $imageFile = isset($row['category_image']) ? $row['category_image'] : '';
                     $imagePath = 'admin/' . htmlspecialchars($imageFile);
-
+                    
                     // Use placeholder if image doesn't exist
                     if (empty($imageFile) || !file_exists($imagePath)) {
                         $imagePath = 'img/placeholder-category.jpg';
                     }
-
+                    
                     echo '
-                    <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
-                        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
-                            <div class="circle-img">
-                                <img src="' . $imagePath . '" alt="' . $name . '">
-                            </div>
-                            <p class="category-name mt-2">' . $name . '</p>
-                        </a>
-                    <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
-                        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
-                            <div class="circle-img">
-                                <img src="' . $imagePath . '" alt="' . $name . '">
-                            </div>
-                            <p class="category-name mt-2">' . $name . '</p>
-                        </a>
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="category-card">
+                            <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-link">
+                                <div class="category-img-container">
+                                    <img src="' . $imagePath . '" alt="' . $name . '" class="img-fluid category-img">
+                                    <div class="category-overlay"></div>
+                                </div>
+                                <div class="category-info text-center p-3">
+                                    <h3 class="category-title">' . $name . '</h3>
+                                    <span class="btn btn-outline-primary btn-sm">View Products</span>
+                                </div>
+                            </a>
+                        </div>
                     </div>';
                 }
             } else {
@@ -466,92 +469,96 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             }
             ?>
         </div>
-
+        
         <div class="text-center mt-4">
-            <a href="shop.php" class="view-all-btn">View All Categories</a>
+            <a href="shop.php" class="btn btn-primary">View All Categories</a>
         </div>
     </div>
 </section>
 
 <style>
-    /* Categories Section */
+    /* Categories Section Styles */
     .home-categories-section {
-        background-color: #fff;
+        background-color: #f8f9fa;
     }
-
-    .category-circle {
-        display: block;
-        text-decoration: none;
-        color: #000;
-        transition: transform 0.2s ease;
+    
+    .section-title h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
     }
-
-    .category-circle:hover {
-        transform: translateY(-5px);
-        text-decoration: none;
+    
+    .section-title p {
+        color: #6c757d;
+        font-size: 1.1rem;
     }
-
-    /* Circle Image */
-    /* Circle Image */
-    .circle-img {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-        border-radius: 50%;
-        background-color: #f8f8f8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    
+    .category-card {
+        background: #fff;
+        border-radius: 8px;
         overflow: hidden;
-        /* makes sure image stays inside circle */
-        transition: box-shadow 0.2s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
     }
-
-    .circle-img img {
+    
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .category-img-container {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+    
+    .category-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        /* ensures image fills the circle */
+        transition: transform 0.5s ease;
     }
-
-
-    .category-circle:hover .circle-img {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    .category-card:hover .category-img {
+        transform: scale(1.05);
     }
-
-    /* Category Name */
-    .category-name {
-        font-size: 14px;
-        font-weight: 500;
-        margin-top: 10px;
+    
+    .category-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
     }
-
-    /* View All Button */
-    .view-all-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 12px 24px;
-        background-color: #c06b81;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 16px;
+    
+    .category-info {
+        background: #fff;
+    }
+    
+    .category-title {
+        font-size: 1.2rem;
         font-weight: 600;
-        transition: all 0.2s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        margin-bottom: 10px;
+        color: #333;
     }
-
-    .view-all-btn:hover {
-        background-color: #e393a7;
-        color: #fff;
+    
+    .category-link {
         text-decoration: none;
+        color: inherit;
+    }
+    
+    @media (max-width: 767px) {
+        .category-img-container {
+            height: 150px;
+        }
     }
 </style>
 
         <!--=====daily-deals-start=====-->
         <div class="home-4-daily-deals-area py-5">
-            <!-- <div class="container">
+            <div class="container">
                 <div class="product-title text-center mb-4" id="deals">
                     <h2><span>Daily Deals</span></h2>
                 </div>
@@ -623,7 +630,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                         </div>
                     </div>
                 </div>
-            </div> -->
+                    </div>
                     <!--=====daily-deals-end=====-->
                     <!--=====product-tab-start=====-->
                     <div class="home-4-product-tab">
