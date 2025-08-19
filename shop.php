@@ -148,10 +148,8 @@ $cat_sidebar_stmt->close();
 	<script src="js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <style>
-	.single-product .product-img a {
-    text-decoration: none !important;
-}
-.AddCart a ::before {
+
+ /* .AddCart a ::before {
   display: inline-block;
   font-family: "FontAwesome";
   font-size: 14px;
@@ -161,7 +159,38 @@ $cat_sidebar_stmt->close();
 }
 .AddCart a {
 	padding: 5px 15px;
-}
+}  */
+
+  .add-to-cart-Btn{
+        font-family: Poppins, sans-serif;
+    font-weight: 400;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    padding: 15px 30px;
+    text-decoration: none;
+    background: #c06b81 ! important;
+    color: white;
+    overflow: hidden;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-size: 15px
+    }
+    .add-to-cart-btn:hover{
+     background-color: #e393a7 !important;
+     color:#fff;
+    }
+    .wishlist-btn{
+      font-size:18px;
+      background-color: #c06b81 !important;
+	   text-decoration: none !important;
+    }
+    .wishlist-btn:hover{
+       background-color: #e393a7 !important;
+     color:#fff;
+    }
+
 .sort-by label,.show label,.show span {
 
   font-size: 18px !important;
@@ -314,17 +343,18 @@ $cat_sidebar_stmt->close();
 														<a href="product-details.php?id=<?php echo $row['id']; ?>">
 															<img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
 														</a>
-														 <div class="wishlist-btn" style="position: absolute; top: 10px; right: 10px; z-index: 2;">
-                <a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
-                    <i class="fa fa-heart" aria-hidden="true" style="color: #c06b81;"></i>
+														 <div class="wishlist" style="position: absolute;top: 10px; z-index: 1;padding-left: 10px;font-size: 30px;">
+                <a class="wishlistBtn" href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
                 </a>
             </div>
 
 														<div class="product-action">
 															<div class="add-to-links">
-																		<div class="AddCart">
-																	<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
-																			<span>add to cart</span>																
+																		<div class="AddCarts">
+																	<a class="add-to-cart-Btn" href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+																			Add to cart
+																	</a>							
 																</div>
 															</div>
 														</div>
@@ -483,15 +513,15 @@ $cat_sidebar_stmt->close();
 														<div class="action">
 															<ul>
 																<li class="cart">
-																	<a href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
+																	<a class="add-to-cart-Btn" href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
 																		<!-- <i class="fa fa-shopping-cart"></i> -->
-																		<span>add to cart</span>
+																		Add to cart
 																	</a>
 																</li>
 
-																<li class="wishlists">
+																<li class="wishlist-btn">
 																	<a href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
-																		<i class="fa fa-heart" aria-hidden="true" style="color: #676162ff;"></i>
+																		<i class="fa fa-heart" aria-hidden="true"></i>
 																	</a>
 																</li>
 																<!-- <li>

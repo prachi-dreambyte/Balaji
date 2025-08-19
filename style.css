@@ -1133,7 +1133,7 @@ header .header-top nav {
   display: block;
 }
 .product-img > a::before {
-  background-color: #c06b81;
+
   content: "";
   height: 100%;
   left: 0;
@@ -1189,10 +1189,11 @@ header .header-top nav {
   width: 14px;
 }
 .star.star-on::after {
-  color: #c06b81;
+  color: #ffc861;;
   content: "";
   display: inline-block;
   font-family: "FontAwesome";
+  font-size: 15px;
 }
 .star::after {
   color: #777676;
