@@ -78,6 +78,26 @@ if (!isset($_SESSION['user_id'])) {
                                              </div> -->
                                         </div>
                                    </div>
+                                   <div class="card">
+                                   <div class="card-header">
+                                        <h4 class="card-title">Add Category Banner</h4>
+                                   </div>
+                                   <div class="card-body">
+                                        <!-- File Upload -->
+                                        <div class="dropzone"  data-plugin="dropzone" data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate">
+                                             <div class="fallback">
+                                                  <input name="banner_image" type="file" />
+                                             </div>
+                                             <!-- <div class="dz-message needsclick">
+                                                  <i class="bx bx-cloud-upload fs-48 text-primary"></i>
+                                                  <h3 class="mt-4">Drop your images here, or <span class="text-primary">click to browse</span></h3>
+                                                  <span class="text-muted fs-13">
+                                                       1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed
+                                                  </span>
+                                             </div> -->
+                                        </div>
+                                   </div>
+                              </div>
                               </div>
                               <div class="card">
                                    
@@ -142,98 +162,72 @@ if (!isset($_SESSION['user_id'])) {
 <!-- Mirrored from techzaa.in/larkon/admin/category-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 20 Mar 2025 09:19:50 GMT -->
 </html>
 
-
-
 <?php
+
+
+
+// Create categories table (with thumbnail + banner)
 $tableQuery = "CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(255) NOT NULL UNIQUE,
     category_image TEXT,
+    banner_image TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 $conn->query($tableQuery);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $category = trim($_POST['category']);
+    $thumbnailPath = '';
+    $bannerPath = '';
 
-    // Default to empty image name
-    $imageName = '';
+    // Function to handle image upload
+    function uploadImage($fileKey, $uploadDir = "uploads/") {
+        if (!empty($_FILES[$fileKey]['name'])) {
+            $fileName = time() . "_" . basename($_FILES[$fileKey]['name']);
+            $targetFile = $uploadDir . $fileName;
+            $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-    // Image upload handling
-    if (!empty($_FILES['category_image']['name'])) {
-        $targetDir = "uploads/";
-        $imageName = basename($_FILES['category_image']['name']); // Only filename
-        $targetFile = $targetDir . $imageName;
-        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+            if (!in_array($fileType, $allowed)) {
+                echo "<script>
+                    Swal.fire('Invalid File!', 'Only JPG, PNG, GIF, WEBP allowed.', 'error');
+                </script>";
+                exit();
+            }
 
-        // Validate file type
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-        if (!in_array($imageFileType, $allowedTypes)) {
-            echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid File Type!',
-                    text: 'Only JPG, PNG, GIF, and WEBP files are allowed.',
-                    confirmButtonText: 'OK'
-                });
-            </script>";
-            exit();
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            if (move_uploaded_file($_FILES[$fileKey]['tmp_name'], $targetFile)) {
+                return $targetFile;
+            }
         }
-
-        // Create uploads folder if not exists
-        if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0777, true);
-        }
-
-        // Move uploaded file
-        if (!move_uploaded_file($_FILES['category_image']['tmp_name'], $targetFile)) {
-            echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Upload Failed!',
-                    text: 'There was an error uploading the file.',
-                    confirmButtonText: 'OK'
-                });
-            </script>";
-            exit();
-        }
+        return '';
     }
 
+    $thumbnailPath = uploadImage('category_image');
+    $bannerPath = uploadImage('banner_image');
+
     if (!empty($category)) {
-        // Insert category with image into database
-        $stmt = $conn->prepare("INSERT INTO categories (category_name, category_image) VALUES (?, ?)");
-        $stmt->bind_param("ss", $category, $targetFile);
+        $stmt = $conn->prepare("INSERT INTO categories (category_name, category_image, banner_image) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $category, $thumbnailPath, $bannerPath);
 
         if ($stmt->execute()) {
             echo "<script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Category Added!',
-                    text: 'Your category has been successfully added.',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    window.location.href = 'category-add.php';
-                });
+                Swal.fire('Success!', 'Category Added Successfully.', 'success')
+                .then(() => { window.location.href='category-add.php'; });
             </script>";
         } else {
             echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Category could not be added. It might already exist.',
-                    confirmButtonText: 'Try Again'
-                });
+                Swal.fire('Error!', 'Category already exists or database issue.', 'error');
             </script>";
         }
         $stmt->close();
     } else {
         echo "<script>
-            Swal.fire({
-                icon: 'warning',
-                title: 'Empty Field!',
-                text: 'Please enter a category name.',
-                confirmButtonText: 'OK'
-            });
+            Swal.fire('Warning!', 'Please enter category name.', 'warning');
         </script>";
     }
 }
