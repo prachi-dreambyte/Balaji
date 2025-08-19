@@ -8,6 +8,34 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
+
+// Function to get category banner
+function getCategoryBanner($category_name, $conn) {
+    // Agar multiple categories aaye, to default banner return karo
+    if (strpos($category_name, ',') !== false) {
+        return 'admin/assets/images/coming-soon.png';
+    }
+
+    // Single category ke liye DB se banner fetch karo
+    $stmt = $conn->prepare("SELECT banner_image FROM categories WHERE category_name = ?");
+    $stmt->bind_param("s", $category_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return !empty($row['banner_image']) ? 'admin/'.$row['banner_image'] : 'admin/assets/images/coming-soon.png';
+    }
+    return 'admin/assets/images/coming-soon.png';
+}
+
+// Get current category from URL
+$currentCategory = isset($_GET['category']) ? urldecode($_GET['category']) : '';
+
+// Get banner image
+$bannerImage = getCategoryBanner($currentCategory, $conn);
+
+
 // Get user account type
 $user_account_type = null;
 if (!empty($_SESSION['account_type'])) {
@@ -198,6 +226,79 @@ $cat_sidebar_stmt->close();
   }
   .single-product .product-img .new,.modal-pic .new{
   background: #ffffff none repeat scroll 0 0 !important;}
+
+
+/* Category Banner Styles */
+.category-banner-section {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.banner-container {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+}
+
+.category-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.banner-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.breadcrumbs {
+    font-size: 1.1rem;
+}
+
+.breadcrumbs a {
+    color: white;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    color: #f8f9fa;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .banner-container {
+        height: 250px;
+    }
+    
+    .banner-title {
+        font-size: 2rem;
+    }
+    
+    .breadcrumbs {
+        font-size: 0.9rem;
+    }
+}
 </style>
 
 <body>
@@ -206,9 +307,27 @@ $cat_sidebar_stmt->close();
 	</header>
 
 	<!-- header-end -->
+
+<!-- Dynamic Category Banner Section -->
+<section class="category-banner-section">
+    <div class="banner-container">
+        <img src="<?php echo $bannerImage; ?>" alt="<?php echo $currentCategory ? htmlspecialchars($currentCategory) : 'All Categories'; ?>" class="category-banner-img">
+        <div class="banner-overlay">
+            <h1 class="banner-title"><?php echo $currentCategory ? htmlspecialchars($currentCategory) : 'All Categories'; ?></h1>
+            <div class="breadcrumbs">
+                <a href="index.php">Home</a> / 
+                <a href="shop.php">Categories</a>
+                <?php if ($currentCategory): ?>
+                    / <span><?php echo htmlspecialchars($currentCategory); ?></span>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
 	<!-- shop-2-area-start -->
 	<!-- <div class="shop-2-area" id="product-list"> -->
-	<section class="AboutSection">
+	<!-- <section class="AboutSection">
 		<div class="image-wrapper">
 			<img src="img\slider\5.jpg" class="AboutwrapperImage" />
 			<h1 class="aboutUs-Heading">CATEGORY</h1>
@@ -216,7 +335,7 @@ $cat_sidebar_stmt->close();
 				<a class="AboutHome"> HOME </a> &nbsp/ &nbsp <a class="AboutHome">CATEGORY</a>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	
 				<section class="shopSection">
 	<div class="container">
