@@ -1,6 +1,7 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
+    session_start();
 }
 include_once 'connect.php';
 
@@ -575,9 +576,6 @@ if (isset($_SESSION['user_id'])) {
                         US</a></p>
                 <p class="headerText"><a href="blog.php"
                         class="nav-link text-white <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a>
-                </p>
-                <p class="headerText"><a href="contact.php"
-                        class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a>
                 </p>
             </nav>
 

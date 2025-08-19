@@ -391,7 +391,24 @@ if ($varaints_id > 0) {
 	<?php include 'header.php'; ?>
 	<!-- header-end -->
 	<!-- product-details-area-start -->
-	<div class="shop-1-area pt-5">
+	<div class="shop-1-area">
+		<div class="container-fluid">
+			<div class="breadcrumb">
+				<a href="index.php" title="Return to Home">
+					<i class="icon-home"></i>
+				</a>
+				<span class="navigation-pipe">></span>
+				<span class="navigation-page">
+					<a href="<?php echo htmlspecialchars($category_link); ?>"
+						title="<?php echo htmlspecialchars($product['category']); ?>">
+						<span><?php echo htmlspecialchars($product['category']); ?></span>
+					</a>
+					<span class="navigation-pipe nav-pipe-2">></span>
+					<?php echo htmlspecialchars($product['product_name'] ?? '---'); ?>
+				</span>
+			</div>
+		</div>
+
 		<div class="container">
 			<div class="row">
 				<div class="col-md-5 col-sm-6 col-12 ">
@@ -702,7 +719,7 @@ if ($varaints_id > 0) {
 						</div>
 
 
-
+						// Show main product colour and variants if any
 
 						<div class="product-variants">
 							<h4>Select Colour:</h4>
@@ -758,7 +775,7 @@ if ($varaints_id > 0) {
 
 
 						<div class="short-description">
-							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : ''; ?>
+							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : '---'; ?>
 							</p>
 						</div>
 						<form action="#">
@@ -900,9 +917,9 @@ if ($varaints_id > 0) {
 							<!-- Nav tabs -->
 							<ul class="tabs nav mb-4" role="tablist" style="color: #000; text-align: center;">
 								<li><a class="active" href="#moreinfo" aria-controls="moreinfo" role="tab"
-										data-bs-toggle="tab">Description</a></li>
-								<!-- <li><a href="#datasheet" aria-controls="datasheet" role="tab" data-bs-toggle="tab">data
-										sheet</a></li> -->
+										data-bs-toggle="tab">more info</a></li>
+								<li><a href="#datasheet" aria-controls="datasheet" role="tab" data-bs-toggle="tab">data
+										sheet</a></li>
 								<li><a href="#reviews" aria-controls="reviews" role="tab"
 										data-bs-toggle="tab">reviews</a></li>
 							</ul>
@@ -1410,7 +1427,7 @@ if ($varaints_id > 0) {
 																</div>
 																<div class="product-content">
 																	<h5 class="product-name">
-																		<a class="text-decoration-none" href="product-details.php?id=<?php echo $rel['id']; ?>"
+																		<a href="product-details.php?id=<?php echo $rel['id']; ?>"
 																			title="<?php echo htmlspecialchars($rel['product_name']); ?>">
 																			<?php echo htmlspecialchars($rel['product_name']); ?>
 																		</a>
