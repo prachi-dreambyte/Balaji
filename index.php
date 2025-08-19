@@ -950,7 +950,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <!--=====service-end=====-->
 
             <!-- feature-product-start -->
-            <div class="feature-product-area">
+            <div class="feature-product-area py-5">
                 <div class="container">
                     <div class="row">
                         <div class="product-title text-left">
@@ -1075,7 +1075,44 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 
             <!--===== latest-blog-start =====-->
 
-            <div class="home-4-latest-blog px-5">
+           
+
+
+            <!--===== latest-blog-end =====-->
+
+            <!--===== testimonial-area-start =====-->
+<!-- testimonial-area-start -->
+<div class="testimonial-area py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);">
+    <div class="container">
+        <div class="testimonial text-center">
+            <div class="testimonial-container shadow-sm p-4 rounded" style="background: #fff;">
+                
+                <!-- Header -->
+                <h3 class="section-header mb-2" style="font-weight: 700; color: #333;">
+                    <!-- <i class="fas fa-quote-left" style="color: #ff9800; margin-right: 8px;"></i> -->
+                    What Our Customers Say
+                </h3>
+                <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
+                    Real Google reviews from our valued customers.
+                </p>
+
+                <!-- Google reviews iframe -->
+                <div class="responsive-iframe" style="max-width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                    <iframe src="https://widgets.sociablekit.com/google-reviews/iframe/25584908"
+                        frameborder="0"
+                        allowfullscreen
+                        loading="lazy"
+                        style="width:100%; height:500px; border:0;">
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- testimonial-area-end -->
+
+ <div class="home-4-latest-blog px-5">
                 <div class="blog">
                     <div class="product-title">
                         <h2><span>Latest Blog</span></h2>
@@ -1131,42 +1168,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     </div>
                 </div>
             </div>
-
-
-            <!--===== latest-blog-end =====-->
-
-            <!--===== testimonial-area-start =====-->
-<!-- testimonial-area-start -->
-<div class="testimonial-area py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);">
-    <div class="container">
-        <div class="testimonial text-center">
-            <div class="testimonial-container shadow-sm p-4 rounded" style="background: #fff;">
-                
-                <!-- Header -->
-                <h3 class="section-header mb-2" style="font-weight: 700; color: #333;">
-                    <!-- <i class="fas fa-quote-left" style="color: #ff9800; margin-right: 8px;"></i> -->
-                    What Our Customers Say
-                </h3>
-                <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
-                    Real Google reviews from our valued customers.
-                </p>
-
-                <!-- Google reviews iframe -->
-                <div class="responsive-iframe" style="max-width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
-                    <iframe src="https://widgets.sociablekit.com/google-reviews/iframe/25584908"
-                        frameborder="0"
-                        allowfullscreen
-                        loading="lazy"
-                        style="width:100%; height:500px; border:0;">
-                    </iframe>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- testimonial-area-end -->
-
 
 <style>
     @media (max-width: 768px) {

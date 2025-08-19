@@ -2237,7 +2237,7 @@ home-4-latest-blog
 brand-area
 ----------------------*/
 .home-4-brand-area {
-  background: white none repeat scroll 0 0;
+  background: #eeeeee none repeat scroll 0 0;
   padding: 65px 0;
 }
 /*-----------------------------------------
@@ -4606,4 +4606,8 @@ height: auto;
     font-weight: 500 !important;
     display: inline-block !important;
     margin-bottom: 5px !important;
+}
+/* ------------------------end------------------ */
+.feature-product-area{
+  background-color: #fff;
 }
