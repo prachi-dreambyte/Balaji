@@ -1131,6 +1131,7 @@ header .header-top nav {
 }
 .product-img a {
   display: block;
+  color: #c06b81;
 }
 .product-img > a::before {
 
@@ -1165,7 +1166,7 @@ header .header-top nav {
 .product-name a {
   color: black;
   font-size: 15px;
-  line-height: 25px;
+  line-height: 15px;
   margin-bottom: 0;
   padding: 5px 0;
   text-decoration: none;

@@ -655,7 +655,7 @@ try {
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
 					</p> -->
-						<p class="condition"><label>Price: </label></p>
+						
 						<p class="condition"><label>Price: </label></p>
 						<div class="content-price">
 							<?php

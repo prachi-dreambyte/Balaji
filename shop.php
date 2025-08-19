@@ -177,6 +177,39 @@ $cat_sidebar_stmt->close();
 </head>
 <style>
 
+	.product-img .add-to-cart-btn {
+   position: absolute;
+    bottom: -60px; /* Pehle hidden */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;  /* Thoda chhota aur center me */
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.product-img:hover .add-to-cart-btn {
+  bottom: 15px;   /* Bottom se thoda upar */
+    opacity: 1;
+}
+.add-to-cart-btn a {
+    background-color: #c06b81; /* Bootstrap Danger Red */
+    border: none;
+    border-radius: 30px; /* Rounded look */
+    padding: 10px 15px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.2s;
+}
+.add-to-cart-btn a:hover {
+    background-color: #e393a7; /* Darker Red */
+    transform: scale(1.05);
+}
+
  /* .AddCart a ::before {
   display: inline-block;
   font-family: "FontAwesome";
@@ -205,10 +238,10 @@ $cat_sidebar_stmt->close();
     border-radius: 5px;
     font-size: 15px
     }
-    .add-to-cart-btn:hover{
+    /* .add-to-cart-btn:hover{
      background-color: #e393a7 !important;
      color:#fff;
-    }
+    } */
     .wishlist-btn{
       font-size:18px;
       background-color: #c06b81 !important;
@@ -456,50 +489,61 @@ $cat_sidebar_stmt->close();
 											$images = json_decode($row['images']);
 											$firstImage = $images[0];
 										?>
-											<div class="col-md-4 col-sm-6 col-xs-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="product-details.php?id=<?php echo $row['id']; ?>">
-															<img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
-														</a>
-														 <div class="wishlist" style="position: absolute;top: 10px; z-index: 1;padding-left: 10px;font-size: 30px;">
+										
+								<div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="single-product">
+        <div class="product-img" style="position: relative; overflow: hidden;">
+            <a href="product-details.php?id=<?php echo $row['id']; ?>">
+                <img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
+            </a>
+            
+            <!-- Wishlist Button -->
+            <div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 20px;">
                 <a class="wishlistBtn" href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
                     <i class="fa fa-heart" aria-hidden="true"></i>
                 </a>
             </div>
 
-														<div class="product-action">
-															<div class="add-to-links">
-																		<div class="AddCarts">
-																	<a class="add-to-cart-Btn" href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
-																			Add to cart
-																	</a>							
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="product-content">
-														<h5 class="product-name">
-															<a href="product-details.php?id=<?php echo $row['id']; ?>" title="<?php echo htmlspecialchars($row['product_name']); ?>">
-																<?php echo htmlspecialchars($row['product_name']); ?>
-															</a>
-														</h5>
-														<?php
-															$product_id = $row['id']; // Replace 'id' with your actual product ID column name
-														
-															// Get average rating and total reviews for this product
-															$query = "SELECT COUNT(*) AS total_reviews, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
-															$result = mysqli_query($conn, $query);
+            <!-- Add to Cart Button (Hidden by default, show on hover) -->
+            <div class="add-to-cart-btn">
+                <a class="btn btn-danger w-100" 
+                   href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" 
+                   title="Add to cart">
+                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                </a>
+            </div>
+        </div>
 
-															if ($result && mysqli_num_rows($result) > 0) {
-																$reviewData = mysqli_fetch_assoc($result);
-																$total_reviews = $reviewData['total_reviews'] ?? 0;
-																$avg_rating = round($reviewData['avg_rating'] ?? 0);
-															} else {
-																$total_reviews = 0;
-																$avg_rating = 0;
-															}
-															?>
+        <div class="product-content text-center">
+            <h5 class="product-name">
+                <a href="product-details.php?id=<?php echo $row['id']; ?>" title="<?php echo htmlspecialchars($row['product_name']); ?>">
+                    <?php echo htmlspecialchars($row['product_name']); ?>
+                </a>
+            </h5>
+        </div>
+    </div>
+</div>
+
+
+            
+            <?php
+            $product_id = $row['id']; 
+            $query = "SELECT COUNT(*) AS total_reviews, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
+            $result = mysqli_query($conn, $query);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                $reviewData = mysqli_fetch_assoc($result);
+                $total_reviews = $reviewData['total_reviews'] ?? 0;
+                $avg_rating = round($reviewData['avg_rating'] ?? 0);
+            } else {
+                $total_reviews = 0;
+                $avg_rating = 0;
+            }
+            ?>
+        </div>
+    </div>
+</div>
+
 														
 														<!-- ⭐ Reviews Section -->
 														<div class="reviews">
