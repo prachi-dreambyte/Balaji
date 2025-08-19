@@ -8,6 +8,34 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
+
+// Function to get category banner
+function getCategoryBanner($category_name, $conn) {
+    // Agar multiple categories aaye, to default banner return karo
+    if (strpos($category_name, ',') !== false) {
+        return 'admin/assets/images/coming-soon.png';
+    }
+
+    // Single category ke liye DB se banner fetch karo
+    $stmt = $conn->prepare("SELECT banner_image FROM categories WHERE category_name = ?");
+    $stmt->bind_param("s", $category_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return !empty($row['banner_image']) ? 'admin/'.$row['banner_image'] : 'admin/assets/images/coming-soon.png';
+    }
+    return 'admin/assets/images/coming-soon.png';
+}
+
+// Get current category from URL
+$currentCategory = isset($_GET['category']) ? urldecode($_GET['category']) : '';
+
+// Get banner image
+$bannerImage = getCategoryBanner($currentCategory, $conn);
+
+
 // Get user account type
 $user_account_type = null;
 if (!empty($_SESSION['account_type'])) {
@@ -149,6 +177,39 @@ $cat_sidebar_stmt->close();
 </head>
 <style>
 
+	.product-img .add-to-cart-btn {
+   position: absolute;
+    bottom: -60px; /* Pehle hidden */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;  /* Thoda chhota aur center me */
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.product-img:hover .add-to-cart-btn {
+  bottom: 15px;   /* Bottom se thoda upar */
+    opacity: 1;
+}
+.add-to-cart-btn a {
+    background-color: #c06b81; /* Bootstrap Danger Red */
+    border: none;
+    border-radius: 30px; /* Rounded look */
+    padding: 10px 15px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.2s;
+}
+.add-to-cart-btn a:hover {
+    background-color: #e393a7; /* Darker Red */
+    transform: scale(1.05);
+}
+
  /* .AddCart a ::before {
   display: inline-block;
   font-family: "FontAwesome";
@@ -177,10 +238,10 @@ $cat_sidebar_stmt->close();
     border-radius: 5px;
     font-size: 15px
     }
-    .add-to-cart-btn:hover{
+    /* .add-to-cart-btn:hover{
      background-color: #e393a7 !important;
      color:#fff;
-    }
+    } */
     .wishlist-btn{
       font-size:18px;
       background-color: #c06b81 !important;
@@ -198,6 +259,79 @@ $cat_sidebar_stmt->close();
   }
   .single-product .product-img .new,.modal-pic .new{
   background: #ffffff none repeat scroll 0 0 !important;}
+
+
+/* Category Banner Styles */
+.category-banner-section {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.banner-container {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+}
+
+.category-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.banner-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.breadcrumbs {
+    font-size: 1.1rem;
+}
+
+.breadcrumbs a {
+    color: white;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    color: #f8f9fa;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .banner-container {
+        height: 250px;
+    }
+    
+    .banner-title {
+        font-size: 2rem;
+    }
+    
+    .breadcrumbs {
+        font-size: 0.9rem;
+    }
+}
 </style>
 
 <body>
@@ -206,9 +340,27 @@ $cat_sidebar_stmt->close();
 	</header>
 
 	<!-- header-end -->
+
+<!-- Dynamic Category Banner Section -->
+<section class="category-banner-section">
+    <div class="banner-container">
+        <img src="<?php echo $bannerImage; ?>" alt="<?php echo $currentCategory ? htmlspecialchars($currentCategory) : 'All Categories'; ?>" class="category-banner-img">
+        <div class="banner-overlay">
+            <h1 class="banner-title"><?php echo $currentCategory ? htmlspecialchars($currentCategory) : 'All Categories'; ?></h1>
+            <div class="breadcrumbs">
+                <a href="index.php">Home</a> / 
+                <a href="shop.php">Categories</a>
+                <?php if ($currentCategory): ?>
+                    / <span><?php echo htmlspecialchars($currentCategory); ?></span>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
 	<!-- shop-2-area-start -->
 	<!-- <div class="shop-2-area" id="product-list"> -->
-	<section class="AboutSection">
+	<!-- <section class="AboutSection">
 		<div class="image-wrapper">
 			<img src="img\slider\5.jpg" class="AboutwrapperImage" />
 			<h1 class="aboutUs-Heading">CATEGORY</h1>
@@ -216,7 +368,7 @@ $cat_sidebar_stmt->close();
 				<a class="AboutHome"> HOME </a> &nbsp/ &nbsp <a class="AboutHome">CATEGORY</a>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	
 				<section class="shopSection">
 	<div class="container">
@@ -337,50 +489,61 @@ $cat_sidebar_stmt->close();
 											$images = json_decode($row['images']);
 											$firstImage = $images[0];
 										?>
-											<div class="col-md-4 col-sm-6 col-xs-12">
-												<div class="single-product">
-													<div class="product-img">
-														<a href="product-details.php?id=<?php echo $row['id']; ?>">
-															<img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
-														</a>
-														 <div class="wishlist" style="position: absolute;top: 10px; z-index: 1;padding-left: 10px;font-size: 30px;">
+										
+								<div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="single-product">
+        <div class="product-img" style="position: relative; overflow: hidden;">
+            <a href="product-details.php?id=<?php echo $row['id']; ?>">
+                <img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
+            </a>
+            
+            <!-- Wishlist Button -->
+            <div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 20px;">
                 <a class="wishlistBtn" href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
                     <i class="fa fa-heart" aria-hidden="true"></i>
                 </a>
             </div>
 
-														<div class="product-action">
-															<div class="add-to-links">
-																		<div class="AddCarts">
-																	<a class="add-to-cart-Btn" href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" title="Add to cart">
-																			Add to cart
-																	</a>							
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="product-content">
-														<h5 class="product-name">
-															<a href="product-details.php?id=<?php echo $row['id']; ?>" title="<?php echo htmlspecialchars($row['product_name']); ?>">
-																<?php echo htmlspecialchars($row['product_name']); ?>
-															</a>
-														</h5>
-														<?php
-															$product_id = $row['id']; // Replace 'id' with your actual product ID column name
-														
-															// Get average rating and total reviews for this product
-															$query = "SELECT COUNT(*) AS total_reviews, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
-															$result = mysqli_query($conn, $query);
+            <!-- Add to Cart Button (Hidden by default, show on hover) -->
+            <div class="add-to-cart-btn">
+                <a class="btn btn-danger w-100" 
+                   href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" 
+                   title="Add to cart">
+                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                </a>
+            </div>
+        </div>
 
-															if ($result && mysqli_num_rows($result) > 0) {
-																$reviewData = mysqli_fetch_assoc($result);
-																$total_reviews = $reviewData['total_reviews'] ?? 0;
-																$avg_rating = round($reviewData['avg_rating'] ?? 0);
-															} else {
-																$total_reviews = 0;
-																$avg_rating = 0;
-															}
-															?>
+        <div class="product-content text-center">
+            <h5 class="product-name">
+                <a href="product-details.php?id=<?php echo $row['id']; ?>" title="<?php echo htmlspecialchars($row['product_name']); ?>">
+                    <?php echo htmlspecialchars($row['product_name']); ?>
+                </a>
+            </h5>
+        </div>
+    </div>
+</div>
+
+
+            
+            <?php
+            $product_id = $row['id']; 
+            $query = "SELECT COUNT(*) AS total_reviews, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
+            $result = mysqli_query($conn, $query);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                $reviewData = mysqli_fetch_assoc($result);
+                $total_reviews = $reviewData['total_reviews'] ?? 0;
+                $avg_rating = round($reviewData['avg_rating'] ?? 0);
+            } else {
+                $total_reviews = 0;
+                $avg_rating = 0;
+            }
+            ?>
+        </div>
+    </div>
+</div>
+
 														
 														<!-- ⭐ Reviews Section -->
 														<div class="reviews">
