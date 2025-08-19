@@ -141,7 +141,7 @@ if (isset($_GET['id'])) {
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$row = $result->fetch_assoc();
-	echo $row['product_weight'];
+	
 
 	if ($row) {
 		$products = $row;
@@ -652,6 +652,8 @@ try {
 					<div class="abc">
 						<h1><?php echo $product['product_name'] !== '' ? htmlspecialchars($product['product_name']) : '---'; ?>
 						</h1>
+						<h4><?php echo $product['short_description'] !== '' ? htmlspecialchars($product['short_description']) : '---'; ?>
+						</h4>
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
 					</p> -->
@@ -762,7 +764,7 @@ try {
 
 
 						<div class="short-description">
-							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : ''; ?>
+							
 							<p><?php echo $product['short_description'] !== '' ? nl2br(htmlspecialchars($product['short_description'])) : ''; ?>
 							</p>
 						</div>
