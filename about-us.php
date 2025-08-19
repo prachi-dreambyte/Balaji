@@ -69,7 +69,7 @@ include 'connect.php';
                 <!-- Text with fade-in animations -->
                 <div class="col-md-6 col-sm-6 col-sx-12">
                     <div class="AboutUs-Wrapper">
-                        <h1 class="aboutHead wow fadeInDown" data-wow-delay="0.3s">ABOUT BALA JI</h1>
+                        <h1 class="aboutHead wow fadeInDown" data-wow-delay="0.3s">ABOUT BALAJI</h1>
                         <p class="aboutParagraph pt-3 wow fadeInUp" data-wow-delay="0.5s">
                             Unveiling the Spirit of Balaji Furniture: A Luxurious Fusion of Comfort and Connectivity
                         </p>

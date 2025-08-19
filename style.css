@@ -1318,7 +1318,7 @@ header .header-top nav {
   background: #fff none repeat scroll 0 0;
   color: #343436;
   display: inline-block;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1;
   margin: 0 0 10px;
@@ -2168,8 +2168,8 @@ home-3-tab
 home-4-special-look
 ------------------------------*/
 .home-4-special-look {
-  background: #363636 none repeat scroll 0 0;
-  padding: 65px 0;
+  background: #eeeeee;
+  padding: 65px 65px;
 }
 .home-4-special-look .col-1 {
   float: left;
@@ -2180,14 +2180,14 @@ home-4-special-look
 	float: left;
 }
 .home-4-special-look .product-title h2::before {
-  background: rgba(0, 0, 0, 0) url("img/others/bg_title_banner4.png") no-repeat scroll center top;
+  /* background: rgba(0, 0, 0, 0) url("img/others/bg_title_banner4.png") no-repeat scroll center top; */
 }
 .home-4-special-look .product-title h2 {
-  background: #363636 none repeat scroll 0 0;
-  color: #fff;
+  background: #eeeeee;
+  color: #363636;
 }
 .home-4-special-look .product-title::before {
-  background: #fff none repeat scroll 0 0;
+  background: #363636 none repeat scroll 0 0;
 }
 /*-----------------------
 home-4-daily-deals
