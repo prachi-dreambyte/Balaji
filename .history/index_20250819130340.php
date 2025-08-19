@@ -413,11 +413,16 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             </div>
         </div>
         <!--=====special-look-end=====-->
-       
+        <!--===== Categories Section =====-->
 <!--===== Categories Section =====-->
 <!--===== Categories Section =====-->
 <section class="home-categories-section py-5">
     <div class="container">
+        <div class="product-title text-center mb-4" id="deals">
+                    <h2><span>Shop by Category</span></h2>
+                </div>
+
+        <div class="row justify-content-center">
         <div class="product-title text-center mb-4" id="deals">
                     <h2><span>Shop by Category</span></h2>
                 </div>
@@ -440,6 +445,13 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     }
 
                     echo '
+                    <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
+                        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
+                            <div class="circle-img">
+                                <img src="' . $imagePath . '" alt="' . $name . '">
+                            </div>
+                            <p class="category-name mt-2">' . $name . '</p>
+                        </a>
                     <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
                         <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
                             <div class="circle-img">
@@ -536,6 +548,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         text-decoration: none;
     }
 </style>
+
         <!--=====daily-deals-start=====-->
         <div class="home-4-daily-deals-area py-5">
             <!-- <div class="container">

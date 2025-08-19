@@ -413,7 +413,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             </div>
         </div>
         <!--=====special-look-end=====-->
-       
+        <!--===== Categories Section =====-->
 <!--===== Categories Section =====-->
 <!--===== Categories Section =====-->
 <section class="home-categories-section py-5">
@@ -536,6 +536,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         text-decoration: none;
     }
 </style>
+
         <!--=====daily-deals-start=====-->
         <div class="home-4-daily-deals-area py-5">
             <!-- <div class="container">
