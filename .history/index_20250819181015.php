@@ -452,7 +452,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 </div>
                                 <div class="banner-box">
                                     <a href="#">
-                                        <img src="img/body/slthird.jpg" alt="" style="width:100%;"/>
+                                        <img src="img/body/slsecond.jpg" alt="" style="width:100%;"/>
                                     </a>
                                 </div>
                             </div>
