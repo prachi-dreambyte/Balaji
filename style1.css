@@ -6,7 +6,7 @@
   border-color: #c06b81;
   color: #fff;
 }
-.AddCart a {
+/* .AddCart a {
     background: white none repeat scroll 0 0;
     color: #363636;
     display: block;
@@ -18,7 +18,7 @@
     width: 100%;
     border-radius: 5px;
     padding: 20px 20px;
-}
+} */
 
 .single-product:hover .product-action {
   opacity: 1;
@@ -67,6 +67,7 @@
      color:#fff;
     }
     /* ---------------------END----------------- */
+    /* ---------------------Add to Cart-------------- */
     .add-to-cart-Btn{
         font-family: Poppins, sans-serif;
     font-weight: 400;
@@ -83,8 +84,18 @@
     border-radius: 5px;
     font-size: 15px
     }
-    .add-to-cart-Btn:hover{
+    .add-to-cart:hover{
      background-color: #e393a7 !important;
+     color:#fff;
+    }
+    /* ---------------------End------------------- */
+    /* ----------------------Whishlist----------------------- */
+    .whishlist-btn{
+      font-size:18px;
+      background-color: #c06b81;
+    }
+    .whishlist-btn:hover{
+       background-color: #e393a7 !important;
      color:#fff;
     }
  /* RESPONSIVE-----BLOG-DETAILS------PAGE */
