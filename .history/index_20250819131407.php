@@ -427,18 +427,18 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             // Get all categories from database
             $sql = "SELECT * FROM categories ORDER BY category_name ASC";
             $result = mysqli_query($conn, $sql);
-
+            
             if ($result && mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $name = htmlspecialchars($row['category_name']);
                     $imageFile = isset($row['category_image']) ? $row['category_image'] : '';
                     $imagePath = 'admin/' . htmlspecialchars($imageFile);
-
+                    
                     // Use placeholder if image doesn't exist
                     if (empty($imageFile) || !file_exists($imagePath)) {
                         $imagePath = 'img/placeholder-category.jpg';
                     }
-
+                    
                     echo '
                     <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
                         <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
@@ -454,15 +454,92 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             }
             ?>
         </div>
-
-        <div class="text-center mt-4">
+        
+        <div class="text-center mt-4"> 
             <a href="shop.php" class="view-all-btn">View All Categories</a>
         </div>
     </div>
 </section>
 
 <style>
-    /* Categories Section */
+
+
+
+
+
+   /* Categories Section */
+.home-categories-section {
+    background-color: #fff;
+}
+
+.category-circle {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    transition: transform 0.2s ease;
+}
+
+.category-circle:hover {
+    transform: translateY(-5px);
+    text-decoration: none;
+}
+
+/* Circle Image */
+/* Circle Image */
+.circle-img {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;  /* makes sure image stays inside circle */
+    transition: box-shadow 0.2s ease;
+}
+
+.circle-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* ensures image fills the circle */
+}
+
+
+.category-circle:hover .circle-img {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Category Name */
+.category-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+/* View All Button */
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 24px;
+    background-color: #c06b81;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.view-all-btn:hover {
+    background-color: #e393a7;
+    color: #fff;
+    text-decoration: none;
+}
+
+</style>
     .home-categories-section {
         background-color: #fff;
     }
@@ -536,6 +613,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         text-decoration: none;
     }
 </style>
+
         <!--=====daily-deals-start=====-->
         <div class="home-4-daily-deals-area py-5">
             <!-- <div class="container">
