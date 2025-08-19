@@ -452,13 +452,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                             </div>
                             <p class="category-name mt-2">' . $name . '</p>
                         </a>
-                    <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
-                        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
-                            <div class="circle-img">
-                                <img src="' . $imagePath . '" alt="' . $name . '">
-                            </div>
-                            <p class="category-name mt-2">' . $name . '</p>
-                        </a>
                     </div>';
                 }
             } else {
@@ -466,86 +459,90 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             }
             ?>
         </div>
-
+        
         <div class="text-center mt-4">
-            <a href="shop.php" class="view-all-btn">View All Categories</a>
+            <a href="shop.php" class="btn btn-primary">View All Categories</a>
         </div>
     </div>
 </section>
 
 <style>
-    /* Categories Section */
+    /* Categories Section Styles */
     .home-categories-section {
-        background-color: #fff;
+        background-color: #f8f9fa;
     }
-
-    .category-circle {
-        display: block;
-        text-decoration: none;
-        color: #000;
-        transition: transform 0.2s ease;
+    
+    .section-title h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
     }
-
-    .category-circle:hover {
-        transform: translateY(-5px);
-        text-decoration: none;
+    
+    .section-title p {
+        color: #6c757d;
+        font-size: 1.1rem;
     }
-
-    /* Circle Image */
-    /* Circle Image */
-    .circle-img {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-        border-radius: 50%;
-        background-color: #f8f8f8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    
+    .category-card {
+        background: #fff;
+        border-radius: 8px;
         overflow: hidden;
-        /* makes sure image stays inside circle */
-        transition: box-shadow 0.2s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
     }
-
-    .circle-img img {
+    
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .category-img-container {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+    
+    .category-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        /* ensures image fills the circle */
+        transition: transform 0.5s ease;
     }
-
-
-    .category-circle:hover .circle-img {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    .category-card:hover .category-img {
+        transform: scale(1.05);
     }
-
-    /* Category Name */
-    .category-name {
-        font-size: 14px;
-        font-weight: 500;
-        margin-top: 10px;
+    
+    .category-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
     }
-
-    /* View All Button */
-    .view-all-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 12px 24px;
-        background-color: #c06b81;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 16px;
+    
+    .category-info {
+        background: #fff;
+    }
+    
+    .category-title {
+        font-size: 1.2rem;
         font-weight: 600;
-        transition: all 0.2s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        margin-bottom: 10px;
+        color: #333;
     }
-
-    .view-all-btn:hover {
-        background-color: #e393a7;
-        color: #fff;
+    
+    .category-link {
         text-decoration: none;
+        color: inherit;
+    }
+    
+    @media (max-width: 767px) {
+        .category-img-container {
+            height: 150px;
+        }
     }
 </style>
 
