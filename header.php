@@ -170,7 +170,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .category-list::-webkit-scrollbar-thumb {
-        background: #c06b81;
+        background: black;
         border-radius: 10px;
         border: 2px solid #222;
     }
@@ -235,7 +235,10 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .header-section {
-        padding: 10px 0px !important;
+       padding: 10px 0px !important;
+    background-color: #F5F5F5 !important;
+    border: none;
+    color: #363636 !important;
     }
 
     .header-Side {
@@ -262,7 +265,7 @@ if (isset($_SESSION['user_id'])) {
     .logo:hover {
         transform: scale(1.05);
         transition: transform 0.3s ease;
-        filter: drop-shadow(0 0 5px #c06b81);
+        filter: drop-shadow(0 0 5px black);
     }
 
     .nav-link {
@@ -281,16 +284,16 @@ if (isset($_SESSION['user_id'])) {
         bottom: -5px;
         width: 0%;
         height: 2px;
-        background-color: #c06b81;
+        background-color: black;
         transition: width 0.3s ease;
     }
 
     .nav-link.active {
-        color: #c06b81 !important;
+        color: black !important;
     }
 
     .nav-link:hover {
-        color: #c06b81 !important;
+        color: black !important;
         transform: scale(1.05) !important;
     }
 
@@ -316,7 +319,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .search-box:hover i {
-        color: #c06b81;
+        color: black;
     }
 
     a {
@@ -445,7 +448,7 @@ if (isset($_SESSION['user_id'])) {
 
     .checkout a {
         display: block;
-        background-color: #c06b81;
+        background-color: black;
         text-align: center;
         color: #fff;
         padding: 10px;
@@ -455,7 +458,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .checkout a:hover {
-        background-color: #c06b81;
+        background-color: black;
     }
 
     /* Responsive overrides */
@@ -479,7 +482,7 @@ if (isset($_SESSION['user_id'])) {
 </style>
 
 
-<header class="bg-black text-white header-section">
+<header class=" header-section">
     <div class="container-fluid px-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
             <!-- Logo -->
@@ -493,13 +496,13 @@ if (isset($_SESSION['user_id'])) {
             ?>
             <nav class="d-none d-xl-flex flex-wrap justify-content-center gap-3 flex-grow-1">
                 <p class="headerText"><a href="index.php"
-                        class="nav-link text-white <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">HOME</a>
+                        class="nav-link  <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">HOME</a>
                 </p>
 
                 <div class="nav-item-with-mega">
                     <p class="headerText">
                         <a href="shop.php"
-                            class="nav-link text-white dropdown-toggle <?php echo ($current_page == 'shop.php') ? 'active' : ''; ?>"
+                            class="nav-link  dropdown-toggle <?php echo ($current_page == 'shop.php') ? 'active' : ''; ?>"
                             id="categoryLink">
                             CATEGORY
                         </a>
@@ -567,17 +570,17 @@ if (isset($_SESSION['user_id'])) {
 
 
                 <p class="headerText"><a href="index.php#deals"
-                        class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a>
+                        class="nav-link  <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a>
                 </p>
                 
                 <p class="headerText"><a href="about-us.php"
-                        class="nav-link text-white <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT
+                        class="nav-link  <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT
                         US</a></p>
                 <p class="headerText"><a href="blog.php"
-                        class="nav-link text-white <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a>
+                        class="nav-link  <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a>
                 </p>
                 <p class="headerText"><a href="contact.php"
-                        class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a>
+                        class="nav-link  <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a>
                 </p>
             </nav>
 
@@ -598,15 +601,15 @@ if (isset($_SESSION['user_id'])) {
                         </button>
                     </form>
                 </div>
-                <a href="my-account.php" class="text-white d-flex align-items-center header-Side"><i
+                <a href="my-account.php" class=" d-flex align-items-center header-Side text-black"><i
                         class="fas fa-cog me-1"></i> Account</a>
 
                 <div class="cart-wrapper position-relative">
-                    <a href="shopping-cart.php" class="text-white d-flex align-items-center header-Side">
+                    <a href="shopping-cart.php" class=" d-flex align-items-center header-Side text-black">
                         <i class="fas fa-shopping-cart me-1"></i>
                         Cart <?php echo $cart_count . ' item' . ($cart_count > 1 ? 's' : ''); ?>
                     </a>
-                    <div class="top-cart-content">
+                    <!-- <div class="top-cart-content">
                         <?php
                         $total_price = 0;
                         if (isset($_SESSION['user_id'])) {
@@ -660,16 +663,16 @@ if (isset($_SESSION['user_id'])) {
                             echo "<p style='padding:10px;'>Please login to see your cart.</p>";
                         }
                         ?>
-                    </div>
+                    </div> -->
                 </div>
 
                 <?php if (isset($_SESSION['user'])): ?>
                     <a href="logout.php" title="Log out of your customer account"
-                        class="text-white d-flex align-items-center header-Side">
+                        class=" d-flex align-items-center header-Side text-black">
                         <i class="fas fa-lock me-1"></i> Log Out</a>
                 <?php else: ?>
                     <a href="loginSignUp/login.php" title="Log in to your customer account"
-                        class="text-white d-flex align-items-center header-Side">
+                        class=" d-flex align-items-center header-Side text-black">
                         <i class="fas fa-lock me-1"></i> Log In</a>
                 <?php endif; ?>
             </div>
@@ -683,8 +686,8 @@ if (isset($_SESSION['user_id'])) {
         <!-- Mobile Nav -->
         <div class="mobile-nav d-xl-none mt-3 d-none" id="mobileNav">
             <nav class="nav flex-column">
-                <a href="index.php" class="nav-link text-white">HOME</a>
-                <a href="shop.php" class="nav-link text-white">CATEGORY</a>
+                <a href="index.php" class="nav-link ">HOME</a>
+                <a href="shop.php" class="nav-link ">CATEGORY</a>
                 <div class="mega-menu">
                     <?php
                     $sql = "SELECT category_name, category_image FROM categories ORDER BY category_name ASC";
@@ -728,10 +731,10 @@ if (isset($_SESSION['user_id'])) {
                     }
                     ?>
                 </div>
-                <a href="index.php#deals" class="nav-link text-white">OFFER</a>
-                <a href="contact.php" class="nav-link text-white">CONTACT</a>
-                <a href="about-us.php" class="nav-link text-white">ABOUT US</a>
-                <a href="blog.php" class="nav-link text-white">BLOG</a>
+                <a href="index.php#deals" class="nav-link ">OFFER</a>
+                <a href="contact.php" class="nav-link ">CONTACT</a>
+                <a href="about-us.php" class="nav-link ">ABOUT US</a>
+                <a href="blog.php" class="nav-link ">BLOG</a>
             </nav>
         </div>
     </div>
