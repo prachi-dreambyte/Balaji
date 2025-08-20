@@ -222,22 +222,22 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
         .account-sidebar .nav-link:hover {
             background-color: #f1f3f5;
             /* Lighter hover background */
-            color: #c06b81;
+            color: #845848;
             /* Primary color on hover */
-            border-left-color: #c06b81;
+            border-left-color: #845848;
             /* Active border color on hover */
         }
 
         .account-sidebar .nav-link.active {
             background-color: #e9ecef;
-            color: #c06b81;
+            color: #845848;
             /* Primary color for active state */
-            border-left: 5px solid #c06b81;
+            border-left: 5px solid #845848;
             /* Accent border */
         }
 
         .account-sidebar .nav-link.active i {
-            color: #c06b81;
+            color: #845848;
         }
 
         /* Content Area */
@@ -255,7 +255,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
             margin-bottom: 35px;
             /* More space below header */
             padding-bottom: 15px;
-            border-bottom: 3px solid #c06b81;
+            border-bottom: 3px solid #845848;
             /* Thicker accent border */
             font-weight: 700;
         }
@@ -345,7 +345,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
         .order-card-header h5 {
             font-size: 20px;
-            color: #c06b81;
+            color: #845848;
             margin: 0;
             flex-grow: 1;
         }
@@ -382,8 +382,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
         }
 
         .order-card-footer .btn-primary {
-            background-color: #c06b81;
-            border-color: #c06b81;
+            background-color: #845848;
+            border-color: #845848;
             padding: 10px 20px;
             border-radius: 5px;
             font-weight: 600;
@@ -443,14 +443,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
         }
 
         .address-form .form-control:focus {
-            border-color: #c06b81;
+            border-color: #845848;
             box-shadow: 0 0 0 0.2rem rgba(192, 107, 129, 0.25);
             /* Focus ring with primary color */
         }
 
         .address-form .btn-primary {
-            background-color: #c06b81;
-            border-color: #c06b81;
+            background-color: #845848;
+            border-color: #845848;
             padding: 12px 30px;
             /* Larger button */
             border-radius: 6px;
@@ -603,14 +603,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
             .account-sidebar .nav-link.active {
                 border-left: none;
-                border-bottom: 3px solid #c06b81;
+                border-bottom: 3px solid #845848;
                 /* Active bottom border */
             }
 
             .account-sidebar .nav-link:hover {
                 border-left-color: transparent;
                 /* No left border on hover */
-                border-bottom-color: #c06b81;
+                border-bottom-color: #845848;
                 /* Hover bottom border */
             }
 

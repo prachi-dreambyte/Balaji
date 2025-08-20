@@ -137,8 +137,8 @@ if (isset($_SESSION['user_id'])) {
         max-height: 400px;
         overflow-y: auto;
         padding-right: 5px;
-        background: #111; 
-        color: white;
+        background: #F5F6F2;
+        color: #363636;
         position: absolute;
         top: 100%;
         /* Changed from 50px to position directly below */
@@ -164,19 +164,19 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .category-list::-webkit-scrollbar-track {
-        background: #222;
+        /* background: #222; */
         border-radius: 10px;
         margin: 5px 0;
     }
 
     .category-list::-webkit-scrollbar-thumb {
-        background: #c06b81;
+        background: black;
         border-radius: 10px;
         border: 2px solid #222;
     }
 
     .category-list::-webkit-scrollbar-thumb:hover {
-        background: #d87b94;
+        /* background: #d87b94; */
     }
 
     /* For Firefox */
@@ -194,7 +194,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .category-list li:hover {
-        background: rgba(0, 0, 0, 0.05);
+        /* background: rgba(0, 0, 0, 0.05); */
     }
 
     .category-list a {
@@ -235,7 +235,10 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .header-section {
-        padding: 10px 0px !important;
+       padding: 10px 0px !important;
+    background-color: #F5F6F2 !important;
+    border: none;
+    color: #363636 !important;
     }
 
     .header-Side {
@@ -252,6 +255,7 @@ if (isset($_SESSION['user_id'])) {
     .headerText {
         font-size: 18px !important;
         padding-right: 10px !important;
+        font-weight: 500 !important;
     }
 
     .logo {
@@ -262,7 +266,7 @@ if (isset($_SESSION['user_id'])) {
     .logo:hover {
         transform: scale(1.05);
         transition: transform 0.3s ease;
-        filter: drop-shadow(0 0 5px #c06b81);
+        filter: drop-shadow(0 0 5px black);
     }
 
     .nav-link {
@@ -281,16 +285,16 @@ if (isset($_SESSION['user_id'])) {
         bottom: -5px;
         width: 0%;
         height: 2px;
-        background-color: #c06b81;
+        background-color: black;
         transition: width 0.3s ease;
     }
 
     .nav-link.active {
-        color: #c06b81 !important;
+        color: black !important;
     }
 
     .nav-link:hover {
-        color: #c06b81 !important;
+        color: #845848 !important;
         transform: scale(1.05) !important;
     }
 
@@ -299,11 +303,13 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .search-box input {
-        padding: 5px 30px 5px 10px;
-        border-radius: 3px;
-        border: none;
-        outline: none;
-        width: 180px;
+           padding: 10px 30px 10px 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    width: 210px;
+    box-shadow: 1px 2px 3px #dddde1;
+    font-size: 15px;
     }
 
     .search-box i {
@@ -316,7 +322,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .search-box:hover i {
-        color: #c06b81;
+        color: #845848;
     }
 
     a {
@@ -338,15 +344,14 @@ if (isset($_SESSION['user_id'])) {
         top: 100%;
         left: 0;
         min-width: 300px;
-        background: #000;
+        background: transparent;
         padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         display: none;
         opacity: 0;
         visibility: hidden;
         transition: all 0.25s ease-in-out;
         z-index: 1000;
+        
     }
 
     .category-list {
@@ -445,7 +450,7 @@ if (isset($_SESSION['user_id'])) {
 
     .checkout a {
         display: block;
-        background-color: #c06b81;
+        background-color: black;
         text-align: center;
         color: #fff;
         padding: 10px;
@@ -455,7 +460,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .checkout a:hover {
-        background-color: #c06b81;
+        background-color: #845848;
     }
 
     /* Responsive overrides */
@@ -478,13 +483,23 @@ if (isset($_SESSION['user_id'])) {
     }
 </style>
 
-
-<header class="bg-black text-white header-section">
+ <!-- Marquee Start -->
+<div style= "background: #845848;
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 0;
+    text-align: center;">
+  <marquee behavior="scroll" direction="left" scrollamount="5">
+    100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
+  </marquee>
+</div>
+<!-- Marquee End -->
+<header class=" header-section">
     <div class="container-fluid px-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
             <!-- Logo -->
             <div class="d-flex align-items-center flex-shrink-0">
-                <img class="logo img-responsive" src="img/balaji-logo-top.png" alt="" />
+                <img class="logo img-responsive" src="img\balaji\balaji-furniture-2048x1368.png" alt="" />
             </div>
 
             <!-- Nav (desktop only) -->
@@ -493,13 +508,13 @@ if (isset($_SESSION['user_id'])) {
             ?>
             <nav class="d-none d-xl-flex flex-wrap justify-content-center gap-3 flex-grow-1">
                 <p class="headerText"><a href="index.php"
-                        class="nav-link text-white <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">HOME</a>
+                        class="nav-link  <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">HOME</a>
                 </p>
 
                 <div class="nav-item-with-mega">
                     <p class="headerText">
                         <a href="shop.php"
-                            class="nav-link text-white dropdown-toggle <?php echo ($current_page == 'shop.php') ? 'active' : ''; ?>"
+                            class="nav-link  dropdown-toggle <?php echo ($current_page == 'shop.php') ? 'active' : ''; ?>"
                             id="categoryLink">
                             CATEGORY
                         </a>
@@ -567,17 +582,17 @@ if (isset($_SESSION['user_id'])) {
 
 
                 <p class="headerText"><a href="index.php#deals"
-                        class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a>
+                        class="nav-link  <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a>
                 </p>
                 
                 <p class="headerText"><a href="about-us.php"
-                        class="nav-link text-white <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT
+                        class="nav-link  <?php echo ($current_page == 'about-us.php') ? 'active' : ''; ?>">ABOUT
                         US</a></p>
                 <p class="headerText"><a href="blog.php"
-                        class="nav-link text-white <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a>
+                        class="nav-link  <?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">BLOG</a>
                 </p>
                 <p class="headerText"><a href="contact.php"
-                        class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a>
+                        class="nav-link  <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a>
                 </p>
             </nav>
 
@@ -598,15 +613,15 @@ if (isset($_SESSION['user_id'])) {
                         </button>
                     </form>
                 </div>
-                <a href="my-account.php" class="text-white d-flex align-items-center header-Side"><i
+                <a href="my-account.php" class=" d-flex align-items-center header-Side text-black"><i
                         class="fas fa-cog me-1"></i> Account</a>
 
                 <div class="cart-wrapper position-relative">
-                    <a href="shopping-cart.php" class="text-white d-flex align-items-center header-Side">
+                    <a href="shopping-cart.php" class=" d-flex align-items-center header-Side text-black">
                         <i class="fas fa-shopping-cart me-1"></i>
                         Cart <?php echo $cart_count . ' item' . ($cart_count > 1 ? 's' : ''); ?>
                     </a>
-                    <div class="top-cart-content">
+                    <!-- <div class="top-cart-content">
                         <?php
                         $total_price = 0;
                         if (isset($_SESSION['user_id'])) {
@@ -660,16 +675,16 @@ if (isset($_SESSION['user_id'])) {
                             echo "<p style='padding:10px;'>Please login to see your cart.</p>";
                         }
                         ?>
-                    </div>
+                    </div> -->
                 </div>
 
                 <?php if (isset($_SESSION['user'])): ?>
                     <a href="logout.php" title="Log out of your customer account"
-                        class="text-white d-flex align-items-center header-Side">
+                        class=" d-flex align-items-center header-Side text-black">
                         <i class="fas fa-lock me-1"></i> Log Out</a>
                 <?php else: ?>
                     <a href="loginSignUp/login.php" title="Log in to your customer account"
-                        class="text-white d-flex align-items-center header-Side">
+                        class=" d-flex align-items-center header-Side text-black">
                         <i class="fas fa-lock me-1"></i> Log In</a>
                 <?php endif; ?>
             </div>
@@ -683,8 +698,8 @@ if (isset($_SESSION['user_id'])) {
         <!-- Mobile Nav -->
         <div class="mobile-nav d-xl-none mt-3 d-none" id="mobileNav">
             <nav class="nav flex-column">
-                <a href="index.php" class="nav-link text-white">HOME</a>
-                <a href="shop.php" class="nav-link text-white">CATEGORY</a>
+                <a href="index.php" class="nav-link ">HOME</a>
+                <a href="shop.php" class="nav-link ">CATEGORY</a>
                 <div class="mega-menu">
                     <?php
                     $sql = "SELECT category_name, category_image FROM categories ORDER BY category_name ASC";
@@ -728,10 +743,10 @@ if (isset($_SESSION['user_id'])) {
                     }
                     ?>
                 </div>
-                <a href="index.php#deals" class="nav-link text-white">OFFER</a>
-                <a href="contact.php" class="nav-link text-white">CONTACT</a>
-                <a href="about-us.php" class="nav-link text-white">ABOUT US</a>
-                <a href="blog.php" class="nav-link text-white">BLOG</a>
+                <a href="index.php#deals" class="nav-link ">OFFER</a>
+                <a href="contact.php" class="nav-link ">CONTACT</a>
+                <a href="about-us.php" class="nav-link ">ABOUT US</a>
+                <a href="blog.php" class="nav-link ">BLOG</a>
             </nav>
         </div>
     </div>
