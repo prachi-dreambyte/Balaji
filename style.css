@@ -1893,8 +1893,15 @@ home-2-product-tab
 home-2-service
 --------------------*/
 .home-2-service {
-  background: rgba(0, 0, 0, 0) url("img/banner/bg_banner.jpg") no-repeat scroll center center / cover ;
+  background: rgba(0, 0, 0, 0.4) url("img/banner/bg_banner.jpg") no-repeat scroll center center / cover ;
   padding: 117px 0;
+
+ 
+    
+    background-blend-mode: overlay;
+    /* or multiply, darken, lighten */
+
+   
 }
 .home-2-service .service {
   border: none;
