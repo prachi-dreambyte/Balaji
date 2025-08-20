@@ -254,7 +254,7 @@ $cat_sidebar_stmt->close();
 
 .sort-by label,.show label,.show span {
 
-  font-size: 19px !important;
+  font-size: 15px !important;
   font-weight:500 !important;
   }
   .single-product .product-img .new,.modal-pic .new{
@@ -428,9 +428,9 @@ $cat_sidebar_stmt->close();
 									<li><a class="active" href="#gried_view" role="tab" data-bs-toggle="tab">
 											<i class="fa fa-th-large"></i></a>
 									</li>
-									<li><a href="#list_view" role="tab" data-bs-toggle="tab">
+									<!-- <li><a href="#list_view" role="tab" data-bs-toggle="tab">
 											<i class="fa fa-th-list"></i></a>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 						</div>
@@ -568,9 +568,9 @@ $cat_sidebar_stmt->close();
                         <p style="color:green; font-weight:bold; margin:0;">Special Commercial Price Applied</p>
                     <?php endif; ?>
                 </div>
-                <div class="stock-info">
+                <!-- <div class="stock-info">
                     <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -638,11 +638,11 @@ $cat_sidebar_stmt->close();
 															<?php if ($discount > 0): ?>
 																<span class="old-price">₹ <?php echo number_format($old_price, 2); ?></span>
 															<?php endif; ?>
-														</div>
+														</div>  
 
-														<div class="stock-info">
+														<!-- <div class="stock-info">
                                                          <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
-                                                         </div>
+                                                         </div> -->
 
 
 														<p class="product-desc">
@@ -670,9 +670,7 @@ $cat_sidebar_stmt->close();
 
 															</ul>
 														</div>
-														<div class="stock-info mt-2">
-    <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
-</div>
+														
 
 													</div>
 												</div>

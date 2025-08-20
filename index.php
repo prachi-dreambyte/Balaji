@@ -1381,9 +1381,9 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 <span>299</span>
                                 <span>Items</span>
                             </p>
-                            <p class="availability-status">
+                            <!-- <p class="availability-status">
                                 <span>In stock</span>
-                            </p>
+                            </p> -->
                             <p class="social-sharing">
                                 <button class="btn btn-default btn-twitter">
                                     <i class="icon-twitter"></i>

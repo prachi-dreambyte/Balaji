@@ -657,8 +657,10 @@ try {
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
 					</p> -->
+
+					
 						
-						<p class="condition"><label>Price: </label></p>
+						<!-- <p class="condition"><label>Price: </label></p> -->
 						<div class="content-price">
 							<?php
 							$price = isset($product['price']) ? floatval($product['price']) : 0;
@@ -774,9 +776,7 @@ try {
 									<p class="quantity cart-plus-minus">
 										<label for="quantity_wanted">Quantity</label>
 										<input id="quantity_wanted" class="text" type="number" name="quantity" value="1"
-											min="1"
-											max="<?php echo $product['stock'] > 0 ? (int) $product['stock'] : 1; ?>"
-											<?php echo $product['stock'] <= 0 ? 'disabled' : ''; ?>>
+											min="1">
 									</p>
 
 									<div class="cart-wishlist-container">
@@ -829,12 +829,8 @@ try {
 							</div>
 						</fieldset> -->
 							<!-- </div> -->
-							<p class="quantity-available"><span><?php echo htmlspecialchars($product['stock']); ?></span>
-								<span>Items</span>
-							</p>
-							<p class="availability-status">
-								<span><?php echo ($product['stock'] > 0) ? 'In stock' : 'Out of stock'; ?></span>
-							</p>
+							
+							
 							<?php if (!empty($tags)): ?>
 								<p class="product-tags"><strong>Tags:</strong>
 									<?php echo implode(', ', array_map('htmlspecialchars', $tags)); ?></p><?php endif; ?>

@@ -150,6 +150,7 @@ $conn->query($query)
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      // Retrieve and sanitize form data
+     try{
      $name     = trim($_POST['example-name'] ?? '');
      $email    = trim($_POST['example-email'] ?? '');
      $password = trim($_POST['example-password'] ?? '');
@@ -221,5 +222,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   </script>";
           }
      }
+}catch (Exception $e) {
+    error_log("Error occurred: " . $e->getMessage());
+}
+
+
 }
 ?>
