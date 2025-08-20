@@ -137,8 +137,8 @@ if (isset($_SESSION['user_id'])) {
         max-height: 400px;
         overflow-y: auto;
         padding-right: 5px;
-        background: #111; 
-        color: white;
+        background: #F5F6F2;
+        color: #363636;
         position: absolute;
         top: 100%;
         /* Changed from 50px to position directly below */
@@ -164,7 +164,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .category-list::-webkit-scrollbar-track {
-        background: #222;
+        /* background: #222; */
         border-radius: 10px;
         margin: 5px 0;
     }
@@ -176,7 +176,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .category-list::-webkit-scrollbar-thumb:hover {
-        background: #d87b94;
+        /* background: #d87b94; */
     }
 
     /* For Firefox */
@@ -194,7 +194,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .category-list li:hover {
-        background: rgba(0, 0, 0, 0.05);
+        /* background: rgba(0, 0, 0, 0.05); */
     }
 
     .category-list a {
@@ -294,7 +294,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .nav-link:hover {
-        color: black !important;
+        color: #845848 !important;
         transform: scale(1.05) !important;
     }
 
@@ -322,7 +322,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .search-box:hover i {
-        color: black;
+        color: #845848;
     }
 
     a {
@@ -344,15 +344,14 @@ if (isset($_SESSION['user_id'])) {
         top: 100%;
         left: 0;
         min-width: 300px;
-        background: #000;
+        background: transparent;
         padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         display: none;
         opacity: 0;
         visibility: hidden;
         transition: all 0.25s ease-in-out;
         z-index: 1000;
+        
     }
 
     .category-list {
@@ -461,7 +460,7 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .checkout a:hover {
-        background-color: black;
+        background-color: #845848;
     }
 
     /* Responsive overrides */

@@ -67,7 +67,7 @@ $totalPages = ceil($totalProducts / $limit);
     z-index: 0 !important;
     padding: 10px 15px !important;
     text-decoration: none;
-    background: #c06b81 ! important;
+    background: #845848 ! important;
     color: white !important;
     overflow: hidden !important;
     cursor: pointer !important;

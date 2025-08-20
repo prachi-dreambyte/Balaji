@@ -88,12 +88,12 @@ function generateInvoiceHTML($order, $order_items, $subtotal) {
             }
             .invoice-header {
                 text-align: center;
-                border-bottom: 3px solid #c06b81;
+                border-bottom: 3px solid #845848;
                 padding-bottom: 20px;
                 margin-bottom: 30px;
             }
             .invoice-header h1 {
-                color: #c06b81;
+                color: #845848;
                 margin: 0;
                 font-size: 2.5em;
             }
@@ -121,7 +121,7 @@ function generateInvoiceHTML($order, $order_items, $subtotal) {
             }
             .invoice-details h3 {
                 color: #2c3e50;
-                border-bottom: 2px solid #c06b81;
+                border-bottom: 2px solid #845848;
                 padding-bottom: 5px;
                 margin-bottom: 15px;
             }
@@ -163,7 +163,7 @@ function generateInvoiceHTML($order, $order_items, $subtotal) {
                 text-align: center;
             }
             .total-section {
-                border-top: 2px solid #c06b81;
+                border-top: 2px solid #845848;
                 padding-top: 20px;
                 margin-top: 20px;
             }
@@ -177,12 +177,12 @@ function generateInvoiceHTML($order, $order_items, $subtotal) {
                 font-size: 1.3em;
                 font-weight: bold;
                 color: #2c3e50;
-                border-top: 2px solid #c06b81;
+                border-top: 2px solid #845848;
                 padding-top: 10px;
                 margin-top: 10px;
             }
             .grand-total .amount {
-                color: #c06b81;
+                color: #845848;
             }
             .footer {
                 text-align: center;
@@ -196,7 +196,7 @@ function generateInvoiceHTML($order, $order_items, $subtotal) {
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: #c06b81;
+                background: #845848;
                 color: white;
                 border: none;
                 padding: 10px 20px;

@@ -35,7 +35,7 @@ require_once 'includes/session_timeout.php';
 			color: #363636;
 		}
 		a {
-			color: #c06b81;
+			color: #845848;
 			text-decoration: none;
 			font-size:18px;
 			font-weight:450;

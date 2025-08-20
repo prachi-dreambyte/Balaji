@@ -84,15 +84,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     .contactus h2 {
         font-weight: 700;
-        color: #c06b81;
+        color: #845848;
     }
 
     .form-control:focus {
-        box-shadow: 0 0 8px #c06b81;
+        box-shadow: 0 0 8px #845848;
     }
 
     .btn-dark {
-        background-color: #c06b81;
+        background-color: #845848;
         border: none;
         transition: background-color 0.3s ease;
     }
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         background-color: #e393a7;
     }
      .contactButton{
-      background-color: #c06b81 !important;
+      background-color: #845848 !important;
         border: none !important;
         transition: background-color 0.3s ease !important;
      }

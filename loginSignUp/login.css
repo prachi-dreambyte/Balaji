@@ -60,7 +60,7 @@
 .tab-buttons button {
     flex: 1;
     padding: 20px;
-    background-color: #c06b81;
+    background-color: #845848;
     border: none;
     border-bottom: 10px solid transparent;
     font-size: 21px;
@@ -72,7 +72,7 @@
 }
 
 .tab-buttons button.active {
-    background-color: #c06b81;
+    background-color: #845848;
     color: #fff;
     border-bottom: 10px solid #da8da1;
     font-weight: bold;
@@ -121,7 +121,7 @@ input[type="password"]:focus {
 
 /* Submit Button */
 input[type="submit"] {
-   background-color: #c06b81db;
+   background-color: #845848db;
     color: #fff;
     padding: 25px;
     font-size: 25px;
@@ -134,7 +134,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #c06b81;
+    background-color: #845848;
 }
 .signup-form .LoginAccount p{
     text-align: center ;
