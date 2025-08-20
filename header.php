@@ -236,7 +236,7 @@ if (isset($_SESSION['user_id'])) {
 
     .header-section {
        padding: 10px 0px !important;
-    background-color: #F5F5F5 !important;
+    background-color: #F5F6F2 !important;
     border: none;
     color: #363636 !important;
     }
@@ -255,6 +255,7 @@ if (isset($_SESSION['user_id'])) {
     .headerText {
         font-size: 18px !important;
         padding-right: 10px !important;
+        font-weight: 500 !important;
     }
 
     .logo {
@@ -302,11 +303,13 @@ if (isset($_SESSION['user_id'])) {
     }
 
     .search-box input {
-        padding: 5px 30px 5px 10px;
-        border-radius: 3px;
-        border: none;
-        outline: none;
-        width: 180px;
+           padding: 10px 30px 10px 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    width: 210px;
+    box-shadow: 1px 2px 3px #dddde1;
+    font-size: 15px;
     }
 
     .search-box i {
@@ -481,13 +484,23 @@ if (isset($_SESSION['user_id'])) {
     }
 </style>
 
-
+ <!-- Marquee Start -->
+<div style= "background: #845848;
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 0;
+    text-align: center;">
+  <marquee behavior="scroll" direction="left" scrollamount="5">
+    100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
+  </marquee>
+</div>
+<!-- Marquee End -->
 <header class=" header-section">
     <div class="container-fluid px-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
             <!-- Logo -->
             <div class="d-flex align-items-center flex-shrink-0">
-                <img class="logo img-responsive" src="img/balaji-logo-top.png" alt="" />
+                <img class="logo img-responsive" src="img\balaji\balaji-furniture-2048x1368.png" alt="" />
             </div>
 
             <!-- Nav (desktop only) -->
