@@ -254,8 +254,8 @@ $cat_sidebar_stmt->close();
 
 .sort-by label,.show label,.show span {
 
-  font-size: 18px !important;
-  font-weight:450 !important;
+  font-size: 19px !important;
+  font-weight:500 !important;
   }
   .single-product .product-img .new,.modal-pic .new{
   background: #ffffff none repeat scroll 0 0 !important;}
@@ -481,127 +481,102 @@ $cat_sidebar_stmt->close();
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div role="tabpanel" class="tab-pane active fade show" id="gried_view">
-									<div class="row">
+				<div class="row">
+<?php foreach ($allRows as $row) {
 
-										<?php foreach ($allRows as $row) {
+    // --- PRODUCT-SPECIFIC VARIABLE SETUP ---
+    $product_id = $row['id'];
 
-											// Get image
-											$images = json_decode($row['images']);
-											$firstImage = $images[0];
-										?>
-										
-								<div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="single-product">
-        <div class="product-img" style="position: relative; overflow: hidden;">
-            <a href="product-details.php?id=<?php echo $row['id']; ?>">
-                <img src="./admin/<?php echo $firstImage ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
-            </a>
-            
-            <!-- Wishlist Button -->
-            <div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 20px;">
-                <a class="wishlistBtn" href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
-                    <i class="fa fa-heart" aria-hidden="true"></i>
+    // Reviews
+    $review_query = "SELECT COUNT(*) AS total_reviews, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
+    $review_result = mysqli_query($conn, $review_query);
+    if ($review_result && mysqli_num_rows($review_result) > 0) {
+        $reviewData = mysqli_fetch_assoc($review_result);
+        $total_reviews = $reviewData['total_reviews'] ?? 0;
+        $avg_rating = round($reviewData['avg_rating'] ?? 0);
+    } else {
+        $total_reviews = 0;
+        $avg_rating = 0;
+    }
+
+    // Pricing
+    $price = isset($row['price']) ? floatval($row['price']) : 0;
+    $discount = isset($row['discount']) ? floatval($row['discount']) : 0;
+    $corporate_discount = isset($row['corporate_discount']) ? floatval($row['corporate_discount']) : 0;
+    $old_price = $price;
+    $final_price = $price - $discount;
+    if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) {
+        $final_price -= $corporate_discount;
+    }
+
+    // Images
+    $images = json_decode($row['images'], true);
+    $firstImage = is_array($images) && !empty($images) ? $images[0] : 'default.jpg';
+
+?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="single-product">
+            <div class="product-img" style="position: relative; overflow: hidden;">
+                <a href="product-details.php?id=<?php echo $row['id']; ?>">
+                    <img src="./admin/<?php echo htmlspecialchars($firstImage); ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" />
                 </a>
+                
+                <!-- Wishlist Button -->
+                <div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 20px;">
+                    <a class="wishlistBtn" href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <!-- Add to Cart Button (Hidden by default, show on hover) -->
+                <div class="add-to-cart-btn">
+                    <a class="btn btn-danger w-100" 
+                       href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" 
+                       title="Add to cart">
+                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                    </a>
+                </div>
             </div>
 
-            <!-- Add to Cart Button (Hidden by default, show on hover) -->
-            <div class="add-to-cart-btn">
-                <a class="btn btn-danger w-100" 
-                   href="shopping-cart.php?action=add&id=<?php echo $row['id']; ?>" 
-                   title="Add to cart">
-                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                </a>
+            <div class="product-content text-center">
+                <h5 class="product-name">
+                    <a href="product-details.php?id=<?php echo $row['id']; ?>" title="<?php echo htmlspecialchars($row['product_name']); ?>">
+                        <?php echo htmlspecialchars($row['product_name']); ?>
+                    </a>
+                </h5>
+                <!-- ⭐ Reviews Section -->
+                <div class="reviews">
+                    <div class="star-content clearfix">
+                        <?php for ($i = 0; $i < 5; $i++): ?>
+                            <?php if ($i < $avg_rating): ?>
+                                <span class="star star-on"></span>
+                            <?php else: ?>
+                                <span class="star"></span>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                    <div class="comment">
+                        <span class="reviewcount"><?php echo $total_reviews; ?></span> Review(s)
+                    </div>
+                </div>
+                <div class="price-box">
+                    <?php if ($final_price < $old_price): ?>
+                        <span class="old-price" style="text-decoration:line-through; color:#999;">₹ <?php echo number_format($old_price, 2); ?></span>
+                    <?php endif; ?>
+                    <span class="price">₹ <?php echo number_format($final_price, 2); ?></span>
+                    <?php if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0): ?>
+                        <p style="color:green; font-weight:bold; margin:0;">Special Commercial Price Applied</p>
+                    <?php endif; ?>
+                </div>
+                <div class="stock-info">
+                    <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
+                </div>
             </div>
         </div>
-
-        <div class="product-content text-center">
-            <h5 class="product-name">
-                <a href="product-details.php?id=<?php echo $row['id']; ?>" title="<?php echo htmlspecialchars($row['product_name']); ?>">
-                    <?php echo htmlspecialchars($row['product_name']); ?>
-                </a>
-            </h5>
-        </div>
     </div>
+<?php } // End foreach ?>
 </div>
 
-
-            
-            <?php
-            $product_id = $row['id']; 
-            $query = "SELECT COUNT(*) AS total_reviews, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
-            $result = mysqli_query($conn, $query);
-
-            if ($result && mysqli_num_rows($result) > 0) {
-                $reviewData = mysqli_fetch_assoc($result);
-                $total_reviews = $reviewData['total_reviews'] ?? 0;
-                $avg_rating = round($reviewData['avg_rating'] ?? 0);
-            } else {
-                $total_reviews = 0;
-                $avg_rating = 0;
-            }
-            ?>
-        </div>
-    </div>
-</div>
-
-														
-														<!-- ⭐ Reviews Section -->
-														<div class="reviews">
-															<div class="star-content clearfix">
-																<?php for ($i = 0; $i < 5; $i++): ?>
-																	<?php if ($i < $avg_rating): ?>
-																		<span class="star star-on"></span>
-																	<?php else: ?>
-																		<span class="star"></span>
-																	<?php endif; ?>
-																<?php endfor; ?>
-															</div>
-															<div class="comment">
-																<span class="reviewcount"><?php echo $total_reviews; ?></span> Review(s)
-															</div>
-														</div>
-														<div class="price-box">
-    <?php
-																$price = isset($row['price']) ? floatval($row['price']) : 0;
-																$discount = isset($row['discount']) ? floatval($row['discount']) : 0;
-																$corporate_discount = isset($row['corporate_discount']) ? floatval($row['corporate_discount']) : 0;
-
-																// Old/original price
-																$old_price = $price;
-
-																// Apply normal discount
-																$final_price = $price - $discount;
-
-																// Apply corporate discount if applicable
-																if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) {
-																	$final_price -= $corporate_discount;
-																}
-
-																// Show old price first if there's any discount
-																if ($final_price < $old_price) {
-																	echo '<span class="old-price" style="text-decoration:line-through; color:#999;">₹ ' . number_format($old_price, 2) . '</span> ';
-																}
-																?>
-														
-															<span class="price">₹ <?php echo number_format($final_price, 2); ?></span>
-														
-															<?php if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) { ?>
-																<p style="color:green; font-weight:bold; margin:0;">Special Commercial Price Applied</p>
-															<?php } ?>
-														</div>
-
-                                                        
-														<div class="stock-info">
-                                                         <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
-                                                         </div>
-
-
-													</div>
-												</div>
-											</div>
-										<?php } ?>
-
-									</div>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="list_view">
 									<div class="list-view">

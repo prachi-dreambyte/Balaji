@@ -793,9 +793,9 @@ try {
 										</div>
 
 										<div class="wishlist-btn">
-											<a class="add-wish" href="wishlist.php?action=add&id=<?= $id ?>" title="Add to wishlist">
-												<i class="fa fa-heart" aria-hidden="true"></i>
-											</a>
+											<a class="add-wish" href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+</a>
 										</div>
 									</div>
 
@@ -1655,7 +1655,7 @@ try {
 											</li>
 										</ul>
 										<p class="add-wishlist">
-											<a class="add-wish" href="#">
+											<a class="add-wish" href="wishlist.php">
 												Add to wishlist
 											</a>
 										</p>
@@ -1833,7 +1833,7 @@ try {
 								oldPriceEl.style.display = 'none';
 							}
 						}
-
+                         
 						// ---------------------------
 						// 4. Stock & Availability
 						// ---------------------------
