@@ -2,8 +2,8 @@
   margin-top: 10px ;
 }
 .add-to-links a:hover {
-  background: #c06b81 none repeat scroll 0 0;
-  border-color: #c06b81;
+  background: #845848 none repeat scroll 0 0;
+  border-color: #845848;
   color: #fff;
 }
 /* .AddCart a {
@@ -54,7 +54,7 @@
     z-index: 0;
     padding: 15px 30px;
     text-decoration: none;
-    background: #c06b81 ! important;
+    background: #845848 ! important;
     color: white;
     overflow: hidden;
     cursor: pointer;
@@ -76,7 +76,7 @@
     z-index: 0;
     padding: 15px 30px;
     text-decoration: none;
-    background: #c06b81 ! important;
+    background: #845848 ! important;
     color: white;
     overflow: hidden;
     cursor: pointer;
@@ -92,7 +92,7 @@
     /* ----------------------Whishlist----------------------- */
     .whishlist-btn{
       font-size:18px;
-      background-color: #c06b81;
+      background-color: #845848;
     }
     .whishlist-btn:hover{
        background-color: #e393a7 !important;

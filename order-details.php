@@ -188,12 +188,12 @@ $stmt_items->close();
         /* Your existing CSS styles are great and remain unchanged */
         body { font-family: 'Open Sans', sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; }
         .order-details-container { max-width: 1200px; margin: 50px auto; background: #ffffff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); overflow: hidden; }
-        .order-header { background: linear-gradient(135deg, #c06b81 0%, #a85d71 100%); color: white; padding: 30px; text-align: center; }
+        .order-header { background: linear-gradient(135deg, #845848 0%, #a85d71 100%); color: white; padding: 30px; text-align: center; }
         .order-header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
         .order-id { font-size: 1.2rem; opacity: 0.9; }
         .order-content { padding: 40px; }
         .info-section { background: #f8f9fa; border-radius: 10px; padding: 25px; margin-bottom: 30px; }
-        .info-section h3 { color: #2c3e50; font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid #c06b81; padding-bottom: 10px; }
+        .info-section h3 { color: #2c3e50; font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid #845848; padding-bottom: 10px; }
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .info-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e9ecef; }
         .info-item:last-child { border-bottom: none; }
@@ -209,13 +209,13 @@ $stmt_items->close();
         .product-info { display: flex; align-items: center; gap: 15px; }
         .product-image { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #e9ecef; }
         .product-name { font-weight: 600; color: #2c3e50; }
-        .price { font-weight: 600; color: #c06b81; }
+        .price { font-weight: 600; color: #845848; }
         .text-right { text-align: right; }
         .order-summary { background: #f8f9fa; border-radius: 10px; padding: 25px; margin-top: 30px; }
         .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e9ecef; }
         .summary-row.grand-total { border-bottom: none; font-weight: 700; font-size: 1.2rem; color: #2c3e50; padding-top: 15px; }
-        .total-amount { color: #c06b81; font-size: 1.5rem; }
-        .back-button { background: #c06b81; color: white; padding: 12px 30px; border: none; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; margin-top: 30px; transition: background-color 0.3s ease; }
+        .total-amount { color: #845848; font-size: 1.5rem; }
+        .back-button { background: #845848; color: white; padding: 12px 30px; border: none; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; margin-top: 30px; transition: background-color 0.3s ease; }
         .back-button:hover { background: #a85d71; color: white; text-decoration: none; }
         
         .download-invoice-btn {
@@ -252,7 +252,7 @@ $stmt_items->close();
         
         /* Loading state */
         .loading { text-align: center; padding: 50px; }
-        .loading i { font-size: 3rem; color: #c06b81; animation: spin 1s linear infinite; }
+        .loading i { font-size: 3rem; color: #845848; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>

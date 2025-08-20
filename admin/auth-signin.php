@@ -31,12 +31,12 @@ include "./db_connect.php"; // Ensure database connection is included
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .adminButton{
-           background: #c06b81;
+           background: #845848;
     color: #ffffff;
     font-size: 18px;
         }
         .adminButton:hover{
-           background: #c06b81;
+           background: #845848;
     color: #ffffff;
     font-size: 18px;
         }
@@ -45,7 +45,7 @@ include "./db_connect.php"; // Ensure database connection is included
              padding: 15px 9px;
              font-size: 18px;
              text-align: center;
-             color: #c06b81;
+             color: #845848;
         }
     </style>
 </head>

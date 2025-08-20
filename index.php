@@ -311,7 +311,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     z-index: 0;
     padding: 15px 30px;
     text-decoration: none;
-    background: #c06b81 ! important;
+    background: #845848 ! important;
     color: white;
     overflow: hidden;
     cursor: pointer;
@@ -341,17 +341,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <!-- Marquee Start -->
-<div style="background: #3c373a4d;
-    color: #1c0d0ded;
-    font-size: 14px;
-    padding: 6px 0;
-    text-align: center;;">
-  <marquee behavior="scroll" direction="left" scrollamount="5">
-    100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
-  </marquee>
-</div>
-<!-- Marquee End -->
+       
 
     <!-- header-start -->
     <div class="wrapper">
@@ -536,7 +526,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         align-items: center;
         gap: 6px;
         padding: 12px 24px;
-        background-color: #c06b81;
+        background-color: #845848;
         color: #fff;
         text-decoration: none;
         border-radius: 4px;

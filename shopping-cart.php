@@ -339,7 +339,7 @@ if (isset($_POST['apply_coupon'])) {
 }
 
 .quantity-input:focus {
-    border-color: #c06b81;
+    border-color: #845848;
     box-shadow: 0 0 0 0.25rem rgba(192, 107, 129, 0.25);
     outline: none;
 }
@@ -392,7 +392,7 @@ if (isset($_POST['apply_coupon'])) {
 			border-radius: 12px !important;
 		}
 		.card .card-header.bg-primary {
-			background: #c06b81 !important;
+			background: #845848 !important;
 			color: #fff;
 			border-bottom: none;
 			border-top-left-radius: 12px;

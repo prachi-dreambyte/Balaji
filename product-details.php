@@ -501,7 +501,7 @@ try {
 							padding: 10px 18px !important;
 							font-size: 16px;
 							font-weight: 600;
-							background: linear-gradient(45deg, #C06B81, #C06B81);
+							background: linear-gradient(45deg, #845848, #845848);
 							transition: all 0.3s ease;
 						}
 
@@ -513,13 +513,13 @@ try {
 						/* Wishlist Icon */
 						.add-wishlist .fa-heart {
 							font-size: 20px;
-							color: #C06B81;
+							color: #845848;
 							transition: 0.3s;
 						}
 
 						.add-wishlist .fa-heart:hover {
 							transform: scale(1.2);
-							color: #C06B81;
+							color: #845848;
 						}
 
 						/* Product Images */
@@ -988,13 +988,13 @@ try {
 }
 
 .feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #c06b81, #a75669);
+	background: linear-gradient(145deg, #845848, #a75669);
 	color: #fff;
 	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
 	transform: translateY(-2px);
 }
 .feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #c06b81, #a75669);
+	background: linear-gradient(145deg, #845848, #a75669);
 	color: #fff;
 	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
 	transform: translateY(-2px);
