@@ -75,7 +75,7 @@ try {
                                     <!-- Current Images -->
                                     <div class="mb-3">
                                         <label class="form-label">Current Product Images</label><br>
-                                        <?php
+                                        <?php 
                                         if (!empty($product['images'])) {
                                             $imgs = json_decode($product['images'], true);
                                             if (is_array($imgs)) {
@@ -114,10 +114,10 @@ try {
                                             <select class="form-control" name="category" id="product-categories" required>
                                                 <option value="">Choose a category</option>
                                                 <?php while ($row = $result1->fetch_assoc()) { ?>
-                                                        <option value="<?= htmlspecialchars($row['category_name']); ?>"
-                                                            <?= ($row['category_name'] == $product['category']) ? 'selected' : ''; ?>>
-                                                            <?= htmlspecialchars($row['category_name']); ?>
-                                                        </option>
+                                                    <option value="<?= htmlspecialchars($row['category_name']); ?>"
+                                                        <?= ($row['category_name'] == $product['category']) ? 'selected' : ''; ?>>
+                                                        <?= htmlspecialchars($row['category_name']); ?>
+                                                    </option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -142,17 +142,17 @@ try {
                                                 <label for="product_variants" class="form-label">Variants</label>
                                                 <select class="form-control" name="variants" id="product_variants">
                                                     <option value="">Choose a variant</option>
-                                                    <?php
+                                                    <?php 
                                                     if ($product_result && $product_result->num_rows > 0) {
-                                                        while ($row = $product_result->fetch_assoc()) {
+                                                        while ($row = $product_result->fetch_assoc()) { 
                                                             $selected = ($row['id'] == $product['variants']) ? 'selected' : '';
                                                             ?>
-                                                                    <option value="<?= htmlspecialchars($row['id']); ?>" <?= $selected; ?>>
-                                                                        <?= htmlspecialchars($row['product_name']); ?>
-                                                                    </option>
-                                                            <?php }
+                                                            <option value="<?= htmlspecialchars($row['id']); ?>" <?= $selected; ?>>
+                                                                <?= htmlspecialchars($row['product_name']); ?>
+                                                            </option>
+                                                        <?php }
                                                     } else { ?>
-                                                            <option value="">No variants found</option>
+                                                        <option value="">No variants found</option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -259,10 +259,10 @@ try {
                                                 $tagOptions = ['FEATURED PRODUCTS', 'NEW ARRIVAL', 'ONSALE', 'BESTSELLER'];
                                                 ?>
                                                 <select class="form-control" name="tags[]" id="product-tags" multiple>
-                                                    <?php foreach ($tagOptions as $tag) {
+                                                    <?php foreach ($tagOptions as $tag) { 
                                                         $selected = in_array($tag, $currentTags) ? 'selected' : '';
-                                                        ?>
-                                                            <option value="<?= $tag; ?>" <?= $selected; ?>><?= $tag; ?></option>
+                                                    ?>
+                                                        <option value="<?= $tag; ?>" <?= $selected; ?>><?= $tag; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>

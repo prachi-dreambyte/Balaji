@@ -60,7 +60,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 .logo:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease;
-  filter: drop-shadow(0 0 5px #845848);
+  filter: drop-shadow(0 0 5px #c06b81);
 }
 
 .nav-link {
@@ -78,15 +78,15 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
   bottom: -5px;
   width: 0%;
   height: 2px;
-  background-color: #845848;
+  background-color: #c06b81;
   transition: width 0.3s ease;
 }
 
 .nav-link.active {
-  color: #845848 !important;
+  color: #c06b81 !important;
 }
 .nav-link:hover {
-  color: #845848 !important;
+  color: #c06b81 !important;
   transform: scale(1.05) !important;
 }
 
@@ -112,7 +112,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
   color: #333;
 }
 .search-box:hover i {
-  color: #845848;
+  color: #c06b81;
 }
 a {
   transition: all 0.3s ease-in-out;
@@ -154,7 +154,7 @@ a {
 }
 
 .mega-menu a:hover {
-  color: #845848 !important; /* hover color */
+  color: #c06b81 !important; /* hover color */
 }
 .cart-wrapper {
   position: relative;
@@ -204,7 +204,7 @@ a {
 
 .checkout a {
   display: block;
-  background-color: #845848;
+  background-color: #c06b81;
   text-align: center;
   color: #fff;
   padding: 10px;
@@ -214,7 +214,7 @@ a {
 }
 
 .checkout a:hover {
-  background-color: #845848;
+  background-color: #c06b81;
 }
 
 /* Responsive overrides */

@@ -60,7 +60,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 .logo:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease;
-  filter: drop-shadow(0 0 5px #845848);
+  filter: drop-shadow(0 0 5px #c06b81);
 }
 
 .nav-link {
@@ -78,15 +78,15 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
   bottom: -5px;
   width: 0%;
   height: 2px;
-  background-color: #845848;
+  background-color: #c06b81;
   transition: width 0.3s ease;
 }
 
 .nav-link.active {
-  color: #845848 !important;
+  color: #c06b81 !important;
 }
 .nav-link:hover {
-  color: #845848 !important;
+  color: #c06b81 !important;
   transform: scale(1.05) !important;
 }
 
@@ -112,7 +112,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
   color: #333;
 }
 .search-box:hover i {
-  color: #845848;
+  color: #c06b81;
 }
 a {
   transition: all 0.3s ease-in-out;
@@ -154,7 +154,7 @@ a {
 }
 
 .mega-menu a:hover {
-  color: #845848 !important; /* hover color */
+  color: #c06b81 !important; /* hover color */
 }
 .cart-wrapper {
   position: relative;
@@ -204,7 +204,7 @@ a {
 
 .checkout a {
   display: block;
-  background-color: #845848;
+  background-color: #c06b81;
   text-align: center;
   color: #fff;
   padding: 10px;
@@ -214,7 +214,7 @@ a {
 }
 
 .checkout a:hover {
-  background-color: #845848;
+  background-color: #c06b81;
 }
 
 /* Responsive overrides */
@@ -262,7 +262,7 @@ a {
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
       <nav class="d-none d-xl-flex flex-wrap justify-content-center gap-3 flex-grow-1">
-       <p class="headerText"> <a href="../index.php" class="nav-link text-white <?php echo ($current_page == '../index.php') ? 'active' : ''; ?>">HOME</a></p>
+       <p class="headerText"> <a href="index.php" class="nav-link text-white <?php echo ($current_page == '../index.php') ? 'active' : ''; ?>">HOME</a></p>
        <div class="nav-item-with-mega"> <p class="headerText">   <a href="../shop.php" class="nav-link text-white <?php echo ($current_page == 'shop.php') ? 'active' : ''; ?>">CATEGORY</a></p>
                                         <div class="mega-menu pt-4">
                                             <span style="display: grid; grid-template-columns: 250px 250px; gap: 5px;">
@@ -298,10 +298,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <input type="hidden" name="limit" value="<?php echo isset($limit) ? (int)$limit : 12; ?>">
           <i class="fas fa-search"></i>
         </div>
-        <a href="../my-account.php" class="text-white d-flex align-items-center header-Side"><i class="fas fa-cog me-1 "></i> Account</a>
+        <a href="my-account.php" class="text-white d-flex align-items-center header-Side"><i class="fas fa-cog me-1 "></i> Account</a>
         
           <div class="cart-wrapper position-relative">
-        <a href="../shopping-cart.php" class="text-white d-flex align-items-center header-Side">
+        <a href="shopping-cart.php" class="text-white d-flex align-items-center header-Side">
                 <i class="fas fa-shopping-cart me-1"></i>
                 Cart <?php echo $cart_count . ' item' . ($cart_count > 1 ? 's' : ''); ?>
             </a>
