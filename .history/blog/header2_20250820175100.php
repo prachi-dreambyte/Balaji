@@ -301,7 +301,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="../my-account.php" class="text-white d-flex align-items-center header-Side"><i class="fas fa-cog me-1 "></i> Account</a>
         
           <div class="cart-wrapper position-relative">
-        <a href="../shopping-cart.php" class="text-white d-flex align-items-center header-Side">
+        <a href=",,/shopping-cart.php" class="text-white d-flex align-items-center header-Side">
                 <i class="fas fa-shopping-cart me-1"></i>
                 Cart <?php echo $cart_count . ' item' . ($cart_count > 1 ? 's' : ''); ?>
             </a>

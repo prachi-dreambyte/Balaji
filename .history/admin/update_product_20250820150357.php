@@ -36,17 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
 
     // Handle image upload
     $uploadDir = "uploads/";
-    // Fetch existing product first
-    $sql = "SELECT images FROM products WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $product_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $product = $result->fetch_assoc();
-    $stmt->close();
-
     $currentImages = json_decode($product['images'], true) ?: [];
-
 
     if (!empty($_FILES['images']['name'][0])) {
         foreach ($_FILES['images']['name'] as $key => $imageName) {

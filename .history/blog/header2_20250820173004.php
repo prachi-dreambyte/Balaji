@@ -262,8 +262,8 @@ a {
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
       <nav class="d-none d-xl-flex flex-wrap justify-content-center gap-3 flex-grow-1">
-       <p class="headerText"> <a href="../index.php" class="nav-link text-white <?php echo ($current_page == '../index.php') ? 'active' : ''; ?>">HOME</a></p>
-       <div class="nav-item-with-mega"> <p class="headerText">   <a href="../shop.php" class="nav-link text-white <?php echo ($current_page == 'shop.php') ? 'active' : ''; ?>">CATEGORY</a></p>
+       <p class="headerText"> <a href="index.php" class="nav-link text-white <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">HOME</a></p>
+       <div class="nav-item-with-mega"> <p class="headerText">   <a href="shop.php" class="nav-link text-white <?php echo ($current_page == 'shop.php') ? 'active' : ''; ?>">CATEGORY</a></p>
                                         <div class="mega-menu pt-4">
                                             <span style="display: grid; grid-template-columns: 250px 250px; gap: 5px;">
                                                 <?php
@@ -283,9 +283,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                             </span>
                                         </div>
                                       </div>
-        <p class="headerText"> <a href="../index.php" class="nav-link text-white <?php echo ($current_page == '../index.php') ? 'active' : ''; ?>">OFFER</a></p>
+        <p class="headerText"> <a href="index.php#deals" class="nav-link text-white <?php echo ($current_page == 'index.php#deals') ? 'active' : ''; ?>">OFFER</a></p>
         <p class="headerText">   <a href="contact.php" class="nav-link text-white <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">CONTACT</a></p>
-         <p class="headerText"><a href="../about-us.php" class="nav-link text-white <?php echo ($current_page == '../about-us.php') ? 'active' : ''; ?>">ABOUT US</a></p>
+         <p class="headerText"><a href="about-us.php" class="nav-link text-white <?php echo ($current_page == '../about-us.php') ? 'active' : ''; ?>">ABOUT US</a></p>
          <p class="headerText">  <a href="../blog.php" class="nav-link text-white <?php echo ($current_page == '../blog.php') ? 'active' : ''; ?>">BLOG</a></p>
       </nav>
 
@@ -298,10 +298,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <input type="hidden" name="limit" value="<?php echo isset($limit) ? (int)$limit : 12; ?>">
           <i class="fas fa-search"></i>
         </div>
-        <a href="../my-account.php" class="text-white d-flex align-items-center header-Side"><i class="fas fa-cog me-1 "></i> Account</a>
+        <a href="my-account.php" class="text-white d-flex align-items-center header-Side"><i class="fas fa-cog me-1 "></i> Account</a>
         
           <div class="cart-wrapper position-relative">
-        <a href="../shopping-cart.php" class="text-white d-flex align-items-center header-Side">
+        <a href="shopping-cart.php" class="text-white d-flex align-items-center header-Side">
                 <i class="fas fa-shopping-cart me-1"></i>
                 Cart <?php echo $cart_count . ' item' . ($cart_count > 1 ? 's' : ''); ?>
             </a>
@@ -379,7 +379,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <!-- Mobile Nav -->
     <div class="mobile-nav d-xl-none mt-3 d-none" id="mobileNav">
       <nav class="nav flex-column">
-        <a href="../index.php" class="nav-link text-white">HOME</a>
+        <a href="index.php" class="nav-link text-white">HOME</a>
         <a href="shop.php" class="nav-link text-white">CATEGORY</a>
                                         <div class="mega-menu pt-4">
                                             <span style="display: grid; grid-template-columns: 250px 250px; gap: 5px;">
