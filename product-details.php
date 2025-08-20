@@ -501,7 +501,7 @@ try {
 							padding: 10px 18px !important;
 							font-size: 16px;
 							font-weight: 600;
-							background: linear-gradient(45deg, #C06B81, #C06B81);
+							background: linear-gradient(45deg, #845848, #845848);
 							transition: all 0.3s ease;
 						}
 
@@ -513,13 +513,13 @@ try {
 						/* Wishlist Icon */
 						.add-wishlist .fa-heart {
 							font-size: 20px;
-							color: #C06B81;
+							color: #845848;
 							transition: 0.3s;
 						}
 
 						.add-wishlist .fa-heart:hover {
 							transform: scale(1.2);
-							color: #C06B81;
+							color: #845848;
 						}
 
 						/* Product Images */
@@ -657,8 +657,10 @@ try {
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
 					</p> -->
+
+					
 						
-						<p class="condition"><label>Price: </label></p>
+						<!-- <p class="condition"><label>Price: </label></p> -->
 						<div class="content-price">
 							<?php
 							$price = isset($product['price']) ? floatval($product['price']) : 0;
@@ -774,9 +776,7 @@ try {
 									<p class="quantity cart-plus-minus">
 										<label for="quantity_wanted">Quantity</label>
 										<input id="quantity_wanted" class="text" type="number" name="quantity" value="1"
-											min="1"
-											max="<?php echo $product['stock'] > 0 ? (int) $product['stock'] : 1; ?>"
-											<?php echo $product['stock'] <= 0 ? 'disabled' : ''; ?>>
+											min="1">
 									</p>
 
 									<div class="cart-wishlist-container">
@@ -793,9 +793,9 @@ try {
 										</div>
 
 										<div class="wishlist-btn">
-											<a class="add-wish" href="wishlist.php?action=add&id=<?= $id ?>" title="Add to wishlist">
-												<i class="fa fa-heart" aria-hidden="true"></i>
-											</a>
+											<a class="add-wish" href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+</a>
 										</div>
 									</div>
 
@@ -829,12 +829,8 @@ try {
 							</div>
 						</fieldset> -->
 							<!-- </div> -->
-							<p class="quantity-available"><span><?php echo htmlspecialchars($product['stock']); ?></span>
-								<span>Items</span>
-							</p>
-							<p class="availability-status">
-								<span><?php echo ($product['stock'] > 0) ? 'In stock' : 'Out of stock'; ?></span>
-							</p>
+							
+							
 							<?php if (!empty($tags)): ?>
 								<p class="product-tags"><strong>Tags:</strong>
 									<?php echo implode(', ', array_map('htmlspecialchars', $tags)); ?></p><?php endif; ?>
@@ -988,13 +984,13 @@ try {
 }
 
 .feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #c06b81, #a75669);
+	background: linear-gradient(145deg, #845848, #a75669);
 	color: #fff;
 	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
 	transform: translateY(-2px);
 }
 .feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #c06b81, #a75669);
+	background: linear-gradient(145deg, #845848, #a75669);
 	color: #fff;
 	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
 	transform: translateY(-2px);
@@ -1655,7 +1651,7 @@ try {
 											</li>
 										</ul>
 										<p class="add-wishlist">
-											<a class="add-wish" href="#">
+											<a class="add-wish" href="wishlist.php">
 												Add to wishlist
 											</a>
 										</p>
@@ -1833,7 +1829,7 @@ try {
 								oldPriceEl.style.display = 'none';
 							}
 						}
-
+                         
 						// ---------------------------
 						// 4. Stock & Availability
 						// ---------------------------

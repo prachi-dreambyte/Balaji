@@ -1,8 +1,11 @@
         <style>
 
-          .footer_footer {
+          .footer {
     /* background-color: #f8f6f1; */
-    background-color: #363636;
+        padding: 10px 0px !important;
+    background-color: #F5F6F2 !important;
+    border: none;
+    color: #363636 !important;
 }
 .footer_upperWrapper {
     padding: 30px 70px;
@@ -51,7 +54,7 @@ a {
     width: 100%;
 }
 .footer-wave-path {
-    fill: #c06b81;
+    fill: #845848;
 }
 
 ..footer-content {
@@ -122,7 +125,7 @@ a {
     margin-right: 0;
 }
 .footer-call-to-action-button {
-    background-color: #c06b81;
+    background-color: #845848;
     border-radius: 21px;
     color: #fffff2;
     display: inline-block;
@@ -184,7 +187,7 @@ a {
 }
 
 .footer-social-amoeba-path {
-    fill: #c06b81;
+    fill: #845848;
 }
 
 .footer-social-link.linkedin {
@@ -246,7 +249,7 @@ a {
 }
 
 .footer-copyright {
-    background-color: #c06b81;
+    background-color: #845848;
     color: #fff;
     padding: 15px 30px;
   text-align: center;
@@ -281,7 +284,7 @@ a {
 
 }
 .footer-para:hover{
-  color:  #c06b81 !important;
+  color:  #845848 !important;
 }
 
 
@@ -415,7 +418,7 @@ a {
     margin: 0px;
 }
 /* .footer-wave-path {
-  fill: #c06b81;
+  fill: #845848;
 } */
 
   .footer-wave-svg {
@@ -435,10 +438,10 @@ a {
         </style>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<footer class="footer bg-dark text-light position-relative">
+<footer class="footer text-black position-relative">
   <!-- Decorative Wave -->
   <svg class="w-100" height="50" viewBox="0 0 1200 100" preserveAspectRatio="none">
-    <path class="text-pink" fill="#c06b81"
+    <path class="text-pink" fill="#845848"
       d="M851.8,100c125,0,288.3-45,348.2-64V0H0v44c3.7-1,7.3-1.9,11-2.9C80.7,22,151.7,10.8,223.5,6.3C276.7,2.9,330,4,383,9.8c52.2,5.7,103.3,16.2,153.4,32.8C623.9,71.3,726.8,100,851.8,100z" />
   </svg>
 
@@ -446,7 +449,7 @@ a {
     <div class="row g-4">
       <!-- Logo and Shop Info -->
       <div class="col-md-6 col-lg-3">
-        <img src="./img/balaji-logo-top.png" alt="Logo" class="img-fluid mb-3" style="max-width: 80%; height: auto;">
+        <img src="img\balaji\balaji-furniture-2048x1368.png" alt="Logo" class="img-fluid mb-3" style="max-width: 80%; height: auto;">
         <h5 class="text-uppercase footer-Heading footer-Heading fw-bold">Shop Location</h5>
         <p class="mb-1 footer-para">Jay Shri Balaji Foam & Furniture, Opp. Mall Of Dehradun, Near Miyawala Underpass, Haridwar Road, Dehradun, Uttarakhand-248005</p>
         <p class="mb-0 footer-para">+91-8979892185</p>
@@ -456,14 +459,14 @@ a {
       <div class="col-md-6 col-lg-3">
         <h5 class="text-uppercase footer-Heading fw-bold">Information</h5>
         <ul class="list-unstyled">
-          <li><a href="index.php#deals" class="text-light text-decoration-none footer-para">Daily Deals</a></li>
-          <li><a href="index.php#newarrival" class="text-light text-decoration-none footer-para">New Products</a></li>
-          <li><a href="index.php#bestseller" class="text-light text-decoration-none footer-para">Bestseller</a></li>
+          <li><a href="index.php#deals" class="text-dark text-decoration-none footer-para">Daily Deals</a></li>
+          <li><a href="index.php#newarrival" class="text-dark text-decoration-none footer-para">New Products</a></li>
+          <li><a href="index.php#bestseller" class="text-dark text-decoration-none footer-para">Bestseller</a></li>
         </ul>
         <h5 class="text-uppercase footer-Heading fw-bold mt-3">Legal</h5>
         <ul class="list-unstyled">
-          <li><a href="privacy-policy.php" class="text-light text-decoration-none footer-para">Privacy Notice</a></li>
-          <li><a href="terms-and-condition.php" class="text-light text-decoration-none footer-para">Terms of Use</a></li>
+          <li><a href="privacy-policy.php" class="text-dark text-decoration-none footer-para">Privacy Notice</a></li>
+          <li><a href="terms-and-condition.php" class="text-dark text-decoration-none footer-para">Terms of Use</a></li>
         </ul>
       </div>
 
@@ -471,11 +474,11 @@ a {
       <div class="col-md-6 col-lg-3">
         <h5 class="text-uppercase footer-Heading fw-bold">Quick Links</h5>
         <ul class="list-unstyled">
-          <li><a href="about-us.php" class="text-light text-decoration-none footer-para">About Us</a></li>
-          <li><a href="shop.php" class="text-light text-decoration-none footer-para">Category</a></li>
-          <li><a href="index.php#deals" class="text-light text-decoration-none footer-para">Offer</a></li>
-          <li><a href="blog.php" class="text-light text-decoration-none footer-para">Blog</a></li>
-          <li><a href="shop.php" class="text-light text-decoration-none footer-para">Shop</a></li>
+          <li><a href="about-us.php" class="text-dark text-decoration-none footer-para">About Us</a></li>
+          <li><a href="shop.php" class="text-dark text-decoration-none footer-para">Category</a></li>
+          <li><a href="index.php#deals" class="text-dark text-decoration-none footer-para">Offer</a></li>
+          <li><a href="blog.php" class="text-dark text-decoration-none footer-para">Blog</a></li>
+          <li><a href="shop.php" class="text-dark text-decoration-none footer-para">Shop</a></li>
         </ul>
       </div>
 
@@ -484,24 +487,24 @@ a {
         <div class="footer-Chat">
         <h5 class="text-uppercase footer-Heading fw-bold">Let's Chat</h5>
         <p>Have a support question?</p>
-        <a href="contact.php" class="btn btn-sm btn-primary mb-3" style="background-color: #c06b81; border: none;">Get in Touch</a>
+        <a href="contact.php" class="btn btn-sm btn-primary mb-3" style="background-color: #845848; border: none;">Get in Touch</a>
         </div>
         <div class="footer-Call"><h6 class="text-uppercase footer-Heading fw-bold">Call Us</h6>
-        <p><a href="tel:+918979892185" class="text-light text-decoration-none footer-para">+91-8979892185</a></p>
+        <p><a href="tel:+918979892185" class="text-dark text-decoration-none footer-para">+91-8979892185</a></p>
         </div>
         <!-- Social Icons -->
         <div class="d-flex gap-3 mt-3">
-          <a href="#" class="text-light"><i class="bi bi-linkedin fs-5"></i></a>
-          <a href="#" class="text-light"><i class="bi bi-twitter fs-5"></i></a>
-          <a href="#" class="text-light"><i class="bi bi-youtube fs-5"></i></a>
-          <a href="#" class="text-light"><i class="bi bi-github fs-5"></i></a>
+          <a href="#" class="text-dark"><i class="bi bi-linkedin fs-5"></i></a>
+          <a href="#" class="text-dark"><i class="bi bi-twitter fs-5"></i></a>
+          <a href="#" class="text-dark"><i class="bi bi-youtube fs-5"></i></a>
+          <a href="#" class="text-dark"><i class="bi bi-github fs-5"></i></a>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Copyright -->
-  <div class="text-center text-white py-3" style="background-color: #c06b81;">
+  <div class="text-center text-white py-3" style="background-color: #845848;">
     © 2024 Balaji Furniture | Powered by Dreambyte Solution Pvt. Ltd
   </div>
 </footer>

@@ -51,7 +51,7 @@ a {
     width: 100%;
 }
 .footer-wave-path {
-    fill: #c06b81;
+    fill: #845848;
 }
 
 ..footer-content {
@@ -122,7 +122,7 @@ a {
     margin-right: 0;
 }
 .footer-call-to-action-button {
-    background-color: #c06b81;
+    background-color: #845848;
     border-radius: 21px;
     color: #fffff2;
     display: inline-block;
@@ -184,7 +184,7 @@ a {
 }
 
 .footer-social-amoeba-path {
-    fill: #c06b81;
+    fill: #845848;
 }
 
 .footer-social-link.linkedin {
@@ -246,7 +246,7 @@ a {
 }
 
 .footer-copyright {
-    background-color: #c06b81;
+    background-color: #845848;
     color: #fff;
     padding: 15px 30px;
   text-align: center;
@@ -281,7 +281,7 @@ a {
 
 }
 .footer-para:hover{
-  color:  #c06b81 !important;
+  color:  #845848 !important;
 }
 
 
@@ -415,7 +415,7 @@ a {
     margin: 0px;
 }
 /* .footer-wave-path {
-  fill: #c06b81;
+  fill: #845848;
 } */
 
   .footer-wave-svg {
@@ -438,7 +438,7 @@ a {
 <footer class="footer bg-dark text-light position-relative">
   <!-- Decorative Wave -->
   <svg class="w-100" height="50" viewBox="0 0 1200 100" preserveAspectRatio="none">
-    <path class="text-pink" fill="#c06b81"
+    <path class="text-pink" fill="#845848"
       d="M851.8,100c125,0,288.3-45,348.2-64V0H0v44c3.7-1,7.3-1.9,11-2.9C80.7,22,151.7,10.8,223.5,6.3C276.7,2.9,330,4,383,9.8c52.2,5.7,103.3,16.2,153.4,32.8C623.9,71.3,726.8,100,851.8,100z" />
   </svg>
 
@@ -486,7 +486,7 @@ a {
         <div class="footer-Chat">
         <h5 class="text-uppercase footer-Heading fw-bold">Let's Chat</h5>
         <p>Have a support question?</p>
-        <a href="contact.php" class="btn btn-sm btn-primary mb-3" style="background-color: #c06b81; border: none;">Get in Touch</a>
+        <a href="contact.php" class="btn btn-sm btn-primary mb-3" style="background-color: #845848; border: none;">Get in Touch</a>
         </div>
         <div class="footer-Call"><h6 class="text-uppercase footer-Heading fw-bold">Call Us</h6>
         <p><a href="tel:+918979892185" class="text-light text-decoration-none footer-para">+91-8979892185</a></p>
@@ -503,7 +503,7 @@ a {
   </div>
 
   <!-- Copyright -->
-  <div class="text-center text-white py-3" style="background-color: #c06b81;">
+  <div class="text-center text-white py-3" style="background-color: #845848;">
     © 2024 Balaji Furniture | Powered by Dreambyte Solution Pvt. Ltd
   </div>
 </footer>

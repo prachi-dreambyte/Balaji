@@ -29,8 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id']) && isset($_POST
         $debug_info[] = "Processing product $product_id with requested quantity $quantity";
 
         // Validate quantity (minimum 1, maximum 1000)
-        $quantity = max(1, min(1000, $quantity));
-
+        
         // Check product availability
         $product_stmt = $conn->prepare("SELECT id, price, stock FROM products WHERE id = ?");
         $product_stmt->bind_param("i", $product_id);
@@ -49,11 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id']) && isset($_POST
 
         if ($product) {
             // Adjust quantity if exceeds available stock
-           if (isset($product['stock']) && $quantity > $product['stock']) {
-    $debug_info[] = "Reducing quantity from $quantity to {$product['stock']} due to stock limit";
-    $quantity = $product['stock'];
-}
-
+           if ($quantity ) {
             // Update cart
             $update_stmt = $conn->prepare("UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?");
             $update_stmt->bind_param("iii", $quantity, $user_id, $product_id);
@@ -76,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id']) && isset($_POST
                 'price' => $price,
                 'subtotal' => $subtotal
             ];
+        }
         } else {
             $debug_info[] = "Product $product_id not found";
         }

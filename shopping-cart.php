@@ -31,34 +31,16 @@ if (isset($_GET['action'], $_GET['id']) && $_GET['action'] === 'add') {
 	$quantity = max(1, (int)($_GET['qty'] ?? 1));
 
 	// Check product stock first
-	$stock_check = $conn->prepare("SELECT stock FROM products WHERE id = ?");
-	$stock_check->bind_param("i", $product_id);
-	$stock_check->execute();
-	$stock_result = $stock_check->get_result();
-	$product_stock = 0;
-
-	if ($stock_result->num_rows > 0) {
-		$product_stock = (int)$stock_result->fetch_assoc()['stock'];
-	} else {
-		// Try home_daily_deal if not found in products
-		$deal_check = $conn->prepare("SELECT stock FROM home_daily_deal WHERE id = ?");
-		$deal_check->bind_param("i", $product_id);
-		$deal_check->execute();
-		$deal_result = $deal_check->get_result();
-
-		if ($deal_result->num_rows > 0) {
-			$product_stock = (int)$deal_result->fetch_assoc()['stock'];
-		}
-	}
+	
 
 	// Limit quantity to available stock
-	$quantity = min($quantity, $product_stock);
-
-	if ($quantity <= 0) {
-		// Redirect with error if no stock
-		header("Location: shopping-cart.php?error=outofstock");
-		exit;
-	}
+	
+     // Redirect with error if no stock
+	// if ($quantity <= 0) {
+		
+	// 	header("Location: shopping-cart.php?error=outofstock");
+	// 	exit;
+	// }
 
 	// Check if already in cart
 	$stmt = $conn->prepare("SELECT quantity FROM cart WHERE user_id = ? AND product_id = ?");
@@ -68,7 +50,7 @@ if (isset($_GET['action'], $_GET['id']) && $_GET['action'] === 'add') {
 
 	if ($result->num_rows > 0) {
 		$current_qty = (int)$result->fetch_assoc()['quantity'];
-		$new_qty = min($current_qty + $quantity, $product_stock);
+		$new_qty = $current_qty + $quantity;
 
 		$update = $conn->prepare("UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?");
 		$update->bind_param("iii", $new_qty, $user_id, $product_id);
@@ -339,7 +321,7 @@ if (isset($_POST['apply_coupon'])) {
 }
 
 .quantity-input:focus {
-    border-color: #c06b81;
+    border-color: #845848;
     box-shadow: 0 0 0 0.25rem rgba(192, 107, 129, 0.25);
     outline: none;
 }
@@ -392,7 +374,7 @@ if (isset($_POST['apply_coupon'])) {
 			border-radius: 12px !important;
 		}
 		.card .card-header.bg-primary {
-			background: #c06b81 !important;
+			background: #845848 !important;
 			color: #fff;
 			border-bottom: none;
 			border-top-left-radius: 12px;
@@ -543,14 +525,13 @@ if (isset($_POST['apply_coupon'])) {
 											                            style="padding: 14px;"
 	                                                                   value="<?= $cart_item['quantity'] ?>" 
 	                                                                   min="1" 
-	                                                                   max="<?= $cart_item['stock'] ?>"
 	                                                                   data-index="<?= $index ?>">
 	                                                            <button type="button" class="btn btn-outline-secondary plus-btn" data-index="<?= $index ?>" <?= $cart_item['quantity'] >= $cart_item['stock'] ? 'disabled' : '' ?>>
 	                                                                <i class="fas fa-plus"></i>
 	                                                            </button>
 	                                                            <input type="hidden" name="id[]" value="<?= $cart_item['id'] ?>">
 	                                                        </div>
-	                                                        <small class="text-muted d-block mt-1">Available: <?= $cart_item['stock'] ?></small>
+	                                                        
 	                                                    </td>
 	                                                    <td class="text-end fw-bold">₹<?= number_format($cart_item['subtotal'], 2) ?></td>
 	                                                    <td class="text-center">

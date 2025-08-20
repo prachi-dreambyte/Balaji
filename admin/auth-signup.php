@@ -52,12 +52,12 @@ $conn->query($query)
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
      <style>
         .adminButton{
-           background: #c06b81;
+           background: #845848;
     color: #ffffff;
     font-size: 18px;
         }
         .adminButton:hover{
-           background: #c06b81;
+           background: #845848;
     color: #ffffff;
     font-size: 18px;
         }
@@ -66,7 +66,7 @@ $conn->query($query)
              padding: 15px 9px;
              font-size: 18px;
              text-align: center;
-             color: #c06b81;
+             color: #845848;
         }
     </style>
 
@@ -150,6 +150,7 @@ $conn->query($query)
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      // Retrieve and sanitize form data
+     try{
      $name     = trim($_POST['example-name'] ?? '');
      $email    = trim($_POST['example-email'] ?? '');
      $password = trim($_POST['example-password'] ?? '');
@@ -221,5 +222,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   </script>";
           }
      }
+}catch (Exception $e) {
+    error_log("Error occurred: " . $e->getMessage());
+}
+
+
 }
 ?>

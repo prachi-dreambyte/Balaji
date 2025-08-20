@@ -356,7 +356,7 @@
   vertical-align: middle;
 }
 .header-userinfo-mobile:hover .current span, .header-userinfo-mobile:hover .current::after {
-  color: #c06b81;
+  color: #845848;
 }
 .header-middle .pos-logo {
   margin-left: 0;
