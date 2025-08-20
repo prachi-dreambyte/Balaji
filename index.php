@@ -372,7 +372,46 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         
 
         <!--=====special-look-start=====-->
-        
+        <div class="home-4-special-look">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product-title">
+                            <h2>
+                                <span>Special Look</span>
+                            </h2>
+                        </div>
+                        <div class="banner-content">
+                            <div class="col-1">
+                                <div class="banner-box">
+    <a href="#">
+        <video autoplay muted loop playsinline 
+               style="width:100%; height:100%; object-fit:cover; border-radius:8px; display:block;">
+            <source src="img/body/sl.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </a>
+</div>
+
+
+                            </div>
+                            <div class="col-2">
+                                <div class="banner-box">
+                                    <a href="#">
+                                        <img src="img/body/1_4.jpg" alt="" />
+                                    </a>
+                                </div>
+                                <div class="banner-box">
+                                    <a href="#">
+                                        <img src="img/body/6_2.jpg" alt="" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--=====special-look-end=====-->
        
 <!--===== Categories Section =====-->
@@ -416,51 +455,11 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             ?>
         </div>
 
-        <!-- <div class="text-center mt-4">
+        <div class="text-center mt-4">
             <a href="shop.php" class="view-all-btn">View All Categories</a>
-        </div> -->
+        </div>
     </div>
 </section>
-<div class="home-4-special-look">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="product-title">
-                            <h2>
-                                <span>Special Look</span>
-                            </h2>
-                        </div>
-                        <div class="banner-content">
-                            <div class="col-1">
-                                <div class="banner-box">
-    <a href="#">
-        <video autoplay muted loop playsinline 
-               style="width:100%; height:100%; object-fit:cover; border-radius:8px; display:block;">
-            <source src="img/body/sl.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </a>
-</div>
-
-
-                            </div>
-                            <div class="col-2">
-                                <div class="banner-box">
-                                    <a href="#">
-                                        <img src="img/body/slsecond.jpg" alt="" style="width:100%;" />
-                                    </a>
-                                </div>
-                                <div class="banner-box">
-                                    <a href="#">
-                                        <img src="img/body/slthird.jpg" alt="" style="width:100%;"/>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 <style>
     /* Categories Section */
