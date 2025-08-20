@@ -156,9 +156,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              $user = $result->fetch_assoc();
              if (password_verify($password, $user['password'])) {
                  // Store session variables
-                 $_SESSION['user_id'] = $user['id'];
-                 $_SESSION['user_name'] = $user['name'];
-                 $_SESSION['user_email'] = $user['email'];
+                 $_SESSION['admin_id'] = $user['id'];
+                 $_SESSION['admin_name'] = $user['name'];
+                 $_SESSION['admin_email'] = $user['email'];
  
                  // Redirect to dashboard
                  echo "<script>

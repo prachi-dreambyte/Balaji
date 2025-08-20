@@ -255,7 +255,7 @@ $cat_sidebar_stmt->close();
 
 .sort-by label,.show label,.show span {
 
-  font-size: 19px !important;
+  font-size: 15px !important;
   font-weight:500 !important;
   }
   .single-product .product-img .new,.modal-pic .new{
@@ -569,9 +569,9 @@ $cat_sidebar_stmt->close();
                         <p style="color:green; font-weight:bold; margin:0;">Special Commercial Price Applied</p>
                     <?php endif; ?>
                 </div>
-                <div class="stock-info">
+                <!-- <div class="stock-info">
                     <small class="text-muted">Stock: <?php echo $row['stock']; ?> available</small>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
