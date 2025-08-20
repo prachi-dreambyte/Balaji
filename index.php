@@ -328,6 +328,9 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         text-decoration:none;
         font-size: 15px;
     }
+
+ 
+
     </style>
 
 
@@ -338,6 +341,18 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <!-- Marquee Start -->
+<div style="background: #3c373a4d;
+    color: #1c0d0ded;
+    font-size: 14px;
+    padding: 6px 0;
+    text-align: center;;">
+  <marquee behavior="scroll" direction="left" scrollamount="5">
+    100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
+  </marquee>
+</div>
+<!-- Marquee End -->
+
     <!-- header-start -->
     <div class="wrapper">
         <?php include 'header.php'; ?>
@@ -435,7 +450,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 <div class="banner-box">
     <a href="#">
         <video autoplay muted loop playsinline 
-               style="width:100%; height:100%; object-fit:cover; border-radius:8px; display:block;">
+               style="width:85%; height:50%;  object-fit:cover; border-radius:8px; display:block; margin: auto;">
             <source src="img/body/sl.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
