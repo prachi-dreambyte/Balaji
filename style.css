@@ -1165,7 +1165,7 @@ header .header-top nav {
 }
 .product-name a {
   color: black;
-  font-size: 15px;
+  font-size: 18px;
   line-height: 15px;
   margin-bottom: 0;
   padding: 5px 0;
@@ -1175,7 +1175,7 @@ header .header-top nav {
 	color:#c06b81;
 }
 .reviews {
-  margin: 5px 0;
+  margin: -5px 0;
 }
 .star {
   cursor: pointer;
