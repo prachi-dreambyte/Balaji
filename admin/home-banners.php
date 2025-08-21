@@ -7,7 +7,7 @@ if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['admin_id']))  {
     header("Location: auth-signin.php");
     exit;
 }
