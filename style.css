@@ -1131,8 +1131,12 @@ header .header-top nav {
 }
 .product-img a {
   display: block;
-  color: #ee7777;
+  color: #fff;
   font-size: 30px;
+}
+.product-img a:hover {
+  display: block;
+  color: #845848;
 }
 .product-img > a::before {
 
