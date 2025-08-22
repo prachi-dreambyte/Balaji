@@ -234,7 +234,7 @@ if (isset($_SESSION['user_id'])) {
         color: gray;
     }
 
-.header-section {
+  .header-section {
     position: fixed;
     top: 0;
     left: 0;
@@ -246,7 +246,6 @@ if (isset($_SESSION['user_id'])) {
     color: #363636 !important;
 }
 
-
     .header-Side {
         font-size: 15px !important;
         text-decoration: none !important;
@@ -256,7 +255,6 @@ if (isset($_SESSION['user_id'])) {
         margin: 0;
         padding: 0;
         font-family: 'Segoe UI', sans-serif;
-        padding-top: 88px;
     }
 
     .headerText {

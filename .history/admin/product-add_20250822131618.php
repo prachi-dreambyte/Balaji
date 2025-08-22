@@ -658,7 +658,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           $stmt = $conn->prepare($sql);
           $stmt->bind_param(
-               "sssssssssssssssssssssssssssssssssssssssssss",
+               "ssssssssssssssssssssssssssssssssssssssssss",
                $product_name,
                $category,
                $brand,

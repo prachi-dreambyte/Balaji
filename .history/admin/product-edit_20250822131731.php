@@ -163,11 +163,7 @@ try {
                                                 <input type="text" id="product-colour" name="colour" class="form-control" 
                                                     value="<?= htmlspecialchars($product['colour']); ?>">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="hashtags" class="form-label">Hashtags</label>
-                                                <input type="text" id="hashtags" name="hashtags" class="form-control" 
-                                                    value="<?= htmlspecialchars($product['hashtags']); ?>">
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                     

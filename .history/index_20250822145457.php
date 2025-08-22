@@ -422,7 +422,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!-- header-start -->
     <div class="wrapper">
         <?php include 'header.php'; ?>
-         <div class="slider-progress"></div>
         <!-- heade incr-end -->
 
         <!-- 🔹 Slogan Section -->
@@ -444,7 +443,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 <?php foreach ($slider_banners as $index => $banner): ?>
                     <div id="htmlcaption<?php echo $index + 1; ?>"
                         class="nivo-html-caption slider-caption-<?php echo $index + 1; ?>">
-                        <!-- <div class="slider-progress"></div> -->
+                        <div class="slider-progress"></div>
                        
                             
                         </div>

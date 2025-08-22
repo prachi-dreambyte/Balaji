@@ -83,7 +83,7 @@ $product_id = intval($_GET['id'] ?? 0);
 if ($product_id > 0) {
 	// Fetch main product details from products table
 	$stmt = $conn->prepare("
-        SELECT id, images, product_name, price, discount, stock, variants,short_description
+        SELECT id, images, product_name, price, discount, stock, variants
         FROM products
         WHERE id = ?
     ");
@@ -99,7 +99,6 @@ if ($product_id > 0) {
 		$product['discount'] = floatval($product_row['discount'] ?? 0);
 		$product['stock'] = intval($product_row['stock'] ?? 0);
 		$product['variants'] = intval($product_row['variants'] ?? 0);
-		$product['short_description'] = $product_row['short_description'];
 
 		// Convert images string into an array (comma separated)
 		$images = !empty($product['images']) ? array_map('trim', explode(',', $product['images'])) : [];
@@ -399,9 +398,6 @@ try {
 			<div class="row">
 				<div class="col-md-5 col-sm-6 col-12 ">
 					<style>
-
-                      
-
 						.zoom-container {
 							width: 100%;
 							padding-top: 100%;
@@ -656,7 +652,7 @@ try {
 					<div class="abc">
 						<h1><?php echo $product['product_name'] !== '' ? htmlspecialchars($product['product_name']) : '---'; ?>
 						</h1>
-						<h4><?php echo $product['short_description'] !== '' ? htmlspecialchars($product['short_description']) : '---'; ?>
+						<h4><?php echo $product['short_description'] !== '' ? htmlspecialchars($products['short_description']) : '---'; ?>
 						</h4>
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>
@@ -795,12 +791,13 @@ try {
 												</a>
 											<?php endif; ?>
 										</div>
-<div class="wishlist-box">
-  <a class="add-wish" href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
-    <i class="bi bi-heart-fill"></i>
-  </a>
-</div>
-										
+
+										<div class="wishlist-btn">
+											<a class="add-wish" href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+</a>
+										</div>
+									</div>
 
 
 
