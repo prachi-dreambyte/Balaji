@@ -1320,7 +1320,7 @@ header .header-top nav {
   right: 35%;
 }
 .product-title h2 {
-  background: #fff none repeat scroll 0 0;
+  background: #ffffff none repeat scroll 0 0;
   color: #343436;
   display: inline-block;
   font-size: 30px;
@@ -1333,7 +1333,7 @@ header .header-top nav {
   z-index: 1;
 }
 .product-title h2::before {
-  background: rgba(0, 0, 0, 0) url("img/bg_title.png") no-repeat scroll center top;
+  background: rgba(255, 251, 248, 0.742) url("img/bg_title.png") no-repeat scroll center top;
   content: "";
   display: block;
   height: 18px;

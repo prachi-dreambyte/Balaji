@@ -388,6 +388,25 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
    transform: scale(1.05);
 }
 
+/* Slogan Section */
+/* Fade-in Up Animation */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Typing Effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Cursor Blink */
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+
     </style>
 
 
@@ -404,6 +423,10 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <div class="wrapper">
         <?php include 'header.php'; ?>
         <!-- heade incr-end -->
+
+        <!-- 🔹 Slogan Section -->
+         <?php include 'slogan.php'; ?>
+
 
         <!-- slider-start -->
 
@@ -463,14 +486,15 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     }
 
                     echo '
-                    <div class="col-lg-2 col-md-3 col-4 mb-4 text-center">
-                        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
-                            <div class="circle-img">
-                                <img src="' . $imagePath . '" alt="' . $name . '">
-                            </div>
-                            <p class="category-name mt-2">' . $name . '</p>
-                        </a>
-                    </div>';
+    <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-4 text-center">
+        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
+            <div class="circle-img" style="width:250px; height:300px; margin:auto;">
+                <img src="' . $imagePath . '" alt="' . $name . '">
+            </div>
+            <p class="category-name mt-2" style="font-size:18px; font-weight:700; color:#333;">' . $name . '</p>
+        </a>
+    </div>';
+
                 }
             } else {
                 echo '<div class="col-12 text-center"><p>No categories found.</p></div>';
@@ -1011,6 +1035,49 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
             </div>
             <!--=====service-end=====-->
+
+            <!-- brand-company-area-start -->
+<div class="home-4-brand-area py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <!-- Fixed Brand Logo -->
+            <div class="col-md-2 col-4 text-center">
+                <div class="single-brand">
+                    <a href="#">
+                        <img src="img/brand/logo1.webp" alt="Fixed Brand" style="max-width:120px;">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Moving Carousel for Rest Logos -->
+            <div class="col-md-10 col-8">
+                <div class="brand-carousel owl-carousel">
+                    
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/logo2.png" alt=""></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/logo3.webp" alt=""></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/logo4.webp" alt=""></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/logo5.webp" alt=""></a>
+                    </div>
+                    <div class="single-brand">
+                        <a href="#"><img src="img/brand/logo6.png" alt=""></a>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- brand-company-area-end -->
+
 
             <!-- feature-product-start -->
             <div class="feature-product-area py-5">
