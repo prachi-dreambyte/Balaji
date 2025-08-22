@@ -523,26 +523,18 @@ if (isset($_SESSION['user_id'])) {
   font-weight: 600;
   color: #007bff; /* highlight match */
 }
-/* Fullscreen overlay */
+/* Preloader full screen */
 #preloader {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #fff; /* adjust if you want dark mode */
+  background: #fff; /* Background color */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-
-/* When hidden */
-#preloader.hidden {
-  opacity: 0;
-  visibility: hidden;
 }
 
 /* Simple loader animation */
@@ -563,7 +555,7 @@ if (isset($_SESSION['user_id'])) {
 </style>
 <!-- Preloader -->
 <div id="preloader">
-  <img src="img\balaji\loading.gif" alt="Loading..." />
+  <img src="/assets/images/loading.gif" alt="Loading..." />
 </div>
 
  <!-- Marquee Start -->
@@ -883,8 +875,6 @@ if (isset($_SESSION['user_id'])) {
 </script>
 <script>
   window.addEventListener("load", function () {
-    const preloader = document.getElementById("preloader");
-    preloader.classList.add("hidden");
+    document.getElementById("preloader").style.display = "none";
   });
 </script>
-

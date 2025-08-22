@@ -563,7 +563,7 @@ if (isset($_SESSION['user_id'])) {
 </style>
 <!-- Preloader -->
 <div id="preloader">
-  <img src="img\balaji\loading.gif" alt="Loading..." />
+  <img src="/assets/images/loading.gif" alt="Loading..." />
 </div>
 
  <!-- Marquee Start -->

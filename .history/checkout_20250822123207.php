@@ -356,27 +356,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                             <div id="new-address-fields" class="hidden mt-3">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Pincode</label>
+                                        <label class="form-label">Pincode*</label>
                                         <input type="text" id="zipcode" name="zipcode" class="form-control" maxlength="6">
                                         <small id="pincode-msg" class="text-danger"></small>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">City</label>
+                                        <label class="form-label">City*</label>
                                         <input type="text" id="city" name="city" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">State</label>
+                                        <label class="form-label">State*</label>
                                         <input type="text" id="state" name="state" class="form-control" readonly>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Phone</label>
+                                        <label class="form-label">Phone*</label>
                                         <input type="text" name="contact_no" class="form-control">
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Address Line</label>
+                                    <label class="form-label">Address Line*</label>
                                     <input type="text" name="address_line" class="form-control">
                                 </div>
                             </div>

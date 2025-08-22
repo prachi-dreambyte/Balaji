@@ -595,65 +595,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             return true;
         });
     </script>
-    
-<script>
-// Toggle new address fields
-function toggleNewAddress() {
-    const fields = document.getElementById('new-address-fields');
-    fields.classList.toggle('hidden');
-}
-
-// Handle pincode autofill
-document.getElementById('zipcode')?.addEventListener('input', function () {
-    const pincode = this.value.trim();
-    const msg = document.getElementById('pincode-msg');
-    const city = document.getElementById('city');
-    const state = document.getElementById('state');
-
-    if (pincode.length === 6) {
-        msg.textContent = "Searching...";
-        fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data[0].Status === "Success") {
-                    const postOffice = data[0].PostOffice[0];
-                    city.value = postOffice.District;
-                    state.value = postOffice.State;
-
-                    if (postOffice.State.toLowerCase() === "uttarakhand") {
-                        msg.textContent = "✅ Pincode available for delivery";
-                        msg.classList.remove("text-danger");
-                        msg.classList.add("text-success");
-                    } else {
-                        msg.textContent = "❌ Sorry, delivery available only in Uttarakhand";
-                        msg.classList.remove("text-success");
-                        msg.classList.add("text-danger");
-                    }
-                } else {
-                    msg.textContent = "❌ Invalid Pincode";
-                    city.value = "";
-                    state.value = "";
-                }
-            })
-            .catch(() => {
-                msg.textContent = "❌ Error fetching pincode info";
-            });
-    } else {
-        msg.textContent = "";
-        city.value = "";
-        state.value = "";
-    }
-});
-
-// Live counter for Order Notes
-const notes = document.getElementById('order_notes');
-const notesCount = document.getElementById('notes-count');
-if (notes && notesCount) {
-    notes.addEventListener('input', () => {
-        notesCount.textContent = notes.value.length;
-    });
-}
-</script>
 </body>
 
 </html>

@@ -538,13 +538,6 @@ if (isset($_SESSION['user_id'])) {
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-
-/* When hidden */
-#preloader.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
 /* Simple loader animation */
 .loader {
   border: 6px solid #f3f3f3;
@@ -563,7 +556,7 @@ if (isset($_SESSION['user_id'])) {
 </style>
 <!-- Preloader -->
 <div id="preloader">
-  <img src="img\balaji\loading.gif" alt="Loading..." />
+  <img src="/assets/images/loading.gif" alt="Loading..." />
 </div>
 
  <!-- Marquee Start -->
@@ -883,8 +876,6 @@ if (isset($_SESSION['user_id'])) {
 </script>
 <script>
   window.addEventListener("load", function () {
-    const preloader = document.getElementById("preloader");
-    preloader.classList.add("hidden");
+    document.getElementById("preloader").style.display = "none";
   });
 </script>
-

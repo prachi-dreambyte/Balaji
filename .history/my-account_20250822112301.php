@@ -878,7 +878,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
             <div class="col-md-6 form-group">
                 <label for="zipcode">Pincode</label>
                 <input type="text" id="zipcode" name="zipcode" required class="form-control" maxlength="6">
-                <small id="pincode-msg" class="text-danger"></small>
             </div>
 
             <div class="col-md-6 form-group">
@@ -1055,26 +1054,10 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
         // });
     });
 </script>
-
 <script>
-const pincodeInput = document.getElementById("zipcode");
-const pincodeMsg   = document.getElementById("pincode-msg");
-const saveBtn      = document.getElementById("saveBtn");
-
-pincodeInput.addEventListener("input", function () {
+document.getElementById("zipcode").addEventListener("blur", function () {
     let pincode = this.value.trim();
-
-    // Reset UI
-    pincodeMsg.textContent = "";
-    saveBtn.disabled = true;
-    document.getElementById("city").value = "";
-    document.getElementById("state").value = "";
-
     if (pincode.length === 6) {
-        pincodeMsg.textContent = "Searching...";
-        pincodeMsg.classList.remove("text-success", "text-danger");
-        pincodeMsg.classList.add("text-warning");
-
         fetch("https://api.postalpincode.in/pincode/" + pincode)
             .then(response => response.json())
             .then(data => {
@@ -1083,30 +1066,31 @@ pincodeInput.addEventListener("input", function () {
                     document.getElementById("city").value = postOffice.District;
                     document.getElementById("state").value = postOffice.State;
 
-                    if (postOffice.State.toLowerCase() === "uttarakhand") {
-                        pincodeMsg.textContent = "✅ Pincode serviceable in Uttarakhand";
-                        pincodeMsg.classList.remove("text-danger", "text-warning");
-                        pincodeMsg.classList.add("text-success");
-                        saveBtn.disabled = false;
+                    // Check if Uttarakhand
+                    if (postOffice.State.toLowerCase() !== "uttarakhand") {
+                        alert("⚠️ Sorry! We only ship within Uttarakhand.");
+                        document.getElementById("state").value = "";
+                        document.getElementById("city").value = "";
+                        this.value = "";
+                        document.getElementById("saveBtn").disabled = true;
                     } else {
-                        pincodeMsg.textContent = "❌ We only deliver within Uttarakhand";
-                        pincodeMsg.classList.remove("text-success", "text-warning");
-                        pincodeMsg.classList.add("text-danger");
-                        saveBtn.disabled = true;
+                        document.getElementById("saveBtn").disabled = false;
                     }
                 } else {
-                    pincodeMsg.textContent = "❌ Invalid Pincode, please enter again.";
-                    pincodeMsg.classList.remove("text-success", "text-warning");
-                    pincodeMsg.classList.add("text-danger");
-                    saveBtn.disabled = true;
+                    alert("⚠️ Invalid Pincode. Please enter a valid one.");
+                    document.getElementById("city").value = "";
+                    document.getElementById("state").value = "";
+                    document.getElementById("saveBtn").disabled = true;
                 }
             })
             .catch(() => {
-                pincodeMsg.textContent = "⚠️ Error fetching pincode details.";
-                pincodeMsg.classList.remove("text-success", "text-warning");
-                pincodeMsg.classList.add("text-danger");
-                saveBtn.disabled = true;
+                alert("❌ Failed to fetch location details. Try again.");
+                document.getElementById("saveBtn").disabled = true;
             });
+    } else {
+        document.getElementById("city").value = "";
+        document.getElementById("state").value = "";
+        document.getElementById("saveBtn").disabled = true;
     }
 });
 </script>

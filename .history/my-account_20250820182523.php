@@ -40,10 +40,12 @@ $user_query = mysqli_query($conn, "SELECT * FROM signup WHERE id = $user_id");
 $user = mysqli_fetch_assoc($user_query);
 
 
+
 // =====================
 // Save Address
 // =====================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
+    echo "sfsdfsdfsdfsdfsd";
     $address_line = trim($_POST['address_line']);
     $city = trim($_POST['city']);
     $state = trim($_POST['state']);
@@ -51,13 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
     $contact_no = trim($_POST['contact_no']);
 
     if (!empty($address_line) && !empty($city) && !empty($state) && !empty($zipcode) && !empty($contact_no)) {
-
-        // ✅ Restrict shipping only to Uttarakhand
-        if (strtolower($state) !== "uttarakhand") {
-            echo "<script>alert('⚠️ Sorry! We only ship within Uttarakhand.'); window.history.back();</script>";
-            exit;
-        }
-
+        echo "sfsdfsdfsdfsdfsd";
         $stmt = $conn->prepare("INSERT INTO addresses (user_id, address_line, city, state, zipcode, contact_no) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("isssss", $user_id, $address_line, $city, $state, $zipcode, $contact_no);
 
@@ -72,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_address'])) {
     } else {
         echo "<script>alert('⚠️ Please fill in all fields.');</script>";
     }
+
 }
 
 // =====================
@@ -868,44 +865,35 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 
               <div id="address" class="content-section">
     <h3 class="section-header">Manage Addresses</h3>
-<div class="address-form">
-    <h4>Add New Address</h4>
-    <form method="POST" id="addressForm">
-        <input type="hidden" name="save_address" value="1">
-        <div class="row">
 
-            <!-- Pincode First -->
-            <div class="col-md-6 form-group">
-                <label for="zipcode">Pincode</label>
-                <input type="text" id="zipcode" name="zipcode" required class="form-control" maxlength="6">
-                <small id="pincode-msg" class="text-danger"></small>
+    <div class="address-form">
+        <h4>Add New Address</h4>
+        <form method="POST" id="addressForm">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="address_line">Address Line</label>
+                    <input type="text" id="address_line" name="address_line" required class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state" required class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="zipcode">Pincode</label>
+                    <input type="text" id="zipcode" name="zipcode" required class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="contact_no">Contact No.</label>
+                    <input type="text" id="contact_no" name="contact_no" required class="form-control">
+                </div>
             </div>
-
-            <div class="col-md-6 form-group">
-                <label for="city">City</label>
-                <input type="text" id="city" name="city" required class="form-control" readonly>
-            </div>
-
-            <div class="col-md-6 form-group">
-                <label for="state">State</label>
-                <input type="text" id="state" name="state" required class="form-control" readonly>
-            </div>
-
-            <div class="col-md-6 form-group">
-                <label for="address_line">Address Line</label>
-                <input type="text" id="address_line" name="address_line" required class="form-control">
-            </div>
-
-            <div class="col-md-6 form-group">
-                <label for="contact_no">Contact No.</label>
-                <input type="text" id="contact_no" name="contact_no" required class="form-control">
-            </div>
-        </div>
-        <button type="submit" name="save_address" id="saveBtn" class="btn btn-primary mt-3" disabled>
-            Save Address
-        </button>
-    </form>
-</div>
+            <button type="submit" name="save_address" class="btn btn-primary mt-3">Save Address</button>
+        </form>
+    </div>
 
     <hr class="my-5">
 
@@ -1054,61 +1042,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
         //     });
         // });
     });
-</script>
-
-<script>
-const pincodeInput = document.getElementById("zipcode");
-const pincodeMsg   = document.getElementById("pincode-msg");
-const saveBtn      = document.getElementById("saveBtn");
-
-pincodeInput.addEventListener("input", function () {
-    let pincode = this.value.trim();
-
-    // Reset UI
-    pincodeMsg.textContent = "";
-    saveBtn.disabled = true;
-    document.getElementById("city").value = "";
-    document.getElementById("state").value = "";
-
-    if (pincode.length === 6) {
-        pincodeMsg.textContent = "Searching...";
-        pincodeMsg.classList.remove("text-success", "text-danger");
-        pincodeMsg.classList.add("text-warning");
-
-        fetch("https://api.postalpincode.in/pincode/" + pincode)
-            .then(response => response.json())
-            .then(data => {
-                if (data[0].Status === "Success") {
-                    let postOffice = data[0].PostOffice[0];
-                    document.getElementById("city").value = postOffice.District;
-                    document.getElementById("state").value = postOffice.State;
-
-                    if (postOffice.State.toLowerCase() === "uttarakhand") {
-                        pincodeMsg.textContent = "✅ Pincode serviceable in Uttarakhand";
-                        pincodeMsg.classList.remove("text-danger", "text-warning");
-                        pincodeMsg.classList.add("text-success");
-                        saveBtn.disabled = false;
-                    } else {
-                        pincodeMsg.textContent = "❌ We only deliver within Uttarakhand";
-                        pincodeMsg.classList.remove("text-success", "text-warning");
-                        pincodeMsg.classList.add("text-danger");
-                        saveBtn.disabled = true;
-                    }
-                } else {
-                    pincodeMsg.textContent = "❌ Invalid Pincode, please enter again.";
-                    pincodeMsg.classList.remove("text-success", "text-warning");
-                    pincodeMsg.classList.add("text-danger");
-                    saveBtn.disabled = true;
-                }
-            })
-            .catch(() => {
-                pincodeMsg.textContent = "⚠️ Error fetching pincode details.";
-                pincodeMsg.classList.remove("text-success", "text-warning");
-                pincodeMsg.classList.add("text-danger");
-                saveBtn.disabled = true;
-            });
-    }
-});
 </script>
 
 
