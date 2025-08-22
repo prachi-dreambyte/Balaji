@@ -3,7 +3,7 @@ session_start();
 include 'db_connect.php';
 
 // Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['admin_id']))  {
     header("Location: auth-signin.php");
     exit;
 }
