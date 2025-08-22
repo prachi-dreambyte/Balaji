@@ -1131,7 +1131,7 @@ header .header-top nav {
 }
 .product-img a {
   display: block;
-  color: #fff;
+  color: #ee7777;
   font-size: 30px;
 }
 .product-img > a::before {
@@ -1152,7 +1152,9 @@ header .header-top nav {
   padding: 5px 0 0;
 }
 .product-name {
-  margin-top: 5px;
+   font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
 }
 .star-content{
 	display: inline-block;
@@ -1176,7 +1178,9 @@ header .header-top nav {
 	color:#845848;
 }
 .reviews {
-  margin: -5px 0;
+    margin-bottom:0px;
+    color: #ffc107;
+    font-size: 16px;
 }
 .star {
   cursor: pointer;

@@ -451,7 +451,7 @@ a {
       <div class="col-md-6 col-lg-3">
         <img src="img\balaji\balaji-furniture-2048x1368.png" alt="Logo" class="img-fluid mb-3" style="max-width: 80%; height: auto;">
         <h5 class="text-uppercase footer-Heading footer-Heading fw-bold">Shop Location</h5>
-        <p class="mb-1 footer-para">Jay Shri Balaji Foam & Furniture, Opp. Mall Of Dehradun, Near Miyawala Underpass, Haridwar Road, Dehradun, Uttarakhand-248005</p>
+        <p class="mb-1 footer-para">Jay Shri Balaji Foam & Furniture,<br> Opp. Mall Of Dehradun,<br> Near Miyawala Underpass, <br>Haridwar Road, Dehradun,<br> Uttarakhand-248005</p>
         <p class="mb-0 footer-para">+91-8979892185</p>
       </div>
 
@@ -462,7 +462,7 @@ a {
           <li><a href="index.php#deals" class="text-dark text-decoration-none footer-para">Daily Deals</a></li>
           <li><a href="index.php#newarrival" class="text-dark text-decoration-none footer-para">New Products</a></li>
           <li><a href="index.php#bestseller" class="text-dark text-decoration-none footer-para">Bestseller</a></li>
-        </ul>
+        </ul><br>
         <h5 class="text-uppercase footer-Heading fw-bold mt-3">Legal</h5>
         <ul class="list-unstyled">
           <li><a href="privacy-policy.php" class="text-dark text-decoration-none footer-para">Privacy Notice</a></li>
@@ -488,7 +488,7 @@ a {
         <h5 class="text-uppercase footer-Heading fw-bold">Let's Chat</h5>
         <p>Have a support question?</p>
         <a href="contact.php" class="btn btn-sm btn-primary mb-3" style="background-color: #845848; border: none;">Get in Touch</a>
-        </div>
+        </div><br>
         <div class="footer-Call"><h6 class="text-uppercase footer-Heading fw-bold">Call Us</h6>
         <p><a href="tel:+918979892185" class="text-dark text-decoration-none footer-para">+91-8979892185</a></p>
         </div>
