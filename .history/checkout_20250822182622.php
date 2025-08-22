@@ -310,85 +310,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                 <div class="row">
                     <!-- Billing Details -->
-                   <div class="col-lg-6 mb-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-header">
-            <h4 class="mb-0 shoppingHead"><i class="fa fa-map-marker"></i> 1. Billing Details</h4>
-        </div>
-        <div class="card-body">
-            <?php if (!empty($error)): ?>
-                                <div class="alert alert-danger"><?php echo $error; ?></div>
-                            <?php endif; ?>
-                
-                            <?php if (!empty($addresses)): ?>
-                                <h5 class="mb-3">Select a Saved Address:</h5>
-                                <div class="row">
-                                    <?php foreach ($addresses as $address): ?>
-                                        <div class="col-md-6 mb-3">
-                                            <div class="address-card p-3 h-100"
-                                                onclick="selectAddress(this, <?php echo htmlspecialchars(json_encode($address)); ?>)">
-                                                <input type="radio" name="selected_address_id" value="<?php echo $address['id']; ?>" hidden>
-                                                <p class="mb-1">
-                                                    <strong><?php echo htmlspecialchars($address['address_line']); ?></strong>
-                                                </p>
-                                                <p class="mb-1"><?php echo htmlspecialchars($address['city']); ?>,
-                                                    <?php echo htmlspecialchars($address['state']); ?> -
-                                                    <?php echo htmlspecialchars($address['zipcode']); ?>
-                                                </p>
-                                                <small class="text-muted">Phone:
-                                                    <?php echo htmlspecialchars($address['contact_no']); ?></small>
-                                            </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            <?php endif; ?>
-                
-                            <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" id="ship-box" onclick="toggleNewAddress()">
-                                <label class="form-check-label" for="ship-box">
-                                    Ship to a different address?
-                                </label>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0"><i class="fa fa-map-marker"></i> 1. Billing Details</h4>
                             </div>
-                
-                            <!-- New Address Fields -->
-                            <div id="new-address-fields" class="hidden mt-3">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Pincode*</label>
-                                        <input type="text" id="zipcode" name="zipcode" class="form-control" maxlength="6" required>
-                                        <small id="pincode-msg" class="text-danger"></small>
+                            <div class="card-body">
+                                <?php if (!empty($error)): ?>
+                                    <div class="alert alert-danger"><?php echo $error; ?></div>
+                                <?php endif; ?>
+
+                                <?php if (!empty($addresses)): ?>
+                                    <h5 class="mb-3">Select a Saved Address:</h5>
+                                    <div class="row">
+                                        <?php foreach ($addresses as $address): ?>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="address-card p-3 h-100"
+                                                    onclick="selectAddress(this, <?php echo htmlspecialchars(json_encode($address)); ?>)">
+                                                    <input type="radio" name="selected_address_id"
+                                                        value="<?php echo $address['id']; ?>" hidden>
+                                                    <p class="mb-1">
+                                                        <strong><?php echo htmlspecialchars($address['address_line']); ?></strong>
+                                                    </p>
+                                                    <p class="mb-1"><?php echo htmlspecialchars($address['city']); ?>,
+                                                        <?php echo htmlspecialchars($address['state']); ?> -
+                                                        <?php echo htmlspecialchars($address['zipcode']); ?></p>
+                                                    <small class="text-muted">Phone:
+                                                        <?php echo htmlspecialchars($address['contact_no']); ?></small>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">City*</label>
-                                        <input type="text" id="city" name="city" class="form-control" required>
-                                    </div>
+                                <?php endif; ?>
+
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" id="ship-box"
+                                        onclick="toggleNewAddress()">
+                                    <label class="form-check-label" for="ship-box">
+                                        Ship to a different address?
+                                    </label>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">State*</label>
-                                        <input type="text" id="state" name="state" class="form-control" required >
+
+                                <div id="new-address-fields" class="hidden mt-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Address Line</label>
+                                        <input type="text" name="address_line" class="form-control">
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Phone*</label>
-                                        <input type="text" name="contact_no" class="form-control" required>
+                                    <div class="mb-3">
+                                        <label class="form-label">City</label>
+                                        <input type="text" name="city" class="form-control">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">State</label>
+                                            <input type="text" name="state" class="form-control">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Zipcode</label>
+                                            <input type="text" name="zipcode" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Phone</label>
+                                        <input type="text" name="contact_no" class="form-control">
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Address Line*</label>
-                                    <input type="text" name="address_line" class="form-control" required>
+                                    <label class="form-label">Order Notes</label>
+                                    <textarea name="order_notes" class="form-control" rows="3"></textarea>
                                 </div>
-                            </div>
-                
-                            <!-- Order Notes -->
-                            <div class="mb-3">
-                                <label class="form-label">Order Notes (optional)</label>
-                                <textarea name="order_notes" id="order_notes" class="form-control" rows="3" maxlength="250"
-                                    placeholder="Any delivery instructions (e.g., landmark, call before delivery)"></textarea>
-                                <small class="text-muted"><span id="notes-count">0</span>/250</small>
                             </div>
                         </div>
                     </div>
-                </div>
 
                     <!-- Order Summary -->
                     <div class="col-lg-6 mb-4">
