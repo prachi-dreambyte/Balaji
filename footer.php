@@ -1,5 +1,7 @@
         <style>
 
+          
+
           .footer {
     /* background-color: #f8f6f1; */
         padding: 10px 0px !important;
@@ -165,6 +167,18 @@ a {
     text-decoration: none;
 }
 
+/* Parent div ke liye */
+.social-icons a {
+  color: #212529; /* dark gray/black */
+  transition: all 0.3s ease-in-out;
+  font-size: 1.5rem; /* thoda bada */
+}
+
+/* Hover effect */
+.social-icons a:hover {
+  color: #ed8de9ff; /* Bootstrap primary blue */
+  transform: scale(1.2); /* zoom thoda */
+}
 
 
 
@@ -286,6 +300,8 @@ a {
 .footer-para:hover{
   color:  #845848 !important;
 }
+
+
 
 
 
@@ -487,18 +503,62 @@ a {
         <div class="footer-Chat">
         <h5 class="text-uppercase footer-Heading fw-bold">Let's Chat</h5>
         <p>Have a support question?</p>
-        <a href="contact.php" class="btn btn-sm btn-primary mb-3" style="background-color: #845848; border: none;">Get in Touch</a>
+       <a href="contact.php" 
+   class="btn btn-sm btn-primary mb-3 custom-btn">
+   Get in Touch
+</a>
+
+<style>
+/* Normal button style */
+.custom-btn {
+  background-color: #845848 !important; 
+  border: none !important;
+  color: #fff !important;
+  padding: 10px 20px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect */
+.custom-btn:hover {
+  background-color: #6c3f32 !important; /* dark shade */
+  transform: scale(1.07); /* halka zoom */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* shadow effect */
+}
+
+/* Glow underline animation */
+.custom-btn::after {
+  content: "";
+  position: absolute;
+  left: -100%;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #d4a373, #fff);
+  transition: all 0.4s ease;
+}
+
+.custom-btn:hover::after {
+  left: 0;
+}
+</style>
+
         </div><br>
         <div class="footer-Call"><h6 class="text-uppercase footer-Heading fw-bold">Call Us</h6>
         <p><a href="tel:+918979892185" class="text-dark text-decoration-none footer-para">+91-8979892185</a></p>
         </div>
         <!-- Social Icons -->
-        <div class="d-flex gap-3 mt-3">
-          <a href="#" class="text-dark"><i class="bi bi-linkedin fs-5"></i></a>
-          <a href="#" class="text-dark"><i class="bi bi-twitter fs-5"></i></a>
-          <a href="#" class="text-dark"><i class="bi bi-youtube fs-5"></i></a>
-          <a href="#" class="text-dark"><i class="bi bi-github fs-5"></i></a>
-        </div>
+<div class="d-flex gap-3 mt-3 social-icons">
+  <a href="#"><i class="bi bi-linkedin fs-5"></i></a>
+  <a href="#"><i class="bi bi-twitter fs-5"></i></a>
+  <a href="#"><i class="bi bi-youtube fs-5"></i></a>
+  <a href="#"><i class="bi bi-github fs-5"></i></a>
+</div>
+
+
+
       </div>
     </div>
   </div>
