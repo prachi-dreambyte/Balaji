@@ -398,6 +398,9 @@ try {
 			<div class="row">
 				<div class="col-md-5 col-sm-6 col-12 ">
 					<style>
+
+                      
+
 						.zoom-container {
 							width: 100%;
 							padding-top: 100%;
@@ -791,13 +794,12 @@ try {
 												</a>
 											<?php endif; ?>
 										</div>
-
-										<div class="wishlist-btn">
-											<a class="add-wish" href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
-    <i class="fa fa-heart" aria-hidden="true"></i>
-</a>
-										</div>
-									</div>
+<div class="wishlist-box">
+  <a class="add-wish" href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
+    <i class="bi bi-heart-fill"></i>
+  </a>
+</div>
+										
 
 
 

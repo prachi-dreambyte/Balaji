@@ -4,6 +4,47 @@ require_once 'connect.php';
 require_once 'includes/coin_system.php';
 require_once 'includes/session_timeout.php';
 
+// ---------- AUTO UPDATE HANDLER ----------
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'], $_POST['quantity'])) {
+    $user_id = (int)$_SESSION['user_id'];
+    $product_id = (int)$_POST['id'];
+    $quantity   = max(1, (int)$_POST['quantity']);
+
+    // update cart
+    $stmt = $conn->prepare("UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?");
+    $stmt->bind_param("iii", $quantity, $user_id, $product_id);
+    $stmt->execute();
+
+    // get product price
+    $stmt = $conn->prepare("SELECT price FROM products WHERE id = ?");
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $product = $stmt->get_result()->fetch_assoc();
+
+    $subtotal = $product['price'] * $quantity;
+
+    // calculate grand total
+    $stmt = $conn->prepare("SELECT SUM(c.quantity * p.price) as total 
+                            FROM cart c 
+                            JOIN products p ON c.product_id = p.id 
+                            WHERE c.user_id=?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $grand_total = $stmt->get_result()->fetch_assoc()['total'];
+
+    echo json_encode([
+        "success" => true,
+        "subtotal" => $subtotal,
+        "grand_total" => $grand_total
+    ]);
+    exit;
+
+}
+
+
+
+ 
+
 // Initialize coin system
 $coinSystem = new CoinSystem($conn);
 
@@ -319,7 +360,7 @@ if (isset($_POST['apply_coupon'])) {
     font-weight: 500;
     transition: all 0.2s ease;
 }
-
+ 
 .quantity-input:focus {
     border-color: #845848;
     box-shadow: 0 0 0 0.25rem rgba(192, 107, 129, 0.25);
@@ -681,7 +722,8 @@ if (isset($_POST['apply_coupon'])) {
 	                            
 	                            <li class="list-group-item d-flex justify-content-between py-3 summary-total">
 	                                <span class="fw-bold fs-5">Total Amount</span>
-	                                <strong class="fw-bold fs-5">₹<?= number_format($grand_total, 2) ?></strong>
+	                               <span id="cart-grand-total">₹<?= number_format($grand_total,2) ?></span>
+
 	                            </li>
 	                        </ul>
 	                        
@@ -877,6 +919,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    // plus button
+    $(".plus-btn").click(function(){
+        let index = $(this).data("index");
+        let input = $(".quantity-input[data-index='"+index+"']");
+        let newQty = parseInt(input.val()) + 1;
+        input.val(newQty).trigger("change");
+    });
+
+    // minus button
+    $(".minus-btn").click(function(){
+        let index = $(this).data("index");
+        let input = $(".quantity-input[data-index='"+index+"']");
+        let newQty = parseInt(input.val()) - 1;
+        if(newQty < 1) newQty = 1;
+        input.val(newQty).trigger("change");
+    });
+
+    // jab quantity change ho
+    $(".quantity-input").on("change", function(){
+        let index = $(this).data("index");
+        let newQty = $(this).val();
+        let productId = $("input[name='id[]']").eq(index).val();
+
+        $.post("shopping-cart.php", { id: productId, quantity: newQty }, function(res){
+            if(res.success){
+                // update subtotal column
+                $("tr[data-index='"+index+"'] td:nth-child(5)").text("₹"+res.subtotal.toFixed(2));
+                // update grand total
+                $("#cart-grand-total").text("₹"+res.grand_total.toFixed(2));
+            }
+        },"json");
+    });
+
+});
+</script>
+
 
 
 
