@@ -1,22 +1,10 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-include_once 'connect.php';
-?>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-<!-- Font Awesome 5 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
 <style>
 .slogan-section {
     background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-    padding: 101px 20px 5px 20px;
+    padding:95px 20px 1px 20px;
     text-align: center;
     position: relative;
+    background-color: #F5F6F2;
 }
 
 .slogan-text {
@@ -26,15 +14,17 @@ include_once 'connect.php';
     font-family: 'Poppins', sans-serif;
     animation: fadeInZoom 2s ease forwards;
     opacity: 0;
+    white-space: nowrap; /* ek line me force */
 }
 
 /* Gradient effect for first part */
 .slogan-text span:first-child {
     background: linear-gradient(90deg, #845848, #b88b5e);
     -webkit-background-clip: text;
+     overflow: hidden;
     -webkit-text-fill-color: transparent;
-    display: block;   /* ek line me upar */
-    margin-bottom: 15px;
+    display: inline-block;   /* ab inline */
+   font-size: 35px;
 }
 
 /* Typing animation for second part */
@@ -44,6 +34,7 @@ include_once 'connect.php';
     border-right: 3px solid #845848; /* cursor */
     overflow: hidden;
     white-space: nowrap;
+    font-size: 35px;
     animation: typing 4s steps(14, end) infinite, blink 0.7s step-end infinite;
 }
 
