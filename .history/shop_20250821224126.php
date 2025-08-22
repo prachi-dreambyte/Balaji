@@ -141,7 +141,7 @@ if (!empty($search_term)) {
                         OR category LIKE ? 
                         OR short_description LIKE ? 
                         OR description LIKE ? 
-                        OR hashtags LIKE ?)";
+                        OR tags LIKE ?)";
 		$params = array_merge($params, [$like, $like, $like, $like, $like]);
 		$types[] = 'sssss';
 	}
@@ -905,13 +905,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 data.forEach(item => {
                     let div = document.createElement("div");
-                    div.textContent = item.name; // show shortened (max 3 words)
+                    div.textContent = item.product_name;
                     div.style.padding = "8px";
                     div.style.cursor = "pointer";
-                    div.style.borderBottom = "1px solid #eee";
 
                     div.addEventListener("click", function () {
-                        input.value = item.name;
+                        input.value = item.product_name;
                         suggestionsBox.style.display = "none";
                         document.getElementById("searchForm").submit();
                     });
@@ -932,7 +931,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
 
 
 	

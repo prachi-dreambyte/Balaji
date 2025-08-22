@@ -489,7 +489,7 @@ if (isset($_SESSION['user_id'])) {
   right: 0;
   background: #fff;
   border: 1px solid #ddd;
-  border-radius:2px;
+  border-radius: 0 0 12px 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   z-index: 1000;
   display: none;

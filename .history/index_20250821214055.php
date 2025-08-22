@@ -335,19 +335,15 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  height:100%;
 }
 
 /* Video - pause by default */
 .reel-video {
   width: 100%;
-  height: 100%;           /* Full height */
-    /* Force reel-like portrait ratio */
-  object-fit: cover;      /* Cover full area */
   border-radius: 10px;
-  display: block;
+  object-fit: cover;
+  pointer-events: none;
 }
-
 
 /* Button hidden initially */
 .product-img .add-to-cart-btn {
@@ -1180,14 +1176,14 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
   <div class="row">
     <div class="product-title text-left">
                             <h2>
-                                <span>PRODUCT HIGHLIGHTS</span>
+                                <span>SIGNATURE COLLECTION</span>
                             </h2>
                         </div>
     <!-- Reel 1 -->
     <div class="col-md-3 col-sm-6 mb-4">
       <div class="product-img position-relative">
         <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video1.mp4" type="video/mp4">
+          <source src="img/body/sl.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
         <div class="add-to-cart-btn">
@@ -1202,7 +1198,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <div class="col-md-3 col-sm-6 mb-4">
       <div class="product-img position-relative">
         <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video2.mp4" type="video/mp4">
+          <source src="videos/reel2.mp4" type="video/mp4">
         </video>
         <div class="add-to-cart-btn">
           <a class="btn btn-danger w-100" href="product-details.php?id=2" title="View Product">
@@ -1216,7 +1212,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <div class="col-md-3 col-sm-6 mb-4">
       <div class="product-img position-relative">
         <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video3.mp4" type="video/mp4">
+          <source src="videos/reel3.mp4" type="video/mp4">
         </video>
         <div class="add-to-cart-btn">
           <a class="btn btn-danger w-100" href="product-details.php?id=3" title="View Product">
@@ -1230,7 +1226,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <div class="col-md-3 col-sm-6 mb-4">
       <div class="product-img position-relative">
         <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video4.mp4" type="video/mp4">
+          <source src="videos/reel4.mp4" type="video/mp4">
         </video>
         <div class="add-to-cart-btn">
           <a class="btn btn-danger w-100" href="product-details.php?id=4" title="View Product">
@@ -1510,22 +1506,10 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         </script>
         <script>
   document.querySelectorAll(".reel-video").forEach(video => {
-    video.pause(); // make sure video starts paused
-
-    // On hover → restart & play
-    video.addEventListener("mouseenter", () => {
-      video.currentTime = 0;  // restart from start
-      video.play().catch(err => console.log(err));
-    });
-
-    // On hover out → pause
-    video.addEventListener("mouseleave", () => {
-      video.pause();
-    });
+    video.addEventListener("mouseenter", () => video.play());
+    video.addEventListener("mouseleave", () => video.pause());
   });
 </script>
-
-
 
 </body>
 </html>

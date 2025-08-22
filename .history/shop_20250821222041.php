@@ -8,38 +8,6 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// AJAX Suggestions handler
-if (isset($_GET['suggest']) && !empty($_GET['suggest'])) {
-	$suggest = "%" . trim($_GET['suggest']) . "%";
-
-	$sql = "SELECT id, product_name 
-            FROM products 
-            WHERE product_name LIKE ? 
-               OR short_description LIKE ? 
-               OR tags LIKE ? 
-            LIMIT 10";
-	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("sss", $suggest, $suggest, $suggest);
-	$stmt->execute();
-	$result = $stmt->get_result();
-
-	$suggestions = [];
-	while ($row = $result->fetch_assoc()) {
-		// Limit product name to max 3 words for Google-like clean look
-		$words = explode(" ", $row['product_name']);
-		$shortName = implode(" ", array_slice($words, 0, 3));
-
-		$suggestions[] = [
-			"id" => $row['id'],
-			"name" => $shortName
-		];
-	}
-
-	header('Content-Type: application/json');
-	echo json_encode($suggestions);
-	exit;
-}
-
 
 // Function to get category banner
 function getCategoryBanner($category_name, $conn) {
@@ -120,33 +88,12 @@ if (!empty($category_names)) {
     $types[] = str_repeat('s', count($category_names));
 }
 
-$search_term = isset($_GET['search']) ? trim($_GET['search']) : '';
-
 if (!empty($search_term)) {
-	// Handle "under 1000" type search
-	if (preg_match('/under\s+(\d+)/i', $search_term, $matches)) {
-		$price_limit = (int) $matches[1];
-		$conditions[] = "price <= ?";
-		$params[] = $price_limit;
-		$types[] = 'i';
-
-		// Remove "under 1000" from search text so only keywords remain
-		$search_term = preg_replace('/under\s+\d+/i', '', $search_term);
-		$search_term = trim($search_term);
-	}
-
-	if (!empty($search_term)) {
-		$like = "%$search_term%";
-		$conditions[] = "(product_name LIKE ? 
-                        OR category LIKE ? 
-                        OR short_description LIKE ? 
-                        OR description LIKE ? 
-                        OR hashtags LIKE ?)";
-		$params = array_merge($params, [$like, $like, $like, $like, $like]);
-		$types[] = 'sssss';
-	}
+	$conditions[] = "(product_name LIKE ? OR category LIKE ?)";
+	$params[] = $like;
+	$params[] = $like;
+	$types[] = 'ss';
 }
-
 
 
 if ($enable_price_filter) {
@@ -882,57 +829,6 @@ if ($total_pages > 1): ?>
 			});
 		});
 	</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("searchInput");
-    const suggestionsBox = document.getElementById("suggestions");
-
-    input.addEventListener("input", function () {
-        let query = this.value.trim();
-        if (query.length < 2) {
-            suggestionsBox.style.display = "none";
-            return;
-        }
-
-        fetch("shop.php?suggest=" + encodeURIComponent(query))
-            .then(res => res.json())
-            .then(data => {
-                suggestionsBox.innerHTML = "";
-                if (data.length === 0) {
-                    suggestionsBox.style.display = "none";
-                    return;
-                }
-
-                data.forEach(item => {
-                    let div = document.createElement("div");
-                    div.textContent = item.name; // show shortened (max 3 words)
-                    div.style.padding = "8px";
-                    div.style.cursor = "pointer";
-                    div.style.borderBottom = "1px solid #eee";
-
-                    div.addEventListener("click", function () {
-                        input.value = item.name;
-                        suggestionsBox.style.display = "none";
-                        document.getElementById("searchForm").submit();
-                    });
-
-                    suggestionsBox.appendChild(div);
-                });
-
-                suggestionsBox.style.display = "block";
-            })
-            .catch(err => console.error(err));
-    });
-
-    // Hide when clicking outside
-    document.addEventListener("click", function (e) {
-        if (!e.target.closest(".search-box")) {
-            suggestionsBox.style.display = "none";
-        }
-    });
-});
-</script>
-
 
 
 	

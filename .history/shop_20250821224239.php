@@ -141,7 +141,7 @@ if (!empty($search_term)) {
                         OR category LIKE ? 
                         OR short_description LIKE ? 
                         OR description LIKE ? 
-                        OR hashtags LIKE ?)";
+                        OR tags LIKE ?)";
 		$params = array_merge($params, [$like, $like, $like, $like, $like]);
 		$types[] = 'sssss';
 	}
