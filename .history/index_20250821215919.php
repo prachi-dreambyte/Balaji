@@ -1180,7 +1180,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
   <div class="row">
     <div class="product-title text-left">
                             <h2>
-                                <span>PRODUCT HIGHLIGHTS</span>
+                                <span>SIGNATURE COLLECTION</span>
                             </h2>
                         </div>
     <!-- Reel 1 -->
@@ -1216,7 +1216,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <div class="col-md-3 col-sm-6 mb-4">
       <div class="product-img position-relative">
         <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video3.mp4" type="video/mp4">
+          <source src="img/body/sl.mp4" type="video/mp4">
         </video>
         <div class="add-to-cart-btn">
           <a class="btn btn-danger w-100" href="product-details.php?id=3" title="View Product">
@@ -1230,7 +1230,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <div class="col-md-3 col-sm-6 mb-4">
       <div class="product-img position-relative">
         <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video4.mp4" type="video/mp4">
+          <source src="img/body/sl.mp4" type="video/mp4">
         </video>
         <div class="add-to-cart-btn">
           <a class="btn btn-danger w-100" href="product-details.php?id=4" title="View Product">
@@ -1510,21 +1510,14 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         </script>
         <script>
   document.querySelectorAll(".reel-video").forEach(video => {
-    video.pause(); // make sure video starts paused
-
-    // On hover → restart & play
+    video.pause(); // default paused
     video.addEventListener("mouseenter", () => {
-      video.currentTime = 0;  // restart from start
+      video.currentTime = 0; // restart from beginning
       video.play().catch(err => console.log(err));
     });
-
-    // On hover out → pause
-    video.addEventListener("mouseleave", () => {
-      video.pause();
-    });
+    video.addEventListener("mouseleave", () => video.pause());
   });
 </script>
-
 
 
 </body>

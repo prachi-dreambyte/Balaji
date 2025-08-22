@@ -234,17 +234,12 @@ if (isset($_SESSION['user_id'])) {
         color: gray;
     }
 
-  .header-section {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1050;
-    padding: 10px 0px !important;
+    .header-section {
+       padding: 10px 0px !important;
     background-color: #F5F6F2 !important;
     border: none;
     color: #363636 !important;
-}
+    }
 
     .header-Side {
         font-size: 15px !important;
@@ -486,44 +481,6 @@ if (isset($_SESSION['user_id'])) {
             font-size: 14px;
         }
     }
-/* Suggestions Dropdown */
-#suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius:2px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  z-index: 1000;
-  display: none;
-  overflow: hidden; /* no scroll */
-}
-
-.suggestion-item {
-  padding: 10px 14px;
-  font-size: 15px;
-  color: #333;
-  cursor: pointer;
-  transition: background 0.2s, padding-left 0.2s;
-  border-bottom: 1px solid #f5f5f5;
-}
-
-.suggestion-item:last-child {
-  border-bottom: none;
-}
-
-.suggestion-item:hover {
-  background: #f9f9f9;
-  padding-left: 18px;
-}
-
-.suggestion-highlight {
-  font-weight: 600;
-  color: #007bff; /* highlight match */
-}
-
 </style>
 
  <!-- Marquee Start -->
@@ -641,32 +598,21 @@ if (isset($_SESSION['user_id'])) {
 
             <!-- Search + Account Icons -->
             <div class="d-flex align-items-center gap-3 flex-wrap justify-content-end">
-                
-<div class="search-box d-none d-md-block" style="position: relative; max-width:300px;">
-    <form id="searchForm" action="shop.php" method="get" autocomplete="off">
-        <input type="text" 
-               name="search" 
-               id="searchInput" 
-               placeholder="Search products..."
-               value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" autocomplete="off"
-                            spellcheck="false"
-                            style="width:100%; padding:10px 40px 10px 14px; border:1px solid #ddd; border-radius:25px; font-size:15px;">
-                
+                <div class="search-box d-none d-md-block">
+                    <form action="shop.php" method="get" class="search-box d-none d-md-block">
+                        <input type="text" name="search" placeholder="Search"
+                            value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                         <input type="hidden" name="category"
                             value="<?php echo isset($category_name) ? htmlspecialchars($category_name) : ''; ?>">
-                        <input type="hidden" name="sort_by" value="<?php echo isset($sort_by) ? htmlspecialchars($sort_by) : ''; ?>">
+                        <input type="hidden" name="sort_by"
+                            value="<?php echo isset($sort_by) ? htmlspecialchars($sort_by) : ''; ?>">
                         <input type="hidden" name="limit" value="<?php echo isset($limit) ? (int) $limit : 12; ?>">
-                
                         <button type="submit"
-                            style="position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#666;">
+                            style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none;">
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
-                
-                    <!-- Suggestions dropdown -->
-                    <div id="suggestions"></div>
                 </div>
-
                 <a href="my-account.php" class=" d-flex align-items-center header-Side text-black"><i
                         class="fas fa-cog me-1"></i> Account</a>
 

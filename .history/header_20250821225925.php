@@ -234,17 +234,12 @@ if (isset($_SESSION['user_id'])) {
         color: gray;
     }
 
-  .header-section {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1050;
-    padding: 10px 0px !important;
+    .header-section {
+       padding: 10px 0px !important;
     background-color: #F5F6F2 !important;
     border: none;
     color: #363636 !important;
-}
+    }
 
     .header-Side {
         font-size: 15px !important;
@@ -494,7 +489,7 @@ if (isset($_SESSION['user_id'])) {
   right: 0;
   background: #fff;
   border: 1px solid #ddd;
-  border-radius:2px;
+  border-radius: 0 0 12px 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   z-index: 1000;
   display: none;

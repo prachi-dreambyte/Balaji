@@ -234,17 +234,12 @@ if (isset($_SESSION['user_id'])) {
         color: gray;
     }
 
-  .header-section {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1050;
-    padding: 10px 0px !important;
+    .header-section {
+       padding: 10px 0px !important;
     background-color: #F5F6F2 !important;
     border: none;
     color: #363636 !important;
-}
+    }
 
     .header-Side {
         font-size: 15px !important;

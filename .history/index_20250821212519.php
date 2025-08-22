@@ -330,63 +330,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     }
 
  
-/* Reel container */
-.product-img {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  height:100%;
-}
-
-/* Video - pause by default */
-.reel-video {
-  width: 100%;
-  height: 100%;           /* Full height */
-    /* Force reel-like portrait ratio */
-  object-fit: cover;      /* Cover full area */
-  border-radius: 10px;
-  display: block;
-}
-
-
-/* Button hidden initially */
-.product-img .add-to-cart-btn {
-   position: absolute;
-   bottom: -60px; /* Hidden */
-   left: 50%;
-   transform: translateX(-50%);
-   width: 80%;
-   transition: all 0.3s ease;
-   opacity: 0;
-}
-
-/* Show button on hover */
-.product-img:hover .add-to-cart-btn {
-   bottom: 15px;
-   opacity: 1;
-}
-
-/* Button style */
-.add-to-cart-btn a {
-   background-color: #f5f6f2;
-   border: none;
-   border-radius: 30px;
-   padding: 10px 15px;
-   color: #845848;
-   font-weight: 600;
-   font-size: 14px;
-   display: block;
-   text-align: center;
-   text-decoration: none;
-   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-   transition: background-color 0.3s, transform 0.2s;
-}
-
-.add-to-cart-btn a:hover {
-   background-color: #845848;
-   color: #fff;
-   transform: scale(1.05);
-}
 
     </style>
 
@@ -1175,73 +1118,14 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 </div>
 <!-- testimonial-area-end -->
 
- <!-- Reels Section -->
-<section class="reels-section container my-5">
-  <div class="row">
-    <div class="product-title text-left">
-                            <h2>
-                                <span>PRODUCT HIGHLIGHTS</span>
-                            </h2>
-                        </div>
-    <!-- Reel 1 -->
-    <div class="col-md-3 col-sm-6 mb-4">
-      <div class="product-img position-relative">
-        <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video1.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <div class="add-to-cart-btn">
-          <a class="btn btn-danger w-100" href="product-details.php?id=1" title="View Product">
-            <i class="fa fa-eye"></i> View Product
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reel 2 -->
-    <div class="col-md-3 col-sm-6 mb-4">
-      <div class="product-img position-relative">
-        <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video2.mp4" type="video/mp4">
-        </video>
-        <div class="add-to-cart-btn">
-          <a class="btn btn-danger w-100" href="product-details.php?id=2" title="View Product">
-            <i class="fa fa-eye"></i> View Product
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reel 3 -->
-    <div class="col-md-3 col-sm-6 mb-4">
-      <div class="product-img position-relative">
-        <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video3.mp4" type="video/mp4">
-        </video>
-        <div class="add-to-cart-btn">
-          <a class="btn btn-danger w-100" href="product-details.php?id=3" title="View Product">
-            <i class="fa fa-eye"></i> View Product
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reel 4 -->
-    <div class="col-md-3 col-sm-6 mb-4">
-      <div class="product-img position-relative">
-        <video class="reel-video w-100" muted loop preload="metadata">
-          <source src="img/body/video4.mp4" type="video/mp4">
-        </video>
-        <div class="add-to-cart-btn">
-          <a class="btn btn-danger w-100" href="product-details.php?id=4" title="View Product">
-            <i class="fa fa-eye"></i> View Product
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+ <div class="home-4-latest-blog px-5">
+                <div class="blog">
+                    <div class="product-title">
+                        <h2><span></span></h2>
+                    </div>
+                    
+                </div>
+            </div>
 
 <style>
     @media (max-width: 768px) {
@@ -1508,24 +1392,5 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 });
             });
         </script>
-        <script>
-  document.querySelectorAll(".reel-video").forEach(video => {
-    video.pause(); // make sure video starts paused
-
-    // On hover → restart & play
-    video.addEventListener("mouseenter", () => {
-      video.currentTime = 0;  // restart from start
-      video.play().catch(err => console.log(err));
-    });
-
-    // On hover out → pause
-    video.addEventListener("mouseleave", () => {
-      video.pause();
-    });
-  });
-</script>
-
-
-
 </body>
 </html>

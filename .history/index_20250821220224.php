@@ -1510,21 +1510,14 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         </script>
         <script>
   document.querySelectorAll(".reel-video").forEach(video => {
-    video.pause(); // make sure video starts paused
-
-    // On hover → restart & play
+    video.pause(); // default paused
     video.addEventListener("mouseenter", () => {
-      video.currentTime = 0;  // restart from start
+      video.currentTime = 0; // restart from beginning
       video.play().catch(err => console.log(err));
     });
-
-    // On hover out → pause
-    video.addEventListener("mouseleave", () => {
-      video.pause();
-    });
+    video.addEventListener("mouseleave", () => video.pause());
   });
 </script>
-
 
 
 </body>

@@ -12,12 +12,11 @@ if (!isset($_SESSION['cart'])) {
 if (isset($_GET['suggest']) && !empty($_GET['suggest'])) {
 	$suggest = "%" . trim($_GET['suggest']) . "%";
 
-	$sql = "SELECT id, product_name 
-            FROM products 
+	$sql = "SELECT id, product_name FROM products 
             WHERE product_name LIKE ? 
                OR short_description LIKE ? 
                OR tags LIKE ? 
-            LIMIT 10";
+            LIMIT 5";
 	$stmt = $conn->prepare($sql);
 	$stmt->bind_param("sss", $suggest, $suggest, $suggest);
 	$stmt->execute();
@@ -25,21 +24,13 @@ if (isset($_GET['suggest']) && !empty($_GET['suggest'])) {
 
 	$suggestions = [];
 	while ($row = $result->fetch_assoc()) {
-		// Limit product name to max 3 words for Google-like clean look
-		$words = explode(" ", $row['product_name']);
-		$shortName = implode(" ", array_slice($words, 0, 3));
-
-		$suggestions[] = [
-			"id" => $row['id'],
-			"name" => $shortName
-		];
+		$suggestions[] = $row;
 	}
 
 	header('Content-Type: application/json');
 	echo json_encode($suggestions);
 	exit;
 }
-
 
 // Function to get category banner
 function getCategoryBanner($category_name, $conn) {
@@ -141,7 +132,7 @@ if (!empty($search_term)) {
                         OR category LIKE ? 
                         OR short_description LIKE ? 
                         OR description LIKE ? 
-                        OR hashtags LIKE ?)";
+                        OR tags LIKE ?)";
 		$params = array_merge($params, [$like, $like, $like, $like, $like]);
 		$types[] = 'sssss';
 	}
@@ -905,13 +896,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 data.forEach(item => {
                     let div = document.createElement("div");
-                    div.textContent = item.name; // show shortened (max 3 words)
+                    div.textContent = item.product_name;
                     div.style.padding = "8px";
                     div.style.cursor = "pointer";
-                    div.style.borderBottom = "1px solid #eee";
 
                     div.addEventListener("click", function () {
-                        input.value = item.name;
+                        input.value = item.product_name;
                         suggestionsBox.style.display = "none";
                         document.getElementById("searchForm").submit();
                     });
@@ -932,7 +922,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
 
 
 	
