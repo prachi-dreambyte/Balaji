@@ -159,10 +159,7 @@ try {
                                                                  <label for="product-colour" class="form-label">Product Colour</label>
                                                                  <input type="text" id="product-colour" name="colour" class="form-control" placeholder="Product Colour">
                                                             </div>
-                                                              <div class="mb-3">
-                                                                 <label for="hashtags" class="form-label">Hashtags</label>
-                                                                 <input type="text" id="hashtags" name="hashtags" class="form-control" placeholder="hashtags">
-                                                            </div>
+                                                              
                                                        </div>
 
                                              </div>
@@ -610,7 +607,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $tax = $_POST['tex'];
      $variants = !empty($_POST['variants']) ? $_POST['variants'] : null; // ✅ If empty, will handle later
      $colour = $_POST['colour'];
-     $hashtags = $_POST['hashtags'];
 
      // Image upload handling
      $imageArray = [];
@@ -653,12 +649,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 wheel_type, mechanical_system_type, color_available, product_weight, backrest_size, 
                 adjuster_size, guarantee, chair_arms, table_top_size, sitting_capacity, no_of_top, 
                 table_type, shape, wheels, short_description, description, tag_number, stock, tags, 
-                price, discount, corporate_discount,tax, images, variants, colour,hashtags) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?,?,?, ?, ?)";
+                price, discount, corporate_discount,tax, images, variants, colour) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?,?,?, ?, ?)";
 
           $stmt = $conn->prepare($sql);
           $stmt->bind_param(
-               "sssssssssssssssssssssssssssssssssssssssssss",
+               "ssssssssssssssssssssssssssssssssssssssssss",
                $product_name,
                $category,
                $brand,
@@ -700,8 +696,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                $tax,
                $imagesJSON,
                $variants,
-               $colour,
-               $hashtags
+               $colour
           );
 
           if ($stmt->execute()) {

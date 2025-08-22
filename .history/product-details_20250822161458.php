@@ -83,7 +83,7 @@ $product_id = intval($_GET['id'] ?? 0);
 if ($product_id > 0) {
 	// Fetch main product details from products table
 	$stmt = $conn->prepare("
-        SELECT id, images, product_name, price, discount, stock, variants,short_description
+        SELECT id, images, product_name, price, discount, stock, variants
         FROM products
         WHERE id = ?
     ");

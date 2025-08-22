@@ -83,7 +83,7 @@ $product_id = intval($_GET['id'] ?? 0);
 if ($product_id > 0) {
 	// Fetch main product details from products table
 	$stmt = $conn->prepare("
-        SELECT id, images, product_name, price, discount, stock, variants,short_description
+        SELECT id, images, product_name, price, discount, stock, variants
         FROM products
         WHERE id = ?
     ");
@@ -653,7 +653,7 @@ try {
 					<div class="abc">
 						<h1><?php echo $product['product_name'] !== '' ? htmlspecialchars($product['product_name']) : '---'; ?>
 						</h1>
-						<h4><?php echo $product['short_description'] !== '' ? htmlspecialchars($product['short_description']) : '---'; ?>
+						<h4><?php echo $products['short_description'] !== '' ? htmlspecialchars($products['short_description']) : '---'; ?>
 						</h4>
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>

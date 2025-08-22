@@ -653,7 +653,7 @@ try {
 					<div class="abc">
 						<h1><?php echo $product['product_name'] !== '' ? htmlspecialchars($product['product_name']) : '---'; ?>
 						</h1>
-						<h4><?php echo $product['short_description'] !== '' ? htmlspecialchars($product['short_description']) : '---'; ?>
+						<h4><?php echo $product['short_description'] !== '' ? htmlspecialchars($products['short_description']) : '---'; ?>
 						</h4>
 						<!-- <p class="reference"><label>Reference: </label>
 						<span><?php echo $product['tag_number'] !== '' ? htmlspecialchars($product['tag_number']) : '---'; ?></span>

@@ -83,7 +83,7 @@ $product_id = intval($_GET['id'] ?? 0);
 if ($product_id > 0) {
 	// Fetch main product details from products table
 	$stmt = $conn->prepare("
-        SELECT id, images, product_name, price, discount, stock, variants,short_description
+        SELECT id, images, product_name, price, discount, stock, variants
         FROM products
         WHERE id = ?
     ");
@@ -99,7 +99,7 @@ if ($product_id > 0) {
 		$product['discount'] = floatval($product_row['discount'] ?? 0);
 		$product['stock'] = intval($product_row['stock'] ?? 0);
 		$product['variants'] = intval($product_row['variants'] ?? 0);
-		$product['short_description'] = $product_row['short_description'];
+		$product['id'] = $product_row['short_description']?? ;
 
 		// Convert images string into an array (comma separated)
 		$images = !empty($product['images']) ? array_map('trim', explode(',', $product['images'])) : [];
