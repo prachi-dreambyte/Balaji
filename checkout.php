@@ -123,7 +123,6 @@ try {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     $user_id = intval($_POST['user_id'] ?? 0);
-
     // Get address details
     if (isset($_POST['selected_address_id']) && !empty($_POST['selected_address_id'])) {
         $address_id = intval($_POST['selected_address_id']);
@@ -139,6 +138,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             $state = $address['state'];
             $zipcode = $address['zipcode'];
             $contact_no = $address['contact_no'];
+
+            // ✅ Restrict to Uttarakhand
+            if (strtolower($state) !== "uttarakhand") {
+                die("⚠️ Sorry! We only deliver within Uttarakhand.");
+            }
+
         } else {
             die("Invalid address selected.");
         }
@@ -152,7 +157,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         if (empty($address_line) || empty($city) || empty($state) || empty($zipcode) || empty($contact_no)) {
             die("Please fill all address fields.");
         }
+
+        // ✅ Restrict to Uttarakhand
+        if (strtolower($state) !== "uttarakhand") {
+            die("⚠️ Sorry! We only deliver within Uttarakhand.");
+        }
     }
+
 
     $payment_method = 'razorpay';
 
@@ -261,6 +272,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         .hidden {
             display: none;
         }
+        .card .card-header{
+			background: #845848 !important;
+			color: #fff;
+			border-bottom: none;
+			border-top-left-radius: 12px;
+			border-top-right-radius: 12px;
+		}
     </style>
 </head>
 
@@ -275,15 +293,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     <!--checkout-start-->
     <div class="checkout-top-area">
         <div class="container">
-            <div class="breadcrumb-area">
-                <div class="breadcrumb">
-                    <a href="index.php" title="Return to Home">
-                        <i class="icon-home"></i>
-                    </a>
-                    <span class="navigation-pipe">></span>
-                    <span class="navigation-page">Checkout</span>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="entry-header">
@@ -301,85 +310,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                 <div class="row">
                     <!-- Billing Details -->
-                    <div class="col-lg-6 mb-4">
-                        <div class="card shadow-sm border-0">
-                            <div class="card-header bg-primary text-white">
-                                <h4 class="mb-0"><i class="fa fa-map-marker"></i> 1. Billing Details</h4>
-                            </div>
-                            <div class="card-body">
-                                <?php if (!empty($error)): ?>
-                                    <div class="alert alert-danger"><?php echo $error; ?></div>
-                                <?php endif; ?>
-
-                                <?php if (!empty($addresses)): ?>
-                                    <h5 class="mb-3">Select a Saved Address:</h5>
-                                    <div class="row">
-                                        <?php foreach ($addresses as $address): ?>
-                                            <div class="col-md-6 mb-3">
-                                                <div class="address-card p-3 h-100"
-                                                    onclick="selectAddress(this, <?php echo htmlspecialchars(json_encode($address)); ?>)">
-                                                    <input type="radio" name="selected_address_id"
-                                                        value="<?php echo $address['id']; ?>" hidden>
-                                                    <p class="mb-1">
-                                                        <strong><?php echo htmlspecialchars($address['address_line']); ?></strong>
-                                                    </p>
-                                                    <p class="mb-1"><?php echo htmlspecialchars($address['city']); ?>,
-                                                        <?php echo htmlspecialchars($address['state']); ?> -
-                                                        <?php echo htmlspecialchars($address['zipcode']); ?></p>
-                                                    <small class="text-muted">Phone:
-                                                        <?php echo htmlspecialchars($address['contact_no']); ?></small>
-                                                </div>
+                   <div class="col-lg-6 mb-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header">
+            <h4 class="mb-0 shoppingHead"><i class="fa fa-map-marker"></i> 1. Billing Details</h4>
+        </div>
+        <div class="card-body">
+            <?php if (!empty($error)): ?>
+                                <div class="alert alert-danger"><?php echo $error; ?></div>
+                            <?php endif; ?>
+                
+                            <?php if (!empty($addresses)): ?>
+                                <h5 class="mb-3">Select a Saved Address:</h5>
+                                <div class="row">
+                                    <?php foreach ($addresses as $address): ?>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="address-card p-3 h-100"
+                                                onclick="selectAddress(this, <?php echo htmlspecialchars(json_encode($address)); ?>)">
+                                                <input type="radio" name="selected_address_id" value="<?php echo $address['id']; ?>" hidden>
+                                                <p class="mb-1">
+                                                    <strong><?php echo htmlspecialchars($address['address_line']); ?></strong>
+                                                </p>
+                                                <p class="mb-1"><?php echo htmlspecialchars($address['city']); ?>,
+                                                    <?php echo htmlspecialchars($address['state']); ?> -
+                                                    <?php echo htmlspecialchars($address['zipcode']); ?>
+                                                </p>
+                                                <small class="text-muted">Phone:
+                                                    <?php echo htmlspecialchars($address['contact_no']); ?></small>
                                             </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                <?php endif; ?>
-
-                                <div class="form-check mt-3">
-                                    <input class="form-check-input" type="checkbox" id="ship-box"
-                                        onclick="toggleNewAddress()">
-                                    <label class="form-check-label" for="ship-box">
-                                        Ship to a different address?
-                                    </label>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
-
-                                <div id="new-address-fields" class="hidden mt-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">Address Line</label>
-                                        <input type="text" name="address_line" class="form-control">
+                            <?php endif; ?>
+                
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" id="ship-box" onclick="toggleNewAddress()">
+                                <label class="form-check-label" for="ship-box">
+                                    Ship to a different address?
+                                </label>
+                            </div>
+                
+                            <!-- New Address Fields -->
+                            <div id="new-address-fields" class="hidden mt-3">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Pincode*</label>
+                                        <input type="text" id="zipcode" name="zipcode" class="form-control" maxlength="6" required>
+                                        <small id="pincode-msg" class="text-danger"></small>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">City</label>
-                                        <input type="text" name="city" class="form-control">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label class="form-label">State</label>
-                                            <input type="text" name="state" class="form-control">
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label class="form-label">Zipcode</label>
-                                            <input type="text" name="zipcode" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Phone</label>
-                                        <input type="text" name="contact_no" class="form-control">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">City*</label>
+                                        <input type="text" id="city" name="city" class="form-control" required>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">State*</label>
+                                        <input type="text" id="state" name="state" class="form-control" required >
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Phone*</label>
+                                        <input type="text" name="contact_no" class="form-control" required>
+                                    </div>
+                                </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Order Notes</label>
-                                    <textarea name="order_notes" class="form-control" rows="3"></textarea>
+                                    <label class="form-label">Address Line*</label>
+                                    <input type="text" name="address_line" class="form-control" required>
                                 </div>
+                            </div>
+                
+                            <!-- Order Notes -->
+                            <div class="mb-3">
+                                <label class="form-label">Order Notes (optional)</label>
+                                <textarea name="order_notes" id="order_notes" class="form-control" rows="3" maxlength="250"
+                                    placeholder="Any delivery instructions (e.g., landmark, call before delivery)"></textarea>
+                                <small class="text-muted"><span id="notes-count">0</span>/250</small>
                             </div>
                         </div>
                     </div>
+                </div>
 
                     <!-- Order Summary -->
                     <div class="col-lg-6 mb-4">
                         <div class="card shadow-sm border-0 mb-4">
-                            <div class="card-header bg-success text-white">
-                                <h4 class="mb-0"><i class="fa fa-shopping-cart"></i> 2. Your Order</h4>
+                            <div class="card-header ">
+                                <h4 class="mb-0 shoppingHead"><i class="fa fa-shopping-cart"></i> 2. Your Order</h4>
                             </div>
                             <div class="card-body p-0">
                                 <table class="table table-striped mb-0">
@@ -438,8 +453,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
 
                         <!-- Payment -->
                         <div class="card shadow-sm border-0">
-                            <div class="card-header bg-warning">
-                                <h4 class="mb-0"><i class="fa fa-credit-card"></i> 3. Payment Method</h4>
+                            <div class="card-header">
+                                <h4 class="mb-0 shoppingHead"><i class="fa fa-credit-card"></i> 3. Payment Method</h4>
                             </div>
                             <div class="card-body">
                                 <!-- <div class="form-check mb-2">
@@ -455,8 +470,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                     <input class="form-check-input" type="radio" name="payment_method" value="razorpay">
                                     <label class="form-check-label">Razorpay</label>
                                 </div>
-                                <button type="submit" name="place_order" class="btn btn-lg btn-primary w-100">Place
-                                    Order</button>
+                                <button type="submit" name="place_order"  class="btn btn-dark btn-lg w-100 py-3" >Place Order</button>
                             </div>
                         </div>
                     </div>
@@ -563,21 +577,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             }
 
             if (newAddressChecked) {
-                const requiredFields = [
-                    'address_line', 'city', 'state', 'zipcode', 'contact_no'
-                ];
+    const requiredFields = ['address_line', 'city', 'state', 'zipcode', 'contact_no'];
 
-                for (const field of requiredFields) {
-                    if (!document.querySelector(input[name = "${field}"]).value.trim()) {
-                        e.preventDefault();
-                        alert('Please fill all required address fields');
-                        return false;
-                    }
-                }
-            }
+    for (const field of requiredFields) {
+        const el = document.querySelector(`input[name="${field}"]`);
+        if (!el || !el.value.trim()) {
+            e.preventDefault();
+            alert(`Please fill the ${field.replace("_", " ")} field`);
+            el?.focus();
+            return false;
+        }
+    }
+}
+
             return true;
         });
     </script>
+    
+<script>
+// Toggle new address fields
+function toggleNewAddress() {
+    const fields = document.getElementById('new-address-fields');
+    fields.classList.toggle('hidden');
+}
+
+// Handle pincode autofill
+document.getElementById('zipcode')?.addEventListener('input', function () {
+    const pincode = this.value.trim();
+    const msg = document.getElementById('pincode-msg');
+    const city = document.getElementById('city');
+    const state = document.getElementById('state');
+
+    if (pincode.length === 6) {
+        msg.textContent = "Searching...";
+        fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data[0].Status === "Success") {
+                    const postOffice = data[0].PostOffice[0];
+                    city.value = postOffice.District;
+                    state.value = postOffice.State;
+
+                    if (postOffice.State.toLowerCase() === "uttarakhand") {
+                        msg.textContent = "✅ Pincode available for delivery";
+                        msg.classList.remove("text-danger");
+                        msg.classList.add("text-success");
+                    } else {
+                        msg.textContent = "❌ Sorry, delivery available only in Uttarakhand";
+                        msg.classList.remove("text-success");
+                        msg.classList.add("text-danger");
+                    }
+                } else {
+                    msg.textContent = "❌ Invalid Pincode";
+                    city.value = "";
+                    state.value = "";
+                }
+            })
+            .catch(() => {
+                msg.textContent = "❌ Error fetching pincode info";
+            });
+    } else {
+        msg.textContent = "";
+        city.value = "";
+        state.value = "";
+    }
+});
+
+// Live counter for Order Notes
+const notes = document.getElementById('order_notes');
+const notesCount = document.getElementById('notes-count');
+if (notes && notesCount) {
+    notes.addEventListener('input', () => {
+        notesCount.textContent = notes.value.length;
+    });
+}
+</script>
 </body>
 
 </html>
