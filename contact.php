@@ -388,7 +388,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       </svg>
             <div class="contactInformation">
               <h2>Address</h2>
-              <p>Jay Shri Balaji Foam & Furniture, Opposite Mall Of Dehradun, Near Miyawala Underpass,<br>Haridwar Road, Dehradun, Uttarakhand - 248005</p>
+              <p>Jay Shri Balaji Foam & Furniture,<br>
+                 Opposite Mall Of Dehradun,<br>
+                  Near Miyawala Underpass,
+                  <br>
+                  Haridwar Road, Dehradun, <br>
+                  Uttarakhand - 248005</p>
             </div>
           </div>
 

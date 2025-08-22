@@ -175,7 +175,7 @@ $ordersResult = $conn->query($orderQuery);
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header"> Welcome to <?php echo $_SESSION['user_name']; ?></h6>
+                        <h6 class="dropdown-header"> Welcome to <?php echo $_SESSION['admin_name']; ?></h6>
 
 
                         <div class="dropdown-divider my-1"></div>
