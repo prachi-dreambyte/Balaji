@@ -755,7 +755,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
                 <div class="bounceInRight animated">
-                    <img src="img/brand/logo2.png" alt="Distributor 2" class="img-responsive img-fluid" id="d_img" style="max-width:100%; border-radius:10px;">
+                    <img src="img/brand/logo2.webp" alt="Distributor 2" class="img-responsive img-fluid" id="d_img" style="max-width:100%; border-radius:10px;">
                 </div>
             </div>
         </div>
@@ -1292,7 +1292,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <!-- Header -->
                     <h3 class="section-header mb-2" style="font-weight: 700; color: #333;">
                         <!-- <i class="fas fa-quote-left" style="color: #ff9800; margin-right: 8px;"></i> -->
-                       Testimonials
+                        Customer Reviews
                     </h3>
                     <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
                         Real Google reviews from our valued customers.

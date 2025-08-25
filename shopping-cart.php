@@ -10,42 +10,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'], $_POST['quantit
     $product_id = (int)$_POST['id'];
     $quantity   = max(1, (int)$_POST['quantity']);
 
-    // update cart
+    // Update cart quantity
     $stmt = $conn->prepare("UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?");
     $stmt->bind_param("iii", $quantity, $user_id, $product_id);
     $stmt->execute();
 
-    // get product price
-    $stmt = $conn->prepare("SELECT price FROM products WHERE id = ?");
+    // Determine account type for corporate discount logic
+    $user_account_type = isset($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
+    $is_commercial = ($user_account_type === 'commercial');
+
+    // Get product pricing with discounts
+    $stmt = $conn->prepare("SELECT price, COALESCE(discount, 0) AS discount, COALESCE(corporate_discount, 0) AS corporate_discount FROM products WHERE id = ?");
     $stmt->bind_param("i", $product_id);
     $stmt->execute();
     $product = $stmt->get_result()->fetch_assoc();
 
-    $subtotal = $product['price'] * $quantity;
+    $base_price = (float)($product['price'] ?? 0);
+    $discount = (float)($product['discount'] ?? 0);
+    $corporate_discount = (float)($product['corporate_discount'] ?? 0);
+    $final_price = $base_price - $discount;
+    if ($is_commercial && $corporate_discount > 0) {
+        $final_price -= $corporate_discount;
+    }
+    if ($final_price < 0) { $final_price = 0; }
 
-    // calculate grand total
-    $stmt = $conn->prepare("SELECT SUM(c.quantity * p.price) as total 
-                            FROM cart c 
-                            JOIN products p ON c.product_id = p.id 
-                            WHERE c.user_id=?");
+    $subtotal = $final_price * $quantity;
+
+    // Recompute totals across the cart using discounted prices
+    $stmt = $conn->prepare("SELECT c.quantity, p.price, COALESCE(p.discount,0) AS discount, COALESCE(p.corporate_discount,0) AS corporate_discount
+                            FROM cart c
+                            JOIN products p ON c.product_id = p.id
+                            WHERE c.user_id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
-    $grand_total = $stmt->get_result()->fetch_assoc()['total'];
+    $result = $stmt->get_result();
 
+    $total = 0.0;
+    while ($row = $result->fetch_assoc()) {
+        $row_price = (float)$row['price'];
+        $row_discount = (float)$row['discount'];
+        $row_corp = (float)$row['corporate_discount'];
+        $row_final = $row_price - $row_discount;
+        if ($is_commercial && $row_corp > 0) {
+            $row_final -= $row_corp;
+        }
+        if ($row_final < 0) { $row_final = 0; }
+        $total += $row_final * (int)$row['quantity'];
+    }
 
-   $flat_rate = $grand_total * 0.18 / 1.18; // or recalc based on total
-   $subtotal_all = $grand_total - $flat_rate;
+    $coupon_discount = (float)($_SESSION['coupon_discount'] ?? 0);
+    $coins_applied   = (float)($_SESSION['coins_applied'] ?? 0);
 
-echo json_encode([
-    "success"     => true,
-    "subtotal"    => $subtotal,        // current product row
-    "subtotal_all"=> $subtotal_all,    // all products subtotal
-    "flat_rate"   => $flat_rate,
-    "grand_total" => $grand_total
-]);
+    $flat_rate = $total * 0.18; // 18% shipping/tax
+    $grand_total = $total + $flat_rate - $coupon_discount - $coins_applied;
+    if ($grand_total < 0) { $grand_total = 0; }
 
+    echo json_encode([
+        "success"         => true,
+        "subtotal"        => $subtotal,
+        "subtotal_all"    => $total,
+        "flat_rate"       => $flat_rate,
+        "grand_total"     => $grand_total,
+        "coupon_discount" => $coupon_discount,
+        "coins_applied"   => $coins_applied
+    ]);
     exit;
-
 }
 
 
@@ -154,6 +183,7 @@ $cart_result = $stmt->get_result();
 
 $cart_itemss = [];
 $total = 0;
+\$items_count = 0;
 
 while ($cart_row = $cart_result->fetch_assoc()) {
 	$cart_id = $cart_row['id'];
@@ -161,8 +191,8 @@ while ($cart_row = $cart_result->fetch_assoc()) {
 	$quantity = $cart_row['quantity'];
 	$product = null; // Reset the product at the start of each loop
 
-	// Try fetching from 'products' table
-	$product_stmt = $conn->prepare("SELECT id, product_name, price, images, stock FROM products WHERE id = ?");
+	// Try fetching from 'products' table (include discount fields)
+	$product_stmt = $conn->prepare("SELECT id, product_name, price, discount, corporate_discount, images, stock FROM products WHERE id = ?");
 	$product_stmt->bind_param("i", $product_id);
 	$product_stmt->execute();
 	$product_result = $product_stmt->get_result();
@@ -181,14 +211,28 @@ while ($cart_row = $cart_result->fetch_assoc()) {
 	if (!empty($product)) {
 		$images = json_decode($product['images'], true);
 		$image = is_array($images) && !empty($images) ? $images[0] : 'default.jpg';
-		$subtotal = $product['price'] * $quantity;
+		// compute discounted final unit price
+		$unit_price = (float)$product['price'];
+		$discount = isset($product['discount']) ? (float)$product['discount'] : 0.0;
+		$corporate_discount = isset($product['corporate_discount']) ? (float)$product['corporate_discount'] : 0.0;
+		$user_account_type = isset($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
+		$is_commercial = ($user_account_type === 'commercial');
+		$final_unit_price = $unit_price - $discount;
+		if ($is_commercial && $corporate_discount > 0) {
+			$final_unit_price -= $corporate_discount;
+		}
+		if ($final_unit_price < 0) { $final_unit_price = 0; }
+
+		$subtotal = $final_unit_price * $quantity;
 		$total += $subtotal;
+		$items_count += (int)$quantity;
 
 		$cart_itemss[] = [
 			'id' => $product_id,  // Use product_id for consistency
 			'cart_id' => $cart_id,
 			'product_name' => $product['product_name'],
-			'price' => $product['price'],
+			'price' => $unit_price,
+			'display_price' => $final_unit_price,
 			'quantity' => $quantity,
 			'image' => $image,
 			'subtotal' => $subtotal,
@@ -532,7 +576,7 @@ if (isset($_POST['apply_coupon'])) {
 	                        <div class="card-header bg-primary bg-gradient text-white p-3">
 	                            <div class="d-flex justify-content-between align-items-center">
 	                                <h4 class="mb-0 shoppingHead"><i class="fas fa-shopping-cart me-2"></i>Your Shopping Cart</h4>
-	                                <span class="badge bg-white text-black fs-6"><?php echo $cart_count . ' Item' . ($cart_count > 1 ? 's' : ''); ?>
+	                                <span class="badge bg-white text-black fs-6"><?php echo ($items_count ?? 0) . ' Item' . (($items_count ?? 0) > 1 ? 's' : ''); ?>
 	                            </div>
 	                        </div>
 	                        
@@ -564,7 +608,7 @@ if (isset($_POST['apply_coupon'])) {
 	                                                    <td>
 	                                                        <h6 class="mb-1"><?= htmlspecialchars($cart_item['product_name']) ?></h6>
 	                                                    </td>
-	                                                    <td>₹<?= number_format($cart_item['price'], 2) ?></td>
+	                                                    <td>₹<?= number_format($cart_item['display_price'], 2) ?></td>
 	                                                    <td>
 	                                                        <div class="input-group input-group-sm align-items-center">
 	                                                            <button type="button" class="btn btn-outline-secondary minus-btn" data-index="<?= $index ?>" <?= $cart_item['quantity'] <= 1 ? 'disabled' : '' ?>>
@@ -572,10 +616,11 @@ if (isset($_POST['apply_coupon'])) {
 	                                                            </button>
 	                                                            <input type="number" name="quantity[]" 
 	                                                                   class="form-control text-center quantity-input" 
-											                            style="padding: 14px;"
+																	style="padding: 14px;"
 	                                                                   value="<?= $cart_item['quantity'] ?>" 
 	                                                                   min="1" 
-	                                                                   data-index="<?= $index ?>">
+	                                                                   data-index="<?= $index ?>"
+	                                                                   max="<?= $cart_item['stock'] ?>">
 	                                                            <button type="button" class="btn btn-outline-secondary plus-btn" data-index="<?= $index ?>" <?= $cart_item['quantity'] >= $cart_item['stock'] ? 'disabled' : '' ?>>
 	                                                                <i class="fas fa-plus"></i>
 	                                                            </button>
@@ -706,7 +751,7 @@ if (isset($_POST['apply_coupon'])) {
 	                    <div class="card-body">
 	                        <ul class="list-group list-group-flush">
 	                            <li class="list-group-item d-flex justify-content-between py-2">
-	                                <span>Subtotal (<?php echo $cart_count . ' item' . ($cart_count > 1 ? 's' : ''); ?>)</span>
+	                                <span>Subtotal (<?php echo ($items_count ?? 0) . ' item' . (($items_count ?? 0) > 1 ? 's' : ''); ?>)</span>
                                     <strong>₹<span id="summary-subtotal"><?= number_format($total, 2) ?></span></strong>
                                 </li>
 	                            
