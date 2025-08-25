@@ -28,7 +28,7 @@
  .loginUniversal {
     text-align: center;
     font-family: Lato, sans-serif;
-    color: #003974;
+    color: #845848;
     /* height: 100%; */
     /* padding-top: 65px; */
     padding-bottom: 300px;
@@ -48,23 +48,24 @@
 }
 
 .tab-buttons button {
-    flex: 1;
+   flex: 1;
     padding: 20px;
-    background-color: #845848;
+    background-color: #f5f6f2;
     border: none;
     border-bottom: 10px solid transparent;
     font-size: 21px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius:22px 11px;
-    color: #ffffff;
+    border-radius: 10px;
+    color: #845848;
     margin: 0px 10px;
+    box-shadow: 0px 10px 10px rgba(3, 4, 28, 0.06);
 }
 
 .tab-buttons button.active {
-    background-color: #845848;
-    color: #fff;
-    border-bottom: 10px solid #da8da1;
+    background-color: #f5f6f2;
+    color: #845848;
+    border-bottom: 10px solid #c3aaa1;
     font-weight: bold;
 }
 
@@ -112,7 +113,7 @@ input[type="password"]:focus {
 
 /* Submit Button */
 input[type="submit"] {
-   background-color: #845848db;
+   background-color: #845848;
     color: #fff;
     padding: 25px;
     font-size: 25px;
@@ -125,7 +126,8 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #845848;
+    background-color: #c3aaa1;
+
 }
 .signup-form .LoginAccount p{
     text-align: center ;
