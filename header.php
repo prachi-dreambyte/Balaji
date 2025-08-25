@@ -527,18 +527,6 @@ if (isset($_SESSION['user_id'])) {
 }
 
 </style>
-
- <!-- Marquee Start -->
-<div style= "background: #845848;
-    color: #fff;
-    font-size: 14px;
-    padding: 6px 0;
-    text-align: center;">
-  <marquee behavior="scroll" direction="left" scrollamount="5">
-    100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
-  </marquee>
-</div>
-<!-- Marquee End -->
 <header class=" header-section">
     <div class="container-fluid px-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
