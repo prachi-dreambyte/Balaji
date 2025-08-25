@@ -32,11 +32,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'], $_POST['quantit
     $stmt->execute();
     $grand_total = $stmt->get_result()->fetch_assoc()['total'];
 
-    echo json_encode([
-        "success" => true,
-        "subtotal" => $subtotal,
-        "grand_total" => $grand_total
-    ]);
+
+   $flat_rate = $grand_total * 0.18 / 1.18; // or recalc based on total
+   $subtotal_all = $grand_total - $flat_rate;
+
+echo json_encode([
+    "success"     => true,
+    "subtotal"    => $subtotal,        // current product row
+    "subtotal_all"=> $subtotal_all,    // all products subtotal
+    "flat_rate"   => $flat_rate,
+    "grand_total" => $grand_total
+]);
+
     exit;
 
 }
@@ -70,6 +77,8 @@ $user_id = (int)$_SESSION['user_id'];
 if (isset($_GET['action'], $_GET['id']) && $_GET['action'] === 'add') {
 	$product_id = (int)$_GET['id'];
 	$quantity = max(1, (int)($_GET['qty'] ?? 1));
+
+	
 
 	// Check product stock first
 	
@@ -698,13 +707,17 @@ if (isset($_POST['apply_coupon'])) {
 	                        <ul class="list-group list-group-flush">
 	                            <li class="list-group-item d-flex justify-content-between py-2">
 	                                <span>Subtotal (<?php echo $cart_count . ' item' . ($cart_count > 1 ? 's' : ''); ?>)</span>
-	                                <strong>₹<?= number_format($total, 2) ?></strong>
-	                            </li>
+                                    <strong>₹<span id="summary-subtotal"><?= number_format($total, 2) ?></span></strong>
+                                </li>
 	                            
 	                            <li class="list-group-item d-flex justify-content-between py-2">
-	                                <span>Shipping (18%)</span>
-	                                <strong>₹<?= number_format($flat_rate, 2) ?></strong>
-	                            </li>
+                                <span>Shipping (18%)</span>
+                                  <strong>₹<span id="summary-shipping"><?= number_format($flat_rate, 2) ?></span></strong>
+                                 </li>
+								 <li class="list-group-item summary-total d-flex justify-content-between py-2">
+                                    <span>Grand Total</span>
+                                     <strong>₹<span id="summary-grand"><?= number_format($grand_total, 2) ?></span></strong>
+                                  </li>
 	                            
 	                            <?php if ($coupon_discount > 0): ?>
 	                                <li class="list-group-item d-flex justify-content-between py-2 text-success">
@@ -720,11 +733,7 @@ if (isset($_POST['apply_coupon'])) {
 	                                </li>
 	                            <?php endif; ?>
 	                            
-	                            <li class="list-group-item d-flex justify-content-between py-3 summary-total">
-	                                <span class="fw-bold fs-5">Total Amount</span>
-	                               <span id="cart-grand-total">₹<?= number_format($grand_total,2) ?></span>
-
-	                            </li>
+	                           
 	                        </ul>
 	                        
 	                        <div class="d-grid gap-2 mt-4">
@@ -922,42 +931,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function(){
-
-    // plus button
-    $(".plus-btn").click(function(){
-        let index = $(this).data("index");
-        let input = $(".quantity-input[data-index='"+index+"']");
-        let newQty = parseInt(input.val()) + 1;
-        input.val(newQty).trigger("change");
-    });
-
-    // minus button
-    $(".minus-btn").click(function(){
-        let index = $(this).data("index");
-        let input = $(".quantity-input[data-index='"+index+"']");
-        let newQty = parseInt(input.val()) - 1;
-        if(newQty < 1) newQty = 1;
-        input.val(newQty).trigger("change");
-    });
-
-    // jab quantity change ho
-    $(".quantity-input").on("change", function(){
-        let index = $(this).data("index");
-        let newQty = $(this).val();
-        let productId = $("input[name='id[]']").eq(index).val();
-
-        $.post("shopping-cart.php", { id: productId, quantity: newQty }, function(res){
-            if(res.success){
-                // update subtotal column
-                $("tr[data-index='"+index+"'] td:nth-child(5)").text("₹"+res.subtotal.toFixed(2));
-                // update grand total
-                $("#cart-grand-total").text("₹"+res.grand_total.toFixed(2));
-            }
-        },"json");
-    });
-
+document.querySelectorAll(".plus-btn, .minus-btn, .quantity-input").forEach(el => {
+    if (el.classList.contains("plus-btn") || el.classList.contains("minus-btn")) {
+        el.addEventListener("click", handleUpdate);
+    }
+    if (el.classList.contains("quantity-input")) {
+        el.addEventListener("change", handleUpdate);
+    }
 });
+
+function handleUpdate(e) {
+    let index = this.dataset.index;
+    let row   = document.querySelector(`tr[data-index="${index}"]`);
+    let input = row.querySelector(".quantity-input");
+    let id    = row.querySelector("input[name='id[]']").value;
+    let qty   = parseInt(input.value) || 1;
+
+    if (qty < 1) qty = 1;
+
+    // AJAX with fetch
+    fetch("shopping-cart.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `id=${id}&quantity=${qty}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            // update row subtotal
+            row.querySelector("td.text-end").innerHTML = "₹" + (data.subtotal || 0).toFixed(2);
+
+            // update order summary values
+            document.getElementById("summary-subtotal").innerText = (data.subtotal_all || 0).toFixed(2);
+            document.getElementById("summary-shipping").innerText = (data.flat_rate || 0).toFixed(2);
+            document.getElementById("summary-grand").innerText    = (data.grand_total || 0).toFixed(2);
+
+            // update hidden checkout inputs
+            document.querySelector("input[name='order_total']").value      = data.grand_total || 0;
+            document.querySelector("input[name='coupon_discount']").value  = data.coupon_discount || 0;
+            document.querySelector("input[name='coins_applied']").value    = data.coins_applied || 0;
+        }
+    })
+    .catch(err => console.error("Cart update failed:", err));
+}
 </script>
 
 
