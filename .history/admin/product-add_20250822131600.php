@@ -653,12 +653,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 wheel_type, mechanical_system_type, color_available, product_weight, backrest_size, 
                 adjuster_size, guarantee, chair_arms, table_top_size, sitting_capacity, no_of_top, 
                 table_type, shape, wheels, short_description, description, tag_number, stock, tags, 
-                price, discount, corporate_discount,tax, images, variants, colour,hashtags) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?,?,?, ?, ?)";
+                price, discount, corporate_discount,tax, images, variants, colour,hash) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?,?,?, ?, ?)";
 
           $stmt = $conn->prepare($sql);
           $stmt->bind_param(
-               "sssssssssssssssssssssssssssssssssssssssssss",
+               "ssssssssssssssssssssssssssssssssssssssssss",
                $product_name,
                $category,
                $brand,

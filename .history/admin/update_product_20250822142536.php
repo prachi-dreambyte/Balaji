@@ -17,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $product_weight = $_POST['product_weight'];
     $variants = $_POST['variants'];
     $colour = $_POST['colour'];
-    $hashtags = $_POST['hashtags'];
     $size = $_POST['size'];
     $total_height = $_POST['total_height'];
     $total_width = $_POST['total_width'];
@@ -66,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
 
     // Update query with all fields
     $sql = "UPDATE products SET 
-        product_name = ?, category = ?, brand = ?, product_weight = ?, variants = ?, colour = ?,hashtags=? ,
+        product_name = ?, category = ?, brand = ?, product_weight = ?, variants = ?, colour = ?,hash
         size = ?, total_height = ?, total_width = ?, material = ?, seat_height = ?, seat_thickness = ?,
         short_description = ?, description = ?, tag_number = ?, stock = ?, tags = ?,
         price = ?, discount = ?, corporate_discount = ?, tax = ?, images = ?
@@ -74,14 +73,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        "sssssssssssssssssssssssi",
+        "ssssssssssssssssssssssi",
         $product_name,
         $category,
         $brand,
         $product_weight,
         $variants,
         $colour,
-        $hashtags,
         $size,
         $total_height,
         $total_width,

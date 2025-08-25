@@ -422,24 +422,6 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!-- header-start -->
     <div class="wrapper">
         <?php include 'header.php'; ?>
-        <!-- *******Marquee Start ******-->
-    
-<div style= "background: #845848;
-    color: #fff;
-    font-size: 14px;
-    padding: 6px 0;
-    text-align: center;
-      margin-top: 40px">
-  
-  <marquee behavior="scroll" direction="left" scrollamount="5">
-    100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
-  </marquee>
-</div>
-<!-- Marquee End -->
-
-         <!-- ********Marquee End*********** -->
-
-         <div class="slider-progress"></div>
         <!-- heade incr-end -->
 
         <!-- 🔹 Slogan Section -->
@@ -461,7 +443,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 <?php foreach ($slider_banners as $index => $banner): ?>
                     <div id="htmlcaption<?php echo $index + 1; ?>"
                         class="nivo-html-caption slider-caption-<?php echo $index + 1; ?>">
-                        <!-- <div class="slider-progress"></div> -->
+                        <div class="slider-progress"></div>
                        
                             
                         </div>
