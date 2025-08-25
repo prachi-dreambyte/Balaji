@@ -444,7 +444,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     color: #fff;
     font-size: 14px;
     padding: 6px 0;
-    text-align: center;">
+    text-align: center;>
   
   <marquee behavior="scroll" direction="left" scrollamount="5">
     100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7

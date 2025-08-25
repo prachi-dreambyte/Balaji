@@ -439,22 +439,23 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <div class="wrapper">
         <?php include 'header.php'; ?>
         <!-- *******Marquee Start ******-->
-    
-<div style= "background: #845848;
+
+        <div style="background: #845848;
     color: #fff;
     font-size: 14px;
     padding: 6px 0;
     text-align: center;">
-  
-  <marquee behavior="scroll" direction="left" scrollamount="5">
-    100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
-  </marquee>
-</div>
-<!-- Marquee End -->
 
-         <!-- ********Marquee End*********** -->
+            <marquee behavior="scroll" direction="left" scrollamount="5">
+                100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE
+                SUPPORT 24/7
+            </marquee>
+        </div>
+        <!-- Marquee End -->
 
-         <div class="slider-progress"></div>
+        <!-- ********Marquee End*********** -->
+
+        <div class="slider-progress"></div>
         <!-- heade incr-end -->
 
         <!-- 🔹 Slogan Section -->
@@ -754,8 +755,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                         <!-- <button class="scroll-btn left" onclick="scrollNewArrival(-1)">&#10094;</button> -->
 
                                         <!-- Scrollable Row -->
-                                        <div class="row" id="newarrival-row"
-                                            >
+                                        <div class="row" id="newarrival-row">
                                             <?php foreach ($newArrivalProducts as $product): ?>
                                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                                     <div class="single-product">
@@ -930,115 +930,117 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                     </div>
                                                 </div>
                                             </div>
-                                        
-                                    <?php endforeach; ?>
+
+                                        <?php endforeach; ?>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Best Seller Products -->
-                            <div class="tab-pane" id="bestseller">
-                                <div class="row">
-                                    <?php foreach ($bestsellerProducts as $product): ?>
-                                        <div class="col-xl-3 col-lg-4 col-md-6">
-                                            <div class="single-product">
-                                                <div class="product-img">
-                                                    <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                        <?php
-                                                        $images = json_decode($product['images'], true);
-                                                        if (!empty($images)): ?>
-                                                            <img src="admin/<?= htmlspecialchars($images[0]) ?>"
-                                                                alt="<?= htmlspecialchars($product['product_name']) ?>">
-                                                        <?php endif; ?>
-                                                    </a>
-                                                    <?php if (strtotime($product['created_at']) > strtotime('-30 days')): ?>
-                                                        <span class="badge-new">Best seller</span>
-                                                    <?php endif; ?>
-                                                </div>
-                                                <?php
-                                                // Fetch product rating & review count dynamically
-                                                $product_id = $product['id']; // Ensure this is the correct field name
-                                            
-                                                $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating 
-          FROM reviews 
-          WHERE product_id = $product_id";
-                                                $result = mysqli_query($conn, $query);
-
-                                                if ($result && mysqli_num_rows($result) > 0) {
-                                                    $reviewData = mysqli_fetch_assoc($result);
-                                                    $product['review_count'] = (int) ($reviewData['review_count'] ?? 0);
-                                                    $product['rating'] = round($reviewData['avg_rating'] ?? 0);
-                                                } else {
-                                                    $product['review_count'] = 0;
-                                                    $product['rating'] = 0;
-                                                }
-                                                ?>
-
-                                                <div class="product-content">
-                                                    <h5 class="product-name">
+                                <!-- Best Seller Products -->
+                                <div class="tab-pane" id="bestseller">
+                                    <div class="row">
+                                        <?php foreach ($bestsellerProducts as $product): ?>
+                                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                                <div class="single-product">
+                                                    <div class="product-img">
                                                         <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                            <?= htmlspecialchars($product['product_name']) ?>
+                                                            <?php
+                                                            $images = json_decode($product['images'], true);
+                                                            if (!empty($images)): ?>
+                                                                <img src="admin/<?= htmlspecialchars($images[0]) ?>"
+                                                                    alt="<?= htmlspecialchars($product['product_name']) ?>">
+                                                            <?php endif; ?>
                                                         </a>
-                                                    </h5>
-
-                                                    <div class="product-rating">
-                                                        <?= str_repeat('★', $product['rating']) ?>
-                                                        <?= str_repeat('☆', 5 - $product['rating']) ?>
-                                                        <?php if ($product['review_count'] > 0): ?>
-                                                            <span class="review-count">
-                                                                <?= $product['review_count'] ?> Review(s)
-                                                            </span>
+                                                        <?php if (strtotime($product['created_at']) > strtotime('-30 days')): ?>
+                                                            <span class="badge-new">Best seller</span>
                                                         <?php endif; ?>
                                                     </div>
+                                                    <?php
+                                                    // Fetch product rating & review count dynamically
+                                                    $product_id = $product['id']; // Ensure this is the correct field name
+                                                
+                                                    $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating 
+          FROM reviews 
+          WHERE product_id = $product_id";
+                                                    $result = mysqli_query($conn, $query);
 
-                                                    <div class="price-box">
-                                                        <?php
-                                                        $original_price = (float) $product['price'];
-                                                        $final_price = $original_price;
+                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                        $reviewData = mysqli_fetch_assoc($result);
+                                                        $product['review_count'] = (int) ($reviewData['review_count'] ?? 0);
+                                                        $product['rating'] = round($reviewData['avg_rating'] ?? 0);
+                                                    } else {
+                                                        $product['review_count'] = 0;
+                                                        $product['rating'] = 0;
+                                                    }
+                                                    ?>
 
-                                                        // Apply normal discount
-                                                        if (!empty($product['discount']) && $product['discount'] > 0) {
-                                                            $final_price -= (float) $product['discount'];
-                                                        }
+                                                    <div class="product-content">
+                                                        <h5 class="product-name">
+                                                            <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                <?= htmlspecialchars($product['product_name']) ?>
+                                                            </a>
+                                                        </h5>
 
-                                                        // Read account type from session
-                                                        $user_account_type = !empty($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
-                                                        $is_commercial = ($user_account_type === 'commercial');
+                                                        <div class="product-rating">
+                                                            <?= str_repeat('★', $product['rating']) ?>
+                                                            <?= str_repeat('☆', 5 - $product['rating']) ?>
+                                                            <?php if ($product['review_count'] > 0): ?>
+                                                                <span class="review-count">
+                                                                    <?= $product['review_count'] ?> Review(s)
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        </div>
 
-                                                        // Apply corporate discount
-                                                        if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0) {
-                                                            $final_price -= (float) $product['corporate_discount'];
-                                                        }
-                                                        ?>
+                                                        <div class="price-box">
+                                                            <?php
+                                                            $original_price = (float) $product['price'];
+                                                            $final_price = $original_price;
 
-                                                        <span class="price">₹<?= number_format($final_price, 2) ?></span>
-                                                        <span
-                                                            class="old-price">₹<?= number_format($original_price, 2) ?></span>
+                                                            // Apply normal discount
+                                                            if (!empty($product['discount']) && $product['discount'] > 0) {
+                                                                $final_price -= (float) $product['discount'];
+                                                            }
 
-                                                        <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
-                                                            <div class="corporate-price" style="color:green; font-weight:bold;">
-                                                                Special Commercial Price Applied
-                                                            </div>
-                                                        <?php endif; ?>
+                                                            // Read account type from session
+                                                            $user_account_type = !empty($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
+                                                            $is_commercial = ($user_account_type === 'commercial');
 
-                                                        <!-- Temporary debug
+                                                            // Apply corporate discount
+                                                            if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0) {
+                                                                $final_price -= (float) $product['corporate_discount'];
+                                                            }
+                                                            ?>
+
+                                                            <span
+                                                                class="price">₹<?= number_format($final_price, 2) ?></span>
+                                                            <span
+                                                                class="old-price">₹<?= number_format($original_price, 2) ?></span>
+
+                                                            <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
+                                                                <div class="corporate-price"
+                                                                    style="color:green; font-weight:bold;">
+                                                                    Special Commercial Price Applied
+                                                                </div>
+                                                            <?php endif; ?>
+
+                                                            <!-- Temporary debug
     <div style="margin-top:5px; font-size:14px; color:blue;">
         Account Type (Debug): <?= htmlspecialchars($user_account_type ?? 'Not Set') ?>
     </div> -->
-                                                    </div>
+                                                        </div>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    
-                                    <?php endforeach; ?>
+
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
                             </div>
-                                                        </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <!--=====product-tab-end=====-->
     <!-- service-start -->
