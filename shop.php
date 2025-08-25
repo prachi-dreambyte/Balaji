@@ -367,8 +367,10 @@ $cat_sidebar_stmt->close();
 
 .swiper-button-next,
 .swiper-button-prev {
+	
     color: #fff;
     font-weight: bold;
+
 }
 
 .swiper-pagination-bullet {
@@ -447,9 +449,9 @@ $cat_sidebar_stmt->close();
 		</div>
 
 		<!-- Swiper Controls -->
-		<div class="swiper-pagination"></div>
-		<div class="swiper-button-next"></div>
-		<div class="swiper-button-prev"></div>
+		<div class="swiper-pagination text-body-tertiary"></div>
+		<div class="swiper-button-next text-body-tertiary"></div>
+		<div class="swiper-button-prev text-body-tertiary"></div>
 	</div>
 </section>
 

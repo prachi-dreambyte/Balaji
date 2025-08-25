@@ -3328,15 +3328,15 @@ label {
 
 }
 h1.entry-title {
-  border-bottom: 1px solid #e5e5e5;
-  color: #474747;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 20px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  padding: 0 0 17px;
-  text-transform: uppercase;
+    border-bottom: 1px solid #e5e5e5;
+    color: #474747;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-bottom: -13px;
+    overflow: hidden;
+    padding: 34px 0px 17px;
+    text-transform: uppercase;
 }
 .form-fields {
   border-color: #e8e8e9 #e8e8e9 -moz-use-text-color;
@@ -4170,7 +4170,7 @@ font-size: 18px;}
 #scrollUp:hover{
 	background: #845848;
 	color: white;
-  
+
 }
 /*----------------------------------- 
 25. four-zero-four
