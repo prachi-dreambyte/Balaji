@@ -444,8 +444,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     color: #fff;
     font-size: 14px;
     padding: 6px 0;
-    text-align: center;
-    margin-top:6px;">
+    text-align: center;">
   
   <marquee behavior="scroll" direction="left" scrollamount="5">
     100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
@@ -1293,7 +1292,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <!-- Header -->
                     <h3 class="section-header mb-2" style="font-weight: 700; color: #333;">
                         <!-- <i class="fas fa-quote-left" style="color: #ff9800; margin-right: 8px;"></i> -->
-                       Testimonials
+                       Tes
                     </h3>
                     <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
                         Real Google reviews from our valued customers.

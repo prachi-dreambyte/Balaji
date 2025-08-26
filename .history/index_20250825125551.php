@@ -444,8 +444,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     color: #fff;
     font-size: 14px;
     padding: 6px 0;
-    text-align: center;
-    margin-top:6px;">
+    text-align: center;">
   
   <marquee behavior="scroll" direction="left" scrollamount="5">
     100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
@@ -733,36 +732,21 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
             </div> -->
         <!--=====daily-deals-end=====-->
-       <!-- Authorised Distributors & Dealers Section -->
-<div id="distributers" style="padding:60px 0; background:#fff;">
-    <div class="container">
-        <!-- Section Heading -->
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="fadeInUp animated">
-                    <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;">
-                        Authorised Distributors &amp; Dealers
-                    </h1>
-                </div>
-            </div>
+        <div class="row text-center" style="margin: 40px 0;">
+    <!-- First Image -->
+    <div class="col-md-6 col-sm-12 mb-3">
+        <div class="bounceInLeft animated">
+            <img src="img/brand/logo1.webp" alt="Furniture Image 1" class="img-responsive img-fluid" style="max-width:100%; height:auto; border-radius:10px;">
         </div>
+    </div>
 
-        <!-- Distributor Images -->
-        <div class="row text-center">
-            <div class="col-md-4 col-md-offset-2 col-sm-6 col-xs-12 mb-3">
-                <div class="bounceInLeft animated">
-                    <img src="img/brand/logo1.webp" alt="Distributor 1" class="img-responsive img-fluid" id="d_img" style="max-width:100%; border-radius:10px;">
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
-                <div class="bounceInRight animated">
-                    <img src="img/brand/logo2.png" alt="Distributor 2" class="img-responsive img-fluid" id="d_img" style="max-width:100%; border-radius:10px;">
-                </div>
-            </div>
+    <!-- Second Image -->
+    <div class="col-md-6 col-sm-12 mb-3">
+        <div class="bounceInRight animated">
+            <img src="images/d2.jpg" alt="Furniture Image 2" class="img-responsive img-fluid" style="max-width:100%; height:auto; border-radius:10px;">
         </div>
     </div>
 </div>
-
 
         <!--=====product-tab-start=====-->
         <div class="home-4-product-tab">
@@ -1293,7 +1277,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <!-- Header -->
                     <h3 class="section-header mb-2" style="font-weight: 700; color: #333;">
                         <!-- <i class="fas fa-quote-left" style="color: #ff9800; margin-right: 8px;"></i> -->
-                       Testimonials
+                        Customer Reviews
                     </h3>
                     <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
                         Real Google reviews from our valued customers.

@@ -183,7 +183,7 @@ $cart_result = $stmt->get_result();
 
 $cart_itemss = [];
 $total = 0;
-$items_count = 0;
+\$items_count = 0;
 
 while ($cart_row = $cart_result->fetch_assoc()) {
 	$cart_id = $cart_row['id'];
@@ -883,15 +883,6 @@ document.addEventListener('DOMContentLoaded', function() {
         minusBtn.disabled = val <= min;
         plusBtn.disabled = val >= max;
     }
-	document.querySelectorAll(".plus-btn, .minus-btn, .quantity-input").forEach(el => {
-    if (el.classList.contains("plus-btn") || el.classList.contains("minus-btn")) {
-        el.addEventListener("click", handleUpdate);
-    }
-    if (el.classList.contains("quantity-input")) {
-        el.addEventListener("change", handleUpdate);
-    }
-});
-
 
     // ================================
     // COINS RANGE SYNC
@@ -985,6 +976,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+document.querySelectorAll(".plus-btn, .minus-btn, .quantity-input").forEach(el => {
+    if (el.classList.contains("plus-btn") || el.classList.contains("minus-btn")) {
+        el.addEventListener("click", handleUpdate);
+    }
+    if (el.classList.contains("quantity-input")) {
+        el.addEventListener("change", handleUpdate);
+    }
+});
 
 function handleUpdate(e) {
     let index = this.dataset.index;
