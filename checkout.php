@@ -47,20 +47,24 @@ if ($user_id <= 0) {
 
 // Get cart items for display
 $sql = "
-    SELECT c.quantity, p.id, p.product_name, p.price, p.images, 'products' AS source
+    SELECT c.quantity, p.id, p.product_name, p.price,
+           COALESCE(p.discount,0) AS discount,
+           COALESCE(p.corporate_discount,0) AS corporate_discount,
+           p.images, 'products' AS source
     FROM cart c
     JOIN products p ON c.product_id = p.id
     WHERE c.user_id = ?
 
     UNION ALL
 
-    SELECT c.quantity, h.id, h.product_name, h.price, h.images, 'home_daily_deal' AS source
+    SELECT c.quantity, h.id, h.product_name, h.price,
+           0 AS discount, 0 AS corporate_discount,
+           h.images, 'home_daily_deal' AS source
     FROM cart c
     JOIN home_daily_deal h ON c.product_id = h.id
     WHERE c.user_id = ?
 ";
 
-// Prepare statement
 $cart_stmt = $conn->prepare($sql);
 $cart_stmt->bind_param("ii", $user_id, $user_id);
 $cart_stmt->execute();
@@ -69,12 +73,25 @@ $cart_result = $cart_stmt->get_result();
 $cart_itemss = [];
 $order_total = 0;
 
+$user_account_type = $_SESSION['account_type'] ?? '';
+$is_commercial = strtolower(trim($user_account_type)) === 'commercial';
 
 while ($cart_row = $cart_result->fetch_assoc()) {
-    $subtotal = floatval($cart_row['quantity']) * floatval($cart_row['price']);
+    $unit_price = floatval($cart_row['price']);
+    $discount = floatval($cart_row['discount'] ?? 0);
+    $corporate_discount = floatval($cart_row['corporate_discount'] ?? 0);
+
+    // apply discounts
+    $final_price = $unit_price - $discount;
+    if ($is_commercial && $corporate_discount > 0) {
+        $final_price -= $corporate_discount;
+    }
+    if ($final_price < 0) $final_price = 0;
+
+    $subtotal = $final_price * intval($cart_row['quantity']);
     $order_total += $subtotal;
 
-    // Handle product images
+    // handle images
     $image = 'default.jpg';
     if (!empty($cart_row['images'])) {
         $images = json_decode($cart_row['images'], true);
@@ -85,11 +102,13 @@ while ($cart_row = $cart_result->fetch_assoc()) {
         'id' => $cart_row['id'],
         'name' => $cart_row['product_name'] ?? 'Unknown Product',
         'quantity' => $cart_row['quantity'],
-        'price' => $cart_row['price'],
+        'price' => $unit_price,         // original price
+        'final_price' => $final_price,  // discounted price
         'subtotal' => $subtotal,
         'image' => $image
     ];
 }
+
 
 // Accept coins/coupon from POST (coming from cart) or default to 0 on GET
 $coins_applied = isset($_POST['coins_applied']) ? floatval($_POST['coins_applied']) : floatval($_SESSION['coins_applied'] ?? 0);
@@ -411,7 +430,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                                     <?= htmlspecialchars($item['name']) ?> ×
                                                     <?= intval($item['quantity']) ?>
                                                 </td>
-                                                <td>₹<?= number_format($item['subtotal'], 2) ?></td>
+                                                <td>
+    <?php if ($item['price'] > $item['final_price']): ?>
+        <del>₹<?= number_format($item['price'] * $item['quantity'], 2) ?></del>
+        <span class="text-success ms-1">
+            ₹<?= number_format($item['final_price'] * $item['quantity'], 2) ?>
+        </span>
+    <?php else: ?>
+        ₹<?= number_format($item['subtotal'], 2) ?>
+    <?php endif; ?>
+</td>
+
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

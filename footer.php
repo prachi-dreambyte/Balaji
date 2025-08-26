@@ -557,10 +557,7 @@ a {
   <a href="#"><i class="bi bi-youtube fs-5"></i></a>
   <a href="#"><i class="bi bi-github fs-5"></i></a>
 </div>
-
-
-
-      </div>
+</div>
     </div>
   </div>
 

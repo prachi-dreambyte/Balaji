@@ -445,7 +445,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     font-size: 14px;
     padding: 6px 0;
     text-align: center;
-    margin-top:6px;">
+    margin-top:40px;">
   
   <marquee behavior="scroll" direction="left" scrollamount="5">
     100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
@@ -748,7 +748,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         </div>
 
         <!-- Distributor Images -->
-        <div class="row text-center">
+        <!-- <div class="row text-center">
             <div class="col-md-4 col-md-offset-2 col-sm-6 col-xs-12 mb-3">
                 <div class="bounceInLeft animated">
                     <img src="img/brand/logo1.webp" alt="Distributor 1" class="img-responsive img-fluid" id="d_img" style="max-width:100%; border-radius:10px;">
@@ -757,6 +757,33 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
                 <div class="bounceInRight animated">
                     <img src="img/brand/logo2.png" alt="Distributor 2" class="img-responsive img-fluid" id="d_img" style="max-width:100%; border-radius:10px;">
+                </div>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="Tests">
+                    <div class="brand-carousel owl-carousel Test">
+                        <div class="single-brand ">
+                            <a href="#"><img src="img/brand/logo1.webp" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo2.png" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo3.webp" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo4.webp" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo5.webp" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo6.png" alt=""></a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -1110,37 +1137,37 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!--=====service-end=====-->
 
     <!-- brand-company-area-start -->
-    <div class="home-4-brand-area py-5">
-        <div class="container">
+    <div class="home-4-brand-area py-3">
+        <div class="container-fluid">
             <div class="row align-items-center">
 
                 <!-- Fixed Brand Logo -->
                 <div class="col-md-2 col-4 text-center">
                     <div class="single-brand">
                         <a href="#">
-                            <img src="img/brand/logo1.webp" alt="Fixed Brand" style="max-width:120px;">
+                            <img src="img\balaji\happy-universal-q-01-TM-1024x1024.png" alt="Fixed Brand" style="max-width:120px;">
                         </a>
                     </div>
                 </div>
 
                 <!-- Moving Carousel for Rest Logos -->
                 <div class="col-md-10 col-8">
-                    <div class="brand-carousel owl-carousel">
+                    <div class="brand-carousels owl-carousel">
 
-                        <div class="single-brand">
+                        <div class="single-brands">
+                            <a href="#"><img src="img/brand/logo1.webp" alt=""></a>
+                        </div>
+                        <div class="single-brands">
                             <a href="#"><img src="img/brand/logo2.png" alt=""></a>
                         </div>
-                        <div class="single-brand">
+                        <div class="single-brands">
                             <a href="#"><img src="img/brand/logo3.webp" alt=""></a>
                         </div>
-                        <div class="single-brand">
+                        <div class="single-brands">
                             <a href="#"><img src="img/brand/logo4.webp" alt=""></a>
                         </div>
-                        <div class="single-brand">
+                        <div class="single-brands">
                             <a href="#"><img src="img/brand/logo5.webp" alt=""></a>
-                        </div>
-                        <div class="single-brand">
-                            <a href="#"><img src="img/brand/logo6.png" alt=""></a>
                         </div>
 
                     </div>
@@ -1670,6 +1697,24 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 video.pause();
             });
         });
+    </script>
+    <script>
+        $('.brand-carousels').owlCarousel({
+    loop: true,             // infinite loop
+    margin: 20,             // spacing between logos
+    autoplay: true,         // enable auto scroll
+    autoplayTimeout: 2000,  // delay before next slide
+    autoplaySpeed: 1000,    // smooth speed
+    autoplayHoverPause: true, 
+    slideTransition: 'linear', // continuous effect
+    smartSpeed: 3000,       // smooth transition
+    responsive:{
+        0:{ items:2 },
+        576:{ items:3 },
+        768:{ items:4 },
+        992:{ items:5 }
+    }
+});
     </script>
 
 
