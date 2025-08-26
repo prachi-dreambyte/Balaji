@@ -717,7 +717,7 @@ if ($avg_rating >= 4) {
 </div>
 
 
-					<div style=" font-weight: 500; color:green"; ><p>Special Price</p></div>
+					<div style=" font-weight: 500; color: #363636"; ><p>Special Price</p></div>
 						
 						<!-- <p class="condition"><label>Price: </label></p> -->
 						<div class="content-price">
@@ -760,7 +760,7 @@ if ($avg_rating >= 4) {
 									<?php endif; ?>
 							
 									<?php if ($discount_percent > 0): ?>
-										<span class="reduction-percent" style="color:black; font-weight:700; font-size:12px;">
+										<span class="reduction-percent" style="color: white; font-weight:700; font-size:12px;">
 											-<?php echo round($discount_percent); ?>% OFF
 										</span>
 									<?php endif; ?>
@@ -769,7 +769,7 @@ if ($avg_rating >= 4) {
 							<?php endif; ?>
 
 							<?php if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0): ?>
-								<p style="color:green; font-weight:bold;">Special Commercial Price Applied</p>
+								<p style="color: #363636; font-weight:bold;">Special Commercial Price Applied</p>
 							<?php endif; ?>
 						</div>
 
@@ -813,7 +813,7 @@ if ($avg_rating >= 4) {
 												</div>
 											<?php endif; ?>
 
-											<div style="font-size:13px; margin-top:5px;">
+											<div style="font-size:13px; margin-top:5px; text-black">
 												<?= htmlspecialchars($variant['colour'] ?? ''); ?>
 											</div>
 										</div>
@@ -1034,25 +1034,18 @@ if ($avg_rating >= 4) {
 	background: linear-gradient(145deg, #f0f1f2, #ffffff);
 	color: #000;
 	transform: translateY(-2px);
-	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 6px 12px #eeeeee;
 }
-.feature-tab-area .tabs a:hover {
-	background: linear-gradient(145deg, #f0f1f2, #ffffff);
-	color: #000;
-	transform: translateY(-2px);
-	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-}
-
 .feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #845848, #a75669);
+	background:#845848;
 	color: #fff;
-	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
+	/* box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4); */
 	transform: translateY(-2px);
 }
 .feature-tab-area .tabs a.active {
-	background: linear-gradient(145deg, #845848, #a75669);
+	background: #845848;
 	color: #fff;
-	box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4);
+	/* box-shadow: 0 4px 14px rgba(192, 107, 129, 0.4); */
 	transform: translateY(-2px);
 }
 
