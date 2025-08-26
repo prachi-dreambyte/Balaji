@@ -183,7 +183,7 @@ $cart_result = $stmt->get_result();
 
 $cart_itemss = [];
 $total = 0;
-$items_count = 0;
+\items_count = 0;
 
 while ($cart_row = $cart_result->fetch_assoc()) {
 	$cart_id = $cart_row['id'];
