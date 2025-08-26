@@ -608,7 +608,20 @@ if (isset($_POST['apply_coupon'])) {
 	                                                    <td>
 	                                                        <h6 class="mb-1"><?= htmlspecialchars($cart_item['product_name']) ?></h6>
 	                                                    </td>
-	                                                    <td>₹<?= number_format($cart_item['price'], 2) ?></td>
+	                                                    <td>
+    <?php if ($cart_item['price'] != $cart_item['display_price']): ?>
+        <span class="text-muted text-decoration-line-through">
+            ₹<?= number_format($cart_item['price'], 2) ?>
+        </span>
+        <br>
+        <span class="text-success fw-bold">
+            ₹<?= number_format($cart_item['display_price'], 2) ?>
+        </span>
+    <?php else: ?>
+        ₹<?= number_format($cart_item['price'], 2) ?>
+    <?php endif; ?>
+</td>
+
 	                                                    <td>
 	                                                        <div class="input-group input-group-sm align-items-center">
 	                                                            <button type="button" class="btn btn-outline-secondary minus-btn" data-index="<?= $index ?>" <?= $cart_item['quantity'] <= 1 ? 'disabled' : '' ?>>
