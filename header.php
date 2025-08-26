@@ -135,7 +135,7 @@ function categoryImagePath($relPath)
   .mega-menu {
     position: absolute;
     top: 100%;
-    left: 50%;
+    left: 205%;
     transform: translateX(-50%);
     background: #fff;
     border: 1px solid #e5e5e5;
@@ -569,7 +569,7 @@ function categoryImagePath($relPath)
 </div>
 
 <!-- Marquee Start -->
-<div style="background: #845848;
+<!-- <div style="background: #845848;
     color: #fff;
     font-size: 14px;
     padding: 6px 0;
@@ -577,7 +577,7 @@ function categoryImagePath($relPath)
     <marquee behavior="scroll" direction="left" scrollamount="5">
         100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
     </marquee>
-</div>
+</div> -->
 <!-- Marquee End -->
 <header class="header-section">
     <div class="container-fluid px-4">

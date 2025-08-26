@@ -1,7 +1,7 @@
 <style>
 .slogan-section {
-    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-    padding:95px 20px 1px 20px;
+    /* background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); */
+    padding: 5px 0px;
     text-align: center;
     position: relative;
     background-color: #F5F6F2;
@@ -15,6 +15,7 @@
     animation: fadeInZoom 2s ease forwards;
     opacity: 0;
     white-space: nowrap; /* ek line me force */
+    padding-top: 10px;
 }
 
 /* Gradient effect for first part */
