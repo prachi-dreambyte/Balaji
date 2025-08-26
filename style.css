@@ -1558,7 +1558,12 @@ max-width: 120px;
     max-width: 120px;
     margin: 0 auto;
 } */
- 
+ .Test{
+  overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding-left: 170px;
+ }
 
 .marquee-inner {
   display: flex;
@@ -2087,7 +2092,7 @@ home-3-tab
 15. home-4
 ----------------------------------------*/
 .home-4-body {
-  background: rgba(0, 0, 0, 0) url("img/body/bg_body.png") repeat scroll center center;
+  background: url("img/body/bg_body.png") repeat scroll center center;
   color: #666666;
   font-size: 13px;
   height: 100%;
