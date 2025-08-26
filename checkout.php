@@ -2,9 +2,7 @@
 session_start();
 include 'connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    die("Invalid access.");
-}
+// Allow normal GET access for viewing/returning from payment pages
 
 // Create tables if they don't exist
 $table = "CREATE TABLE IF NOT EXISTS orders (
@@ -93,10 +91,9 @@ while ($cart_row = $cart_result->fetch_assoc()) {
     ];
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $coins_applied = $_POST['coins_applied'] ?? 0;
-    $coupon_discount = $_POST['coupon_discount'] ?? 0;
-}
+// Accept coins/coupon from POST (coming from cart) or default to 0 on GET
+$coins_applied = isset($_POST['coins_applied']) ? floatval($_POST['coins_applied']) : floatval($_SESSION['coins_applied'] ?? 0);
+$coupon_discount = isset($_POST['coupon_discount']) ? floatval($_POST['coupon_discount']) : floatval($_SESSION['coupon_discount'] ?? 0);
 
 
 
@@ -420,9 +417,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>Order Total</th>
-
+                                            <th>Order Subtotal</th>
                                             <th>₹<?= number_format($order_total, 2) ?></th>
+                                        </tr>
+                                        <tr>
+                                            <th>Shipping (18%)</th>
+                                            <?php $shipping = $order_total * 0.18; ?>
+                                            <th>₹<?= number_format($shipping, 2) ?></th>
                                         </tr>
                                         <tr>
                                             <th>Applied Coin </th>
@@ -437,7 +438,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                         <tr>
                                             <th>Total Payable Amount </th>
                                             <?php
-                                            $payable_amount = $order_total - $coins_applied - $coupon_discount
+                                            $payable_amount = $order_total + $shipping - $coins_applied - $coupon_discount;
                                                 ?>
                                             <input type="hidden" name="payable_amount"
                                                 value="<?= htmlspecialchars($payable_amount, ENT_QUOTES) ?>">

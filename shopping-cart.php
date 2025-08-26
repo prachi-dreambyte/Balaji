@@ -608,7 +608,7 @@ if (isset($_POST['apply_coupon'])) {
 	                                                    <td>
 	                                                        <h6 class="mb-1"><?= htmlspecialchars($cart_item['product_name']) ?></h6>
 	                                                    </td>
-	                                                    <td>₹<?= number_format($cart_item['display_price'], 2) ?></td>
+	                                                    <td>₹<?= number_format($cart_item['price'], 2) ?></td>
 	                                                    <td>
 	                                                        <div class="input-group input-group-sm align-items-center">
 	                                                            <button type="button" class="btn btn-outline-secondary minus-btn" data-index="<?= $index ?>" <?= $cart_item['quantity'] <= 1 ? 'disabled' : '' ?>>
