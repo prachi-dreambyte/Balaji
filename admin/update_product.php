@@ -29,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $description = $_POST['description'];
     $tag_number = $_POST['tag_number'];
     $stock = $_POST['stock'];
-    $tags = isset($_POST['tags']) ? implode(',', $_POST['tags']) : '';
     $price = $_POST['price'];
     $discount = $_POST['discount'];
     $corporate_discount = $_POST['corporate_discount'];
@@ -47,9 +46,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $stmt->close();
 
     $currentImages = json_decode($product['images'], true) ?: [];
+    $imageOption = $_POST['image_option'] ?? 'add';
 
-
+    // Handle image replacement or addition
     if (!empty($_FILES['images']['name'][0])) {
+        // If replacing images, delete old images from server
+        if ($imageOption === 'replace') {
+            foreach ($currentImages as $oldImage) {
+                if (file_exists($oldImage)) {
+                    unlink($oldImage);
+                }
+            }
+            $currentImages = []; // Clear the array for replacement
+        }
+        
+        // Upload new images
         foreach ($_FILES['images']['name'] as $key => $imageName) {
             if ($_FILES['images']['error'][$key] === UPLOAD_ERR_OK) {
                 $imageTmp = $_FILES['images']['tmp_name'][$key];
@@ -63,6 +74,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     }
 
     $imagesJSON = json_encode($currentImages);
+
+    // Handle tags - if "NO TAG" is selected, clear all tags
+    $tags = '';
+    if (isset($_POST['tags']) && !empty($_POST['tags'])) {
+        if (in_array('NO TAG', $_POST['tags'])) {
+            $tags = ''; // No tags
+        } else {
+            $tags = implode(',', $_POST['tags']);
+        }
+    }
 
     // Update query with all fields
     $sql = "UPDATE products SET 
@@ -105,6 +126,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
         $_SESSION['success'] = "Product updated successfully!";
     } else {
         $_SESSION['error'] = "Error updating product: " . $conn->error;
+    }
+
+    // Log the image operation for debugging
+    if (!empty($_FILES['images']['name'][0])) {
+        if ($imageOption === 'replace') {
+            error_log("Product ID $product_id: Images replaced successfully");
+        } else {
+            error_log("Product ID $product_id: Images added successfully");
+        }
     }
 
     $stmt->close();

@@ -1,0 +1,90 @@
+/* Global responsive enhancements - non-destructive */
+
+/* Ensure media scales within containers */
+img, video, iframe {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Prevent layout overflow on small screens */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Reduce fixed header offset on small screens */
+@media (max-width: 575.98px) {
+  body {
+    padding-top: 72px !important;
+  }
+}
+
+/* Category circle cards: override inline fixed sizes on small screens */
+@media (max-width: 767.98px) {
+  .category-circle .circle-img {
+    width: 180px !important;
+    height: 180px !important;
+  }
+}
+@media (max-width: 575.98px) {
+  .category-circle .circle-img {
+    width: 140px !important;
+    height: 140px !important;
+  }
+}
+@media (max-width: 399.98px) {
+  .category-circle .circle-img {
+    width: 120px !important;
+    height: 120px !important;
+  }
+}
+
+/* Mega menu: ensure it fits viewport on very small screens */
+@media (max-width: 480px) {
+  .mega-menu {
+    max-width: 96vw !important;
+    left: 2% !important;
+    transform: none !important;
+  }
+}
+
+/* Modal: avoid fixed width overflow */
+@media (max-width: 991.98px) {
+  .modal-dialog {
+    width: auto !important;
+    max-width: 95% !important;
+    margin: 15px auto !important;
+  }
+}
+
+/* Tables: add horizontal scroll on small screens without altering markup */
+@media (max-width: 767.98px) {
+  table {
+    display: block;
+    width: 100% !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Hero/slider images safety */
+.slider img, .slider-image img, .banner-picture img {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Reduce large heading sizes slightly on narrow screens to prevent wrapping glitches */
+@media (max-width: 575.98px) {
+  .aboutUs-Heading { font-size: 1.8rem !important; }
+}
+
+/* Brand/logo rows: keep items from overflowing */
+@media (max-width: 767.98px) {
+  .single-brand img { max-width: 120px !important; height: auto !important; }
+}
+
+/* Product cards: prevent hover-only actions from covering content on touch */
+@media (max-width: 991.98px) {
+  .single-product .product-action { position: static !important; opacity: 1 !important; }
+}
+
+

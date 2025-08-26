@@ -733,6 +733,58 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
             </div> -->
         <!--=====daily-deals-end=====-->
+       <!-- Authorised Distributors & Dealers Section -->
+<div id="distributers" style="padding:60px 0; background:#fff;">
+    <div class="container">
+        <!-- Section Heading -->
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="fadeInUp animated">
+                    <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;">
+                        Authorised Distributors &amp; Dealers
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Distributor Images -->
+        <!-- <div class="row text-center">
+            <div class="col-md-4 col-md-offset-2 col-sm-6 col-xs-12 mb-3">
+                <div class="bounceInLeft animated">
+                    <img src="img/brand/logo1.webp" alt="Distributor 1" class="img-responsive img-fluid" id="d_img" style="max-width:100%; border-radius:10px;">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
+                <div class="bounceInRight animated">
+                    <img src="img/brand/logo2.png" alt="Distributor 2" class="img-responsive img-fluid" id="d_img" style="max-width:100%; border-radius:10px;">
+                </div>
+            </div>
+        </div> -->
+        <div class="brand-carousel owl-carousel">
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo1.webp" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo2.png" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo3.webp" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo4.webp" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo5.webp" alt=""></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="img/brand/logo6.png" alt=""></a>
+                        </div>
+
+                    </div>
+    </div>
+</div>
+
+
         <!--=====product-tab-start=====-->
         <div class="home-4-product-tab">
             <div class="container">
@@ -1079,37 +1131,37 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!--=====service-end=====-->
 
     <!-- brand-company-area-start -->
-    <div class="home-4-brand-area py-5">
-        <div class="container">
+    <div class="home-4-brand-area py-3">
+        <div class="container-fluid">
             <div class="row align-items-center">
 
                 <!-- Fixed Brand Logo -->
                 <div class="col-md-2 col-4 text-center">
                     <div class="single-brand">
                         <a href="#">
-                            <img src="img/brand/logo1.webp" alt="Fixed Brand" style="max-width:120px;">
+                            <img src="img\balaji\happy-universal-q-01-TM-1024x1024.png" alt="Fixed Brand" style="max-width:120px;">
                         </a>
                     </div>
                 </div>
 
                 <!-- Moving Carousel for Rest Logos -->
                 <div class="col-md-10 col-8">
-                    <div class="brand-carousel owl-carousel">
+                    <div class="brand-carousels owl-carousel">
 
-                        <div class="single-brand">
+                        <div class="single-brands">
+                            <a href="#"><img src="img/brand/logo1.webp" alt=""></a>
+                        </div>
+                        <div class="single-brands">
                             <a href="#"><img src="img/brand/logo2.png" alt=""></a>
                         </div>
-                        <div class="single-brand">
+                        <div class="single-brands">
                             <a href="#"><img src="img/brand/logo3.webp" alt=""></a>
                         </div>
-                        <div class="single-brand">
+                        <div class="single-brands">
                             <a href="#"><img src="img/brand/logo4.webp" alt=""></a>
                         </div>
-                        <div class="single-brand">
+                        <div class="single-brands">
                             <a href="#"><img src="img/brand/logo5.webp" alt=""></a>
-                        </div>
-                        <div class="single-brand">
-                            <a href="#"><img src="img/brand/logo6.png" alt=""></a>
                         </div>
 
                     </div>
@@ -1262,7 +1314,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <!-- Header -->
                     <h3 class="section-header mb-2" style="font-weight: 700; color: #333;">
                         <!-- <i class="fas fa-quote-left" style="color: #ff9800; margin-right: 8px;"></i> -->
-                        Customer Reviews
+                       Testimonials
                     </h3>
                     <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
                         Real Google reviews from our valued customers.
@@ -1639,6 +1691,24 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 video.pause();
             });
         });
+    </script>
+    <script>
+        $('.brand-carousels').owlCarousel({
+    loop: true,             // infinite loop
+    margin: 20,             // spacing between logos
+    autoplay: true,         // enable auto scroll
+    autoplayTimeout: 2000,  // delay before next slide
+    autoplaySpeed: 1000,    // smooth speed
+    autoplayHoverPause: true, 
+    slideTransition: 'linear', // continuous effect
+    smartSpeed: 3000,       // smooth transition
+    responsive:{
+        0:{ items:2 },
+        576:{ items:3 },
+        768:{ items:4 },
+        992:{ items:5 }
+    }
+});
     </script>
 
 
