@@ -184,76 +184,206 @@ $stmt_items->close();
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/responsive.css">
     
-    <style>
-        /* Your existing CSS styles are great and remain unchanged */
-        body { font-family: 'Open Sans', sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; }
-        .order-details-container { max-width: 1200px; margin: 50px auto; background: #ffffff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); overflow: hidden; }
-        .order-header { background: linear-gradient(135deg, #845848 0%, #a85d71 100%); color: white; padding: 30px; text-align: center; }
-        .order-header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
-        .order-id { font-size: 1.2rem; opacity: 0.9; }
-        .order-content { padding: 40px; }
-        .info-section { background: #f8f9fa; border-radius: 10px; padding: 25px; margin-bottom: 30px; }
-        .info-section h3 { color: #2c3e50; font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid #845848; padding-bottom: 10px; }
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .info-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e9ecef; }
-        .info-item:last-child { border-bottom: none; }
-        .info-label { font-weight: 600; color: #2c3e50; }
-        .info-value { color: #555; text-align: right; }
-        .order-items-table { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin-bottom: 30px; }
-        .table-header { background: #2c3e50; color: white; padding: 20px; }
-        .table-header h3 { margin: 0; font-size: 1.3rem; font-weight: 600; }
-        .items-table { width: 100%; border-collapse: collapse; }
-        .items-table th, .items-table td { padding: 15px; text-align: left; border-bottom: 1px solid #e9ecef; vertical-align: middle; }
-        .items-table th { background: #f8f9fa; font-weight: 600; color: #2c3e50; }
-        .items-table tr:last-child td { border-bottom: none; }
-        .product-info { display: flex; align-items: center; gap: 15px; }
-        .product-image { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #e9ecef; }
-        .product-name { font-weight: 600; color: #2c3e50; }
-        .price { font-weight: 600; color: #845848; }
-        .text-right { text-align: right; }
-        .order-summary { background: #f8f9fa; border-radius: 10px; padding: 25px; margin-top: 30px; }
-        .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e9ecef; }
-        .summary-row.grand-total { border-bottom: none; font-weight: 700; font-size: 1.2rem; color: #2c3e50; padding-top: 15px; }
-        .total-amount { color: #845848; font-size: 1.5rem; }
-        .back-button { background: #845848; color: white; padding: 12px 30px; border: none; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; margin-top: 30px; transition: background-color 0.3s ease; }
-        .back-button:hover { background: #a85d71; color: white; text-decoration: none; }
-        
-        .download-invoice-btn {
-            background: #007bff;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            transition: background-color 0.3s ease;
-        }
-        .download-invoice-btn:hover {
-            background: #0056b3;
-            color: white;
-            text-decoration: none;
-        }
-        .download-invoice-btn i {
-            margin-right: 8px;
-        }
-        
-        /* Responsive improvements */
-        @media (max-width: 768px) {
-            .order-details-container { margin: 20px auto; border-radius: 8px; }
-            .order-header { padding: 20px; }
-            .order-header h1 { font-size: 2rem; }
-            .order-content { padding: 20px; }
-            .info-grid { grid-template-columns: 1fr; }
-            .product-info { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .product-image { width: 50px; height: 50px; }
-            .items-table th, .items-table td { padding: 10px; font-size: 14px; }
-        }
-        
-        /* Loading state */
-        .loading { text-align: center; padding: 50px; }
-        .loading i { font-size: 3rem; color: #845848; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    <style>body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Main Container */
+.order-details-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Header */
+.order-header {
+    background: linear-gradient(135deg, #845848, #a67c68);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+.order-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.order-id {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Content */
+.order-content {
+    padding: 30px;
+}
+
+/* Section */
+.info-section {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #eee;
+}
+.info-section h3 {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    border-left: 4px solid #845848;
+    padding-left: 10px;
+}
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 15px;
+}
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+}
+.info-label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+.info-value {
+    color: #555;
+}
+
+/* Table */
+.order-items-table {
+    margin-bottom: 25px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.table-header {
+    background: #c3aaa1;
+    color: white;
+    padding: 15px 20px;
+}
+.table-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.items-table th, 
+.items-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+}
+.items-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #2c3e50;
+}
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.product-image {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+.product-name {
+    font-weight: 600;
+    color: #2c3e50;
+}
+.price {
+    font-weight: 600;
+    color: #845848;
+}
+.text-right {
+    text-align: right;
+}
+
+/* Summary */
+.order-summary {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 25px;
+    border: 1px solid #eee;
+}
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 0.95rem;
+}
+.summary-row.grand-total {
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-top: 2px solid #ddd;
+    margin-top: 10px;
+    padding-top: 15px;
+}
+.total-amount {
+    color: #845848;
+    font-size: 1.4rem;
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+}
+.back-button, 
+.download-invoice-btn {
+    flex: 1;
+    min-width: 160px;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+.back-button {
+    background: #845848;
+    color: white;
+}
+.back-button:hover {
+    background: #a67c68;
+    color: white;
+}
+.download-invoice-btn {
+    background: #6c757d;
+    color: white;
+}
+.download-invoice-btn:hover {
+    background: #5a6268;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .order-header h1 { font-size: 1.6rem; }
+    .order-content { padding: 20px; }
+    .items-table th, .items-table td { font-size: 0.9rem; padding: 10px; }
+    .product-info { flex-direction: column; align-items: flex-start; }
+    .product-image { width: 50px; height: 50px; }
+}
+
     </style>
 </head>
 
@@ -333,12 +463,14 @@ $stmt_items->close();
                 <div class="summary-row grand-total"><span>Grand Total:</span><span class="total-amount">₹<?php echo number_format($order['amount'], 2); ?></span></div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
-                <a href="my-account.php#my-orders" class="back-button">Back to My Orders</a>
-                <a href="generate_invoice.php?order_id=<?php echo htmlspecialchars($order['order_id']); ?>" class="download-invoice-btn" target="_blank">
-                    <i class="fa fa-file-pdf-o"></i> View Invoice
-                </a>
-            </div>
+           <div class="action-buttons">
+    <a href="my-account.php#my-orders" class="back-button">⬅ Back to My Orders</a>
+    <a href="generate_invoice.php?order_id=<?php echo htmlspecialchars($order['order_id']); ?>" 
+       class="download-invoice-btn" target="_blank">
+        <i class="fa fa-file-pdf-o"></i> View Invoice
+    </a>
+</div>
+
         </div>
     </div>
 

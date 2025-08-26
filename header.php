@@ -133,7 +133,7 @@ function categoryImagePath($relPath)
   .mega-menu {
     position: absolute;
     top: 100%;
-    left: 50%;
+    left: 205%;
     transform: translateX(-50%);
     background: #fff;
     border: 1px solid #e5e5e5;
