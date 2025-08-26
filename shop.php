@@ -41,7 +41,7 @@ if (isset($_GET['suggest']) && !empty($_GET['suggest'])) {
 }
 
 
-// ✅ Function to fetch banners dynamically
+// ✅ Function to fetch banners dynamicall-
 function getCategoryBanners($conn, $category_name = '')
 {
 	if (!empty($category_name)) {
