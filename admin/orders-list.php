@@ -235,10 +235,6 @@ $totalPages = ceil($totalOrders / $limit);
   });
 </script>
 
-
-
-     
-
 </body>
 
 </html>
