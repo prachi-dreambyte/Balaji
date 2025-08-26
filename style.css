@@ -1546,10 +1546,38 @@ header .header-top nav {
   padding: 50px 0;
 }
 .single-brand {
-  border: 1px solid #e5e5e5;
   display: inline-block;
   overflow: hidden;
   width: 100%;
+}
+.single-brands img{
+max-width: 120px;
+    margin: 0 auto;
+}
+/* .single-brand img {
+    max-width: 120px;
+    margin: 0 auto;
+} */
+ 
+
+.marquee-inner {
+  display: flex;
+  gap: 40px; /* space between logos */
+  animation: scroll 20s linear infinite;
+}
+.brand-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+/* Keyframes for continuous left scroll */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .brands:hover .owl-theme .owl-controls .owl-buttons div.owl-prev{
