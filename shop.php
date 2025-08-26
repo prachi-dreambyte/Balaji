@@ -605,10 +605,8 @@ $cat_sidebar_stmt->close();
     $discount = isset($row['discount']) ? floatval($row['discount']) : 0;
     $corporate_discount = isset($row['corporate_discount']) ? floatval($row['corporate_discount']) : 0;
     $old_price = $price;
-    $final_price = $price - $discount;
-    if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) {
-        $final_price -= $corporate_discount;
-    }
+    // Show base price (total) on product cards, not discounted price
+    $final_price = $price;
 
     // Images
     $images = json_decode($row['images'], true);
@@ -694,8 +692,8 @@ $cat_sidebar_stmt->close();
 							₹<?php echo number_format($final_price, 2); ?>
 						</div>
 					</div>
-					<?php if ($final_price < $old_price):
-						$discount_percent = (($old_price - $final_price) / $old_price) * 100;
+					<?php if ($discount > 0):
+						$discount_percent = $old_price > 0 ? ($discount / $old_price) * 100 : 0;
 						?>
 						<span class="old-price" style="text-decoration:line-through; color:#999; font-size:14px; margin-right:6px;">
 							₹<?php echo number_format($old_price, 2); ?>

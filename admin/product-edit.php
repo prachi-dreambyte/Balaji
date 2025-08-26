@@ -87,11 +87,28 @@ try {
                                         ?>
                                     </div>
                                     
+                                    <!-- Image Upload Options -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Image Upload Options</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="image_option" id="add_images" value="add" checked>
+                                            <label class="form-check-label" for="add_images">
+                                                Add to existing images
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="image_option" id="replace_images" value="replace">
+                                            <label class="form-check-label" for="replace_images">
+                                                Replace all existing images
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
                                     <!-- File Upload -->
                                     <div class="mb-3">
-                                        <label class="form-label">Upload New Images</label>
+                                        <label class="form-label">Upload Images</label>
                                         <input type="file" name="images[]" class="form-control" multiple>
-                                        <small class="text-muted">Select new images to add to existing ones.</small>
+                                        <small class="text-muted">Select images to upload. Choose option above to add or replace existing images.</small>
                                     </div>
                                 </div>
                             </div>
@@ -269,7 +286,9 @@ try {
                                                         ?>
                                                             <option value="<?= $tag; ?>" <?= $selected; ?>><?= $tag; ?></option>
                                                     <?php } ?>
+                                                    <option value="NO TAG" <?= (in_array('NO TAG', $currentTags) || empty($product['tags'])) ? 'selected' : ''; ?>>No Tag</option>
                                                 </select>
+                                                <small class="text-muted">Select "No Tag" if you don't want any tags for this product. You can select multiple tags or just "No Tag".</small>
                                             </div>
                                         </div>
                                     </div>
@@ -347,6 +366,60 @@ try {
 
     <script src="assets/js/vendor.js"></script>
     <script src="assets/js/app.js"></script>
+    
+    <script>
+        // Handle image upload options
+        document.addEventListener('DOMContentLoaded', function() {
+            const addImagesRadio = document.getElementById('add_images');
+            const replaceImagesRadio = document.getElementById('replace_images');
+            const fileInput = document.querySelector('input[name="images[]"]');
+            const fileInputContainer = fileInput.parentElement;
+            const form = document.querySelector('form');
+            
+            function updateFileInputLabel() {
+                const smallText = fileInputContainer.querySelector('small');
+                if (addImagesRadio.checked) {
+                    smallText.textContent = 'Select images to upload. Images will be added to existing ones.';
+                } else {
+                    smallText.textContent = 'Select images to upload. All existing images will be replaced.';
+                }
+            }
+            
+            addImagesRadio.addEventListener('change', updateFileInputLabel);
+            replaceImagesRadio.addEventListener('change', updateFileInputLabel);
+            
+            // Form validation
+            form.addEventListener('submit', function(e) {
+                if (replaceImagesRadio.checked && (!fileInput.files || fileInput.files.length === 0)) {
+                    e.preventDefault();
+                    alert('Please select at least one image when choosing to replace existing images.');
+                    return false;
+                }
+            });
+            
+            // Handle tags selection
+            const tagsSelect = document.getElementById('product-tags');
+            tagsSelect.addEventListener('change', function() {
+                const selectedOptions = Array.from(this.selectedOptions).map(option => option.value);
+                const noTagOption = this.querySelector('option[value="NO TAG"]');
+                
+                if (selectedOptions.includes('NO TAG')) {
+                    // If "No Tag" is selected, unselect all other options
+                    Array.from(this.options).forEach(option => {
+                        if (option.value !== 'NO TAG') {
+                            option.selected = false;
+                        }
+                    });
+                } else if (selectedOptions.length > 0) {
+                    // If other tags are selected, unselect "No Tag"
+                    noTagOption.selected = false;
+                }
+            });
+            
+            // Initialize label
+            updateFileInputLabel();
+        });
+    </script>
 </body>
 
 </html>
