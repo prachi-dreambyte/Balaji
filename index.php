@@ -445,7 +445,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     font-size: 14px;
     padding: 6px 0;
     text-align: center;
-    margin-top:6px;">
+    margin-top:40px;">
   
   <marquee behavior="scroll" direction="left" scrollamount="5">
     100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
@@ -760,8 +760,11 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
             </div>
         </div> -->
-        <div class="brand-carousel owl-carousel">
-                        <div class="single-brand">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="Tests">
+                    <div class="brand-carousel owl-carousel Test">
+                        <div class="single-brand ">
                             <a href="#"><img src="img/brand/logo1.webp" alt=""></a>
                         </div>
                         <div class="single-brand">
@@ -781,6 +784,9 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                         </div>
 
                     </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
