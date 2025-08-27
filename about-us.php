@@ -125,51 +125,92 @@ include 'connect.php';
     </section>
 
 
-    <section class="home-4-daily-deals-area BalajiFamily">
+   <section class="balaji-family-section" style="padding: 100px 0; background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%); position: relative;">
+    <!-- Decorative elements -->
+    <div class="bg-pattern" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.03; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"><rect fill=\"%23c19f66\" x=\"0\" y=\"0\" width=\"100\" height=\"100\" /><path d=\"M0 0L100 100\" stroke=\"%23ffffff\" stroke-width=\"2\" /><path d=\"M100 0L0 100\" stroke=\"%23ffffff\" stroke-width=\"2\" /></svg>');"></div>
+    
     <!-- Heading Area -->
-        <div class="AboutNewHeading wow fadeInDown" data-wow-delay="0.2s">
-            <h1 class="AboutfirstHeading">The Balaji Furniture Family</h1>
-            <p class="aboutParagraph">
-                   Where Comfort Meets Style, and Customers Are Family. From Dehradun's Heart to Uttarakhand's Soul,
-                    <br/> We're More Than a Brand - We're Your Story."
+    <div class="container">
+        <div class="section-heading text-center wow fadeInDown" data-wow-delay="0.2s" style="margin-bottom: 70px;">
+            <h1 class="section-title" style="font-size: 2.8rem; color: #333; font-weight: 700; position: relative; display: inline-block; padding-bottom: 15px;">
+                The Balaji Furniture Family
+                <span style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #c19f66;"></span>
+            </h1>
+            <p class="section-subtitle" style="font-size: 1.2rem; color: #555; line-height: 1.6; margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Where Comfort Meets Style, and Customers Are Family. From Dehradun's Heart to Uttarakhand's Soul,
+                We're More Than a Brand - We're Your Story.
             </p>
         </div>
+    </div>
 
-        <!-- Main Content Area -->
-        <div class="AboutBackground">
-            <div class="container-fluid">
-                <div class="row">
-
-                    <!-- Image Column -->
-                    <div class="col-md-4 col-sm-4 col-xs-12 wow zoomIn" data-wow-delay="0.4s">
-                    <img src="img/balaji/happy-universal-q-01-TM-1024x1024.png" class="BalajiAboutImage" />
+    <!-- Main Content Area -->
+    <div class="container">
+        <div class="family-content-wrapper" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.08);">
+            <div class="row no-gutters">
+                <!-- Image Column -->
+                <div class="col-lg-5 col-md-6">
+                    <div class="family-image-container wow fadeInLeft" data-wow-delay="0.3s" style="height: 100%; position: relative;">
+                        <div style="position: absolute; top: -113px; left: -20px; width: 100px; height: 100px; z-index: 2;">
+                            <svg viewBox="0 0 100 100" style="fill: #c19f66; opacity: 0.2;">
+                                <polygon points="0,0 100,0 100,100"></polygon>
+                            </svg>
+                        </div>
+                        <div style="position: absolute; bottom: -113px; right: -20px; width: 100px; height: 100px; z-index: 2;">
+                            <svg viewBox="0 0 100 100" style="fill: #c19f66; opacity: 0.2;">
+                                <polygon points="0,0 0,100 100,100"></polygon>
+                            </svg>
+                        </div>
+                        <img src="img/balaji/happy-universal-q-01-TM-1024x1024.png" alt="Happy Universal logo " 
+                             style="width: auto;height: 500px;/* object-fit: cover; */padding: 54px 10px;justify-content: center;display: flex;margin-top: 113px;margin-left: 40px;">
                     </div>
+                </div>
 
-                    <!-- Text Column -->
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            <div class="happyAbout">
-                             <h1 class="aboutUniversal wow fadeInRight" data-wow-delay="0.5s">HAPPY UNIVERSAL LOGO</h1>
-
-                                <p class="aboutUniversalPara pt-4 wow fadeInUp" data-wow-delay="0.6s">
-                                 At the core of innovation lies the brand 'HAPPY UNIVERSAL'. The logo features a 'happy face', reflecting the founder's hometown name 'HAPPY'. The term 'UNIVERSAL' signifies our commitment to creating products with a luxurious aesthetic for workplaces and enhancing lifestyles with comfort.
-                                </p>
-
-                                <p class="aboutUniversalPara wow fadeInUp" data-wow-delay="0.8s">
-                                  It embodies a philosophy where our product range transcends boundaries, offering a universal appeal. Our products are emotionally intertwined with the people of Uttarakhand and across India, as evidenced by our extensive loyal customer base spanning over 21 years and counting, dedicated to BALAJI FURNITURE.
-                                </p>
-
-                                <p class="aboutUniversalPara wow fadeInUp" data-wow-delay="1s">
-                                  HAPPY UNIVERSAL takes pride in crafting universally luxurious products that redefine workplaces and elevate lifestyles. Our brand places a strong emphasis on quality assurance, offering a wide range of office furniture and plastic furniture to meet our customers' needs."
-                                </p>
+                <!-- Text Column -->
+                <div class="col-lg-7 col-md-6">
+                    <div class="family-text-content wow fadeInRight" data-wow-delay="0.4s" style="padding: 50px 40px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                        <div class="logo-label" style="display: inline-block; background: #c19f66; color: white; padding: 8px 20px; border-radius: 30px; font-size: 0.9rem; margin-bottom: 25px; font-weight: 600;">
+                            HAPPY UNIVERSAL 
+                        </div>
+                        
+                        <h2 class="content-title" style="font-size: 2rem; color: #333; margin-bottom: 25px; font-weight: 700; position: relative; padding-bottom: 15px;">
+                            Our Symbol of Joy & Quality
+                            <span style="position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: #c19f66;"></span>
+                        </h2>
+                        
+                        <div class="content-paragraphs" style="position: relative;">
+                            <p class="content-para" style="color: #555; line-height: 1.8; margin-bottom: 20px; font-size: 1.05rem; position: relative; padding-left: 30px;">
+                                <span style="position: absolute; left: 0; top: 0; color: #c19f66; font-weight: bold;">→</span>
+                                At the core of innovation lies the brand 'HAPPY UNIVERSAL'. The logo features a 'happy face', reflecting the founder's hometown name 'HAPPY'. The term 'UNIVERSAL' signifies our commitment to creating products with a luxurious aesthetic for workplaces and enhancing lifestyles with comfort.
+                            </p>
+                            
+                            <p class="content-para" style="color: #555; line-height: 1.8; margin-bottom: 20px; font-size: 1.05rem; position: relative; padding-left: 30px;">
+                                <span style="position: absolute; left: 0; top: 0; color: #c19f66; font-weight: bold;">→</span>
+                                It embodies a philosophy where our product range transcends boundaries, offering a universal appeal. Our products are emotionally intertwined with the people of Uttarakhand and across India, as evidenced by our extensive loyal customer base spanning over 21 years and counting, dedicated to BALAJI FURNITURE.
+                            </p>
+                            
+                            <p class="content-para" style="color: #555; line-height: 1.8; margin-bottom: 20px; font-size: 1.05rem; position: relative; padding-left: 30px;">
+                                <span style="position: absolute; left: 0; top: 0; color: #c19f66; font-weight: bold;">→</span>
+                                HAPPY UNIVERSAL takes pride in crafting universally luxurious products that redefine workplaces and elevate lifestyles. Our brand places a strong emphasis on quality assurance, offering a wide range of office furniture and plastic furniture to meet our customers' needs.
+                            </p>
+                        </div>
+                        
+                        <div class="achievement-badges" style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px;">
+                            <div class="badge" style="background: rgba(193, 159, 102, 0.1); padding: 10px 20px; border-radius: 30px; display: flex; align-items: center;">
+                                <span style="background: #c19f66; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">21</span>
+                                <span style="color: #333; font-weight: 600;">Years of Excellence</span>
+                            </div>
+                            
+                            <div class="badge" style="background: rgba(193, 159, 102, 0.1); padding: 10px 20px; border-radius: 30px; display: flex; align-items: center;">
+                                <span style="background: #c19f66; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">∞</span>
+                                <span style="color: #333; font-weight: 600;">Universal Appeal</span>
                             </div>
                         </div>
-                    
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Why Choose Us Section -->
+        </div>
+    </div>
+</section>     <!-- Why Choose Us Section -->
         <section class="why-choose-us-section" style="background-color: #f8f9fa; padding: 80px 0;">
             <div class="container">
                 <div class="row text-center mb-5">

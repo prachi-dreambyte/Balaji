@@ -499,8 +499,14 @@ a {
   transform: none;    /* reset */
 }
  .subscribe-input { font-family: "Source Serif Pro", serif; border-radius: 5px 0 0 5px !important; border: none; padding: 25px 10px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.1); color: #eeeeee } 
- .subscribe-btn { border-radius: 0 10px 10px 0 !important; background-color: #c1a283; /* Beige/Brown shade */ color: #fff; font-weight: bold; padding:15px 10px; border: none; }
+ .subscribe-btn { border-radius: 10px !important; background-color: #c1a283; /* Beige/Brown shade */ color: #fff; font-weight: bold; padding:12px 15px; border: none; }
  .subscribe-btn:hover { background-color: #a98967; } .form-control:focus { box-shadow: none; }
+.footericon a i{
+  color:#fff !important;
+}
+.footericon a i:hover{
+  color:#c1a283 !important;
+}'
 </style>
         <link rel="stylesheet" href="css/responsive-enhancements.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -532,8 +538,8 @@ a {
           <li><a href="index.php#deals" class="text-dark text-decoration-none footer-para">Daily Deals</a></li>
           <li><a href="index.php#newarrival" class="text-dark text-decoration-none footer-para">New Products</a></li>
           <li><a href="index.php#bestseller" class="text-dark text-decoration-none footer-para">Bestseller</a></li>
-          <li><a href="privacy-policy.php" class="text-dark text-decoration-none footer-para">Privacy Notice</a></li>
-          <li><a href="terms-and-condition.php" class="text-dark text-decoration-none footer-para">Terms of Use</a></li>
+          <li><a href="privacy-policy.php" class="text-dark text-decoration-none footer-para">Privacy Policy</a></li>
+          <li><a href="terms-and-condition.php" class="text-dark text-decoration-none footer-para">Terms and Condition</a></li>
         </ul>
       </div>
 
@@ -561,29 +567,30 @@ a {
           <p class="text-dark text-decoration-none footer-para">Have a support question?</p>
 
           <div class="subscribe-box">
-          <form class="d-flex">
-            <input type="email" class="form-control subscribe-input" placeholder="Enter email address" required>
-            <button type="submit" class="subscribe-btn">SUBSCRIBE</button>
-          </form>
+            <button type="submit" class="subscribe-btn">Contact Us</button>
         </div>
       </div>
     </div>
 
     <!-- Copyright -->
-    <hr class="hrFooter">
-        <div class="d-flex gap-3 mt-3" style="background-color: #845848; justify-content: space-between;">
-          <div class="text-white px-3 py-3">
-            © 2024 Balaji Furniture | Powered by Dreambyte Solution Pvt. Ltd
-          </div>
-        </div>          
-        <div class="text-white social-icons">
-          <a href="#"><i class="bi bi-facebook"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
-          <a href="#"><i class="bi bi-twitter"></i></a>
-          <a href="#"><i class="bi bi-linkedin"></i></a>
-        </div>
-      </div> 
+   <hr class="hrFooter">
+
+<footer>
+  <div class="d-flex justify-content-between align-items-center px-3 py-3" style="background-color: #845848;">
+    
+    <!-- Left Side -->
+    <div class="text-white">
+      © 2024 Balaji Furniture | Powered by Dreambyte Solution Pvt. Ltd
     </div>
+
+    <!-- Right Side (Social Icons) -->
+    <div class="text-white social-icons d-flex gap-3 footericon">
+      <a href="#"><i class="bi bi-facebook"></i></a>
+      <a href="#"><i class="bi bi-instagram"></i></a>
+      <a href="#"><i class="bi bi-twitter"></i></a>
+      <a href="#"><i class="bi bi-linkedin"></i></a>
+    </div>
+
   </div>
 </footer>
 
