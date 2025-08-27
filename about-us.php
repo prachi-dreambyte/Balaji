@@ -47,15 +47,15 @@ include 'connect.php';
     </head>
     <body>
        <?php include 'header.php'; ?>
-        <section class="AboutSection">
-            <div class="image-wrapper">
-              <img src="img/banner/bg_banner.jpg" class="AboutwrapperImage" />
-               <h1 class="aboutUs-Heading">ABOUT US</h1>
-                <div class="AboutDivWrapper">
-                   <a class="AboutHome"> HOME </a> &nbsp/ &nbsp <a class="AboutHome">ABOUT US</a>
-                </div>
-        </div>
-    </section>
+                    <section class="AboutSection">
+  <div class="image-wrapper">
+    <img src="img\about.jpeg" class="AboutwrapperImage" />
+    <h1 class="aboutUs-Heading">ABOUT US</h1>
+    <div class="AboutDivWrapper">
+        <a class="AboutHome"> HOME </a> &nbsp/ &nbsp <a class="AboutHome">ABOUT US</a>
+    </div>
+  </div>
+</section>
 
     <section>
         <div class="container-fluid">
