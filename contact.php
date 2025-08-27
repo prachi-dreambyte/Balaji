@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         font-size: 25px;
     }
     .contactFormInput{
-        padding-bottom: 40px !important;
+        padding-bottom: 20px !important;
         border: 1px solid #000000 !important;
     border-radius: 5px !important;
     background: #575757 !important;
