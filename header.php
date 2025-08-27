@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 include_once 'connect.php';
 
 // Fetch categories for menu
-$sql = "SELECT * FROM categories";
+$sql = "SELECT * FROM categories ORDER bY display_order ASC";
 $categories_result = mysqli_query($conn, $sql);
 
 // Cart item count by user
@@ -37,7 +37,7 @@ $q = "
         TRIM(COALESCE(category_image,'')) AS category_image
     FROM categories
     WHERE TRIM(COALESCE(Main_Category_name,'')) <> ''
-    ORDER BY main_cat ASC, category_name ASC
+    ORDER BY display_order ASC
 ";
 $res = mysqli_query($conn, $q);
 if ($res) {
