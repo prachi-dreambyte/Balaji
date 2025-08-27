@@ -47,138 +47,183 @@ include 'connect.php';
     </head>
     <body>
        <?php include 'header.php'; ?>
-                    <section class="AboutSection">
-  <div class="image-wrapper">
-    <img src="img/banner/bg_banner.jpg" class="AboutwrapperImage" />
-    <h1 class="aboutUs-Heading">ABOUT US</h1>
-    <div class="AboutDivWrapper">
-        <a class="AboutHome"> HOME </a> &nbsp/ &nbsp <a class="AboutHome">ABOUT US</a>
-    </div>
-  </div>
-</section>
-
-                   <section>
-    <div class="container-fluid">
-        <div class="AboutUSwrapper">
-            <div class="row">
-                <!-- Image with left-to-right animation -->
-                <div class="col-md-6 col-sm-6 col-sx-12 wow slideInLeft" data-wow-delay="0.2s">
-                    <img src="img/slider/5.jpg" alt="main slider" title="#htmlcaption1" class="AboutImage"/>
+        <section class="AboutSection">
+            <div class="image-wrapper">
+              <img src="img/banner/bg_banner.jpg" class="AboutwrapperImage" />
+               <h1 class="aboutUs-Heading">ABOUT US</h1>
+                <div class="AboutDivWrapper">
+                   <a class="AboutHome"> HOME </a> &nbsp/ &nbsp <a class="AboutHome">ABOUT US</a>
                 </div>
+        </div>
+    </section>
 
-                <!-- Text with fade-in animations -->
-                <div class="col-md-6 col-sm-6 col-sx-12">
-                    <div class="AboutUs-Wrapper">
-                        <h1 class="aboutHead wow fadeInDown" data-wow-delay="0.3s">ABOUT BALAJI</h1>
-                        <p class="aboutParagraph pt-3 wow fadeInUp" data-wow-delay="0.5s">
-                            Unveiling the Spirit of Balaji Furniture: A Luxurious Fusion of Comfort and Connectivity
-                        </p>
-                        <p class="aboutParagraph wow fadeInUp" data-wow-delay="0.7s">
-                            The Inception of Balaji Furniture: A Symbolic Expedition initiated in 2003 by its Founder, Mr. Naveen Goel, 
-                            hailing from the small city of Amroha in Uttar Pradesh and relocating to Dehradun in 1999. Subsequently, he commenced the production of High-Quality Office Furniture.”
-                        </p>
-                        <a href="" class="AboutWrapperButton wow fadeInUp" data-wow-delay="0.9s">
-                            Read More
-                        </a>
-                       </div>
-                       </div>
-                       </div>
-                       </div>
-                      </div>
-                    </section>
-
-                     <section class="AboutUSwrapper">
-                        <div class="container">
-                            <div class="AboutBoxWrapper">
-                               <h1 class="aboutUniversal  wow fadeInUp" data-wow-delay="0.3s">Discovering the Essence of Balaji Furniture: A Harmonious Fusion of Luxury, Comfort, and Connection.</h1>
-                               <div class="row">
-                            <div class="col-md-6 col-sm-6  col-xs-12  wow fadeInUp" data-wow-delay="0.5s">
-                               <p class="aboutParagraph pt-5">“The enterprise ‘JAY SHRI BALAJI FOAM & FURNITURE’, popularly referred to as ‘BALAJI FURNITURE’, embarked on its symbolic journey in 2003 under the guidance of its founder, Mr. Naveen Goel, a native of Amroha, Uttar Pradesh, who relocated to Dehradun in 1999.</p>
-                               <p  class="aboutParagraph">Initially focusing on manufacturing high-quality office furniture, the firm has since evolved into a prominent Distributor of Plastic Furniture, representing renowned brands such as ‘Amul’, ‘Spark’, ‘Highway’, ‘Neelam’, ‘Vardhmaan’, ‘Omaxe’, ‘Marble’, ‘Sharda’ and ‘Prime Gold’.</p>
-                               <p  class="aboutParagraph">Serving clientele across Dehradun and extending its reach throughout Uttarakhand, the company’s manufacturing arm operates under the brand ‘HAPPY UNIVERSAL’, proudly recognized as one of Dehradun’s pioneering trademarked furniture brands.”</p>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 wow slideInRight" data-wow-delay="1s">
-                               <div class="DiscoveringImage">
-                                <img src="img\body\5_2.jpg" class="discoverAboutImg">
-                               </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div>
-                    </section>
-                     <section class="marqu">
-   <div class="carousel-wrapper">
-     <div class="custom-slick-carousel marq ">
-      <div><img src="img/balaji/logo1.png" class="d-block w-100" alt="..." height="20"/></div>
-      <div><img src="img/balaji/logo2.jpg" class="d-block w-100" alt="..." height="20"/></div>
-      <div><img src="img/balaji/logo3.png" class="d-block w-100" alt="..." height="20"/></div>
-      <div><img src="img/balaji/logo4.jpg" class="d-block w-100" alt="..." height="20"/></div>
-      <div><img src="img/balaji/logo5.jpg" class="d-block w-100" alt="..." height="20"/></div>
-      <div><img src="img/balaji/logo1.png" class="d-block w-100" alt="..." height="20"/></div>
-      <div><img src="img/balaji/logo2.jpg" class="d-block w-100" alt="..." height="20"/></div>
-      <div><img src="img/balaji/logo3.png" class="d-block w-100" alt="..." height="20"/></div>
-      <div><img src="img/balaji/logo4.jpg" class="d-block w-100" alt="..." height="20"/></div>
-      <div><img src="img/balaji/logo5.jpg" class="d-block w-100" alt="..." height="20"/></div>
-</div>
-    </div>
-  </section>
-                    <section class="home-4-daily-deals-area BalajiFamily">
-    <!-- Heading Area -->
-    <div class="AboutNewHeading wow fadeInDown" data-wow-delay="0.2s">
-        <h1 class="AboutfirstHeading">The Balaji Furniture Family</h1>
-        <p class="aboutParagraph">
-            Where Comfort Meets Style, and Customers Are Family. From Dehradun’s Heart to Uttarakhand’s Soul,
-            <br/> We’re More Than a Brand – We’re Your Story.”
-        </p>
-    </div>
-
-    <!-- Main Content Area -->
-    <div class="AboutBackground">
+    <section>
         <div class="container-fluid">
-            <div class="row">
+            <div class="AboutUSwrapper">
+                <div class="row">
+                    <!-- Image with left-to-right animation -->
+                   <div class="col-md-6 col-sm-6 col-xs-12 wow slideInLeft" data-wow-delay="0.2s">
+                       <img src="img/slider/5.jpg" alt="main slider" title="#htmlcaption1" class="AboutImage"/>
+                    </div>
 
-                <!-- Image Column -->
-                <div class="col-md-4 col-sm-4 col-xs-12 wow zoomIn" data-wow-delay="0.4s">
-                    <img src="img/balaji/happy-universal-q-01-TM-1024x1024.png" class="BalajiAboutImage" />
-                </div>
-
-                <!-- Text Column -->
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <div class="happyAbout">
-                        <h1 class="aboutUniversal wow fadeInRight" data-wow-delay="0.5s">HAPPY UNIVERSAL LOGO</h1>
-
-                        <p class="aboutUniversalPara pt-4 wow fadeInUp" data-wow-delay="0.6s">
-                            At the core of innovation lies the brand ‘HAPPY UNIVERSAL’. The logo features a ‘happy face’, reflecting the founder’s hometown name ‘HAPPY’. The term ‘UNIVERSAL’ signifies our commitment to creating products with a luxurious aesthetic for workplaces and enhancing lifestyles with comfort.
-                        </p>
-
-                        <p class="aboutUniversalPara wow fadeInUp" data-wow-delay="0.8s">
-                            It embodies a philosophy where our product range transcends boundaries, offering a universal appeal. Our products are emotionally intertwined with the people of Uttarakhand and across India, as evidenced by our extensive loyal customer base spanning over 21 years and counting, dedicated to BALAJI FURNITURE.
-                        </p>
-
-                        <p class="aboutUniversalPara wow fadeInUp" data-wow-delay="1s">
-                            HAPPY UNIVERSAL takes pride in crafting universally luxurious products that redefine workplaces and elevate lifestyles. Our brand places a strong emphasis on quality assurance, offering a wide range of office furniture and plastic furniture to meet our customers’ needs.”
-                        </p>
+                    <!-- Text with fade-in animations -->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="AboutUs-Wrapper">
+                           <h1 class="aboutHead wow fadeInDown" data-wow-delay="0.3s">ABOUT BALAJI</h1>
+                            <p class="aboutParagraph pt-3 wow fadeInUp" data-wow-delay="0.5s">
+                              Unveiling the Spirit of Balaji Furniture: A Luxurious Fusion of Comfort and Connectivity
+                            </p>
+                            <p class="aboutParagraph wow fadeInUp" data-wow-delay="0.7s">
+                             The Inception of Balaji Furniture: A Symbolic Expedition initiated in 2003 by its Founder, Mr. Naveen Goel, 
+                             hailing from the small city of Amroha in Uttar Pradesh and relocating to Dehradun in 1999. Subsequently, he commenced the production of High-Quality Office Furniture.”
+                            </p>
+                            <a href="" class="AboutWrapperButton wow fadeInUp" data-wow-delay="0.9s">
+                              Read More
+                            </a>
+                       </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
+    </section>
+    <section class="AboutUSwrapper">
+        <div class="container">
+            <div class="AboutBoxWrapper">
+                <h1 class="aboutUniversal  wow fadeInUp" data-wow-delay="0.3s">Discovering the Essence of Balaji Furniture: A Harmonious Fusion of Luxury, Comfort, and Connection.</h1>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6  col-xs-12  wow fadeInUp" data-wow-delay="0.5s">
+                            <p class="aboutParagraph pt-5">"The enterprise 'JAY SHRI BALAJI FOAM & FURNITURE', popularly referred to as 'BALAJI FURNITURE', embarked on its symbolic journey in 2003 under the guidance of its founder, Mr. Naveen Goel, a native of Amroha, Uttar Pradesh, who relocated to Dehradun in 1999.</p>
+                            <p  class="aboutParagraph">Initially focusing on manufacturing high-quality office furniture, the firm has since evolved into a prominent Distributor of Plastic Furniture, representing renowned brands such as 'Amul', 'Spark', 'Highway', 'Neelam', 'Vardhmaan', 'Omaxe', 'Marble', 'Sharda' and 'Prime Gold'.</p>
+                            <p  class="aboutParagraph">Serving clientele across Dehradun and extending its reach throughout Uttarakhand, the company's manufacturing arm operates under the brand 'HAPPY UNIVERSAL', proudly recognized as one of Dehradun's pioneering trademarked furniture brands."</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 wow slideInRight" data-wow-delay="1s">
+                            <div class="DiscoveringImage">
+                                <img src="img/body/5_2.jpg" class="discoverAboutImg">
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+</div>
 </section>
 
+    <section class="marqu">
+        <div class="carousel-wrapper">
+            <div class="custom-slick-carousel marq ">
+                <div><img src="img/balaji/logo1.png" class="d-block w-100" alt="..." height="20"/></div>
+                <div><img src="img/balaji/logo2.jpg" class="d-block w-100" alt="..." height="20"/></div>
+                <div><img src="img/balaji/logo3.png" class="d-block w-100" alt="..." height="20"/></div>
+                <div><img src="img/balaji/logo4.jpg" class="d-block w-100" alt="..." height="20"/></div>
+                <div><img src="img/balaji/logo5.jpg" class="d-block w-100" alt="..." height="20"/></div>
+                <div><img src="img/balaji/logo1.png" class="d-block w-100" alt="..." height="20"/></div>
+                <div><img src="img/balaji/logo2.jpg" class="d-block w-100" alt="..." height="20"/></div>
+                <div><img src="img/balaji/logo3.png" class="d-block w-100" alt="..." height="20"/></div>
+                <div><img src="img/balaji/logo4.jpg" class="d-block w-100" alt="..." height="20"/></div>
+                <div><img src="img/balaji/logo5.jpg" class="d-block w-100" alt="..." height="20"/></div>
+            </div>
+        </div>
+    </section>
 
+
+    <section class="home-4-daily-deals-area BalajiFamily">
+    <!-- Heading Area -->
+        <div class="AboutNewHeading wow fadeInDown" data-wow-delay="0.2s">
+            <h1 class="AboutfirstHeading">The Balaji Furniture Family</h1>
+            <p class="aboutParagraph">
+                   Where Comfort Meets Style, and Customers Are Family. From Dehradun's Heart to Uttarakhand's Soul,
+                    <br/> We're More Than a Brand - We're Your Story."
+            </p>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="AboutBackground">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <!-- Image Column -->
+                    <div class="col-md-4 col-sm-4 col-xs-12 wow zoomIn" data-wow-delay="0.4s">
+                    <img src="img/balaji/happy-universal-q-01-TM-1024x1024.png" class="BalajiAboutImage" />
+                    </div>
+
+                    <!-- Text Column -->
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <div class="happyAbout">
+                             <h1 class="aboutUniversal wow fadeInRight" data-wow-delay="0.5s">HAPPY UNIVERSAL LOGO</h1>
+
+                                <p class="aboutUniversalPara pt-4 wow fadeInUp" data-wow-delay="0.6s">
+                                 At the core of innovation lies the brand 'HAPPY UNIVERSAL'. The logo features a 'happy face', reflecting the founder's hometown name 'HAPPY'. The term 'UNIVERSAL' signifies our commitment to creating products with a luxurious aesthetic for workplaces and enhancing lifestyles with comfort.
+                                </p>
+
+                                <p class="aboutUniversalPara wow fadeInUp" data-wow-delay="0.8s">
+                                  It embodies a philosophy where our product range transcends boundaries, offering a universal appeal. Our products are emotionally intertwined with the people of Uttarakhand and across India, as evidenced by our extensive loyal customer base spanning over 21 years and counting, dedicated to BALAJI FURNITURE.
+                                </p>
+
+                                <p class="aboutUniversalPara wow fadeInUp" data-wow-delay="1s">
+                                  HAPPY UNIVERSAL takes pride in crafting universally luxurious products that redefine workplaces and elevate lifestyles. Our brand places a strong emphasis on quality assurance, offering a wide range of office furniture and plastic furniture to meet our customers' needs."
+                                </p>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="why-choose-us-section" style="background-color: #f8f9fa; padding: 80px 0;">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-12">
+                        <h2 class="section-title wow fadeInDown" data-wow-delay="0.2s" style="font-size: 32px; color: #333; margin-bottom: 20px; font-weight: 700;">Why Choose Us?</h2>
+                        <div class="title-divider" style="width: 80px; height: 3px; background: #c19f66; margin: 0 auto 30px;"></div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="feature-card wow fadeInUp" data-wow-delay="0.3s" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; text-align: center; transition: all 0.3s ease;">
+                            <div class="icon-wrapper mb-4" style="font-size: 48px; color: #c19f66;">
+                                <i class="fa fa-shield"></i>
+                            </div>
+                            <h3 style="font-size: 20px; color: #333; margin-bottom: 15px; font-weight: 600;">The Epitome of Trust</h3>
+                            <p style="color: #666; line-height: 1.6;">Doon's Beloved Furniture Brand for Over Two Decades</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="feature-card wow fadeInUp" data-wow-delay="0.5s" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; text-align: center; transition: all 0.3s ease;">
+                            <div class="icon-wrapper mb-4" style="font-size: 48px; color: #c19f66;">
+                                <i class="fa fa-smile-o"></i>
+                            </div>
+                            <h3 style="font-size: 20px; color: #333; margin-bottom: 15px; font-weight: 600;">21+ Years, 10,000+ Smiles</h3>
+                            <p style="color: #666; line-height: 1.6;">Our Commitment to Customer Happiness</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="feature-card wow fadeInUp" data-wow-delay="0.7s" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; text-align: center; transition: all 0.3s ease;">
+                            <div class="icon-wrapper mb-4" style="font-size: 48px; color: #c19f66;">
+                                <i class="fa fa-handshake-o"></i>
+                            </div>
+                            <h3 style="font-size: 20px; color: #333; margin-bottom: 15px; font-weight: 600;">Empowering Uttarakhand</h3>
+                            <p style="color: #666; line-height: 1.6;">Empowering Uttarakhand's Furniture Sector Since 2003!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
   <section id="testimonials" class="testimonials section">
     <h1>TESTIMONIAL</h1>
     <div class="carousel-wrappers">
-     <div class="test-slick-carousel ">
-      <div class="card AboutCard"><h1 >bharat bishnoi</h1>
-        <p >Bought an office chair from Balaji Furniture. The price difference from retail is a lot with no compromise in quality</p>
-        <span class="fa fa-star checked"></span>
-<span class="fa fa-star checked"></span>
-<span class="fa fa-star checked"></span>
-<span class="fa fa-star"></span>
-<span class="fa fa-star"></span>
+        <div class="test-slick-carousel ">
+            <div class="card AboutCard"><h1 >bharat bishnoi</h1>
+            <p >Bought an office chair from Balaji Furniture. The price difference from retail is a lot with no compromise in quality</p>
+                <span class="fa fa-star checked"></span>
+       <span class="fa fa-star checked"></span>
+       <span class="fa fa-star checked"></span>
+       <span class="fa fa-star"></span>
+       <span class="fa fa-star"></span>
       </div>
        <div class="card AboutCard"><h1 >manvi semalty</h1>
        <p >They have a really good collection and the quality is amazing. I will definitely buy from them again.</p>
@@ -232,7 +277,56 @@ include 'connect.php';
     </div>
   </section>
 
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+        <!-- From Our Director's Desk Section -->
+        <section class="directors-desk-section" style="background: linear-gradient(to right, #f9f9f9 50%, #ffffff 50%); padding: 80px 0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="director-image-wrapper wow fadeInLeft" data-wow-delay="0.3s" style="position: relative; padding-right: 30px;">
+                            <img src="img\dir.jpg" alt="Shubhang Goel - Managing Director" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                            <div class="director-info" style="position: absolute; bottom: 20px; left: 20px; background: rgba(193, 159, 102, 0.9); padding: 15px 25px; border-radius: 5px; color: white;">
+                                <h4 style="margin: 0; font-weight: 600;">Shubhang Goel</h4>
+                                <p style="margin: 5px 0 0; font-size: 14px;">Managing Director</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="director-content wow fadeInRight" data-wow-delay="0.5s" style="padding-left: 30px;">
+                            <h2 class="section-title" style="font-size: 32px; color: #333; margin-bottom: 30px; font-weight: 700; position: relative;">
+                                From Our Director's Desk
+                                <div class="title-divider" style="width: 80px; height: 3px; background: #c19f66; margin-top: 15px;"></div>
+                            </h2>
+                            
+                            <div class="mission-vision-box" style="margin-bottom: 30px;">
+                                <div class="icon-title" style="display: flex; align-items: center; margin-bottom: 15px;">
+                                    <div class="icon-wrapper" style="font-size: 24px; color: #c19f66; margin-right: 15px;">
+                                        <i class="fa fa-bullseye"></i>
+                                    </div>
+                                    <h3 style="font-size: 22px; color: #333; margin: 0; font-weight: 600;">Mission</h3>
+                                </div>
+                                <p style="color: #555; line-height: 1.7; font-style: italic; border-left: 3px solid #c19f66; padding-left: 20px; margin-left: 39px;">
+                                    "Elevating Living Standards Through Innovative, Sustainable, and Affordable Furniture Solutions, Inspiring Comfort and Joy in Every Space."
+                                </p>
+                            </div>
+                            
+                            <div class="mission-vision-box">
+                                <div class="icon-title" style="display: flex; align-items: center; margin-bottom: 15px;">
+                                    <div class="icon-wrapper" style="font-size: 24px; color: #c19f66; margin-right: 15px;">
+                                        <i class="fa fa-eye"></i>
+                                    </div>
+                                    <h3 style="font-size: 22px; color: #333; margin: 0; font-weight: 600;">Vision</h3>
+                                </div>
+                                <p style="color: #555; line-height: 1.7; font-style: italic; border-left: 3px solid #c19f66; padding-left: 20px; margin-left: 39px;">
+                                    "Striving to Lead as a Global Furniture Brand, Redefining Modern Living with Timeless Design, Eco-Conscious Practices, and Customer-Centricity, Crafting Homes of Individuality and Harmony."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+   
 		<!-- bootstrap js -->
         <script src="js/bootstrap.min.js"></script>
 		<!--jquery scrollUp js -->
@@ -243,8 +337,7 @@ include 'connect.php';
         <script src="js/jquery.meanmenu.js"></script>
 		<!-- jquery-ui js -->
         <script src="js/jquery-ui.min.js"></script>
-		<!-- wow js -->
-        <script src="js/wow.min.js"></script>
+		
 		<!-- nivo slider js -->
         <script src="js/jquery.nivo.slider.pack.js"></script>
 		<!-- countdown js -->

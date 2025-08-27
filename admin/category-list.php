@@ -36,11 +36,14 @@ if (isset($_POST['update_category'])) {
           $banner_image = $old_banner;
      }
 
-     $sql = "UPDATE categories 
-            SET category_name=?, Main_Category_name=?, category_image=?, banner_image=? 
-            WHERE id=?";
-     $stmt = $conn->prepare($sql);
-     $stmt->bind_param("ssssi", $name, $main, $category_image, $banner_image, $id);
+     $order = intval($_POST['display_order']); 
+
+$sql = "UPDATE categories 
+        SET category_name=?, Main_Category_name=?, category_image=?, banner_image=?, display_order=? 
+        WHERE id=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ssssii", $name, $main, $category_image, $banner_image, $order, $id);
+
      $stmt->execute();
 
      echo "<script>alert('Category updated successfully!'); window.location='category-list.php';</script>";
@@ -92,14 +95,16 @@ $result = $stmt->get_result();
 
                                              <!-- Edit Button -->
                                              <button class="btn btn-primary mt-2" onclick="openEditModal(
-                                                    <?php echo $row['id']; ?>,
-                                                    '<?php echo htmlspecialchars($row['category_name'], ENT_QUOTES); ?>',
-                                                    '<?php echo htmlspecialchars($row['Main_Category_name'], ENT_QUOTES); ?>',
-                                                    '<?php echo htmlspecialchars($row['category_image'], ENT_QUOTES); ?>',
-                                                    '<?php echo htmlspecialchars($row['banner_image'], ENT_QUOTES); ?>'
-                                                )">
-                                                  Edit
-                                             </button>
+                                             <?php echo $row['id']; ?>,
+                                           '<?php echo htmlspecialchars($row['category_name'], ENT_QUOTES); ?>',
+                                         '<?php echo htmlspecialchars($row['Main_Category_name'], ENT_QUOTES); ?>',
+                                         '<?php echo htmlspecialchars($row['category_image'], ENT_QUOTES); ?>',
+                                           '<?php echo htmlspecialchars($row['banner_image'], ENT_QUOTES); ?>',
+                                             <?php echo (int)$row['display_order']; ?>
+                                        )">
+                                             Edit
+                                        </button>
+
 
                                              <!-- Delete Button -->
                                              <button class="btn btn-danger mt-2"
@@ -158,6 +163,12 @@ $result = $stmt->get_result();
                                         style="max-width: 100px;"><br>
                                    <input type="file" name="banner_image" class="form-control">
                               </div>
+                              <div class="mb-3">
+                                 <label class="form-label">Display Order</label>
+                                 <input type="number" name="display_order" id="edit_order" class="form-control" required>
+                                 <small class="text-muted">Smaller number will show first in menu.</small>
+                              </div>
+
                          </div>
                          <div class="modal-footer">
                               <button type="submit" name="update_category" class="btn btn-success">Update</button>
@@ -169,17 +180,19 @@ $result = $stmt->get_result();
      </div>
 
      <script>
-          function openEditModal(id, name, main, image, banner) {
-               document.getElementById('edit_id').value = id;
-               document.getElementById('edit_name').value = name;
-               document.getElementById('edit_main').value = main;
-               document.getElementById('old_category_image').value = image;
-               document.getElementById('old_banner_image').value = banner;
-               document.getElementById('preview_image').src = image;
-               document.getElementById('preview_banner').src = banner;
-               var myModal = new bootstrap.Modal(document.getElementById('editModal'));
-               myModal.show();
-          }
+         function openEditModal(id, name, main, image, banner, order) {
+    document.getElementById('edit_id').value = id;
+    document.getElementById('edit_name').value = name;
+    document.getElementById('edit_main').value = main;
+    document.getElementById('old_category_image').value = image;
+    document.getElementById('old_banner_image').value = banner;
+    document.getElementById('preview_image').src = image;
+    document.getElementById('preview_banner').src = banner;
+    document.getElementById('edit_order').value = order;
+    var myModal = new bootstrap.Modal(document.getElementById('editModal'));
+    myModal.show();
+}
+
 
           function confirmDelete(categoryId, categoryImage) {
                Swal.fire({

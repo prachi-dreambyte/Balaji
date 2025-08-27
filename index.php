@@ -56,10 +56,6 @@ $onsaleProducts = getProductsByTag($conn, "ONSALE");
 $bestsellerProducts = getProductsByTag($conn, "BESTSELLER");
 $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
 
-
-
-
-
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -505,7 +501,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <div class="row justify-content-center">
                 <?php
                 // Get all categories from database
-                $sql = "SELECT * FROM categories ORDER BY category_name ASC";
+                $sql = "SELECT * FROM categories  ORDER bY display_order ASC";
                 $result = mysqli_query($conn, $sql);
 
                 if ($result && mysqli_num_rows($result) > 0) {
