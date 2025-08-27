@@ -6,7 +6,7 @@ $message = '';
 $token = $_GET['token'] ?? '';
 
 if (empty($token)) {
-    die('❌ Invalid or missing reset token.');
+    die('<div class="alert alert-danger text-center mt-5">❌ Invalid or missing reset token.</div>');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($new_password !== $confirm_password) {
         $message = "❌ Passwords do not match.";
     } else {
-        // Find user by token
         $query = "SELECT * FROM signup WHERE reset_token = ?";
         $stmt = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($stmt, 's', $token);
@@ -27,17 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result && mysqli_num_rows($result) === 1) {
             $user = mysqli_fetch_assoc($result);
-
-            // Hash new password
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
 
-            // Update password and clear token
             $update = "UPDATE signup SET password = ?, reset_token = NULL WHERE id = ?";
             $stmt2 = mysqli_prepare($conn, $update);
             mysqli_stmt_bind_param($stmt2, 'si', $hashed_password, $user['id']);
             mysqli_stmt_execute($stmt2);
 
-            $message = "✅ Password reset successfully. <a href='login.php'>Login Now</a>";
+            $message = "✅ Password reset successfully. <a href='login.php' class='alert-link'>Login Now</a>";
         } else {
             $message = "❌ Invalid or expired token.";
         }
@@ -46,42 +42,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Reset Password</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            padding: 40px;
-            background: #f7f7f7;
+            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .form-container {
             background: #fff;
-            padding: 30px;
-            max-width: 500px;
-            margin: auto;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .form-container h2 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 10px;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>Reset Password</h2>
+        <h2>🔒 Reset Password</h2>
+
         <?php if (!empty($message)) : ?>
-            <p style="color:<?= strpos($message, '✅') !== false ? 'green' : 'red'; ?>">
+            <div class="alert <?= strpos($message, '✅') !== false ? 'alert-success' : 'alert-danger'; ?> text-center">
                 <?= $message ?>
-            </p>
+            </div>
         <?php endif; ?>
+
         <form method="POST">
-            <div class="form-group">
-                <label>New Password:</label>
-                <input type="password" name="new_password" class="form-control" required>
+            <div class="mb-3">
+                <label class="form-label">New Password</label>
+                <input type="password" name="new_password" class="form-control" placeholder="Enter new password" required>
             </div>
-            <div class="form-group">
-                <label>Confirm Password:</label>
-                <input type="password" name="confirm_password" class="form-control" required>
+            <div class="mb-3">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" name="confirm_password" class="form-control" placeholder="Re-enter new password" required>
             </div>
-            <button type="submit" class="btn btn-success">Reset Password</button>
+            <button type="submit" class="btn btn-success btn-custom">Reset Password</button>
         </form>
     </div>
 </body>

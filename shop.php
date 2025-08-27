@@ -601,12 +601,20 @@ $cat_sidebar_stmt->close();
 
 
 	// Pricing
-    $price = isset($row['price']) ? floatval($row['price']) : 0;
-    $discount = isset($row['discount']) ? floatval($row['discount']) : 0;
-    $corporate_discount = isset($row['corporate_discount']) ? floatval($row['corporate_discount']) : 0;
-    $old_price = $price;
-    // Show base price (total) on product cards, not discounted price
-    $final_price = $price;
+$price = isset($row['price']) ? floatval($row['price']) : 0;
+$discount = isset($row['discount']) ? floatval($row['discount']) : 0;
+$corporate_discount = isset($row['corporate_discount']) ? floatval($row['corporate_discount']) : 0;
+
+$old_price = $price;
+$final_price = $price;
+
+// Apply flat discount if available
+if ($discount > 0) {
+    $final_price = $price - $discount;
+} elseif ($corporate_discount > 0 && $user_account_type === "corporate") {
+    $final_price = $price - $corporate_discount;
+}
+
 
     // Images
     $images = json_decode($row['images'], true);

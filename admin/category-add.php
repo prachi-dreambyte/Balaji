@@ -103,6 +103,15 @@ if (!isset($_SESSION['admin_id']))  {
                                                        <label for="category-title" class="form-label">Category Title</label>
                                                        <input type="text" id="category-title" name="category" class="form-control" placeholder="Enter Title">
                                                   </div>
+
+                                 <!-- Display Order -->
+
+                                      <div class="mb-3">
+                                      <label for="display_order" class="form-label">Display Order</label>
+                                     <input type="number" id="display_order" name="display_order" class="form-control" placeholder="Enter display order (e.g. 1, 2, 3)">
+                                     <small class="text-muted">Smaller number will show first in the menu.</small>
+                                      </div>
+
                                              </div>
 
                                              <div>
@@ -175,12 +184,13 @@ function uploadImage($fileKey, $uploadDir = "uploads/") {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $category = trim($_POST['category']);
     $mainCategory = trim($_POST['main_category']);
+    $displayOrder = isset($_POST['display_order']) ? (int)$_POST['display_order'] : 0;
     $thumbnailPath = uploadImage('category_image');
     $bannerPath = uploadImage('banner_image');
 
     if (!empty($category) && !empty($mainCategory)) {
-        $stmt = $conn->prepare("INSERT INTO categories (category_name, Main_Category_name, category_image, banner_image) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $category, $mainCategory, $thumbnailPath, $bannerPath);
+        $stmt = $conn->prepare("INSERT INTO categories (category_name, Main_Category_name, category_image, banner_image, display_order) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssi", $category, $mainCategory, $thumbnailPath, $bannerPath, $displayOrder);
 
         if ($stmt->execute()) {
             echo "<script>
@@ -195,4 +205,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>Swal.fire('Warning!', 'Please enter both main category and category name.', 'warning');</script>";
     }
 }
+
 ?>
