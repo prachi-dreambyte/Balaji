@@ -100,27 +100,33 @@ $totalPages = ceil($totalProducts / $limit);
 							<div class="blog-heading">
 							</div>
 							</div>
-							<?php while ($row = $allBlogs->fetch_assoc()) { ?>
-<div class="col-sm-4">
-    <div class="single-blog blog-margin wow fadeInUp" data-wow-delay="0.2s">
-        <div class="blog-img">
-            <a href="#">
-                <img src='./admin/uploads/<?= $row['main_images'];?>' alt="<?= $row['slug'];?>" style="height: 300px; width:300px;" />
-            </a>
+<?php if ($allBlogs && $allBlogs->num_rows > 0): ?>
+    <?php while ($row = $allBlogs->fetch_assoc()): ?>
+        <div class="col-sm-4">
+            <div class="single-blog blog-margin" style="border:1px solid #ddd; padding:10px; margin-bottom:15px;">
+                <div class="blog-img">
+                    <a href="blog/<?= htmlspecialchars($row['slug']); ?>">
+                        <img src="admin/uploads/<?= htmlspecialchars($row['main_images']); ?>" 
+                             alt="<?= htmlspecialchars($row['slug']); ?>" 
+                             style="height:300px; width:300px;" 
+                             onerror="this.src='img/no-image.png';">
+                    </a>
+                </div>
+                <div class="blog-content">
+                    <h4 class="blog-title"><?= htmlspecialchars($row['title']); ?></h4>
+                    <p><?= strip_tags(substr($row['main_content'], 0, 100)); ?>...</p>
+                    <span class="blog-date"><?= $row['created_at']; ?></span>
+                    <a class="blog-button" href="blog/<?= htmlspecialchars($row['slug']); ?>">
+                        <span>Read More</span>
+                    </a>
+                </div>
+            </div>
         </div>
-		<div class="blogContent">
-        <div class="blog-content">
-            <h4 class="blog-title"><?= $row['title']; ?></h4>
-            <p><?= $row['main_content']; ?></p>
-            <span class="blog-date"><?php echo $row['created_at'] ?></span>
-               <a class="blog-button" href="blog/<?= $row['slug']; ?>">
-                <span>Read More</span>
-            </a>
-        </div>
-    </div>
-							</div>
-</div>
-<?php } ?>
+    <?php endwhile; ?>
+<?php else: ?>
+    <p>No blog found.</p>
+<?php endif; ?>
+
 
 						</div>
 						<div class="blog-pagination">

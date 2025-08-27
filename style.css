@@ -1131,12 +1131,13 @@ header .header-top nav {
 }
 .product-img a {
   display: block;
-  color: #fff;
+  color: #845848;
+ 
   font-size: 30px;
 }
 .product-img a:hover {
   display: block;
-  color: #845848;
+  color: #c3aaa1;
 }
 .product-img > a::before {
 
