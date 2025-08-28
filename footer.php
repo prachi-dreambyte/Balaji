@@ -519,7 +519,7 @@ a {
   </svg>
 
   <div class="container-fluid py-5 px-5">
-    <div class="row g-4">
+    <div class="row">
       <!-- Logo and Shop Info -->
       <div class="col-md-6 col-lg-2">
         <img src="img\balaji\balaji-furniture-2048x1368.png" alt="Logo" class="img-fluid mb-3" style="max-width: 80%; height: auto;">
@@ -576,7 +576,7 @@ a {
    <hr class="hrFooter">
 
 <footer>
-  <div class="d-flex justify-content-between align-items-center px-3 py-3" style="background-color: #845848;">
+  <div class="d-flex justify-content-between align-items-center px-5 py-1" style="background-color: #845848;">
     
     <!-- Left Side -->
     <div class="text-white">
