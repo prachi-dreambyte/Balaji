@@ -584,8 +584,8 @@ function categoryImagePath($relPath)
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
             <!-- Logo -->
             <div class="d-flex align-items-center flex-shrink-0">
-                <img class="logo img-responsive" src="img/balaji/balaji-furniture-2048x1368.png"
-                    alt="Balaji Furniture" />
+                <a href="index.php"><img class="logo img-responsive" src="img/balaji/balaji-furniture-2048x1368.png"
+                    alt="Balaji Furniture" /></a>
             </div>
 
             <!-- Nav (desktop only) -->

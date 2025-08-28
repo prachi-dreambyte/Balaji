@@ -4,7 +4,7 @@
 
           .footer {
     /* background-color: #f8f6f1; */
-        padding: 10px 0px !important;
+        /* padding: 10px 0px !important; */
     background-color: #F5F6F2 !important;
     border: none;
     color: #363636 !important;

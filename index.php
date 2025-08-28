@@ -1452,7 +1452,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         </div> -->
     <!-- testimonial-area-end -->
     <!-- brand-area-start -->
-    <div class="home-4-brand-area">
+    <!-- <div class="home-4-brand-area">
         <div class="container owl-carousel-space">
             <div class="row">
                 <div class="brands">
@@ -1497,7 +1497,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- brand-area-end -->
     <!-- footer-start -->
     <?php include 'footer.php'; ?>
