@@ -701,8 +701,11 @@ function categoryImagePath($relPath)
 
             <!-- Mobile Toggle -->
             <div class="d-xl-none">
-                <button class="btn btn-outline-light" id="mobileToggle"><i class="fas fa-bars"></i></button>
-            </div>
+    <button class="btn btn-dark" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+</div>
+
         </div>
 
         <!-- Mobile Nav -->
