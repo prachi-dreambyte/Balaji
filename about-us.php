@@ -210,50 +210,8 @@ include 'connect.php';
             </div>
         </div>
     </div>
-</section>     <!-- Why Choose Us Section -->
-        <section class="why-choose-us-section" style="background-color: #f8f9fa; padding: 80px 0;">
-            <div class="container">
-                <div class="row text-center mb-5">
-                    <div class="col-12">
-                        <h2 class="section-title wow fadeInDown" data-wow-delay="0.2s" style="font-size: 32px; color: #333; margin-bottom: 20px; font-weight: 700;">Why Choose Us?</h2>
-                        <div class="title-divider" style="width: 80px; height: 3px; background: #c19f66; margin: 0 auto 30px;"></div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-4 mb-4 mb-md-0">
-                        <div class="feature-card wow fadeInUp" data-wow-delay="0.3s" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; text-align: center; transition: all 0.3s ease;">
-                            <div class="icon-wrapper mb-4" style="font-size: 48px; color: #c19f66;">
-                                <i class="fa fa-shield"></i>
-                            </div>
-                            <h3 style="font-size: 20px; color: #333; margin-bottom: 15px; font-weight: 600;">The Epitome of Trust</h3>
-                            <p style="color: #666; line-height: 1.6;">Doon's Beloved Furniture Brand for Over Two Decades</p>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 mb-4 mb-md-0">
-                        <div class="feature-card wow fadeInUp" data-wow-delay="0.5s" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; text-align: center; transition: all 0.3s ease;">
-                            <div class="icon-wrapper mb-4" style="font-size: 48px; color: #c19f66;">
-                                <i class="fa fa-smile-o"></i>
-                            </div>
-                            <h3 style="font-size: 20px; color: #333; margin-bottom: 15px; font-weight: 600;">21+ Years, 10,000+ Smiles</h3>
-                            <p style="color: #666; line-height: 1.6;">Our Commitment to Customer Happiness</p>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <div class="feature-card wow fadeInUp" data-wow-delay="0.7s" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; text-align: center; transition: all 0.3s ease;">
-                            <div class="icon-wrapper mb-4" style="font-size: 48px; color: #c19f66;">
-                                <i class="fa fa-handshake-o"></i>
-                            </div>
-                            <h3 style="font-size: 20px; color: #333; margin-bottom: 15px; font-weight: 600;">Empowering Uttarakhand</h3>
-                            <p style="color: #666; line-height: 1.6;">Empowering Uttarakhand's Furniture Sector Since 2003!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+</section>     <!-- testinomanials -->
+       
   <section id="testimonials" class="testimonials section">
     <h1>TESTIMONIAL</h1>
     <div class="carousel-wrappers">
@@ -319,13 +277,13 @@ include 'connect.php';
   </section>
 
         <!-- From Our Director's Desk Section -->
-        <section class="directors-desk-section" style="background: linear-gradient(to right, #f9f9f9 50%, #ffffff 50%); padding: 80px 0;">
+        <section class="directors-desk-section" style="background: #ffffff; padding: 35px 0;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="director-image-wrapper wow fadeInLeft" data-wow-delay="0.3s" style="position: relative; padding-right: 30px;">
-                            <img src="img\dir.jpg" alt="Shubhang Goel - Managing Director" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                            <div class="director-info" style="position: absolute; bottom: 20px; left: 20px; background: rgba(193, 159, 102, 0.9); padding: 15px 25px; border-radius: 5px; color: white;">
+                            <img src="img\dir.jpg" alt="Shubhang Goel - Managing Director" style="width: auto; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                            <div class="director-info" style="position: absolute; bottom: 20px; left: 20px; background: #c1a283; padding: 15px 25px; border-radius: 5px; color: white;">
                                 <h4 style="margin: 0; font-weight: 600;">Shubhang Goel</h4>
                                 <p style="margin: 5px 0 0; font-size: 14px;">Managing Director</p>
                             </div>
@@ -335,29 +293,29 @@ include 'connect.php';
                         <div class="director-content wow fadeInRight" data-wow-delay="0.5s" style="padding-left: 30px;">
                             <h2 class="section-title" style="font-size: 32px; color: #333; margin-bottom: 30px; font-weight: 700; position: relative;">
                                 From Our Director's Desk
-                                <div class="title-divider" style="width: 80px; height: 3px; background: #c19f66; margin-top: 15px;"></div>
+                                <div class="title-divider" style="width: 80px; height: 3px; background: #c1a283; margin-top: 15px;"></div>
                             </h2>
                             
-                            <div class="mission-vision-box" style="margin-bottom: 30px;">
+                            <div class="mission-vision-box" style="margin-bottom: 30px; padding-top:30px;">
                                 <div class="icon-title" style="display: flex; align-items: center; margin-bottom: 15px;">
-                                    <div class="icon-wrapper" style="font-size: 24px; color: #c19f66; margin-right: 15px;">
+                                    <div class="icon-wrapper" style="font-size: 24px; color: #c1a283; margin-right: 15px;">
                                         <i class="fa fa-bullseye"></i>
                                     </div>
                                     <h3 style="font-size: 22px; color: #333; margin: 0; font-weight: 600;">Mission</h3>
                                 </div>
-                                <p style="color: #555; line-height: 1.7; font-style: italic; border-left: 3px solid #c19f66; padding-left: 20px; margin-left: 39px;">
+                                <p style="font-size:20px; color: #555; line-height: 1.7; font-style: italic; border-left: 3px solid #c1a283; padding-left: 20px; margin-left: 39px;">
                                     "Elevating Living Standards Through Innovative, Sustainable, and Affordable Furniture Solutions, Inspiring Comfort and Joy in Every Space."
                                 </p>
                             </div>
                             
                             <div class="mission-vision-box">
                                 <div class="icon-title" style="display: flex; align-items: center; margin-bottom: 15px;">
-                                    <div class="icon-wrapper" style="font-size: 24px; color: #c19f66; margin-right: 15px;">
+                                    <div class="icon-wrapper" style="font-size: 24px; color: #c1a283; margin-right: 15px;">
                                         <i class="fa fa-eye"></i>
                                     </div>
                                     <h3 style="font-size: 22px; color: #333; margin: 0; font-weight: 600;">Vision</h3>
                                 </div>
-                                <p style="color: #555; line-height: 1.7; font-style: italic; border-left: 3px solid #c19f66; padding-left: 20px; margin-left: 39px;">
+                                <p style="font-size:20px; color: #555; line-height: 1.7; font-style: italic; border-left: 3px solid #c1a283; padding-left: 20px; margin-left: 39px;">
                                     "Striving to Lead as a Global Furniture Brand, Redefining Modern Living with Timeless Design, Eco-Conscious Practices, and Customer-Centricity, Crafting Homes of Individuality and Harmony."
                                 </p>
                             </div>
@@ -366,6 +324,51 @@ include 'connect.php';
                 </div>
             </div>
         </section>
+
+        <!--Why choose us  -->
+         <section class="why-choose-us-section" style="background-color: #f8f9fa; padding: 80px 0;">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-12">
+                        <h2 class="section-title wow fadeInDown" data-wow-delay="0.2s" style="font-size: 32px; color: #333; margin-bottom: 20px; font-weight: 700;">Why Choose Us?</h2>
+                        <div class="title-divider" style="width: 80px; height: 3px; background: #c1a283; margin: 0 auto 30px;"></div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="feature-card wow fadeInUp" data-wow-delay="0.3s" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; text-align: center; transition: all 0.3s ease;">
+                            <div class="icon-wrapper mb-4" style="font-size: 48px; color: #c19f66;">
+                                <!-- <i class="fa fa-shield"></i> -->
+                            </div>
+                            <h3 style="font-size: 20px; color: #333; margin-bottom: 15px; font-weight: 600;">The Epitome of Trust</h3>
+                            <p style="color: #666; line-height: 1.6;">Doon's Beloved Furniture Brand for Over Two Decades</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="feature-card wow fadeInUp" data-wow-delay="0.5s" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; text-align: center; transition: all 0.3s ease;">
+                            <div class="icon-wrapper mb-4" style="font-size: 48px; color: #c19f66;">
+                                <!-- <i class="fa fa-smile-o"></i> -->
+                            </div>
+                            <h3 style="font-size: 20px; color: #333; margin-bottom: 15px; font-weight: 600;">21+ Years, 10,000+ Smiles</h3>
+                            <p style="color: #666; line-height: 1.6;">Our Commitment to Customer Happiness</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="feature-card wow fadeInUp" data-wow-delay="0.7s" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%; text-align: center; transition: all 0.3s ease;">
+                            <div class="icon-wrapper mb-4" style="font-size: 48px; color: #c19f66;">
+                                <!-- <i class="fa fa-handshake-o"></i> -->
+                            </div>
+                            <h3 style="font-size: 20px; color: #333; margin-bottom: 15px; font-weight: 600;">Empowering Uttarakhand</h3>
+                            <p style="color: #666; line-height: 1.6;">Empowering Uttarakhand's Furniture Sector Since 2003!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
    
 		<!-- bootstrap js -->
