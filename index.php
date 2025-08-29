@@ -92,7 +92,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!-- style1 css -->
     <link rel="stylesheet" href="style1.css">
     <!-- responsive css -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/responsive.css">feat
     <!-- modernizr css -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- Owl Carousel CSS -->
@@ -164,18 +164,18 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             transform: translateY(-5px);
         }
 
-        .product-img {
-            position: relative;
-            overflow: hidden;
-            height: 250px;
-        }
+        /*.product-img {*/
+        /*    position: relative;*/
+        /*    overflow: hidden;*/
+        /*    height: 250px;*/
+        /*}*/
 
-        .product-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
+        /*.product-img img {*/
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*    object-fit: cover;*/
+        /*    transition: transform 0.3s ease;*/
+        /*}*/
 
         .single-product:hover .product-img img {
             transform: scale(1.05);
@@ -419,6 +419,32 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 border-color: transparent;
             }
         }
+        
+        .product-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-img img {
+    width: 100%;
+    transition: opacity 0.4s ease-in-out;
+    display: block;
+}
+
+.product-img .secondary-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; /* hidden by default */
+}
+
+.product-img:hover .primary-img {
+    opacity: 0;
+}
+
+.product-img:hover .secondary-img {
+    opacity: 1;
+}
     </style>
 
 
@@ -737,7 +763,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <div class="col-md-12 text-center">
                 <div class="fadeInUp animated">
                     <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;">
-                        Authorised Distributors &amp; Dealers
+                       Licensed And Authorised
                     </h1>
                 </div>
             </div>
@@ -815,16 +841,25 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                                     <div class="single-product">
                                                         <div class="product-img">
-                                                            <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                                <?php
-                                                                $images = json_decode($product['images'], true);
-                                                                if (!empty($images)): ?>
-                                                                    <img src="admin/<?= htmlspecialchars($images[0]) ?>"
-                                                                        alt="<?= htmlspecialchars($product['product_name']) ?>">
-                                                                <?php endif; ?>
-                                                            </a>
-                                                            <span class="badge-new">New</span>
-                                                        </div>
+    <a href="product-details.php?id=<?= $product['id'] ?>">
+        <?php
+        $images = json_decode($product['images'], true);
+        if (!empty($images)):
+            // First image
+            $firstImage = htmlspecialchars($images[0]);
+            // Second image (if exists)
+            $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
+        ?>
+            <img src="admin/<?= $firstImage ?>" 
+                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
+                 class="primary-img">
+            <img src="admin/<?= $secondImage ?>" 
+                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
+                 class="secondary-img">
+        <?php endif; ?>
+    </a>
+    <span class="badge-new">New</span>
+</div>
                                                         <div class="product-content">
                                                             <h5 class="product-name">
                                                                 <a class="extra-text-decoration"
@@ -901,16 +936,25 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                             <div class="col-xl-3 col-lg-4 col-md-6">
                                                 <div class="single-product">
                                                     <div class="product-img">
-                                                        <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                            <?php
-                                                            $images = json_decode($product['images'], true);
-                                                            if (!empty($images)): ?>
-                                                                <img src="admin/<?= htmlspecialchars($images[0]) ?>"
-                                                                    alt="<?= htmlspecialchars($product['product_name']) ?>">
-                                                            <?php endif; ?>
-                                                        </a>
-                                                        <span class="badge-sale">Sale</span>
-                                                    </div>
+    <a href="product-details.php?id=<?= $product['id'] ?>">
+        <?php
+        $images = json_decode($product['images'], true);
+        if (!empty($images)):
+            // First image
+            $firstImage = htmlspecialchars($images[0]);
+            // Second image (if exists)
+            $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
+        ?>
+            <img src="admin/<?= $firstImage ?>" 
+                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
+                 class="primary-img">
+            <img src="admin/<?= $secondImage ?>" 
+                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
+                 class="secondary-img">
+        <?php endif; ?>
+    </a>
+    <span class="badge-new">New</span>
+</div>
                                                     <div class="product-content">
                                                         <h5 class="product-name">
                                                             <a
@@ -997,18 +1041,25 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                         <div class="col-xl-3 col-lg-4 col-md-6">
                                             <div class="single-product">
                                                 <div class="product-img">
-                                                    <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                        <?php
-                                                        $images = json_decode($product['images'], true);
-                                                        if (!empty($images)): ?>
-                                                            <img src="admin/<?= htmlspecialchars($images[0]) ?>"
-                                                                alt="<?= htmlspecialchars($product['product_name']) ?>">
-                                                        <?php endif; ?>
-                                                    </a>
-                                                    <?php if (strtotime($product['created_at']) > strtotime('-30 days')): ?>
-                                                        <span class="badge-new">Best seller</span>
-                                                    <?php endif; ?>
-                                                </div>
+    <a href="product-details.php?id=<?= $product['id'] ?>">
+        <?php
+        $images = json_decode($product['images'], true);
+        if (!empty($images)):
+            // First image
+            $firstImage = htmlspecialchars($images[0]);
+            // Second image (if exists)
+            $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
+        ?>
+            <img src="admin/<?= $firstImage ?>" 
+                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
+                 class="primary-img">
+            <img src="admin/<?= $secondImage ?>" 
+                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
+                 class="secondary-img">
+        <?php endif; ?>
+    </a>
+    <span class="badge-new">New</span>
+</div>
                                                 <?php
                                                 // Fetch product rating & review count dynamically
                                                 $product_id = $product['id']; // Ensure this is the correct field name
@@ -1097,37 +1148,42 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     </div>
     <!--=====product-tab-end=====-->
     <!-- service-start -->
-    <div class="home-4-service home-2-service service-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12 service">
-                    <div class="service-logo">
-                        <img src="img/service/2.1.png" alt="" />
-                    </div>
-                    <div class="service-info">
-                        <h2>100% money back guarantee</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit auctor nibh.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 service">
-                    <div class="service-logo">
-                        <img src="img/service/2.2.png" alt="" />
-                    </div>
-                    <div class="service-info">
-                        <h2>Free shipping on oder over 500$</h2>
-                        <p>Duis luctus libero in quam convallis, idpla cerat tellus convallis.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 service">
-                    <div class="service-logo">
-                        <img src="img/service/2.3.png" alt="" />
-                    </div>
-                    <div class="service-info">
-                        <h2>online support 24/7</h2>
-                        <p>Etiam ac purus at lorem commodo vestibulum elementum sed felis.</p>
-                    </div>
-                </div>
-            </div>
+    <!--<div class="home-4-service home-2-service service-area">-->
+    <!--    <div class="container">-->
+    <!--        <div class="row">-->
+    <!--            <div class="col-md-4 col-sm-4 col-xs-12 service">-->
+    <!--                <div class="service-logo">-->
+    <!--                    <img src="img/service/2.1.png" alt="" />-->
+    <!--                </div>-->
+    <!--                <div class="service-info">-->
+    <!--                    <h2>100% money back guarantee</h2>-->
+    <!--                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit auctor nibh.</p>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="col-md-4 col-sm-4 col-xs-12 service">-->
+    <!--                <div class="service-logo">-->
+    <!--                    <img src="img/service/2.2.png" alt="" />-->
+    <!--                </div>-->
+    <!--                <div class="service-info">-->
+    <!--                    <h2>Free shipping on oder over 500$</h2>-->
+    <!--                    <p>Duis luctus libero in quam convallis, idpla cerat tellus convallis.</p>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="col-md-4 col-sm-4 col-xs-12 service">-->
+    <!--                <div class="service-logo">-->
+    <!--                    <img src="img/service/2.3.png" alt="" />-->
+    <!--                </div>-->
+    <!--                <div class="service-info">-->
+    <!--                    <h2>online support 24/7</h2>-->
+    <!--                    <p>Etiam ac purus at lorem commodo vestibulum elementum sed felis.</p>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</div>-->
+    <div class="home-4-service home-2-service service-area" style="padding:0px; ">
+        <div class="container-fluid" style="width:100%;">
+             <img src ="./img/banner/trust banner.png" alt="trust" style="">
         </div>
     </div>
     <!--=====service-end=====-->
@@ -1151,19 +1207,19 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <div class="brand-carousels owl-carousel">
 
                         <div class="single-brands">
-                            <a href="#"><img src="img/brand/logo1.webp" alt=""></a>
+                            <a href="#"><img src="img/brand/highway logo.png" alt=""></a>
                         </div>
                         <div class="single-brands">
-                            <a href="#"><img src="img/brand/logo2.png" alt=""></a>
+                            <a href="#"><img src="img/brand/sharda logo.png"  alt=""></a>
                         </div>
                         <div class="single-brands">
-                            <a href="#"><img src="img/brand/logo3.webp" alt=""></a>
+                            <a href="#"><img src="img/brand/wave.png"  alt=""></a>
                         </div>
                         <div class="single-brands">
-                            <a href="#"><img src="img/brand/logo4.webp" alt=""></a>
+                            <a href="#"><img src="img/brand/amul logo.png"  alt=""></a>
                         </div>
                         <div class="single-brands">
-                            <a href="#"><img src="img/brand/logo5.webp" alt=""></a>
+                            <a href="#"><img src="img/brand/atleo.png"  alt=""></a>
                         </div>
 
                     </div>
@@ -1190,17 +1246,27 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <?php foreach ($featuredProducts as $product): ?>
                         <div class="col-xl-3 col-lg-4 col-md-6">
                             <div class="single-product">
+                               
                                 <div class="product-img">
-                                    <a href="product-details.php?id=<?= $product['id'] ?>">
-                                        <?php
-                                        $images = json_decode($product['images'], true);
-                                        if (!empty($images)): ?>
-                                            <img src="admin/<?= htmlspecialchars($images[0]) ?>"
-                                                alt="<?= htmlspecialchars($product['product_name']) ?>">
-                                        <?php endif; ?>
-                                    </a>
-                                    <!-- <span class="badge-new">Featured</span> -->
-                                </div>
+    <a href="product-details.php?id=<?= $product['id'] ?>">
+        <?php
+        $images = json_decode($product['images'], true);
+        if (!empty($images)):
+            // First image
+            $firstImage = htmlspecialchars($images[0]);
+            // Second image (if exists)
+            $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
+        ?>
+            <img src="admin/<?= $firstImage ?>" 
+                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
+                 class="primary-img">
+            <img src="admin/<?= $secondImage ?>" 
+                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
+                 class="secondary-img">
+        <?php endif; ?>
+    </a>
+    <span class="badge-new">New</span>
+</div>
                                 <?php
                                 // Fetch product rating & review count dynamically
                                 $product_id = $product['id']; // Ensure this is the correct field name

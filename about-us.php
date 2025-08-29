@@ -49,11 +49,11 @@ include 'connect.php';
        <?php include 'header.php'; ?>
                     <section class="AboutSection">
   <div class="image-wrapper">
-    <img src="img\about.jpeg" class="AboutwrapperImage" />
-    <h1 class="aboutUs-Heading">ABOUT US</h1>
-    <div class="AboutDivWrapper">
-        <a class="AboutHome"> HOME </a> &nbsp/ &nbsp <a class="AboutHome">ABOUT US</a>
-    </div>
+    <img src="img\about us.jpg" class="AboutwrapperImage" />
+    <!--<h1 class="aboutUs-Heading">ABOUT US</h1>-->
+    <!--<div class="AboutDivWrapper">-->
+    <!--    <a class="AboutHome"> HOME </a> &nbsp/ &nbsp <a class="AboutHome">ABOUT US</a>-->
+    <!--</div>-->
   </div>
 </section>
 
@@ -63,7 +63,7 @@ include 'connect.php';
                 <div class="row">
                     <!-- Image with left-to-right animation -->
                    <div class="col-md-6 col-sm-6 col-xs-12 wow slideInLeft" data-wow-delay="0.2s">
-                       <img src="img/slider/5.jpg" alt="main slider" title="#htmlcaption1" class="AboutImage"/>
+                       <img src="img/about small banner.jpg" alt="main slider" title="#htmlcaption1" class="AboutImage"/>
                     </div>
 
                     <!-- Text with fade-in animations -->
