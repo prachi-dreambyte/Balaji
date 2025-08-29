@@ -829,3 +829,164 @@ function categoryImagePath($relPath)
         });
     });
 </script>
+
+
+
+
+<!-- Floating WhatsApp Button -->
+<a
+  href="https://wa.me/918979892185"
+
+  class="whatsapp-float"
+  target="_blank"
+  rel="noopener"
+  aria-label="Chat on WhatsApp"
+>
+  <!-- Inline WhatsApp SVG (no external icons needed) -->
+  <svg viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M19.11 17.19c-.27-.14-1.58-.78-1.83-.87-.25-.09-.44-.14-.62.14-.18.27-.71.87-.87 1.05-.16.18-.32.2-.59.07-.27-.14-1.12-.41-2.13-1.3-.79-.7-1.33-1.56-1.49-1.82-.16-.27-.02-.41.12-.54.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.62-1.49-.85-2.05-.22-.53-.44-.46-.62-.46-.16-.02-.34-.02-.52-.02-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29s.99 2.65 1.13 2.83c.14.18 1.95 2.98 4.73 4.06.66.27 1.18.43 1.58.55.66.21 1.26.18 1.73.11.53-.08 1.58-.64 1.8-1.25.22-.62.22-1.15.16-1.25-.05-.11-.23-.18-.5-.32zM16.01 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.6 4.37 1.66 6.2L3.2 28.8l6.77-1.63c1.76.96 3.78 1.51 5.94 1.51 7.07 0 12.8-5.73 12.8-12.8s-5.73-12.8-12.8-12.8zm0 22.98c-1.93 0-3.72-.58-5.22-1.58l-.37-.24-4.02.97.98-3.92-.25-.4a9.98 9.98 0 0 1-1.6-5.34c0-5.53 4.5-10.02 10.02-10.02S26.03 9.14 26.03 14.67 21.54 26.18 16.01 26.18z"/>
+  </svg>
+</a>
+
+<style>
+.whatsapp-float {
+  position: fixed;
+  right: 18px;          /* distance from right edge */
+  bottom: 88px;         /* distance from bottom */
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;  /* WhatsApp green */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 9999;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.whatsapp-float svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.3);
+}
+
+/* Optional subtle pulse on mobile to draw attention */
+@media (max-width: 576px) {
+  .whatsapp-float {
+    width: 52px;
+    height: 52px;
+    right: 14px;
+    bottom: 14px;
+    animation: wapp-pulse 2.5s infinite;
+  }
+  .whatsapp-float svg { width: 26px; height: 26px; }
+}
+
+@keyframes wapp-pulse {
+  0%, 100% { box-shadow: 0 8px 20px rgba(37,211,102,0.35); }
+  50%      { box-shadow: 0 8px 28px rgba(37,211,102,0.55); }
+}
+</style>
+
+
+
+
+<!-- Floating Instagram Button -->
+<a
+  href="https://instagram.com/yourusername"
+  class="instagram-float"
+  target="_blank"
+  rel="noopener"
+  aria-label="Visit Instagram"
+>
+  <!-- Inline Instagram SVG -->
+  <svg viewBox="0 0 448 512" aria-hidden="true">
+    <path fill="currentColor"
+      d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9
+      0 63.6 51.3 114.9 114.9 114.9
+      63.6 0 114.9-51.3 114.9-114.9
+      0-63.6-51.3-114.9-114.9-114.9zm0 
+      189.6c-41.2 0-74.7-33.5-74.7-74.7
+      0-41.2 33.5-74.7 74.7-74.7
+      41.2 0 74.7 33.5 74.7 74.7
+      0 41.2-33.5 74.7-74.7 74.7zm146.4-194.3
+      c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9
+      s12-26.9 26.9-26.9c14.9 0 26.9 12 26.9 26.9zm76.1 
+      27.2c-1.7-35.9-9.9-67.7-36.2-93.9
+      -26.2-26.2-58-34.4-93.9-36.2
+      -37-2.1-147.9-2.1-184.9 0
+      -35.9 1.7-67.7 9.9-93.9 36.2
+      -26.2 26.2-34.4 58-36.2 93.9
+      -2.1 37-2.1 147.9 0 184.9
+      1.7 35.9 9.9 67.7 36.2 93.9
+      26.2 26.2 58 34.4 93.9 36.2
+      37 2.1 147.9 2.1 184.9 0
+      35.9-1.7 67.7-9.9 93.9-36.2
+      26.2-26.2 34.4-58 36.2-93.9
+      2.1-37 2.1-147.8 0-184.8zM398.8 
+      388c-7.8 19.6-22.9 34.7-42.6 42.6
+      -29.5 11.7-99.5 9-132.1 9s-102.7 
+      2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6
+      -11.7-29.5-9-99.5-9-132.1s-2.6-102.7 
+      9-132.1c7.8-19.6 22.9-34.7 42.6-42.6
+      29.5-11.7 99.5-9 132.1-9s102.7-2.6 
+      132.1 9c19.6 7.8 34.7 22.9 42.6 42.6
+      11.7 29.5 9 99.5 9 132.1s2.7 
+      102.7-9 132.1z"/>
+  </svg>
+</a>
+
+<style>
+.instagram-float {
+  position: fixed;
+  right: 18px;
+  bottom: 160px;   /* adjust above WhatsApp if using both */
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 107%, 
+    #fdf497 0%, #fdf497 5%, 
+    #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 9999;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.instagram-float svg {
+  width: 28px;
+  height: 28px;
+  color: #fff;
+}
+
+.instagram-float:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 576px) {
+  .instagram-float {
+    width: 52px;
+    height: 52px;
+    right: 14px;
+    bottom: 80px; /* keep above WhatsApp button */
+    animation: insta-pulse 2.5s infinite;
+  }
+  .instagram-float svg { width: 26px; height: 26px; }
+}
+
+@keyframes insta-pulse {
+  0%, 100% { box-shadow: 0 8px 20px rgba(214,36,159,0.35); }
+  50%      { box-shadow: 0 8px 28px rgba(214,36,159,0.55); }
+}
+</style>

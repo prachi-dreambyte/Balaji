@@ -478,7 +478,7 @@ $cat_sidebar_stmt->close();
 					<h1>Catalog</h1>
 					<div class="block-content">
 						<div class="content-box">
-							<h3 class="content-box-heading">
+							<h3 class="content-box-heading" style="font-size:17px;">
 								Categories
 							</h3>
 
@@ -822,65 +822,65 @@ if ($total_pages > 1): ?>
 	<!--=====shop-2-area-end=====-->
 
 	<!--===== brand-area-start =====-->
-	<div class="brand-area">
-		<div class="container">
-			<div class="row">
-				<div class="brands">
-					<div class="brand-carousel">
-						<div class="row">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/1.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/2.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/3.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/4.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/5.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/6.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="single-brand">
-								<a href="#">
-									<img src="img/brand/7.jpg" alt="" />
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<!--<div class="brand-area">-->
+	<!--	<div class="container">-->
+	<!--		<div class="row">-->
+	<!--			<div class="brands">-->
+	<!--				<div class="brand-carousel">-->
+	<!--					<div class="row">-->
+	<!--						<div class="single-brand">-->
+	<!--							<a href="#">-->
+	<!--								<img src="img/brand/1.jpg" alt="" />-->
+	<!--							</a>-->
+	<!--						</div>-->
+	<!--					</div>-->
+	<!--					<div class="col-md-12">-->
+	<!--						<div class="single-brand">-->
+	<!--							<a href="#">-->
+	<!--								<img src="img/brand/2.jpg" alt="" />-->
+	<!--							</a>-->
+	<!--						</div>-->
+	<!--					</div>-->
+	<!--					<div class="col-md-12">-->
+	<!--						<div class="single-brand">-->
+	<!--							<a href="#">-->
+	<!--								<img src="img/brand/3.jpg" alt="" />-->
+	<!--							</a>-->
+	<!--						</div>-->
+	<!--					</div>-->
+	<!--					<div class="col-md-12">-->
+	<!--						<div class="single-brand">-->
+	<!--							<a href="#">-->
+	<!--								<img src="img/brand/4.jpg" alt="" />-->
+	<!--							</a>-->
+	<!--						</div>-->
+	<!--					</div>-->
+	<!--					<div class="col-md-12">-->
+	<!--						<div class="single-brand">-->
+	<!--							<a href="#">-->
+	<!--								<img src="img/brand/5.jpg" alt="" />-->
+	<!--							</a>-->
+	<!--						</div>-->
+	<!--					</div>-->
+	<!--					<div class="col-md-12">-->
+	<!--						<div class="single-brand">-->
+	<!--							<a href="#">-->
+	<!--								<img src="img/brand/6.jpg" alt="" />-->
+	<!--							</a>-->
+	<!--						</div>-->
+	<!--					</div>-->
+	<!--					<div class="col-md-12">-->
+	<!--						<div class="single-brand">-->
+	<!--							<a href="#">-->
+	<!--								<img src="img/brand/7.jpg" alt="" />-->
+	<!--							</a>-->
+	<!--						</div>-->
+	<!--					</div>-->
+	<!--				</div>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--	</div>-->
+	<!--</div>-->
 	<!-- brand-area-end -->
 	<!-- footer-start -->
 
