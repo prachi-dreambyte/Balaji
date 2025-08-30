@@ -514,17 +514,38 @@ try {
 							box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 						}
 
-						/* Wishlist Icon */
-						.add-wishlist .fa-heart {
-							font-size: 20px;
-							color: #845848;
-							transition: 0.3s;
-						}
+						/* Default transparent heart with black border */
+	.heart i {
+		color: transparent;
+		-webkit-text-stroke: 1.8px black;
+		transition: all 0.3s ease;
+		display: inline-block;
+	}
 
-						.add-wishlist .fa-heart:hover {
-							transform: scale(1.2);
-							color: #845848;
-						}
+	/* Hover effect */
+	.heart:hover i {
+		color: rgba(255, 0, 0, 0.6);
+		transform: scale(1.2);
+		-webkit-text-stroke: 1.8px red;
+	}
+
+	/* Active (already in wishlist) */
+	.heart.active i {
+		color: red;
+		-webkit-text-stroke: 1.8px red;
+		animation: pop 0.3s forwards;
+	}
+
+	@keyframes pop {
+		50% {
+			transform: scale(1.5);
+		}
+
+		100% {
+			transform: scale(1);
+		}
+	}
+
 
 						/* Product Images */
 						.zoom-container {
@@ -600,13 +621,12 @@ try {
 					</script>
 
 					<div class="picture-tab">
-						<ul class="pic-tabs nav" role="tablist">
-							<?php if (!empty($images)) {
-
+    <ul class="pic-tabs nav" role="tablist" id="thumb-list">
+        <?php if (!empty($images)) {
 								foreach ($images as $idx => $img): ?>
 									<li>
-										<a class="<?php echo $idx === 0 ? 'active' : ''; ?>"
-											href="#picture-<?php echo $idx + 1; ?>" data-bs-toggle="tab">
+										<a class="<?php echo $idx === 0 ? 'active' : ''; ?>" href="#picture-<?php echo $idx + 1; ?>"
+											data-bs-toggle="tab">
 											<img src="admin/<?php echo htmlspecialchars($img); ?>" alt="" />
 										</a>
 									</li>
@@ -619,12 +639,11 @@ try {
 								</li>
 							<?php } ?>
 						</ul>
-
-						<div class="tab-content">
+					
+						<div class="tab-content" id="image-tabs">
 							<?php if (!empty($images)) {
 								foreach ($images as $idx => $img): ?>
-									<div class="tab-pane fade<?php echo $idx === 0 ? ' show active' : ''; ?>"
-										id="picture-<?php echo $idx + 1; ?>">
+									<div class="tab-pane fade<?php echo $idx === 0 ? ' show active' : ''; ?>" id="picture-<?php echo $idx + 1; ?>">
 										<div class="single-product">
 											<div class="product-img">
 												<div class="zoom-container">
@@ -641,8 +660,7 @@ try {
 									<div class="single-product">
 										<div class="product-img">
 											<div class="zoom-container">
-												<div class="zoom-image"
-													style="background-image: url('img/no-image.png');"></div>
+												<div class="zoom-image" style="background-image: url('img/no-image.png');"></div>
 											</div>
 										</div>
 									</div>
@@ -650,6 +668,25 @@ try {
 							<?php } ?>
 						</div>
 					</div>
+					
+					<script>
+						// Hover to preview
+						document.querySelectorAll(".pic-tabs a").forEach(tab => {
+							tab.addEventListener("mouseenter", function () {
+								let target = this.getAttribute("href");
+								let allTabs = document.querySelectorAll("#image-tabs .tab-pane");
+
+								allTabs.forEach(t => t.classList.remove("show", "active"));
+								document.querySelector(target).classList.add("show", "active");
+
+								// Also set active class on thumbnail
+								document.querySelectorAll(".pic-tabs a").forEach(a => a.classList.remove("active"));
+								this.classList.add("active");
+							});
+						});
+
+						
+					</script> 
 
 				</div>
 				<div class="col-md-7 col-sm-6 col-12 shop-content">
@@ -853,10 +890,12 @@ if ($avg_rating >= 4) {
 											<?php endif; ?>
 										</div>
 <div class="wishlist-box">
-  <a class="add-wish" href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
-    <i class="bi bi-heart-fill"></i>
-  </a>
+  <a class="add-wish heart <?php echo (isset($userWishlist) && in_array($product['id'], $userWishlist) ? 'active' : ''); ?>"
+		href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
+		<i class="bi bi-heart-fill"></i>
+	</a>
 </div>
+
 										
 
 
@@ -964,21 +1003,51 @@ if ($avg_rating >= 4) {
 							<ul class="tabs nav mb-4" role="tablist" style="color: #000; text-align: center;">
 								<li><a class="active" href="#moreinfo" aria-controls="moreinfo" role="tab"
 										data-bs-toggle="tab">Description</a></li>
-								<!-- <li><a href="#datasheet" aria-controls="datasheet" role="tab" data-bs-toggle="tab">data
-										sheet</a></li> -->
+								<li><a href="#datasheet" aria-controls="datasheet" role="tab" data-bs-toggle="tab">data
+										sheet</a></li>
 								<li><a href="#reviews" aria-controls="reviews" role="tab"
 										data-bs-toggle="tab">reviews</a></li>
 							</ul>
 							<div class="tab-content">
-								<!-- More Info Tab -->
-								<div role="tabpanel" class="tab-pane active fade show" id="moreinfo">
-									<div class="tab-box">
-										<div class="more-info">
-											<p><?php echo $products['description'] !== '' ? nl2br(htmlspecialchars($products['description'])) : '---'; ?>
-											</p>
-										</div>
-									</div>
-								</div>
+							<!-- More Info Tab -->
+<div role="tabpanel" class="tab-pane active fade show" id="moreinfo">
+    <div class="tab-box">
+        <div class="more-info">
+            <p>
+                <?php 
+                // Product description show karega, agar khali ho to ---
+                echo !empty($products['description']) 
+                    ? nl2br($products['description'])
+                    : '---'; 
+                ?>
+            </p>
+        </div>
+
+        <!-- ✅ Use Case Section -->
+        <?php if (!empty(trim($products['use_case']))): ?>
+        <div class="use-case mt-3">
+            <h5 class="fw-bold mb-3">Use Cases:</h5>
+            <div class="row">
+                <?php
+                // Use case ko line break pe split karenge
+                $useCases = preg_split('/\r\n|\r|\n/', $products['use_case']);
+                foreach ($useCases as $case):
+                    $case = trim($case);
+                    if ($case !== ''):
+                ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
+                    <div class="use-case-item p-2 border rounded bg-light shadow-sm h-100">
+                        <span class="text-success">✔</span> 
+                        <?php echo htmlspecialchars($case); ?>
+                    </div>
+                </div>
+                <?php endif; endforeach; ?>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+
 								<!-- Data Sheet Tab -->
 
 								<style>
@@ -1676,12 +1745,12 @@ if ($avg_rating >= 4) {
 									<span class="price-tax"> tax incl.</span>
 								</p>
 							</div>
-							<div class="short-description">
+							<!-- <div class="short-description">
 								<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a
 									comfortable fit.
 									Accessorize with a straw hat and you're ready for summer!
 								</p>
-							</div>
+							</div> -->
 							<form action="#">
 								<div class="shop-product-add">
 									<div class="add-cart">
