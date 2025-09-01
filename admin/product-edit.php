@@ -72,19 +72,48 @@ try {
                                     <h4 class="card-title">Edit Product Photo</h4>
                                 </div>
                                 <div class="card-body">
-                                    <!-- Current Images -->
+                                    <!-- Current Images with Replace/Remove -->
                                     <div class="mb-3">
-                                        <label class="form-label">Current Product Images</label><br>
-                                        <?php
-                                        if (!empty($product['images'])) {
-                                            $imgs = json_decode($product['images'], true);
-                                            if (is_array($imgs)) {
-                                                foreach ($imgs as $img) {
-                                                    echo "<img src='$img' alt='' width='80' style='margin:5px;border:1px solid #ccc;border-radius:5px;'>";
+                                        <label class="form-label">Manage Product Images</label><br>
+                                        <div class="d-flex flex-wrap">
+                                            <?php
+                                            $imgs = [];
+                                            if (!empty($product['images'])) {
+                                                $imgs = json_decode($product['images'], true);
+                                                if (is_array($imgs)) {
+                                                    foreach ($imgs as $index => $img) { ?>
+                                                        <div style="margin:10px;text-align:center;">
+                                                            <img src="<?= $img; ?>" alt="" width="100" style="border:1px solid #ccc;border-radius:5px;"><br>
+                                                            <!-- Replace image -->
+                                                            <input type="file" name="replace_image[<?= $index; ?>]" class="form-control mt-1">
+                                                            <!-- Remove checkbox -->
+                                                            <div class="form-check mt-1">
+                                                                <input class="form-check-input" type="checkbox" name="remove_image[]" value="<?= $index; ?>" id="remove_<?= $index; ?>">
+                                                                <label class="form-check-label" for="remove_<?= $index; ?>">Remove</label>
+                                                            </div>
+                                                            <!-- Hidden field for existing image -->
+                                                            <input type="hidden" name="existing_images[]" value="<?= $img; ?>">
+                                                        </div>
+                                            <?php }
                                                 }
                                             }
-                                        }
-                                        ?>
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                    <!-- Image Reorder (Drag & Drop) -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Reorder Images</label>
+                                        <ul id="sortable-images" class="list-unstyled d-flex flex-wrap">
+                                            <?php if (!empty($imgs)) {
+                                                foreach ($imgs as $index => $img) { ?>
+                                                    <li class="sortable-item me-2 mb-2" data-index="<?= $index; ?>" style="cursor:move;">
+                                                        <img src="<?= $img; ?>" width="80" style="border:1px solid #aaa;border-radius:5px;">
+                                                    </li>
+                                            <?php }
+                                            } ?>
+                                        </ul>
+                                        <input type="hidden" name="image_order" id="image_order">
                                     </div>
                                     
                                     <!-- Image Upload Options -->
@@ -253,10 +282,26 @@ try {
                                         <div class="col-lg-12">
                                             <div class="mb-3">
                                                 <label for="description" class="form-label">Full Description</label>
-                                                <textarea class="form-control" name="description" id="description" rows="5"><?= htmlspecialchars($product['description']); ?></textarea>
+                                                <textarea class="form-control" name="description" id="description" rows="5"><?php echo isset($product['description']) ? $product['description'] : ''; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+    <div class="col-lg-12">
+        <div class="mb-3">
+            <label for="use_case" class="form-label">Use Cases (One per line)</label>
+            <textarea 
+                class="form-control" 
+                name="use_case" 
+                id="use_case" 
+                rows="5" 
+                placeholder="Enter each use case on a new line"><?= htmlspecialchars($product['use_case']); ?></textarea>
+            <small class="text-muted">Example: Enter one point per line. On frontend, it will auto arrange into columns.</small>
+        </div>
+    </div>
+</div>
+
                                     
                                     <div class="row">
                                         <div class="col-lg-4">

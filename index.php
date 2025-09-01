@@ -419,32 +419,68 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 border-color: transparent;
             }
         }
-        
+
         .product-img {
-    position: relative;
-    overflow: hidden;
-}
+            position: relative;
+            overflow: hidden;
+        }
 
-.product-img img {
-    width: 100%;
-    transition: opacity 0.4s ease-in-out;
-    display: block;
-}
+        .product-img img {
+            width: 100%;
+            transition: opacity 0.4s ease-in-out;
+            display: block;
+        }
 
-.product-img .secondary-img {
+        .product-img .secondary-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            /* hidden by default */
+        }
+
+        .product-img:hover .primary-img {
+            opacity: 0;
+        }
+
+        .product-img:hover .secondary-img {
+            opacity: 1;
+        }
+
+
+        /* Wishlist Heart */
+.wishlist {
     position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0; /* hidden by default */
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    font-size: 22px;
 }
 
-.product-img:hover .primary-img {
-    opacity: 0;
+.heart i {
+    color: transparent;
+    -webkit-text-stroke: 1.8px black; /* black border */
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
-.product-img:hover .secondary-img {
-    opacity: 1;
+.heart:hover i {
+    color: rgba(255, 0, 0, 0.6); /* light red fill */
+    transform: scale(1.2);
+    -webkit-text-stroke: 1.8px red;
 }
+
+.heart.active i {
+    color: red;
+    -webkit-text-stroke: 1.8px red;
+    animation: pop 0.3s forwards;
+}
+
+@keyframes pop {
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+}
+
     </style>
 
 
@@ -461,23 +497,24 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <div class="wrapper">
         <?php include 'header.php'; ?>
         <!-- *******Marquee Start ******-->
-    
-<div style= "background: #845848;
+
+        <div style="background: #845848;
     color: #fff;
     font-size: 14px;
     padding: 6px 0;
     text-align: center;
     margin-top:40px;">
-  
-  <marquee behavior="scroll" direction="left" scrollamount="5">
-    100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE SUPPORT 24/7
-  </marquee>
-</div>
-<!-- Marquee End -->
 
-         <!-- ********Marquee End*********** -->
+            <marquee behavior="scroll" direction="left" scrollamount="5">
+                100% MONEY BACK GUARANTEE &nbsp; | &nbsp; FREE SHIPPING ON ORDER OVER ₹3000 &nbsp; | &nbsp; ONLINE
+                SUPPORT 24/7
+            </marquee>
+        </div>
+        <!-- Marquee End -->
 
-         <div class="slider-progress"></div>
+        <!-- ********Marquee End*********** -->
+
+        <div class="slider-progress"></div>
         <!-- heade incr-end -->
 
         <!-- 🔹 Slogan Section -->
@@ -755,22 +792,22 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
             </div> -->
         <!--=====daily-deals-end=====-->
-       <!-- Authorised Distributors & Dealers Section -->
-<div id="distributers" style="padding:60px 0; background:#fff;">
-    <div class="container">
-        <!-- Section Heading -->
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="fadeInUp animated">
-                    <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;">
-                       Licensed And Authorised
-                    </h1>
+        <!-- Authorised Distributors & Dealers Section -->
+        <div id="distributers" style="padding:60px 0; background:#fff;">
+            <div class="container">
+                <!-- Section Heading -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="fadeInUp animated">
+                            <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;">
+                                Licensed And Authorised
+                            </h1>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Distributor Images -->
-        <!-- <div class="row text-center">
+                <!-- Distributor Images -->
+                <!-- <div class="row text-center">
             <div class="col-md-4 col-md-offset-2 col-sm-6 col-xs-12 mb-3">
                 <div class="bounceInLeft animated">
                     <img src="img/brand/logo1.webp" alt="Distributor 1" class="img-responsive img-fluid" id="d_img" style="max-width:100%; border-radius:10px;">
@@ -782,35 +819,35 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
             </div>
         </div> -->
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="Tests">
-                    <div class="brand-carousel owl-carousel Test">
-                        <div class="single-brand ">
-                            <a href="#"><img src="img/brand/logo1.webp" alt=""></a>
-                        </div>
-                        <div class="single-brand">
-                            <a href="#"><img src="img/brand/logo2.png" alt=""></a>
-                        </div>
-                        <div class="single-brand">
-                            <a href="#"><img src="img/brand/logo3.webp" alt=""></a>
-                        </div>
-                        <div class="single-brand">
-                            <a href="#"><img src="img/brand/logo4.webp" alt=""></a>
-                        </div>
-                        <div class="single-brand">
-                            <a href="#"><img src="img/brand/logo5.webp" alt=""></a>
-                        </div>
-                        <div class="single-brand">
-                            <a href="#"><img src="img/brand/logo6.png" alt=""></a>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="Tests">
+                            <div class="brand-carousel owl-carousel Test">
+                                <div class="single-brand ">
+                                    <a href="#"><img src="img/brand/logo1.jpg" alt=""></a>
+                                </div>
+                                <div class="single-brand">
+                                    <a href="#"><img src="img/brand/logo2.png" alt=""></a>
+                                </div>
+                                <div class="single-brand">
+                                    <a href="#"><img src="img/brand/logo3.webp" alt=""></a>
+                                </div>
+                                <div class="single-brand">
+                                    <a href="#"><img src="img/brand/logo4.webp" alt=""></a>
+                                </div>
+                                <div class="single-brand">
+                                    <a href="#"><img src="img/brand/logo5.webp" alt=""></a>
+                                </div>
+                                <div class="single-brand">
+                                    <a href="#"><img src="img/brand/logo6.png" alt=""></a>
+                                </div>
 
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 
         <!--=====product-tab-start=====-->
@@ -835,38 +872,44 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                         <!-- <button class="scroll-btn left" onclick="scrollNewArrival(-1)">&#10094;</button> -->
 
                                         <!-- Scrollable Row -->
-                                        <div class="row" id="newarrival-row"
-                                            >
+                                        <div class="row" id="newarrival-row">
                                             <?php foreach ($newArrivalProducts as $product): ?>
                                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                                     <div class="single-product">
-                                                        <div class="product-img">
-    <a href="product-details.php?id=<?= $product['id'] ?>">
-        <?php
-        $images = json_decode($product['images'], true);
-        if (!empty($images)):
-            // First image
-            $firstImage = htmlspecialchars($images[0]);
-            // Second image (if exists)
-            $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
-        ?>
-            <img src="admin/<?= $firstImage ?>" 
-                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
-                 class="primary-img">
-            <img src="admin/<?= $secondImage ?>" 
-                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
-                 class="secondary-img">
-        <?php endif; ?>
-    </a>
-    <span class="badge-new">New</span>
-</div>
+    <div class="product-img" style="position: relative; overflow: hidden;">
+        <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                <?php
+                                                                $images = json_decode($product['images'], true);
+                                                                if (!empty($images)):
+                                                                    // First image
+                                                                    $firstImage = htmlspecialchars($images[0]);
+                                                                    // Second image (if exists)
+                                                                    $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
+                                                                    ?>
+                                                                    <img src="admin/<?= $firstImage ?>" alt="<?= htmlspecialchars($product['product_name']) ?>"
+                                                                        class="primary-img">
+                                                                    <img src="admin/<?= $secondImage ?>" alt="<?= htmlspecialchars($product['product_name']) ?>"
+                                                                        class="secondary-img">
+                                                                <?php endif; ?>
+                                                            </a>
+                                                            <span class="badge-new">New</span>
+                                                    
+                                                            <!-- Wishlist Icon -->
+                                                            <div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 22px;">
+                                                                <a class="wishlistBtn heart" href="wishlist.php?action=add&id=<?= $product['id'] ?>"
+                                                                    title="Add to wishlist">
+                                                                    <i class="fa fa-heart"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    
                                                         <div class="product-content">
                                                             <h5 class="product-name">
-                                                                <a class="extra-text-decoration"
-                                                                    href="product-details.php?id=<?= $product['id'] ?>">
+                                                                <a class="extra-text-decoration" href="product-details.php?id=<?= $product['id'] ?>">
                                                                     <?= htmlspecialchars($product['product_name']) ?>
                                                                 </a>
                                                             </h5>
+                                                    
                                                             <?php
                                                             $product_id = $product['id'];
                                                             $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
@@ -881,16 +924,15 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                                 $product['rating'] = 0;
                                                             }
                                                             ?>
-
+                                                    
                                                             <div class="product-rating">
                                                                 <?= str_repeat('★', $product['rating']) ?>
                                                                 <?= str_repeat('☆', 5 - $product['rating']) ?>
                                                                 <?php if ($product['review_count'] > 0): ?>
-                                                                    <span class="review-count"><?= $product['review_count'] ?>
-                                                                        Review(s)</span>
+                                                                    <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
                                                                 <?php endif; ?>
                                                             </div>
-
+                                                    
                                                             <div class="price-box">
                                                                 <?php
                                                                 $original_price = (float) $product['price'];
@@ -904,19 +946,17 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                                     $final_price -= (float) $product['corporate_discount'];
                                                                 }
                                                                 ?>
-                                                                <span
-                                                                    class="price">₹<?= number_format($final_price, 2) ?></span>
-                                                                <span
-                                                                    class="old-price">₹<?= number_format($original_price, 2) ?></span>
+                                                                <span class="price">₹<?= number_format($final_price, 2) ?></span>
+                                                                <span class="old-price">₹<?= number_format($original_price, 2) ?></span>
                                                                 <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
-                                                                    <div class="corporate-price"
-                                                                        style="color:green; font-weight:bold;">
+                                                                    <div class="corporate-price" style="color:green; font-weight:bold;">
                                                                         Special Commercial Price Applied
                                                                     </div>
                                                                 <?php endif; ?>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             <?php endforeach; ?>
                                         </div>
@@ -935,35 +975,42 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                         <?php foreach ($onsaleProducts as $product): ?>
                                             <div class="col-xl-3 col-lg-4 col-md-6">
                                                 <div class="single-product">
-                                                    <div class="product-img">
-    <a href="product-details.php?id=<?= $product['id'] ?>">
-        <?php
-        $images = json_decode($product['images'], true);
-        if (!empty($images)):
-            // First image
-            $firstImage = htmlspecialchars($images[0]);
-            // Second image (if exists)
-            $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
-        ?>
-            <img src="admin/<?= $firstImage ?>" 
-                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
-                 class="primary-img">
-            <img src="admin/<?= $secondImage ?>" 
-                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
-                 class="secondary-img">
-        <?php endif; ?>
-    </a>
-    <span class="badge-new">New</span>
-</div>
+    <div class="product-img" style="position: relative; overflow: hidden;">
+        <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                            <?php
+                                                            $images = json_decode($product['images'], true);
+                                                            if (!empty($images)):
+                                                                // First image
+                                                                $firstImage = htmlspecialchars($images[0]);
+                                                                // Second image (if exists)
+                                                                $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
+                                                                ?>
+                                                                <img src="admin/<?= $firstImage ?>" alt="<?= htmlspecialchars($product['product_name']) ?>"
+                                                                    class="primary-img">
+                                                                <img src="admin/<?= $secondImage ?>" alt="<?= htmlspecialchars($product['product_name']) ?>"
+                                                                    class="secondary-img">
+                                                            <?php endif; ?>
+                                                        </a>
+                                                        <span class="badge-new">New</span>
+                                                
+                                                        <!-- Wishlist Icon -->
+                                                        <div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 22px;">
+                                                            <a class="wishlistBtn heart" href="wishlist.php?action=add&id=<?= $product['id'] ?>"
+                                                                title="Add to wishlist">
+                                                                <i class="fa fa-heart"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                
                                                     <div class="product-content">
                                                         <h5 class="product-name">
-                                                            <a
-                                                                href="product-details.php?id=<?= $product['id'] ?>"><?= htmlspecialchars($product['product_name']) ?></a>
+                                                            <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                <?= htmlspecialchars($product['product_name']) ?>
+                                                            </a>
                                                         </h5>
+                                                
                                                         <?php
-                                                        $product_id = $product['id']; // Use correct ID field
-                                                    
-                                                        // Fetch average rating and total reviews
+                                                        $product_id = $product['id'];
                                                         $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating FROM reviews WHERE product_id = $product_id";
                                                         $result = mysqli_query($conn, $query);
 
@@ -976,14 +1023,117 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                             $product['rating'] = 0;
                                                         }
                                                         ?>
+                                                
+                                                        <div class="product-rating">
+                                                            <?= str_repeat('★', $product['rating']) ?>
+                                                            <?= str_repeat('☆', 5 - $product['rating']) ?>
+                                                            <?php if ($product['review_count'] > 0): ?>
+                                                                <span class="review-count"><?= $product['review_count'] ?> Review(s)</span>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                
+                                                        <div class="price-box">
+                                                            <?php
+                                                            $original_price = (float) $product['price'];
+                                                            $final_price = $original_price;
+
+                                                            // Apply normal discount
+                                                            if (!empty($product['discount']) && $product['discount'] > 0) {
+                                                                $final_price -= (float) $product['discount'];
+                                                            }
+
+                                                            // Read account type from session
+                                                            $user_account_type = !empty($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
+                                                            $is_commercial = ($user_account_type === 'commercial');
+
+                                                            // Apply corporate discount
+                                                            if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0) {
+                                                                $final_price -= (float) $product['corporate_discount'];
+                                                            }
+                                                            ?>
+                                                
+                                                            <span class="price">₹<?= number_format($final_price, 2) ?></span>
+                                                            <span class="old-price">₹<?= number_format($original_price, 2) ?></span>
+                                                
+                                                            <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
+                                                                <div class="corporate-price" style="color:green; font-weight:bold;">
+                                                                    Special Commercial Price Applied
+                                                                </div>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+
+                                <!-- Best Seller Products -->
+                                <div class="tab-pane" id="bestseller">
+                                    <div class="row">
+                                        <?php foreach ($bestsellerProducts as $product): ?>
+                                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                                <div class="single-product">
+                                                    <div class="product-img" style="position: relative; overflow: hidden;">
+    <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                            <?php
+                                                            $images = json_decode($product['images'], true);
+                                                            if (!empty($images)):
+                                                                // First image
+                                                                $firstImage = htmlspecialchars($images[0]);
+                                                                // Second image (if exists)
+                                                                $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
+                                                                ?>
+                                                                <img src="admin/<?= $firstImage ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="primary-img">
+                                                                <img src="admin/<?= $secondImage ?>" alt="<?= htmlspecialchars($product['product_name']) ?>"
+                                                                    class="secondary-img">
+                                                            <?php endif; ?>
+                                                        </a>
+                                                        <span class="badge-new">New</span>
+                                                    
+                                                        <!-- Wishlist Icon -->
+                                                        <div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 22px;">
+                                                            <a class="wishlistBtn heart" href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
+                                                                <i class="fa fa-heart"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                    <?php
+                                                    // Fetch product rating & review count dynamically
+                                                    $product_id = $product['id']; // Ensure this is the correct field name
+                                                
+                                                    $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating 
+          FROM reviews 
+          WHERE product_id = $product_id";
+                                                    $result = mysqli_query($conn, $query);
+
+                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                        $reviewData = mysqli_fetch_assoc($result);
+                                                        $product['review_count'] = (int) ($reviewData['review_count'] ?? 0);
+                                                        $product['rating'] = round($reviewData['avg_rating'] ?? 0);
+                                                    } else {
+                                                        $product['review_count'] = 0;
+                                                        $product['rating'] = 0;
+                                                    }
+                                                    ?>
+
+                                                    <div class="product-content">
+                                                        <h5 class="product-name">
+                                                            <a href="product-details.php?id=<?= $product['id'] ?>">
+                                                                <?= htmlspecialchars($product['product_name']) ?>
+                                                            </a>
+                                                        </h5>
 
                                                         <div class="product-rating">
                                                             <?= str_repeat('★', $product['rating']) ?>
                                                             <?= str_repeat('☆', 5 - $product['rating']) ?>
-
                                                             <?php if ($product['review_count'] > 0): ?>
-                                                                <span class="review-count"><?= $product['review_count'] ?>
-                                                                    Review(s)</span>
+                                                                <span class="review-count">
+                                                                    <?= $product['review_count'] ?> Review(s)
+                                                                </span>
                                                             <?php endif; ?>
                                                         </div>
 
@@ -1007,12 +1157,10 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                             }
                                                             ?>
 
-                                                            <span class="price">₹
-                                                                <?= number_format($final_price, 2) ?>
-                                                            </span>
-                                                            <span class="old-price">₹
-                                                                <?= number_format($original_price, 2) ?>
-                                                            </span>
+                                                            <span
+                                                                class="price">₹<?= number_format($final_price, 2) ?></span>
+                                                            <span
+                                                                class="old-price">₹<?= number_format($original_price, 2) ?></span>
 
                                                             <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
                                                                 <div class="corporate-price"
@@ -1022,129 +1170,24 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                                             <?php endif; ?>
 
                                                             <!-- Temporary debug
-                                                                        <div style="margin-top:5px; font-size:14px; color:blue;">
-                                                                            Account Type (Debug): <?= htmlspecialchars($user_account_type ?? 'Not Set') ?>
-                                                                    </div> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-
-                            <!-- Best Seller Products -->
-                            <div class="tab-pane" id="bestseller">
-                                <div class="row">
-                                    <?php foreach ($bestsellerProducts as $product): ?>
-                                        <div class="col-xl-3 col-lg-4 col-md-6">
-                                            <div class="single-product">
-                                                <div class="product-img">
-    <a href="product-details.php?id=<?= $product['id'] ?>">
-        <?php
-        $images = json_decode($product['images'], true);
-        if (!empty($images)):
-            // First image
-            $firstImage = htmlspecialchars($images[0]);
-            // Second image (if exists)
-            $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
-        ?>
-            <img src="admin/<?= $firstImage ?>" 
-                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
-                 class="primary-img">
-            <img src="admin/<?= $secondImage ?>" 
-                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
-                 class="secondary-img">
-        <?php endif; ?>
-    </a>
-    <span class="badge-new">New</span>
-</div>
-                                                <?php
-                                                // Fetch product rating & review count dynamically
-                                                $product_id = $product['id']; // Ensure this is the correct field name
-                                            
-                                                $query = "SELECT COUNT(*) AS review_count, AVG(rating) AS avg_rating 
-          FROM reviews 
-          WHERE product_id = $product_id";
-                                                $result = mysqli_query($conn, $query);
-
-                                                if ($result && mysqli_num_rows($result) > 0) {
-                                                    $reviewData = mysqli_fetch_assoc($result);
-                                                    $product['review_count'] = (int) ($reviewData['review_count'] ?? 0);
-                                                    $product['rating'] = round($reviewData['avg_rating'] ?? 0);
-                                                } else {
-                                                    $product['review_count'] = 0;
-                                                    $product['rating'] = 0;
-                                                }
-                                                ?>
-
-                                                <div class="product-content">
-                                                    <h5 class="product-name">
-                                                        <a href="product-details.php?id=<?= $product['id'] ?>">
-                                                            <?= htmlspecialchars($product['product_name']) ?>
-                                                        </a>
-                                                    </h5>
-
-                                                    <div class="product-rating">
-                                                        <?= str_repeat('★', $product['rating']) ?>
-                                                        <?= str_repeat('☆', 5 - $product['rating']) ?>
-                                                        <?php if ($product['review_count'] > 0): ?>
-                                                            <span class="review-count">
-                                                                <?= $product['review_count'] ?> Review(s)
-                                                            </span>
-                                                        <?php endif; ?>
-                                                    </div>
-
-                                                    <div class="price-box">
-                                                        <?php
-                                                        $original_price = (float) $product['price'];
-                                                        $final_price = $original_price;
-
-                                                        // Apply normal discount
-                                                        if (!empty($product['discount']) && $product['discount'] > 0) {
-                                                            $final_price -= (float) $product['discount'];
-                                                        }
-
-                                                        // Read account type from session
-                                                        $user_account_type = !empty($_SESSION['account_type']) ? strtolower(trim($_SESSION['account_type'])) : null;
-                                                        $is_commercial = ($user_account_type === 'commercial');
-
-                                                        // Apply corporate discount
-                                                        if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0) {
-                                                            $final_price -= (float) $product['corporate_discount'];
-                                                        }
-                                                        ?>
-
-                                                        <span class="price">₹<?= number_format($final_price, 2) ?></span>
-                                                        <span
-                                                            class="old-price">₹<?= number_format($original_price, 2) ?></span>
-
-                                                        <?php if ($is_commercial && !empty($product['corporate_discount']) && $product['corporate_discount'] > 0): ?>
-                                                            <div class="corporate-price" style="color:green; font-weight:bold;">
-                                                                Special Commercial Price Applied
-                                                            </div>
-                                                        <?php endif; ?>
-
-                                                        <!-- Temporary debug
     <div style="margin-top:5px; font-size:14px; color:blue;">
         Account Type (Debug): <?= htmlspecialchars($user_account_type ?? 'Not Set') ?>
     </div> -->
-                                                    </div>
+                                                        </div>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    
-                                    <?php endforeach; ?>
+
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
                             </div>
-                                                        </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <!--=====product-tab-end=====-->
     <!-- service-start -->
@@ -1183,7 +1226,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!--</div>-->
     <div class="home-4-service home-2-service service-area" style="padding:0px; ">
         <div class="container-fluid" style="width:100%;">
-             <img src ="./img/banner/trust banner.png" alt="trust" style="">
+            <img src="./img/banner/trust banner.png" alt="trust" style="">
         </div>
     </div>
     <!--=====service-end=====-->
@@ -1197,7 +1240,8 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 <div class="col-md-2 col-4 text-center">
                     <div class="single-brand">
                         <a href="#">
-                            <img src="img\balaji\happy-universal-q-01-TM-1024x1024.png" alt="Fixed Brand" style="max-width:120px;">
+                            <img src="img\balaji\happy-universal-q-01-TM-1024x1024.png" alt="Fixed Brand"
+                                style="max-width:120px;">
                         </a>
                     </div>
                 </div>
@@ -1210,16 +1254,16 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                             <a href="#"><img src="img/brand/highway logo.png" alt=""></a>
                         </div>
                         <div class="single-brands">
-                            <a href="#"><img src="img/brand/sharda logo.png"  alt=""></a>
+                            <a href="#"><img src="img/brand/sharda logo.png" alt=""></a>
                         </div>
                         <div class="single-brands">
-                            <a href="#"><img src="img/brand/wave.png"  alt=""></a>
+                            <a href="#"><img src="img/brand/wave.png" alt=""></a>
                         </div>
                         <div class="single-brands">
-                            <a href="#"><img src="img/brand/amul logo.png"  alt=""></a>
+                            <a href="#"><img src="img/brand/amul logo.png" alt=""></a>
                         </div>
                         <div class="single-brands">
-                            <a href="#"><img src="img/brand/atleo.png"  alt=""></a>
+                            <a href="#"><img src="img/brand/atleo.png" alt=""></a>
                         </div>
 
                     </div>
@@ -1246,27 +1290,32 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <?php foreach ($featuredProducts as $product): ?>
                         <div class="col-xl-3 col-lg-4 col-md-6">
                             <div class="single-product">
-                               
-                                <div class="product-img">
+
+                                <div class="product-img" style="position: relative; overflow: hidden;">
     <a href="product-details.php?id=<?= $product['id'] ?>">
-        <?php
-        $images = json_decode($product['images'], true);
-        if (!empty($images)):
-            // First image
-            $firstImage = htmlspecialchars($images[0]);
-            // Second image (if exists)
-            $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
-        ?>
-            <img src="admin/<?= $firstImage ?>" 
-                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
-                 class="primary-img">
-            <img src="admin/<?= $secondImage ?>" 
-                 alt="<?= htmlspecialchars($product['product_name']) ?>" 
-                 class="secondary-img">
-        <?php endif; ?>
-    </a>
-    <span class="badge-new">New</span>
-</div>
+                                        <?php
+                                        $images = json_decode($product['images'], true);
+                                        if (!empty($images)):
+                                            // First image
+                                            $firstImage = htmlspecialchars($images[0]);
+                                            // Second image (if exists)
+                                            $secondImage = isset($images[1]) ? htmlspecialchars($images[1]) : $firstImage;
+                                            ?>
+                                            <img src="admin/<?= $firstImage ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="primary-img">
+                                            <img src="admin/<?= $secondImage ?>" alt="<?= htmlspecialchars($product['product_name']) ?>"
+                                                class="secondary-img">
+                                        <?php endif; ?>
+                                    </a>
+                                    <span class="badge-new">New</span>
+                                
+                                    <!-- Wishlist Icon -->
+                                    <div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 22px;">
+                                        <a class="wishlistBtn heart" href="wishlist.php?action=add&id=<?= $product['id'] ?>" title="Add to wishlist">
+                                            <i class="fa fa-heart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
                                 <?php
                                 // Fetch product rating & review count dynamically
                                 $product_id = $product['id']; // Ensure this is the correct field name
@@ -1382,7 +1431,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <!-- Header -->
                     <h3 class="section-header mb-2" style="font-weight: 700; color: #333;">
                         <!-- <i class="fas fa-quote-left" style="color: #ff9800; margin-right: 8px;"></i> -->
-                       Testimonials
+                        Testimonials
                     </h3>
                     <p class="text-muted mb-4" style="max-width: 600px; margin: 0 auto;">
                         Real Google reviews from our valued customers.
@@ -1762,26 +1811,36 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     </script>
     <script>
         $('.brand-carousels').owlCarousel({
-    loop: true,             // infinite loop
-    margin: 20,             // spacing between logos
-    autoplay: true,         // enable auto scroll
-    autoplayTimeout: 2000,  // delay before next slide
-    autoplaySpeed: 1000,    // smooth speed
-    autoplayHoverPause: true, 
-    slideTransition: 'linear', // continuous effect
-    smartSpeed: 3000,       // smooth transition
-    responsive:{
-        0:{ items:2 },
-        576:{ items:3 },
-        768:{ items:4 },
-        992:{ items:5 }
-    }
-});
+            loop: true,             // infinite loop
+            margin: 20,             // spacing between logos
+            autoplay: true,         // enable auto scroll
+            autoplayTimeout: 2000,  // delay before next slide
+            autoplaySpeed: 1000,    // smooth speed
+            autoplayHoverPause: true,
+            slideTransition: 'linear', // continuous effect
+            smartSpeed: 3000,       // smooth transition
+            responsive: {
+                0: { items: 2 },
+                576: { items: 3 },
+                768: { items: 4 },
+                992: { items: 5 }
+            }
+        });
     </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".wishlistBtn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      this.classList.toggle("active");
+      // still goes to wishlist.php
+    });
+  });
+});
+</script>
+
 
 
 
 
 </body>
-
 </html>

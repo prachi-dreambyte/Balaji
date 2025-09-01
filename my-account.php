@@ -727,6 +727,21 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
                 margin-bottom: 15px;
             }
         }
+
+       
+.wishlist-wrapper { margin-top:20px; }
+.wishlist-table { width:100%; border-collapse: collapse; }
+.wishlist-table th, .wishlist-table td {
+    padding:12px; border-bottom:1px solid #ddd; text-align:center;
+}
+.wishlist-table th { background:#f8f9fa; font-weight:600; }
+.wishlist-table img { max-width:60px; border-radius:6px; }
+.badge-success { background:#28a745; color:#fff; padding:5px 10px; border-radius:4px; }
+.badge-danger { background:#dc3545; color:#fff; padding:5px 10px; border-radius:4px; }
+.empty-state { text-align:center; padding:40px; color:#666; }
+.empty-state i { font-size:48px; color:#ccc; margin-bottom:10px; }
+
+
     </style>
 </head>
 
@@ -744,9 +759,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
                 <a href="#" class="nav-link" data-section="my-orders">
                     <i class="fa fa-shopping-bag"></i> My Orders
                 </a>
-                <a href="./wishlist.php" class="nav-link" data-section="wishlist">
-                    <i class="fa fa-heart"></i> Wishlist
-                </a>
+                <a href="#" class="nav-link" data-section="wishlist">
+    <i class="fa fa-heart"></i> Wishlist
+</a>
                 <a href="#" class="nav-link" data-section="my-reviews">
                     <i class="fa fa-star"></i> My Reviews
                 </a>
@@ -827,6 +842,134 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
                     ?>
                 </div>
 
+<div id="wishlist" class="content-section">
+    <h3 class="section-header">My Wishlist</h3>
+    <?php
+    // Fetch wishlist items
+    $wishlist_stmt = $conn->prepare("SELECT product_id FROM wishlist WHERE user_id = ?");
+    $wishlist_stmt->bind_param("i", $user_id);
+    $wishlist_stmt->execute();
+    $wishlist_result = $wishlist_stmt->get_result();
+
+    $wishlist_items = [];
+    while ($wishlist_row = $wishlist_result->fetch_assoc()) {
+        $product_id = $wishlist_row['product_id'];
+
+        // Try from products
+        $product_stmt = $conn->prepare("SELECT id, product_name, price, images, stock FROM products WHERE id = ?");
+        $product_stmt->bind_param("i", $product_id);
+        $product_stmt->execute();
+        $product_result = $product_stmt->get_result();
+        $product = $product_result->fetch_assoc();
+
+        // If not found, check home_daily_deal
+        if (!$product) {
+            $deal_stmt = $conn->prepare("SELECT id, product_name, price, images, stock FROM home_daily_deal WHERE id = ?");
+            $deal_stmt->bind_param("i", $product_id);
+            $deal_stmt->execute();
+            $deal_result = $deal_stmt->get_result();
+            $product = $deal_result->fetch_assoc();
+        }
+
+        if ($product) {
+            $image_array = json_decode($product['images'], true);
+            $image = isset($image_array[0]) ? $image_array[0] : 'default.jpg';
+
+            $wishlist_items[] = [
+                'id' => $product['id'],
+                'name' => $product['product_name'],
+                'price' => $product['price'],
+                'image' => $image,
+                'stock' => $product['stock']
+            ];
+        }
+    }
+
+    if (!empty($wishlist_items)): ?>
+        <div class="wishlist-wrapper">
+            <table class="wishlist-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Add to Cart</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($wishlist_items as $item): ?>
+                        <tr>
+                            <td>
+                                <a href="product-details.php?id=<?= $item['id'] ?>">
+                                    <img src="./admin/<?= htmlspecialchars($item['image']) ?>"
+                                        alt="<?= htmlspecialchars($item['name']) ?>" style="width:60px; border-radius:8px;">
+                                </a>
+                            </td>
+                            <td><?= htmlspecialchars($item['name']) ?></td>
+                           <td>
+    <?php
+                                $price = isset($item['price']) ? floatval($item['price']) : 0;
+                                $discount = isset($item['discount']) ? floatval($item['discount']) : 0;
+                                $corporate_discount = isset($item['corporate_discount']) ? floatval($item['corporate_discount']) : 0;
+
+                                $old_price = $price;
+                                $final_price = $price - $discount;
+
+                                if (!empty($user_account_type) && $user_account_type === 'commercial' && $corporate_discount > 0) {
+                                    $final_price -= $corporate_discount;
+                                }
+
+                                $final_price = max($final_price, 0);
+                                $total_discount = $old_price - $final_price;
+                                $discount_percent = ($old_price > 0 && $total_discount > 0) ? ($total_discount / $old_price) * 100 : 0;
+
+                                if ($discount_percent > 0): ?>
+                                <span class="vonia-amount-price">₹<?= number_format($final_price, 2) ?></span>
+                                <del class="old-price">₹<?= number_format($old_price, 2) ?></del>
+                                <span class="discount-percent">(<?= round($discount_percent) ?>% OFF)</span>
+                            <?php else: ?>
+                                <span class="vonia-amount-price">₹<?= number_format($final_price, 2) ?></span>
+                            <?php endif; ?>
+                        </td>
+
+                            <td>
+                                <?php if ($item['stock'] > 0): ?>
+                                    <span class="badge badge-success">In Stock</span>
+                                <?php else: ?>
+                                    <span class="badge badge-danger">Out of Stock</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if ($item['stock'] > 0): ?>
+                                    <a href="shopping-cart.php?action=add&id=<?= $item['id'] ?>" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-shopping-cart"></i> Add
+                                    </a>
+                                <?php else: ?>
+                                    <button class="btn btn-sm btn-secondary" disabled>
+                                        <i class="fa fa-ban"></i> Unavailable
+                                    </button>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <a href="wishlist.php?action=remove&id=<?= $item['id'] ?>" class="btn btn-sm btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else: ?>
+        <div class="empty-state">
+            <i class="fa fa-heart"></i>
+            <p>Your wishlist is empty. Start adding your favorites!</p>
+            <a href="shop.php" class="btn btn-primary">Start Shopping</a>
+        </div>
+    <?php endif; ?>
+</div>
 
                 <div id="my-reviews" class="content-section">
                     <h3 class="section-header">My Reviews</h3>
@@ -946,7 +1089,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
                      <h3>Address:</Address></h1>
                      <p class="mb-1 account-para">Jay Shri Balaji Foam & Furniture, Opp. Mall Of Dehradun, Near Miyawala Underpass, Haridwar Road, Dehradun, Uttarakhand-248005</p></div>
                      <div class="Account-body">
-                     <h3>Email:</h3><p class="mb-1 account-para">Balajidecor@gmail.com</p></div>
+                     <h3>Email:</h3><p class="mb-1 account-para">Decorwithbalaji@gmail.com</p></div>
                 </div>
             </div>
         </div>

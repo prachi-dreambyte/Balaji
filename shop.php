@@ -194,7 +194,8 @@ $total_products = $count_stmt->get_result()->fetch_assoc()['total'];
 $count_stmt->close();
 
 // ---------- Get Products for Current Page ----------
-$sql = "SELECT * FROM products" . $where . $order_by . " LIMIT ?, ?";
+$sql = "SELECT * FROM products" . $where . " ORDER BY RAND() LIMIT ?, ?";
+
 $params_with_limit = array_merge($params, [$offset, $limit]);
 $type_str_with_limit = $type_str . 'ii';
 
@@ -497,18 +498,96 @@ $cat_sidebar_stmt->close();
 							</form>
 							</ul>
 						</div>
-						<div class="content-box">
-							<h3 class="content-box-heading">price</h3>
-							<div class="info_widget">
-								<div class="price_filter">
-									<div id="slider-range"></div>
-									<div class="price_slider_amount">
-										<input type="text" id="amount" name="price" placeholder="Add Your Price" />
-										<input type="submit" value="" />
-									</div>
-								</div>
-							</div>
-						</div>
+						<div class="info_widget">
+  <h4 class="filter_heading">Price Range</h4>
+  <div class="price_filter">
+    <!-- Slider -->
+    <div id="slider-range"></div>
+
+    <!-- Price Display -->
+    <div class="price_slider_amount">
+      <input type="text" id="amount" name="price" placeholder="Select Price Range" readonly />
+    </div>
+  </div>
+</div>
+
+<style>
+/* Widget box */
+.info_widget {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 18px 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Heading */
+.filter_heading {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Price Filter */
+.price_filter {
+  width: 100%;
+}
+
+/* Slider track */
+#slider-range {
+  height: 6px;
+  background: #e5e5e5;
+  border-radius: 4px;
+  margin: 10px 5px 20px;
+  position: relative;
+}
+
+/* Active range fill */
+#slider-range .ui-slider-range {
+  background: #333;
+  border-radius: 4px;
+}
+
+/* Slider handles */
+#slider-range .ui-slider-handle {
+  top: -6px;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #333;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
+}
+#slider-range .ui-slider-handle:hover {
+  background: #000;
+  transform: scale(1.1);
+}
+
+/* Price box */
+.price_slider_amount input {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+.price_slider_amount input:focus {
+  outline: none;
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+</style>
+
+
 					</div>
 				</div>
 			</div>
@@ -631,11 +710,61 @@ if ($discount > 0) {
 			</a>
 		
 			<!-- Wishlist Button -->
-			<div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 20px;">
-				<a class="wishlistBtn" href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
-					<i class="fa fa-heart" aria-hidden="true"></i>
+			<div class="wishlist" style="position: absolute; top: 10px; right: 10px; z-index: 2; font-size: 22px;">
+  <a class="wishlistBtn heart" 
+     href="wishlist.php?action=add&id=<?php echo $row['id']; ?>" title="Add to wishlist">
+					<i class="fa fa-heart"></i>
 				</a>
 			</div>
+			
+			<style>
+				/* Default transparent heart with black border */
+				.heart i {
+					color: transparent;
+					-webkit-text-stroke: 1.8px black;
+					/* border */
+					transition: all 0.3s ease;
+					display: inline-block;
+				}
+			
+				/* Hover animation */
+				.heart:hover i {
+					color: rgba(255, 0, 0, 0.6);
+					/* light red fill */
+					transform: scale(1.2);
+					/* enlarge */
+					-webkit-text-stroke: 1.8px red;
+				}
+			
+				/* Active (clicked) */
+				.heart.active i {
+					color: red;
+					-webkit-text-stroke: 1.8px red;
+					animation: pop 0.3s forwards;
+				}
+			
+				@keyframes pop {
+					50% {
+						transform: scale(1.5);
+					}
+			
+					100% {
+						transform: scale(1);
+					}
+				}
+			</style>
+			
+			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+					document.querySelectorAll(".wishlistBtn").forEach(function (btn) {
+						btn.addEventListener("click", function (e) {
+							this.classList.toggle("active");
+							// still goes to wishlist.php
+						});
+					});
+				});
+			</script>
+
 		
 			<!-- Add to Cart Button (Hidden by default, show on hover) -->
 			<div class="add-to-cart-btn">
