@@ -1,3 +1,8 @@
+<!-- Floating GeM Logo -->
+<a href="https://gem.gov.in/" class="floating-gem" target="_blank" title="Visit GeM">
+    <img src="img/brand/logo1.jpg" alt="GeM" />
+</a>
+
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -72,8 +77,42 @@ function categoryImagePath($relPath)
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <!-- Responsive enhancements -->
 <link rel="stylesheet" href="css/responsive-enhancements.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 <style>
+    .floating-gem {
+    position: fixed;
+    bottom: 250px;  /* little upward */
+    right: 20px;
+    z-index: 9999;
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
+
+.floating-gem img {
+    width: 80px;   /* adjust size as needed */
+    height: auto;
+    border-radius: 2%;  /* optional – makes it round */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.floating-gem:hover {
+    transform: scale(1.1);
+}
+
+.floating-gem {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0px rgba(150, 150, 155, 0.7); }
+    50% { box-shadow: 0 0 20px rgba(80, 80, 80, 0.9); }
+    100% { box-shadow: 0 0 0px rgba(138,43,226, 0.7); }
+}
+   
+
+
     /* Base styles */
     .dropdown-toggle::after {
         display: none !important;
