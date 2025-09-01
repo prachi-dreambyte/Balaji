@@ -432,8 +432,10 @@ $cat_sidebar_stmt->close();
         <div class="swiper-wrapper">
             <?php foreach ($bannerData as $banner): ?>
 				<div class="swiper-slide">
+					<a href="shop.php?category=<?php echo urlencode($banner['name']); ?>#product-list">
 					<img src="<?php echo $banner['image']; ?>" alt="<?php echo htmlspecialchars($banner['name']); ?>"
 						class="category-banner-img">
+						</a>
 					<div class="banner-overlay">
 						
 						<div class="breadcrumbs">

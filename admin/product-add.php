@@ -123,12 +123,12 @@ try {
                                                             <input type="text" id="product-weight" name="weight" class="form-control" placeholder="In gm & kg">
                                                        </div>
                                                   </div> -->
-                                                  <div class="col-lg-4">
+                                                  <!-- <div class="col-lg-4">
                                                        <div class="mb-3">
                                                             <label for="product-weight" class="form-label">Product Weight</label>
                                                             <input type="text" id="product-weight" name="product_weight" class="form-control" placeholder="Product weight">
                                                        </div>
-                                                  </div>
+                                                  </div> -->
                                                     <div class="col-lg-4">
 
                                                        <div class="mb-3">
@@ -187,12 +187,12 @@ try {
                                                   </div>
                                              </div>
                                              <div class="row">
-                                                  <div class="col-lg-4">
+                                                  <!-- <div class="col-lg-4">
                                                        <div class="mb-3">
                                                             <label for="seat-height" class="form-label">Seat Height</label>
                                                             <input type="text" id="seat-height" name="seat_height" class="form-control" placeholder="Seat height">
                                                        </div>
-                                                  </div>
+                                                  </div> -->
                                                   <div class="col-lg-4">
                                                        <div class="mb-3">
                                                             <label for="seat-thickness" class="form-label">Seat Thickness</label>
@@ -373,14 +373,39 @@ try {
                                                        </div>
                                                   </div>
                                              </div>
-                                             <div class="row">
-                                                  <div class="col-lg-12">
-                                                       <div class="mb-3">
-                                                            <label for="description" class="form-label">More Info.</label>
-                                                            <textarea class="form-control bg-light-subtle" name="description" id="description" rows="7" placeholder="More Info. about the product"></textarea>
-                                                       </div>
-                                                  </div>
-                                             </div>
+                                            <div class="row">
+ <!-- ✅ Product Description -->
+<div class="col-lg-12">
+    <div class="mb-3">
+        <label for="description" class="form-label">More Info.</label>
+        <textarea 
+            class="form-control bg-light-subtle" 
+            name="description" 
+            id="description" 
+            rows="7" 
+            placeholder="More Info. about the product"><?php echo isset($product['description']) ? $product['description'] : ''; ?></textarea>
+    </div>
+</div>
+
+
+    <!-- ✅ Use Cases -->
+    <div class="col-lg-12">
+        <div class="mb-3">
+            <label for="use_case" class="form-label">Use Cases <small class="text-muted">(Enter one point per line)</small></label>
+            <textarea 
+                class="form-control bg-light-subtle" 
+                name="use_case" 
+                id="use_case" 
+                rows="6" 
+                placeholder="Example:
+✔ Living Room Decor
+✔ Office Furniture
+✔ Bedroom Storage
+✔ Outdoor Use"><?php echo isset($product['use_case']) ? htmlspecialchars($product['use_case']) : ''; ?></textarea>
+        </div>
+    </div>
+</div>
+
                                              <div class="row">
                                                   <div class="col-lg-4">
                                                        <div class="mb-3">
@@ -498,6 +523,34 @@ try {
           });
      </script>
 
+     <!-- ✅ CKEditor CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+
+<script>
+ClassicEditor
+    .create(document.querySelector('#description'), {
+        toolbar: [
+            'heading', '|',
+            'bold', 'italic', 'underline', '|',
+            'bulletedList', 'numberedList', '|',
+            'link', 'blockQuote', '|',
+            'undo', 'redo'
+        ],
+        heading: {
+            options: [
+                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+            ]
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
+</script>
+
+
 </body>
 
 </html>
@@ -543,6 +596,7 @@ $sql = "CREATE TABLE IF NOT EXISTS products (
      wheels VARCHAR(50),
      short_description VARCHAR(200),
      description TEXT,
+     use_case TEXT,
      tag_number VARCHAR(50) UNIQUE,
      stock INT(11),
      tags TEXT,
@@ -601,6 +655,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $wheels = $_POST['wheels'];
      $short_description = $_POST['short_description'];
      $description = $_POST['description'];
+     $use_case = $_POST['use_case'] ?? '';
      $tag_number = $_POST['tagnumber'];
      $stock = $_POST['stock'];
      $tags = isset($_POST['tag']) ? (is_array($_POST['tag']) ? implode(',', $_POST['tag']) : $_POST['tag']) : '';
@@ -652,13 +707,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 backrest_material_type, pedestal_base, seat_height_adjusting_range, handle_type, 
                 wheel_type, mechanical_system_type, color_available, product_weight, backrest_size, 
                 adjuster_size, guarantee, chair_arms, table_top_size, sitting_capacity, no_of_top, 
-                table_type, shape, wheels, short_description, description, tag_number, stock, tags, 
+                table_type, shape, wheels, short_description, description,use_case, tag_number, stock, tags, 
                 price, discount, corporate_discount,tax, images, variants, colour,hashtags) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?,?,?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?,?,?, ?, ?)";
 
           $stmt = $conn->prepare($sql);
           $stmt->bind_param(
-               "sssssssssssssssssssssssssssssssssssssssssss",
+               "ssssssssssssssssssssssssssssssssssssssssssss",
                $product_name,
                $category,
                $brand,
@@ -691,6 +746,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                $wheels,
                $short_description,
                $description,
+               $use_case,
                $tag_number,
                $stock,
                $tags,
