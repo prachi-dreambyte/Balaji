@@ -146,21 +146,86 @@ $totalItems = count($wishlist_items);
                 <div class="col-lg-12">
                     <div class="vonia-wishlist-wrapper" data-aos="fade-up" data-aos-delay="200">
                         <h3 class="vonia-wishlist-heading">Your Favorite Items (<?= $totalItems ?>)</h3>
-                        <?php if (isset($_GET['status']) && $_GET['status'] === 'vonia_added'): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert" data-aos="fade-in">
-                                Product added to wishlist!
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        <?php elseif (isset($_GET['status']) && $_GET['status'] === 'vonia_removed'): ?>
-                            <div class="alert alert-info alert-dismissible fade show" role="alert" data-aos="fade-in">
-                                Product removed from wishlist.
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        <?php endif; ?>
+                        <!-- <?php if (isset($_GET['status']) && $_GET['status'] === 'vonia_added'): ?>
+    <div class="wishlist-alert success">
+        <p>✅ Product added to wishlist!</p>
+    </div>
+<?php elseif (isset($_GET['status']) && $_GET['status'] === 'vonia_removed'): ?>
+    <div class="wishlist-alert removed">
+        <p>❌ Product removed from wishlist.</p>
+    </div>
+<?php endif; ?> -->
+
+<style>
+.wishlist-alert {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #333;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    z-index: 9999;
+    opacity: 0;
+    animation: fadeSlideIn 0.6s ease forwards;
+}
+.wishlist-alert.success { border-left: 6px solid #28a745; }
+.wishlist-alert.removed { border-left: 6px solid #007bff; }
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translate(-50%, -30%); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes fadeSlideOut {
+    from { opacity: 1; transform: translate(-50%, 0); }
+    to { opacity: 0; transform: translate(-50%, -30%); }
+}
+</style>
+
+<script>
+// Auto hide alert after 3 seconds with animation
+setTimeout(() => {
+    const alertBox = document.querySelector('.wishlist-alert');
+    if (alertBox) {
+        alertBox.style.animation = "fadeSlideOut 0.6s ease forwards";
+        setTimeout(() => alertBox.remove(), 600);
+    }
+}, 3000);
+</script>
+<?php if (isset($_GET['status']) && $_GET['status'] === 'vonia_added'): ?>
+    <div id="wishlistAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fa fa-check-circle"></i> Product added to wishlist!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php elseif (isset($_GET['status']) && $_GET['status'] === 'vonia_removed'): ?>
+    <div id="wishlistAlert" class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="fa fa-info-circle"></i> Product removed from wishlist.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php endif; ?>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const alertBox = document.getElementById("wishlistAlert");
+        if (alertBox) {
+            setTimeout(() => {
+                alertBox.classList.remove("show");   // triggers Bootstrap fade-out
+                alertBox.classList.add("fade");
+                setTimeout(() => alertBox.remove(), 500); // remove after fade
+            }, 3000); // 3 seconds
+        }
+    });
+</script>
+
 
                         <?php if (!empty($wishlist_items)): ?>
                             <div class="vonia-wishlist-table-container table-responsive">
