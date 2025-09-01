@@ -2,6 +2,8 @@
 
           
 
+          
+
           .footer {
     /* background-color: #f8f6f1; */
         /* padding: 10px 0px !important; */
@@ -59,7 +61,7 @@ a {
     fill: #845848;
 }
 
-..footer-content {
+.footer-content {
     /* max-width: 1230px; */
     padding: 20px 0px 450px;
     position: relative;
@@ -167,18 +169,7 @@ a {
     text-decoration: none;
 }
 
-/* Parent div ke liye */
-.social-icons a {
-  color: #212529; /* dark gray/black */
-  transition: all 0.3s ease-in-out;
-  font-size: 1.5rem; /* thoda bada */
-}
 
-/* Hover effect */
-.social-icons a:hover {
-  color: #fff; /* Bootstrap primary blue */
-  transform: scale(1.2); /* zoom thoda */
-}
 
 
 
@@ -303,9 +294,22 @@ a {
   color:  #845848 !important;
 }
 
+.social-icons a {
+  font-size: 24px;   /* icon size */
+  color: white;      /* default white */
+  transition: 0.3s ease;
+}
 
+/* Hover colors */
+.social-icons a.facebook:hover { color: #1877F2; }   /* Facebook Blue */
+.social-icons a.instagram:hover { color: #E4405F; }  /* Instagram Pink/Red */
+.social-icons a.twitter:hover { color: #1DA1F2; }    /* Twitter Blue */
+.social-icons a.linkedin:hover { color: #0077B5; }   /* LinkedIn Blue */
 
-
+/* Optional hover animation */
+.social-icons a:hover {
+  transform: scale(1.1);
+}
 
 @media (max-width: 1128.98px) {
 .footer-logo-link {
@@ -498,7 +502,7 @@ a {
   position: relative; /* reset from absolute */
   transform: none;    /* reset */
 }
- .subscribe-input { font-family: "Source Serif Pro", serif; border-radius: 5px 0 0 5px !important; border: none; padding: 25px 10px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.1); color: #eeeeee } 
+ .subscribe-input { font-family: "Source Serif Pro", serif; border-radius: 5px 0 0 5px ; border: none; padding: 25px 10px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.1); color: #eeeeee } 
  .subscribe-btn { border-radius: 10px !important; background-color: #c1a283; /* Beige/Brown shade */ color: #fff; font-weight: bold; padding:12px 15px; border: none; }
  .subscribe-btn:hover { background-color: #a98967; } .form-control:focus { box-shadow: none; }
 
@@ -587,8 +591,11 @@ a {
           <p class="text-dark text-decoration-none footer-para">Have a support question?</p>
 
           <div class="subscribe-box">
-            <button type="submit" class="subscribe-btn">Contact Us</button>
-        </div>
+  <a href="contact.php">
+    <button type="button" class="subscribe-btn">Contact Us</button>
+  </a>
+</div>
+
       </div>
     </div>
 
@@ -611,7 +618,7 @@ a {
       <a href="#"><i class="bi bi-linkedin linkedin"></i></a>
     </div>
 
-  </div>
+
 </footer>
 
 <!-- Bootstrap Icons -->
