@@ -108,7 +108,6 @@ include 'connect.php';
 </section>
 
     <section class="marqu">
-        <h3 class="text-center"> </h3>
         <div class="carousel-wrapper">
             <div class="custom-slick-carousel marq ">
                 <div><img src="img/balaji/logo1.png" class="d-block w-100" alt="..." height="20"/></div>
@@ -123,7 +122,6 @@ include 'connect.php';
                 <div><img src="img/balaji/logo5.jpg" class="d-block w-100" alt="..." height="20"/></div>
             </div>
         </div>
-      
     </section>
 
 
