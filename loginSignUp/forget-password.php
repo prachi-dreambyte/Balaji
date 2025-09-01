@@ -13,9 +13,11 @@ require '../PHPMailer/src/SMTP.php';
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email']);
+    $email = trim($_POST['email'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
 
     if (!empty($email)) {
+        // ==== EMAIL RESET ====
         $query = "SELECT * FROM signup WHERE LOWER(email) = LOWER(?)";
         $stmt = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($stmt, 's', $email);
@@ -35,13 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Send email
             $mail = new PHPMailer(true);
-
             try {
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'princeraj908071@gmail.com';
-                $mail->Password   = 'avvl pbpq rsnb naxg';
+                $mail->Password   = 'avvl pbpq rsnb naxg'; // Google App Password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
@@ -60,8 +61,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $message = "<div class='alert alert-danger'>❌ Email not found.</div>";
         }
+
+    } elseif (!empty($phone)) {
+        // ==== PHONE RESET ====
+        $query = "SELECT * FROM signup WHERE phone = ?";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 's', $phone);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if ($result && mysqli_num_rows($result) === 1) {
+            $user = mysqli_fetch_assoc($result);
+
+            // Generate OTP
+            $otp = rand(100000, 999999);
+            $expiry = date("Y-m-d H:i:s", strtotime("+10 minutes"));
+
+            $update = "UPDATE signup SET reset_otp = ?, otp_expiry = ? WHERE id = ?";
+            $stmt2 = mysqli_prepare($conn, $update);
+            mysqli_stmt_bind_param($stmt2, 'ssi', $otp, $expiry, $user['id']);
+            mysqli_stmt_execute($stmt2);
+
+            // TODO: Integrate SMS API to send $otp to $phone
+            $message = "<div class='alert alert-success'>📱 An OTP has been sent to your phone.</div>";
+        } else {
+            $message = "<div class='alert alert-danger'>❌ Phone number not found.</div>";
+        }
+
     } else {
-        $message = "<div class='alert alert-warning'>❌ Please enter your email.</div>";
+        $message = "<div class='alert alert-warning'>❌ Please enter your email or phone number.</div>";
     }
 }
 ?>
@@ -93,14 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         background: #fff;
         transition: transform 0.2s ease-in-out;
     }
-    .card:hover {
-        transform: translateY(-5px);
-    }
-    .card h2 {
-        font-weight: 700;
-        margin-bottom: 15px;
-        color: #333;
-    }
+    .card:hover { transform: translateY(-5px); }
+    .card h2 { font-weight: 700; margin-bottom: 15px; color: #333; }
     .form-control {
         height: 48px;
         font-size: 16px;
@@ -119,24 +141,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .btn-custom:hover {
         background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
     }
-</style>
-
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="col-md-6 col-lg-5 mx-auto">
             <div class="card">
                 <h2 class="text-center">Forget Password</h2>
-                <p class="text-center text-muted">Enter your email and we'll send you a reset link.</p>
+                <p class="text-center text-muted">Enter your email OR phone to reset password.</p>
                 
                 <?= $message ?>
 
                 <form method="POST">
                     <div class="mb-3">
                         <label class="form-label">Email address</label>
-                        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                        <input type="email" name="email" class="form-control" placeholder="Enter your email">
                     </div>
-                    <button type="submit" class="btn btn-custom w-100 text-white">Send Reset Link</button>
+                    <p class="text-center fw-bold">OR</p>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" name="phone" class="form-control" placeholder="Enter your phone number">
+                    </div>
+                    <button type="submit" class="btn btn-custom w-100 text-white">Continue</button>
                 </form>
                 <div class="text-center mt-3">
                     <a href="login.php" class="text-decoration-none">Back to Login</a>
