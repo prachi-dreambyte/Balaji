@@ -501,12 +501,31 @@ a {
  .subscribe-input { font-family: "Source Serif Pro", serif; border-radius: 5px 0 0 5px !important; border: none; padding: 25px 10px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.1); color: #eeeeee } 
  .subscribe-btn { border-radius: 10px !important; background-color: #c1a283; /* Beige/Brown shade */ color: #fff; font-weight: bold; padding:12px 15px; border: none; }
  .subscribe-btn:hover { background-color: #a98967; } .form-control:focus { box-shadow: none; }
-.footericon a i{
+
+ .footericon .facebook{
   color:#fff !important;
 }
-.footericon a i:hover{
-  color:#c1a283 !important;
-}'
+ .footericon .insta{
+  color:#fff !important;
+}
+ .footericon .twitter{
+  color:#fff !important;
+}
+ .footericon .linkedin{
+  color:#fff !important;
+}
+ .footericon .facebook:hover{
+  color: #1877F2 !important;
+}
+ .footericon .insta:hover{
+  background: linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4);
+}
+ .footericon .twitter:hover{
+  color: #1A91DA !important;
+}
+ .footericon .linkedin:hover{
+  color: #004182 !important;
+}
 </style>
         <link rel="stylesheet" href="css/responsive-enhancements.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -522,7 +541,8 @@ a {
     <div class="row">
       <!-- Logo and Shop Info -->
       <div class="col-md-6 col-lg-2">
-        <img src="img\balaji\balaji-furniture-2048x1368.png" alt="Logo" class="img-fluid mb-3" style="max-width: 80%; height: auto;">
+        <a href="index.php">
+          <img src="img\balaji\balaji-furniture-2048x1368.png" alt="Logo" class="img-fluid mb-3" style="max-width: 80%; height: auto;"></a>
         
       </div>
        <div class="col-md-6 col-lg-3">
@@ -585,10 +605,10 @@ a {
 
     <!-- Right Side (Social Icons) -->
     <div class="text-white social-icons d-flex gap-3 footericon">
-      <a href="#"><i class="bi bi-facebook"></i></a>
-      <a href="#"><i class="bi bi-instagram"></i></a>
-      <a href="#"><i class="bi bi-twitter"></i></a>
-      <a href="#"><i class="bi bi-linkedin"></i></a>
+      <a href="#"><i class="bi bi-facebook facebook"></i></a>
+      <a href="#"><i class="bi bi-instagram insta"></i></a>
+      <a href="#"><i class="bi bi-twitter twitter"></i></a>
+      <a href="#"><i class="bi bi-linkedin linkedin"></i></a>
     </div>
 
   </div>
