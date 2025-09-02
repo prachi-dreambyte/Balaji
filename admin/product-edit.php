@@ -54,6 +54,7 @@ try {
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <script src="assets/js/config.js"></script>
+     <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
 </head>
 
 <body>
@@ -73,33 +74,40 @@ try {
                                 </div>
                                 <div class="card-body">
                                     <!-- Current Images with Replace/Remove -->
-                                    <div class="mb-3">
-                                        <label class="form-label">Manage Product Images</label><br>
-                                        <div class="d-flex flex-wrap">
-                                            <?php
-                                            $imgs = [];
-                                            if (!empty($product['images'])) {
-                                                $imgs = json_decode($product['images'], true);
-                                                if (is_array($imgs)) {
-                                                    foreach ($imgs as $index => $img) { ?>
-                                                        <div style="margin:10px;text-align:center;">
-                                                            <img src="<?= $img; ?>" alt="" width="100" style="border:1px solid #ccc;border-radius:5px;"><br>
-                                                            <!-- Replace image -->
-                                                            <input type="file" name="replace_image[<?= $index; ?>]" class="form-control mt-1">
-                                                            <!-- Remove checkbox -->
-                                                            <div class="form-check mt-1">
-                                                                <input class="form-check-input" type="checkbox" name="remove_image[]" value="<?= $index; ?>" id="remove_<?= $index; ?>">
-                                                                <label class="form-check-label" for="remove_<?= $index; ?>">Remove</label>
-                                                            </div>
-                                                            <!-- Hidden field for existing image -->
-                                                            <input type="hidden" name="existing_images[]" value="<?= $img; ?>">
+                                  <div class="mb-3">
+    <label class="form-label">Manage Product Images</label><br>
+    <div class="d-flex flex-wrap">
+        <?php
+                                        $imgs = [];
+                                        if (!empty($product['images'])) {
+                                            $imgs = json_decode($product['images'], true);
+                                            if (is_array($imgs)) {
+                                                foreach ($imgs as $index => $img) { ?>
+                                                    <div style="margin:10px;text-align:center;">
+                                                        <!-- Preview -->
+                                                        <img src="<?= htmlspecialchars($img); ?>" alt="" width="100"
+                                                            style="border:1px solid #ccc;border-radius:5px;"><br>
+                                
+                                                        <!-- Replace image -->
+                                                        <input type="file" name="replace_image[<?= $index; ?>]" class="form-control mt-1">
+                                
+                                                        <!-- Remove checkbox (✅ now sends image path instead of index) -->
+                                                        <div class="form-check mt-1">
+                                                            <input class="form-check-input" type="checkbox" name="remove_image[]"
+                                                                value="<?= htmlspecialchars($img); ?>" id="remove_<?= $index; ?>">
+                                                            <label class="form-check-label" for="remove_<?= $index; ?>">Remove</label>
                                                         </div>
-                                            <?php }
-                                                }
+                                
+                                                        <!-- Hidden field for existing image -->
+                                                        <input type="hidden" name="existing_images[]" value="<?= htmlspecialchars($img); ?>">
+                                                    </div>
+                                                <?php }
                                             }
-                                            ?>
-                                        </div>
+                                        }
+                                        ?>
                                     </div>
+                                </div>
+
 
                                     <!-- Image Reorder (Drag & Drop) -->
                                     <div class="mb-3">
@@ -278,14 +286,18 @@ try {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                <label for="description" class="form-label">Full Description</label>
-                                                <textarea class="form-control" name="description" id="description" rows="5"><?php echo isset($product['description']) ? $product['description'] : ''; ?></textarea>
-                                            </div>
+                                   <div class="row">
+    <div class="col-lg-12">
+        <div class="mb-3">
+            <label for="description" class="form-label">Full Description</label>
+            <!-- ✅ CKEditor will replace this textarea -->
+            <textarea class="form-control" name="description" id="description" rows="8">
+                <?= isset($product['description']) ? htmlspecialchars($product['description']) : ''; ?>
+                                            </textarea>
                                         </div>
                                     </div>
+                                </div>
+
 
                                     <div class="row">
     <div class="col-lg-12">
@@ -355,25 +367,25 @@ try {
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <label for="product-discount" class="form-label">Discount (%)</label>
+                                            <label for="product-discount" class="form-label">Discount (₹)</label>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text">%</span>
+                                                <span class="input-group-text">₹</span>
                                                 <input type="number" step="0.01" id="product-discount" class="form-control" name="discount" 
                                                     value="<?= $product['discount']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <label for="corporate-discount" class="form-label">Corporate Discount (%)</label>
+                                            <label for="corporate-discount" class="form-label">Corporate Discount (₹)</label>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text">%</span>
+                                                <span class="input-group-text">₹</span>
                                                 <input type="number" step="0.01" id="corporate-discount" class="form-control" name="corporate_discount" 
                                                     value="<?= $product['corporate_discount']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <label for="product-tax" class="form-label">Tax (%)</label>
+                                            <label for="product-tax" class="form-label">Tax (₹)</label>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text">%</span>
+                                                <span class="input-group-text">₹</span>
                                                 <input type="number" step="0.01" name="tax" id="product-tax" class="form-control" 
                                                     value="<?= $product['tax']; ?>">
                                             </div>
@@ -463,6 +475,41 @@ try {
             
             // Initialize label
             updateFileInputLabel();
+        });
+    </script>
+    <script src="assets/js/vendor.js"></script>
+    <script src="assets/js/app.js"></script>
+    
+    <!-- ✅ CKEditor Initialization -->
+    <script>
+        // Initialize CKEditor for description field
+        ClassicEditor
+            .create(document.querySelector('#description'), {
+                toolbar: [
+                    'heading', '|',
+                    'bold', 'italic', 'underline', '|',
+                    'bulletedList', 'numberedList', '|',
+                    'link', 'blockQuote', '|',
+                    'undo', 'redo'
+                ],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                    ]
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    
+    <script>
+        // Your existing JavaScript code for image handling and tags
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... your existing JavaScript code ...
         });
     </script>
 </body>

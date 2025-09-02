@@ -671,12 +671,10 @@ $cat_sidebar_stmt->close();
         COUNT(rating) AS total_reviews, 
         ROUND(AVG(rating), 1) AS avg_rating 
     FROM reviews 
-    WHERE product_id = $product_id
-";
+    WHERE product_id = $product_id";
 
 	$review_result = mysqli_query($conn, $review_query);
 	$reviewData = mysqli_fetch_assoc($review_result);
-
 	$total_reviews = $reviewData['total_reviews'] ?? 0;
 	$avg_rating = $reviewData['avg_rating'] ?? 0;
 
