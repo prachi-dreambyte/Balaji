@@ -1250,7 +1250,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 <div class="col-md-2 col-4 text-center">
                     <div class="single-brand">
                         <a href="#">
-                            <img src="img\balaji\happy-universal-q-01-TM-1024x1024.png" alt="Fixed Brand"
+                            <img src="img\balaji\balaji logo.png" alt="Fixed Brand"
                                 style="max-width:120px;">
                         </a>
                     </div>

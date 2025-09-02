@@ -122,7 +122,7 @@ a {
     margin-bottom: 20px;
 }
 .footer-call-to-action-button:hover {
-   background: #e393a7 ! important;
+   background: #a98967 ! important;
     color: white;
 }
 .button:last-of-type {
