@@ -49,7 +49,7 @@ include 'connect.php';
        <?php include 'header.php'; ?>
                     <section class="AboutSection">
   <div class="image-wrapper">
-    <img src="img\about us.jpg" class="AboutwrapperImage" />
+    <img src="img/banner/about-us.jpg" class="AboutwrapperImage" />
     <!--<h1 class="aboutUs-Heading">ABOUT US</h1>-->
     <!--<div class="AboutDivWrapper">-->
     <!--    <a class="AboutHome"> HOME </a> &nbsp/ &nbsp <a class="AboutHome">ABOUT US</a>-->
@@ -74,12 +74,12 @@ include 'connect.php';
                               Unveiling the Spirit of Balaji Furniture: A Luxurious Fusion of Comfort and Connectivity
                             </p>
                             <p class="aboutParagraph wow fadeInUp" data-wow-delay="0.7s">
-                             The Inception of Balaji Furniture: A Symbolic Expedition initiated in 2003 by its Founder, Mr. Naveen Goel, 
+                             The Inception of Balaji Furniture: A Symbolic Expedition initiated in 1999 by its Founder, Mr. Naveen Goel, 
                              hailing from the small city of Amroha in Uttar Pradesh and relocating to Dehradun in 1999. Subsequently, he commenced the production of High-Quality Office Furniture.”
                             </p>
-                            <a href="" class="AboutWrapperButton wow fadeInUp" data-wow-delay="0.9s">
+                            <!-- <a href="" class="AboutWrapperButton wow fadeInUp" data-wow-delay="0.9s">
                               Read More
-                            </a>
+                            </a> -->
                        </div>
                     </div>
                 </div>
@@ -92,9 +92,9 @@ include 'connect.php';
                 <h1 class="aboutUniversal  wow fadeInUp" data-wow-delay="0.3s">Discovering the Essence of Balaji Furniture: A Harmonious Fusion of Luxury, Comfort, and Connection.</h1>
                     <div class="row">
                         <div class="col-md-6 col-sm-6  col-xs-12  wow fadeInUp" data-wow-delay="0.5s">
-                            <p class="aboutParagraph pt-5">"The enterprise 'JAY SHRI BALAJI FOAM & FURNITURE', popularly referred to as 'BALAJI FURNITURE', embarked on its symbolic journey in 2003 under the guidance of its founder, Mr. Naveen Goel, a native of Amroha, Uttar Pradesh, who relocated to Dehradun in 1999.</p>
-                            <p  class="aboutParagraph">Initially focusing on manufacturing high-quality office furniture, the firm has since evolved into a prominent Distributor of Plastic Furniture, representing renowned brands such as 'Amul', 'Spark', 'Highway', 'Neelam', 'Vardhmaan', 'Omaxe', 'Marble', 'Sharda' and 'Prime Gold'.</p>
-                            <p  class="aboutParagraph">Serving clientele across Dehradun and extending its reach throughout Uttarakhand, the company's manufacturing arm operates under the brand 'HAPPY UNIVERSAL', proudly recognized as one of Dehradun's pioneering trademarked furniture brands."</p>
+                            <p class="aboutParagraph pt-5">"The enterprise 'JAY SHRI BALAJI FOAM & FURNITURE', popularly referred to as 'BALAJI FURNITURE', embarked on its symbolic journey in 1999 under the guidance of its founder, <span style="color:black;font-weight:bold"> Mr. Naveen Goel </span>, a native of Amroha, Uttar Pradesh, who relocated to Dehradun in 1999.</p>
+                            <p  class="aboutParagraph">Initially focusing on manufacturing high-quality office furniture, the firm has since evolved into a prominent Distributor of Plastic Furniture, representing renowned brands such as <span style="color:black;font-weight:bold">'Amul'</span>,<span style="color:black;font-weight:bold"> 'Spark'</span>, <span style="color:black;font-weight:bold">'Highway'</span>,<span style="color:black;font-weight:bold"> 'Neelam'</span>,<span style="color:black;font-weight:bold"> 'Vardhmaan'</span>, <span style="color:black;font-weight:bold">'Omaxe'</span>, <span style="color:black;font-weight:bold">'Marble'</span>, <span style="color:black;font-weight:bold">'Sharda'</span> and <span style="color:black;font-weight:bold">'Prime Gold'</span>.</p>
+                            <p  class="aboutParagraph">Serving clientele across Dehradun and extending its reach throughout Uttarakhand, the company's manufacturing arm operates under the brand <span style="color:black;font-weight:bold"> 'HAPPY UNIVERSAL'</span> , proudly recognized as one of Dehradun's pioneering trademarked furniture brands."</p>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 wow slideInRight" data-wow-delay="1s">
                             <div class="DiscoveringImage">
@@ -123,8 +123,7 @@ include 'connect.php';
                 <div><img src="img/balaji/logo5.jpg" class="d-block w-100" alt="..." height="20"/></div>
             </div>
         </div>
-      
-    </section>
+      </section>
 
 
    <section class="balaji-family-section" style="padding: 100px 0; background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%); position: relative;">
@@ -162,7 +161,7 @@ include 'connect.php';
                                 <polygon points="0,0 0,100 100,100"></polygon>
                             </svg>
                         </div>
-                        <img src="img/balaji/happy-universal-q-01-TM-1024x1024.png" alt="Happy Universal logo " 
+                        <img src="img\balaji\balaji logo.png" alt="Happy Universal logo " 
                              style="width: auto;height: 500px;/* object-fit: cover; */padding: 54px 10px;justify-content: center;display: flex;margin-top: 113px;margin-left: 40px;">
                     </div>
                 </div>
