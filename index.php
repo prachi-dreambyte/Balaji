@@ -556,15 +556,14 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!--===== Categories Section =====-->
     <!--===== Categories Section =====-->
     <section class="home-categories-section py-5">
-        <div class="container">
-            <div class="product-title text-center mb-4" id="deals">
-                <h2><span>Shop by Category</span></h2>
-            </div>
+    <div class="container">
+        <div class="product-title text-center mb-4" id="deals">
+            <h2><span>Shop by Category</span></h2>
+        </div>
 
-            <div class="row justify-content-center">
-                <?php
-                // Get all categories from database
-                $sql = "SELECT * FROM categories  ORDER bY display_order ASC";
+        <div class="row justify-content-center">
+            <?php
+                $sql = "SELECT * FROM categories ORDER BY display_order ASC";
                 $result = mysqli_query($conn, $sql);
 
                 if ($result && mysqli_num_rows($result) > 0) {
@@ -573,31 +572,25 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                         $imageFile = isset($row['category_image']) ? $row['category_image'] : '';
                         $imagePath = 'admin/' . htmlspecialchars($imageFile);
 
-                        // Use placeholder if image doesn't exist
                         if (empty($imageFile) || !file_exists($imagePath)) {
                             $imagePath = 'img/placeholder-category.jpg';
                         }
 
                         echo '
-    <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-4 text-center">
-        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
-            <div class="circle-img" style="width:250px; height:300px; margin:auto;">
-                <img src="' . $imagePath . '" alt="' . $name . '">
-            </div>
-            <p class="category-name mt-2" style="font-size:18px; font-weight:700; color:#333;">' . $name . '</p>
-        </a>
-    </div>';
-
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-4 text-center">
+                        <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
+                            <div class="circle-img">
+                                <img src="' . $imagePath . '" alt="' . $name . '">
+                            </div>
+                            <p class="category-name mt-2">' . $name . '</p>
+                        </a>
+                    </div>';
                     }
                 } else {
                     echo '<div class="col-12 text-center"><p>No categories found.</p></div>';
                 }
                 ?>
             </div>
-
-            <!-- <div class="text-center mt-4">
-            <a href="shop.php" class="view-all-btn">View All Categories</a>
-        </div> -->
         </div>
     </section>
     <div class="home-4-special-look">
@@ -642,80 +635,97 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     </div>
 
     <style>
-        /* Categories Section */
-        .home-categories-section {
-            background-color: #fff;
-        }
+/* Categories Section */
+.home-categories-section {
+    background-color: #fff;
+}
 
-        .category-circle {
-            display: block;
-            text-decoration: none;
-            color: #000;
-            transition: transform 0.2s ease;
-        }
+.category-circle {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    transition: transform 0.2s ease;
+}
 
-        .category-circle:hover {
-            transform: translateY(-5px);
-            text-decoration: none;
-        }
+.category-circle:hover {
+    transform: translateY(-5px);
+    text-decoration: none;
+}
 
-        /* Circle Image */
-        /* Circle Image */
-        .circle-img {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto;
-            border-radius: 50%;
-            background-color: #f8f8f8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            /* makes sure image stays inside circle */
-            transition: box-shadow 0.2s ease;
-        }
+/* Circle Image */
+.circle-img {
+    width: 100%;
+    max-width: 180px;  /* controls max size */
+    aspect-ratio: 1 / 1;  /* keeps it always square */
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
 
-        .circle-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* ensures image fills the circle */
-        }
+.circle-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
+.category-circle:hover .circle-img {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
-        .category-circle:hover .circle-img {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
+/* Category Name */
+.category-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+    color: #333;
+}
 
-        /* Category Name */
-        .category-name {
-            font-size: 14px;
-            font-weight: 500;
-            margin-top: 10px;
-        }
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .circle-img {
+        max-width: 140px;
+    }
+    .category-name {
+        font-size: 14px;
+    }
+}
 
-        /* View All Button */
-        .view-all-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 12px 24px;
-            background-color: #845848;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
+@media (max-width: 480px) {
+    .circle-img {
+        max-width: 110px;
+    }
+    .category-name {
+        font-size: 13px;
+    }
+}
 
-        .view-all-btn:hover {
-            background-color: #e393a7;
-            color: #fff;
-            text-decoration: none;
-        }
-    </style>
+/* View All Button */
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 24px;
+    background-color: #845848;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.view-all-btn:hover {
+    background-color: #e393a7;
+    color: #fff;
+    text-decoration: none;
+}
+</style>
     <!--=====daily-deals-start=====-->
     <div class="home-4-daily-deals-area py-5">
         <!-- <div class="container">
@@ -1837,6 +1847,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+<?php include 'preloader.php'; ?>
 
 
 

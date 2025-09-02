@@ -2,7 +2,7 @@
 session_start();
 include 'db_connect.php';
 
-if (!isset($_SESSION['admin_id']))  {
+if (!isset($_SESSION['admin_id'])) {
     header("Location: auth-signin.php");
     exit;
 }
@@ -24,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $material = $_POST['material'];
     $seat_height = $_POST['seat_height'];
     $seat_thickness = $_POST['seat_thickness'];
-    // Add all other fields here...
     $short_description = $_POST['short_description'];
     $description = $_POST['description'];
     $use_case = $_POST['use_case'];
@@ -36,13 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $corporate_discount = $_POST['corporate_discount'];
     $tax = $_POST['tax'];
 
-    // Always use the same upload directory
+    // Upload directory
     $uploadDir = "uploads/products/";
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
 
-    // Fetch existing product
+    // Fetch existing product images from DB
     $sql = "SELECT images FROM products WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $product_id);
@@ -51,41 +50,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $product = $result->fetch_assoc();
     $stmt->close();
 
-    $currentImages = json_decode($product['images'], true) ?: [];
-    $imgs = isset($_POST['existing_images']) ? $_POST['existing_images'] : [];
-
-    // 1. Remove images (by path)
-    if (!empty($_POST['remove_image'])) {
-        foreach ($_POST['remove_image'] as $remove_path) {
-            $imgs = array_filter($imgs, function($img) use ($remove_path) {
-                return $img !== $remove_path;
-            });
+    /**
+     * ✅ Start with images from DB
+     */
+    $imgs = [];
+    if (!empty($product['images'])) {
+        $imgs = json_decode($product['images'], true);
+        if (!is_array($imgs)) {
+            $imgs = [];
         }
-        $imgs = array_values($imgs);
     }
 
-    // 2. Replace images
+    // ✅ If form sends existing_images, override DB
+    if (isset($_POST['existing_images']) && is_array($_POST['existing_images'])) {
+        $imgs = $_POST['existing_images'];
+    }
+
+    // ✅ Remove selected images (delete from DB + unlink physical files)
+    if (!empty($_POST['remove_image'])) {
+        foreach ($_POST['remove_image'] as $remove_path) {
+            $imgs = array_filter($imgs, function ($img) use ($remove_path) {
+                $img_rel = ltrim(str_replace('\\', '/', $img), '/');
+                $remove_rel = ltrim(str_replace('\\', '/', $remove_path), '/');
+
+                if ($img_rel === $remove_rel && file_exists($remove_rel)) {
+                    unlink($remove_rel); // delete physical file
+                }
+                return $img_rel !== $remove_rel;
+            });
+        }
+        $imgs = array_values($imgs); // reindex
+    }
+
+    /**
+     * Replace images (by index)
+     */
     if (!empty($_FILES['replace_image']['name'])) {
         foreach ($_FILES['replace_image']['name'] as $index => $fileName) {
             if ($fileName && isset($imgs[$index])) {
                 $target_file = $uploadDir . time() . "_" . basename($fileName);
                 if (move_uploaded_file($_FILES['replace_image']['tmp_name'][$index], $target_file)) {
+                    // delete old file before replacing
+                    if (file_exists($imgs[$index])) {
+                        unlink($imgs[$index]);
+                    }
                     $imgs[$index] = $target_file;
                 }
             }
         }
     }
 
-    // 3. Reorder images (by path)
+    /**
+     * Reorder images
+     */
     if (!empty($_POST['image_order'])) {
-        $order = explode(',', $_POST['image_order']); // contains file paths
+        $order = explode(',', $_POST['image_order']);
         $new_imgs = [];
         foreach ($order as $path) {
             if (in_array($path, $imgs)) {
                 $new_imgs[] = $path;
             }
         }
-        // Add any missing ones
         foreach ($imgs as $img) {
             if (!in_array($img, $new_imgs)) {
                 $new_imgs[] = $img;
@@ -94,18 +119,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
         $imgs = $new_imgs;
     }
 
-    // 4. Add/replace all images
-    if (isset($_POST['image_option'])) {
-        if ($_POST['image_option'] == 'replace') {
-            $imgs = [];
+    /**
+     * Add / Replace all images
+     */
+    $imageOption = $_POST['image_option'] ?? '';
+    if ($imageOption === 'replace') {
+        // delete all existing files
+        foreach ($imgs as $oldImg) {
+            if (file_exists($oldImg)) {
+                unlink($oldImg);
+            }
         }
-        if (!empty($_FILES['images']['name'][0])) {
-            foreach ($_FILES['images']['name'] as $key => $fileName) {
-                if ($fileName) {
-                    $target_file = $uploadDir . time() . "_" . basename($fileName);
-                    if (move_uploaded_file($_FILES['images']['tmp_name'][$key], $target_file)) {
-                        $imgs[] = $target_file;
-                    }
+        $imgs = [];
+    }
+    if (!empty($_FILES['images']['name'][0])) {
+        foreach ($_FILES['images']['name'] as $key => $fileName) {
+            if ($fileName) {
+                $target_file = $uploadDir . time() . "_" . basename($fileName);
+                if (move_uploaded_file($_FILES['images']['tmp_name'][$key], $target_file)) {
+                    $imgs[] = $target_file;
                 }
             }
         }
@@ -113,21 +145,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
 
     $imagesJSON = json_encode($imgs);
 
-    // Handle tags - if "NO TAG" is selected, clear all tags
+    /**
+     * Handle tags
+     */
     $tags = '';
     if (isset($_POST['tags']) && !empty($_POST['tags'])) {
         if (in_array('NO TAG', $_POST['tags'])) {
-            $tags = ''; // No tags
+            $tags = '';
         } else {
             $tags = implode(',', $_POST['tags']);
         }
     }
 
-    // Update query with all fields
+    /**
+     * Update product
+     */
     $sql = "UPDATE products SET 
-        product_name = ?, category = ?, brand = ?, product_weight = ?, variants = ?, colour = ?,hashtags=? ,
+        product_name = ?, category = ?, brand = ?, product_weight = ?, variants = ?, colour = ?, hashtags = ?,
         size = ?, total_height = ?, total_width = ?, material = ?, seat_height = ?, seat_thickness = ?,
-        short_description = ?, description = ?,use_case =?, tag_number = ?, stock = ?, tags = ?,
+        short_description = ?, description = ?, use_case = ?, tag_number = ?, stock = ?, tags = ?,
         price = ?, discount = ?, corporate_discount = ?, tax = ?, images = ?
         WHERE id = ?";
 
@@ -164,10 +200,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     if ($stmt->execute()) {
         $_SESSION['success'] = "Product updated successfully!";
     } else {
-        $_SESSION['error'] = "Error updating product: " . $conn->error;
+        $_SESSION['error'] = "Error updating product: " . $stmt->error;
     }
 
-    // Log the image operation for debugging
+    // Debug logs
     if (!empty($_FILES['images']['name'][0])) {
         if ($imageOption === 'replace') {
             error_log("Product ID $product_id: Images replaced successfully");
