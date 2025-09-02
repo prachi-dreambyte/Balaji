@@ -1010,6 +1010,7 @@ if ($total_pages > 1): ?>
 	<!--</div>-->
 	<!-- brand-area-end -->
 	<!-- footer-start -->
+	 <?php include 'brand.php'; ?>
 
 	<?php include('footer.php'); ?>
 	
@@ -1189,6 +1190,6 @@ var swiper = new Swiper(".mySwiper", {
 
 	
 </body>
-<?php include 'footer.php'; ?>
+
 
 </html>
