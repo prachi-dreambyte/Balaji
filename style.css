@@ -1482,9 +1482,19 @@ header .header-top nav {
 10. testimonial-area
 ------------------------*/
 .testimonial-area {
-  background: rgba(0, 0, 0, 0) url("img/latest-blog/bg_testimonials.jpg") no-repeat scroll center center / cover ;
+  background: rgba(0, 0, 0, 0) url(img/latest-blog/bg_testimonials.jpg) no-repeat scroll center center / cover;
   padding: 85px 0;
   position: relative;
+;
+  /* normal margin for desktop/tablet */
+}
+
+/* Mobile adjustment */
+@media (max-width: 676px) {
+  .testimonial-area {
+    margin-bottom: 48%;
+    /* bigger spacing only for mobile */
+  }
 }
 .testimonial-item{
 	position: relative;

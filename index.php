@@ -287,6 +287,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             color: #495057;
             border-radius: 50%;
             transition: all 0.3s ease;
+            padding: 10%;
         }
 
         .product-action ul li a:hover {
@@ -326,45 +327,44 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             font-size: 15px;
         }
 
+/* Default button (centered) */
+.product-img .add-to-cart-btn {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
 
-        /* Reel container */
-        .product-img {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            height: 100%;
-        }
+/* Hover effect */
+.product-img:hover .add-to-cart-btn {
+  bottom: 15px;
+  opacity: 1;
+}
 
-        /* Video - pause by default */
-        .reel-video {
-            width: 100%;
-            height: 100%;
-            /* Full height */
-            /* Force reel-like portrait ratio */
-            object-fit: cover;
-            /* Cover full area */
-            border-radius: 10px;
-            display: block;
-        }
+/* Left aligned button */
+.product-img.left .add-to-cart-btn {
+  left: 15px;
+  transform: none;
+  width: auto;
+}
+
+/* Right aligned button */
+.product-img.right .add-to-cart-btn {
+  right: 15px;
+  left: auto;
+  transform: none;
+  width: auto;
+}
+
+.video {
+    border-radius: 8px;
+}
 
 
-        /* Button hidden initially */
-        .product-img .add-to-cart-btn {
-            position: absolute;
-            bottom: -60px;
-            /* Hidden */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
 
-        /* Show button on hover */
-        .product-img:hover .add-to-cart-btn {
-            bottom: 15px;
-            opacity: 1;
-        }
 
         /* Button style */
         .add-to-cart-btn a {
@@ -1462,71 +1462,127 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!-- testimonial-area-end -->
 
     <!-- Reels Section -->
-    <section class="reels-section container my-5">
-        <div class="row">
-            <div class="product-title text-left">
-                <h2>
-                    <span>PRODUCT HIGHLIGHTS</span>
-                </h2>
-            </div>
-            <!-- Reel 1 -->
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="product-img position-relative">
-                    <video class="reel-video w-100" muted loop preload="metadata">
-                        <source src="img/body/video1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="add-to-cart-btn">
-                        <a class="btn btn-danger w-100" href="product-details.php?id=1" title="View Product">
-                            <i class="fa fa-eye"></i> View Product
-                        </a>
-                    </div>
-                </div>
-            </div>
+ <!-- Reels Section -->
+<!-- Reels Section -->
+<section class="reels-section container my-5">
+  <div class="product-title text-left mb-3">
+    <h2><span>PRODUCT HIGHLIGHTS</span></h2>
+  </div>
 
-            <!-- Reel 2 -->
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="product-img position-relative">
-                    <video class="reel-video w-100" muted loop preload="metadata">
-                        <source src="img/body/video2.mp4" type="video/mp4">
-                    </video>
-                    <div class="add-to-cart-btn">
-                        <a class="btn btn-danger w-100" href="product-details.php?id=2" title="View Product">
-                            <i class="fa fa-eye"></i> View Product
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reel 3 -->
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="product-img position-relative">
-                    <video class="reel-video w-100" muted loop preload="metadata">
-                        <source src="img/body/video3.mp4" type="video/mp4">
-                    </video>
-                    <div class="add-to-cart-btn">
-                        <a class="btn btn-danger w-100" href="product-details.php?id=3" title="View Product">
-                            <i class="fa fa-eye"></i> View Product
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reel 4 -->
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="product-img position-relative">
-                    <video class="reel-video w-100" muted loop preload="metadata">
-                        <source src="img/body/video4.mp4" type="video/mp4">
-                    </video>
-                    <div class="add-to-cart-btn">
-                        <a class="btn btn-danger w-100" href="product-details.php?id=4" title="View Product">
-                            <i class="fa fa-eye"></i> View Product
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <!-- Carousel for Mobile -->
+  <div id="reelsCarousel" class="carousel slide d-sm-none" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <!-- Reel 1 -->
+      <div class="carousel-item active">
+        <div class="product-img position-relative">
+          <video class="reel-video w-100" muted loop preload="metadata">
+            <source src="img/body/video1.mp4" type="video/mp4">
+          </video>
+          <div class="add-to-cart-btn">
+            <a class="btn btn-danger w-100" href="product-details.php?id=1">
+              <i class="fa fa-eye"></i> View Product
+            </a>
+          </div>
         </div>
-    </section>
+      </div>
+
+      <!-- Reel 2 -->
+      <div class="carousel-item">
+        <div class="product-img position-relative">
+          <video class="reel-video w-100" muted loop preload="metadata">
+            <source src="img/body/video2.mp4" type="video/mp4">
+          </video>
+          <div class="add-to-cart-btn">
+            <a class="btn btn-danger w-100" href="product-details.php?id=2">
+              <i class="fa fa-eye"></i> View Product
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reel 3 -->
+      <div class="carousel-item">
+        <div class="product-img position-relative">
+          <video class="reel-video w-100" muted loop preload="metadata">
+            <source src="img/body/video3.mp4" type="video/mp4">
+          </video>
+          <div class="add-to-cart-btn">
+            <a class="btn btn-danger w-100" href="product-details.php?id=3">
+              <i class="fa fa-eye"></i> View Product
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reel 4 -->
+      <div class="carousel-item">
+        <div class="product-img position-relative">
+          <video class="reel-video w-100" muted loop preload="metadata">
+            <source src="img/body/video4.mp4" type="video/mp4">
+          </video>
+          <div class="add-to-cart-btn">
+            <a class="btn btn-danger w-100" href="product-details.php?id=4">
+              <i class="fa fa-eye"></i> View Product
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid for Desktop -->
+  <div class="row d-none d-sm-flex">
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="product-img position-relative">
+        <video class="reel-video w-100" muted loop preload="metadata">
+          <source src="img/body/video1.mp4" type="video/mp4">
+        </video>
+        <div class="add-to-cart-btn">
+          <a class="btn btn-danger w-100" href="product-details.php?id=1">
+            <i class="fa fa-eye"></i> View Product
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="product-img position-relative">
+        <video class="reel-video w-100" muted loop preload="metadata">
+          <source src="img/body/video2.mp4" type="video/mp4">
+        </video>
+        <div class="add-to-cart-btn">
+          <a class="btn btn-danger w-100" href="product-details.php?id=2">
+            <i class="fa fa-eye"></i> View Product
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="product-img position-relative">
+        <video class="reel-video w-100" muted loop preload="metadata">
+          <source src="img/body/video3.mp4" type="video/mp4">
+        </video>
+        <div class="add-to-cart-btn">
+          <a class="btn btn-danger w-100" href="product-details.php?id=3">
+            <i class="fa fa-eye"></i> View Product
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="product-img position-relative">
+        <video class="reel-video w-100" muted loop preload="metadata">
+          <source src="img/body/video4.mp4" type="video/mp4">
+        </video>
+        <div class="add-to-cart-btn">
+          <a class="btn btn-danger w-100" href="product-details.php?id=4">
+            <i class="fa fa-eye"></i> View Product
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
     <style>
@@ -1794,31 +1850,86 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             });
         });
     </script>
-    <script>
-        document.querySelectorAll(".reel-video").forEach(video => {
-            video.pause(); // make sure video starts paused
+<script>
+    const videos = document.querySelectorAll(".video-slide"); // all videos
+let currentIndex = 0;
 
-            // ----- Desktop hover -----
-            video.addEventListener("mouseenter", () => {
-                video.currentTime = 0;
-                video.play().catch(err => console.log(err));
-            });
+function showVideo(index) {
+  // hide all videos
+  videos.forEach((vid, i) => {
+    vid.style.display = i === index ? "block" : "none";
+    if (i === index) {
+      vid.currentTime = 0; // restart video
+      vid.play().catch(()=>{});
+    } else {
+      vid.pause();
+    }
+  });
+}
 
-            video.addEventListener("mouseleave", () => {
-                video.pause();
-            });
+// auto change video every 5 seconds
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % videos.length;
+  showVideo(currentIndex);
+}, 5000);
 
-            // ----- Mobile touch -----
-            video.addEventListener("touchstart", () => {
-                video.currentTime = 0;
-                video.play().catch(err => console.log(err));
-            });
+// start with first video
+showVideo(currentIndex);
 
-            video.addEventListener("touchend", () => {
-                video.pause();
-            });
-        });
-    </script>
+document.addEventListener("DOMContentLoaded", () => {
+  const videos = document.querySelectorAll(".reel-video");
+
+  // Pause all initially
+  videos.forEach(v => v.pause());
+
+  videos.forEach(video => {
+    const parent = video.closest(".product-img");
+    const btn = parent.querySelector(".add-to-cart-btn");
+
+    // ----- Desktop hover -----
+    video.addEventListener("mouseenter", () => {
+      video.currentTime = 0;
+      video.play().catch(()=>{});
+      btn.style.bottom = "15px";
+      btn.style.opacity = "1";
+    });
+
+    video.addEventListener("mouseleave", () => {
+      video.pause();
+      btn.style.bottom = "-60px";
+      btn.style.opacity = "0";
+    });
+
+    // ----- Mobile tap (only show button, no pause/play) -----
+    video.addEventListener("click", () => {
+      btn.style.bottom = "15px";
+      btn.style.opacity = "1";
+    });
+  });
+
+  // ----- Carousel autoplay active video -----
+  const carousel = document.getElementById("reelsCarousel");
+  if (carousel) {
+    carousel.addEventListener("slid.bs.carousel", () => {
+      videos.forEach(v => v.pause());
+      const activeVideo = carousel.querySelector(".carousel-item.active video");
+      if (activeVideo) {
+        activeVideo.currentTime = 0;
+        activeVideo.play().catch(()=>{});
+      }
+    });
+
+    // Start first video
+    const firstVideo = carousel.querySelector(".carousel-item.active video");
+    if (firstVideo) {
+      firstVideo.play().catch(()=>{});
+    }
+  }
+});
+</script>
+
+
+
     <script>
         $('.brand-carousels').owlCarousel({
             loop: true,             // infinite loop
