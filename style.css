@@ -4759,6 +4759,9 @@ height: auto;
 .Test {
   padding: 0px 5px;
 }
+.services_h{
+  font-size: 25px !important;
+}
 }
 @media(max-width: 412.98px){
    
