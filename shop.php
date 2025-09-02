@@ -15,7 +15,7 @@ if (isset($_GET['suggest']) && !empty($_GET['suggest'])) {
 	$sql = "SELECT id, product_name 
             FROM products 
             WHERE product_name LIKE ? 
-               OR short_description LIKE ? 
+               OR short_description LIKE ?  
                OR tags LIKE ? 
             LIMIT 10";
 	$stmt = $conn->prepare($sql);
@@ -344,13 +344,14 @@ $cat_sidebar_stmt->close();
 
 .banner-container {
     position: relative;
-    height: 350px;
+    width: 100%;
+    height: auto; /* Let the image define height */
     overflow: hidden;
 }
 
 .swiper {
     width: 100%;
-    height: 100%;
+    height: auto; /* Auto height */
 }
 
 .swiper-slide {
@@ -361,11 +362,11 @@ $cat_sidebar_stmt->close();
 
 .category-banner-img {
     width: 100%;
-    height: 100%;
+    height: auto; /* Keep natural aspect ratio */
+    max-height: 600px; /* Optional: Limit height on large screens */
     object-fit: cover;
     border-radius: 6px;
 }
-
 .swiper-button-next,
 .swiper-button-prev {
 	
@@ -398,12 +399,10 @@ $cat_sidebar_stmt->close();
 }
 
 @media (max-width: 768px) {
-    .banner-container {
-        height: 250px;
+    .category-banner-img {
+        max-height: 300px; /* Smaller height for mobile */
     }
-    
- 
-    
+
     .breadcrumbs {
         font-size: 0.9rem;
     }
@@ -700,7 +699,8 @@ if ($discount > 0) {
     $firstImage = is_array($images) && !empty($images) ? $images[0] : 'default.jpg';
 
 ?>
-    <div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-4">
+
         <div class="single-product">
            <div class="product-img" style="position: relative; overflow: hidden;">
     <a href="product-details.php?id=<?php echo $row['id']; ?>" class="product-img-link">
