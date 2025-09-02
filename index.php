@@ -884,7 +884,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                         <!-- Scrollable Row -->
                                         <div class="row" id="newarrival-row">
                                             <?php foreach ($newArrivalProducts as $product): ?>
-                                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
                                                     <div class="single-product">
     <div class="product-img" style="position: relative; overflow: hidden;">
         <a href="product-details.php?id=<?= $product['id'] ?>">
@@ -983,7 +983,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 <div class="tab-pane" id="onsale">
                                     <div class="row">
                                         <?php foreach ($onsaleProducts as $product): ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
                                                 <div class="single-product">
     <div class="product-img" style="position: relative; overflow: hidden;">
         <a href="product-details.php?id=<?= $product['id'] ?>">
@@ -1084,7 +1084,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 <div class="tab-pane" id="bestseller">
                                     <div class="row">
                                         <?php foreach ($bestsellerProducts as $product): ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
                                                 <div class="single-product">
                                                     <div class="product-img" style="position: relative; overflow: hidden;">
     <a href="product-details.php?id=<?= $product['id'] ?>">
@@ -1298,7 +1298,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <div class="row">
                 <?php if (!empty($featuredProducts)): ?>
                     <?php foreach ($featuredProducts as $product): ?>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
                             <div class="single-product">
 
                                 <div class="product-img" style="position: relative; overflow: hidden;">
@@ -1533,6 +1533,8 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         @media (max-width: 768px) {
             .testimonial-container iframe {
                 height: 400px !important;
+            }
+            @media(max-width: 430.98px){
             }
         }
     </style>
