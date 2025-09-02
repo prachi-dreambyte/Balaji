@@ -108,6 +108,15 @@ include 'connect.php';
 </section>
 
     <section class="marqu">
+         <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="fadeInUp animated">
+                            <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;">
+                                Licensed And Authorised
+                            </h1>
+                        </div>
+                    </div>
+                </div>
         <h3 class="text-center"> </h3>
         <div class="carousel-wrapper">
             <div class="custom-slick-carousel marq ">

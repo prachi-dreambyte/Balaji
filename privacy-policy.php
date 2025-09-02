@@ -247,6 +247,7 @@ require_once 'includes/session_timeout.php';
 		    </div>
 	    </div>
     </section>
+	 <?php include 'brand.php'; ?>
 	<?php include "footer.php"; ?>
 	</body>
 	</html>
