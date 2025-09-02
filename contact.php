@@ -155,7 +155,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 .AboutwrapperImage {
   width: 100%;
-  height: 40vh;
   display: block;
 }
 .aboutUs-Heading {
@@ -299,8 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php include 'header.php'; ?>
 	<section class="AboutSection">
         <div class="image-wrapper">
-            <img src="img\balaji\f29223411f5783a2e17276e9da95c140.jpg" class="AboutwrapperImage" />
-            <h1 class="aboutUs-Heading">"Happy Universal"</br>Where Style Meets Smiles!</h1>        </div>
+            <img src="img\banner\contact-us.jpg" class="AboutwrapperImage" />
     </section>
 
 <section>

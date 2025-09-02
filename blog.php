@@ -84,10 +84,6 @@ $totalPages = ceil($totalProducts / $limit);
 		 <section class="AboutSection">
   <div class="image-wrapper">
     <img src="img\balaji\f29223411f5783a2e17276e9da95c140.jpg" class="AboutwrapperImage" />
-    <h1 class="aboutUs-Heading">BLOG</h1>
-    <div class="AboutDivWrapper">
-    <a class="AboutHome" href="index.php">HOME</a> &nbsp /  &nbsp <a class="AboutHome" href="#">BLOG</a>
-    </div>
   </div>
 </section>
 		<div class="shop-2-area">

@@ -496,24 +496,62 @@ function categoryImagePath($relPath)
     }
 
     /* Preloader */
-    #preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
+/* ---------- Preloader overlay ---------- */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(1200px 800px at 50% 40%, #ffffff 0%, #f7f7f7 40%, #f2f2f2 100%);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  transition: opacity .6s ease, visibility .6s ease;
+}
 
-    #preloader.hidden {
-        opacity: 0;
-        visibility: hidden;
-    }
+/* Prevent scrolling while preloader is visible */
+html.preloading, body.preloading {
+  height: 100%;
+  overflow: hidden;
+}
+
+.preloader-inner {
+  will-change: transform, opacity;
+  transform-origin: center center;
+}
+
+/* Subtle floating idle motion */
+@keyframes floatUpDown {
+  0%   { transform: translateY(0) }
+  50%  { transform: translateY(-6px) }
+  100% { transform: translateY(0) }
+}
+#balajiMorph {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+/* When the app is ready, fade preloader out AFTER the logo flies away */
+.app-ready #preloader {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #balajiMorph, .preloader-inner { animation: none !important; }
+  * { transition: none !important; }
+}
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+#balajiMorph { width: 140px; height: 140px; }
+
 
     /* Responsive styles */
     @media (max-width: 1300px) {
@@ -602,10 +640,17 @@ function categoryImagePath($relPath)
         transform: rotate(180deg);
     }
 </style>
-<!-- Preloader -->
-<div id="preloader">
-    <img src="img/balaji/loading.gif" alt="Loading..." />
-</div>
+<!-- PRELOADER -->
+<!-- <div id="preloader" aria-hidden="true">
+  <div class="preloader-inner">
+    <svg id="balajiMorph" viewBox="0 0 200 200" width="160" height="160" role="img">
+      <path id="morphPath"
+            fill="#111"
+            d="M60,150 L60,112 L78,112 L78,62 Q78,48 92,48 L138,48 Q150,48 150,60 L150,112 L158,112 L158,130 L112,130 L112,150 L96,150 L96,130 L60,130 Z" />
+    </svg>
+  </div>
+</div> -->
+
 
 <!-- Marquee Start -->
 <!-- <div style="background: #845848;
@@ -1029,3 +1074,65 @@ function categoryImagePath($relPath)
   50%      { box-shadow: 0 8px 28px rgba(214,36,159,0.55); }
 }
 </style>
+<!-- Anime.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+<script>
+(function() {
+  const pathEl = document.getElementById('morphPath');
+  const inner  = document.querySelector('#preloader .preloader-inner');
+  const overlay = document.getElementById('preloader');
+
+  // Paths
+  const CHAIR =
+    "M60,150 L60,112 L78,112 L78,62 Q78,48 92,48 L138,48 Q150,48 150,60 L150,112 L158,112 L158,130 L112,130 L112,150 L96,150 L96,130 L60,130 Z";
+  const B =
+    "M90,50 L110,50 L110,98 Q118,86 136,86 Q158,86 158,106 Q158,132 136,132 Q118,132 110,118 L110,150 L90,150 Z";
+
+  // Loop animation (chair ↔ B)
+  const loopTL = anime.timeline({ loop: true, easing: 'easeInOutCubic' });
+  loopTL
+    .add({ targets: pathEl, d: [{ value: CHAIR }], duration: 1 })
+    .add({ targets: pathEl, d: [{ value: B }], duration: 800 })
+    .add({ targets: pathEl, d: [{ value: CHAIR }], duration: 800 });
+
+  // Exit animation
+  function flyToHeader() {
+    loopTL.pause();
+
+    const target = document.getElementById('siteLogo');
+    const targetRect = target
+      ? target.getBoundingClientRect()
+      : { left: 20, top: 20, width: 60, height: 60 };
+
+    const svgRect = inner.getBoundingClientRect();
+    const translateX = (targetRect.left + targetRect.width/2) - (svgRect.left + svgRect.width/2);
+    const translateY = (targetRect.top + targetRect.height/2) - (svgRect.top + svgRect.height/2);
+    const scale = Math.min(targetRect.width / svgRect.width, targetRect.height / svgRect.height);
+
+    // Fly effect
+    anime({
+      targets: inner,
+      translateX: translateX,
+      translateY: translateY,
+      scale: scale,
+      duration: 1000,
+      easing: 'easeInOutExpo',
+      complete: () => {
+        // Fade overlay out
+        overlay.style.transition = "opacity .6s ease";
+        overlay.style.opacity = 0;
+        setTimeout(() => overlay.remove(), 600);
+      }
+    });
+  }
+
+  // Run on full page load
+  window.addEventListener('load', flyToHeader);
+
+  // Safety: force close after 5s
+  setTimeout(() => {
+    if (document.body.contains(overlay)) flyToHeader();
+  }, 5000);
+})();
+</script>
