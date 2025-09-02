@@ -530,6 +530,14 @@ a {
  .footericon .linkedin:hover{
   color: #004182 !important;
 }
+
+@media(max-width: 430.98px){
+.responsive-footer{
+  padding: 0px 15px !important;
+}
+}
+
+
 </style>
         <link rel="stylesheet" href="css/responsive-enhancements.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -541,22 +549,23 @@ a {
       d="M851.8,100c125,0,288.3-45,348.2-64V0H0v44c3.7-1,7.3-1.9,11-2.9C80.7,22,151.7,10.8,223.5,6.3C276.7,2.9,330,4,383,9.8c52.2,5.7,103.3,16.2,153.4,32.8C623.9,71.3,726.8,100,851.8,100z" />
   </svg>
 
-  <div class="container-fluid py-5 px-5">
+  <div class="container-fluid">
+    <div class="responsive-footer">
     <div class="row">
       <!-- Logo and Shop Info -->
       <div class="col-md-6 col-lg-2">
         <a href="index.php">
           <img src="img\balaji\balaji-furniture-2048x1368.png" alt="Logo" class="img-fluid mb-3" style="max-width: 80%; height: auto;"></a>
         
-      </div>
-       <div class="col-md-6 col-lg-3">
+      </div>      
+       <div class="col-md-6 col-lg-3 col-12">
         <h5 class="text-uppercase footer-Heading footer-Heading fw-bold">Shop Location</h5>
         <p class="mb-1 footer-para">Jay Shri Balaji Foam & Furniture,<br> Opp. Mall Of Dehradun,<br> Near Miyawala Underpass, <br>Haridwar Road, Dehradun,<br> Uttarakhand-248005</p>
         <p class="mb-0 footer-para">+91-8979892185</p>
-       </div>
+       </div
 
       <!-- Information Links -->
-      <div class="col-md-6 col-lg-2">
+      <div class="col-md-6 col-lg-2 col-6">
         <h5 class="text-uppercase footer-Heading fw-bold">Information</h5>
         <ul class="list-unstyled">
           <li><a href="index.php#deals" class="text-dark text-decoration-none footer-para">Daily Deals</a></li>
@@ -568,7 +577,7 @@ a {
       </div>
 
       <!-- Quick Links -->
-      <div class="col-md-6 col-lg-2">
+      <div class="col-md-6 col-lg-2 col-6">
         <h5 class="text-uppercase footer-Heading fw-bold">Quick Links</h5>
         <ul class="list-unstyled">
           <li><a href="about-us.php" class="text-dark text-decoration-none footer-para">About Us</a></li>
@@ -580,7 +589,7 @@ a {
       </div>
 
       <!-- Contact and Social -->
-      <div class="col-md-6 col-lg-2">
+      <div class="col-md-6 col-lg-2 col-6">
         <!-- <h5 class="text-uppercase footer-Heading fw-bold mt-3">Legal</h5>
         <ul class="list-unstyled">
           <li><a href="privacy-policy.php" class="text-dark text-decoration-none footer-para">Privacy Notice</a></li>
@@ -591,18 +600,19 @@ a {
           <p class="text-dark text-decoration-none footer-para">Have a support question?</p>
 
           <div class="subscribe-box">
-  <a href="contact.php">
-    <button type="button" class="subscribe-btn">Contact Us</button>
-  </a>
-</div>
+            <a href="contact.php">
+             <button type="button" class="subscribe-btn">Contact Us</button>
+            </a>
+          </div>
 
+        </div>
       </div>
     </div>
 
     <!-- Copyright -->
-   <hr class="hrFooter">
+      <hr class="hrFooter">
 
-<footer>
+  <footer>
   <div class="d-flex justify-content-between align-items-center px-5 py-1" style="background-color: #845848;">
     
     <!-- Left Side -->
