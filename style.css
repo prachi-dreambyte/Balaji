@@ -1172,7 +1172,7 @@ header .header-top nav {
   vertical-align: top;
 }
 .product-name a {
-  color: black;
+  color: #363636;
   font-size: 18px;
   line-height: 15px;
   margin-bottom: 0;
@@ -2490,7 +2490,7 @@ brand-area
 .btn.button-plus:hover span, .btn.button-minus:hover span {
   background: #f6f6f6 none repeat scroll 0 0;
   filter: none;
-  color: black;
+  color: #363636;
 }
 .add-cart p {
   float: left;
@@ -2902,7 +2902,7 @@ div.selector select {
   width: 35px;
 }
 .qtybutton:hover{
-	color: black;
+	color: #363636;
 	background: #f2f2f2;
 }
 /*----------------------------------------
@@ -3017,8 +3017,8 @@ label {
 .color-option.white {
   background: white none repeat scroll 0 0;
 }
-.color-option.black {
-  background: black none repeat scroll 0 0;
+.color-option {
+  background: #363636 none repeat scroll 0 0;
 }
 .color-option.orange {
   background: #f39c11 none repeat scroll 0 0;
@@ -3305,8 +3305,8 @@ label {
   margin-left: auto;
 }
 .price_filter .ui-slider-handle.ui-state-default.ui-corner-all {
-  background: black none repeat scroll 0 0;
-  border: medium none black;
+  background: #363636 none repeat scroll 0 0;
+  border: medium none #363636;
   border-radius: 0;
   height: 21px;
   margin-left: -2px;
@@ -3654,7 +3654,7 @@ div.uploader span.action {
 .wishlist-table table th, .wishlist-table table td {
   border-bottom: 1px solid #e5e5e5;
   border-right: 1px solid #e5e5e5;
-  color: black;
+  color: #363636;
   font-size: 14px;
   padding: 15px 10px;
   text-align: center;
@@ -3675,7 +3675,7 @@ div.uploader span.action {
   transition: all 0.3s ease 0s;
 }
 .wishlist-area .wishlist-table a {
-  color: black;
+  color: #363636;
   transition: all 0.3s ease 0s;
 }
 .wishlist-area .wishlist-table a:hover,.wishlist-table table .wishlist-in-stock {
@@ -3752,7 +3752,7 @@ div.uploader span.action {
   border-radius: 0;
   border-style: solid;
   border-width: 1px 0 0 1px;
-  color: black;
+  color: #363636;
   margin: 0 0 60px;
   text-align: center;
   width: 100%;
@@ -3780,7 +3780,7 @@ div.uploader span.action {
   width: 130px;
 }
 .table-content table td.product-name a {
-  color: black;
+  color: #363636;
   font-size: 14px;
   font-weight: 700;
   margin-left: 10px;
@@ -3811,7 +3811,7 @@ div.uploader span.action {
   width: 120px;
 }
 .table-content table td.product-remove i {
-  color: black;
+  color: #363636;
   display: inline-block;
   font-size: 20px;
   height: 40px;
@@ -3844,7 +3844,7 @@ div.uploader span.action {
   color: #fff;
 }
 .coupon {
-  color: black;
+  color: #363636;
   margin-bottom: 40px;
   overflow: hidden;
   padding-bottom: 20px;
@@ -3870,7 +3870,7 @@ div.uploader span.action {
 }
 .cart_totals h2 {
   border-bottom: 2px solid #333;
-  color: black;
+  color: #363636;
   display: inline-block;
   font-size: 30px;
   margin: 0 0 35px;
@@ -4262,8 +4262,8 @@ font-size: 18px;}
   margin-top: 0;
 }
 .banner-marg{margin-top:30px}
-.color-black{}
-.color-black h1{color:#444}
+.color-#363636{}
+.color-#363636 h1{color:#444}
 .shop-category-product .single-product {
   margin-bottom: 30px;
 }
@@ -4287,14 +4287,21 @@ font-size: 18px;}
  }
 .aboutHead{
   font-family: Lato, sans-serif;
-    color: #003974;
+    font-weight: 600;
+    font-size: 40px;
+    color: #333;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
   
 }
 .aboutParagraph{
-    font-size: 16px;
+    font-size: 18px;
     font-family: Lato, sans-serif;
     line-height: 35px !important;
-    color:black;
+    color:#363636;
+    font-weight: 500;
+    text-align: justify;
 }
 .AboutUs-Wrapper{
   padding: 30px 45px;
@@ -4323,7 +4330,7 @@ font-size: 18px;}
     border-radius: 30px;
 }
 .AboutWrapperButton:hover{
-  background:#e393a7! important;
+  background: #a98967 ! important;
   color: white;
 }
 .image-wrapper {
@@ -4334,10 +4341,8 @@ font-size: 18px;}
 
 .AboutwrapperImage {
   width: 100%;
-  height: 40vh;
   display: block;
 }
-
 .aboutUs-Heading {
   position: absolute;
   top: 50%; /* adjust this as per your design */
@@ -4377,7 +4382,7 @@ font-size: 18px;}
   padding-top: 25px;
 }
 .AboutBackground{
- color:black;
+ color:#363636;
 }
 .BalajiAboutImage{
   width: 100%;
@@ -4389,14 +4394,22 @@ padding: 40px 35px;
 }
 .aboutUniversal{
 text-align: center;
-font-family: Lato, sans-serif;
-color: #845848;
+ font-family: Lato, sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    color: #363636;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
 
 }
 .aboutUniversalPara{
-font-family: Lato, sans-serif;
-font-size: 16px;
-line-height: 30px;
+   font-size: 18px;
+    font-family: Lato, sans-serif;
+    line-height: 35px !important;
+    color:#363636;
+    font-weight: 500;
+     text-align: justify;
 }
 .DiscoveringImage{
   text-align: center;
@@ -4630,9 +4643,7 @@ height: auto;
     .aboutUs-Heading {
   font-size: 2rem;
     }
-    .AboutwrapperImage {
-    height: 30vh;
-    }
+
 }
 @media(max-width: 344.98px){
   
@@ -4654,7 +4665,7 @@ height: auto;
   } */
   .postboxBlog {
     font-size: 14px !important;
-    color:black !important;
+    color:#363636 !important;
     margin-right: 15px !important;
     font-weight: 500 !important;
     display: inline-block !important;
@@ -4663,4 +4674,58 @@ height: auto;
 /* ------------------------end------------------ */
 .feature-product-area{
   background-color: #fff;
+}
+
+
+/*-------------RESPONSIVE HOMEPAGE--------*/
+  @media (min-width: 1921px) and (max-width: 2561px) {
+}
+
+@media (min-width: 1536px) and (max-width: 1920px) {
+}
+
+  @media (max-width: 1169.98px) {
+
+  }
+  @media (max-width: 1055.98px) {
+  
+}
+ @media (max-width: 991.98px) {
+  
+}
+  @media (max-width: 931.98px) {
+  
+}
+@media(max-width: 820.98px){
+   
+}
+@media(max-width: 799.98px){
+  
+}
+@media(max-width: 767.98px){
+     
+
+}
+@media(max-width: 799.98px){
+
+}
+@media(max-width: 575.98px){
+
+}
+@media(max-width: 538.98px){
+  
+}
+@media(max-width: 474.98px){
+}
+@media(max-width: 412.98px){
+   
+}
+@media(max-width: 390.98px){
+
+}
+@media(max-width: 375.98px){
+
+}
+@media(max-width: 360.98px){
+  
 }
