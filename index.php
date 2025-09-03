@@ -577,7 +577,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                         }
 
                         echo '
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-4 text-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-4 mb-4 text-center">
                         <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
                             <div class="circle-img">
                                 <img src="' . $imagePath . '" alt="' . $name . '">
@@ -825,7 +825,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                     <div class="col-md-12 text-center">
                         <div class="fadeInUp animated">
                             <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;">
-                                Licensed And Authorised
+                                Licensed And Certifications.
                             </h1>
                         </div>
                     </div>
@@ -908,7 +908,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                         <!-- Scrollable Row -->
                                         <div class="row" id="newarrival-row">
                                             <?php foreach ($newArrivalProducts as $product): ?>
-                                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
+                                                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
                                                     <div class="single-product">
     <div class="product-img" style="position: relative; overflow: hidden;">
         <a href="product-details.php?id=<?= $product['id'] ?>">
@@ -1007,7 +1007,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 <div class="tab-pane" id="onsale">
                                     <div class="row">
                                         <?php foreach ($onsaleProducts as $product): ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-6">
                                                 <div class="single-product">
     <div class="product-img" style="position: relative; overflow: hidden;">
         <a href="product-details.php?id=<?= $product['id'] ?>">
@@ -1108,7 +1108,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 <div class="tab-pane" id="bestseller">
                                     <div class="row">
                                         <?php foreach ($bestsellerProducts as $product): ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-6">
                                                 <div class="single-product">
                                                     <div class="product-img" style="position: relative; overflow: hidden;">
     <a href="product-details.php?id=<?= $product['id'] ?>">
@@ -1271,7 +1271,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <div class="row align-items-center">
 
                 <!-- Fixed Brand Logo -->
-                <div class="col-md-2 col-4 text-center">
+                <div class="col-md-2 col-2 text-center">
                     <div class="single-brand">
                         <a href="#">
                             <img src="img\balaji\balaji logo.png" alt="Fixed Brand"
@@ -1281,7 +1281,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
 
                 <!-- Moving Carousel for Rest Logos -->
-                <div class="col-md-10 col-8">
+                <div class="col-lg-10 col-md-10 col-10">
                     <div class="brand-carousels owl-carousel">
 
                         <div class="single-brands">
@@ -1322,7 +1322,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <div class="row">
                 <?php if (!empty($featuredProducts)): ?>
                     <?php foreach ($featuredProducts as $product): ?>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
                             <div class="single-product">
 
                                 <div class="product-img" style="position: relative; overflow: hidden;">
