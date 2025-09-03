@@ -1,6 +1,10 @@
         <style>
-
-          
+        .footer-copyright{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        
+        }       
 
           
 
@@ -562,7 +566,7 @@ a {
         <h5 class="text-uppercase footer-Heading footer-Heading fw-bold">Shop Location</h5>
         <p class="mb-1 footer-para">Jay Shri Balaji Foam & Furniture,<br> Opp. Mall Of Dehradun,<br> Near Miyawala Underpass, <br>Haridwar Road, Dehradun,<br> Uttarakhand-248005</p>
         <p class="mb-0 footer-para">+91-8979892185</p>
-       </div
+       </div>
 
       <!-- Information Links -->
       <div class="col-md-6 col-lg-2 col-6">
@@ -613,7 +617,7 @@ a {
       <hr class="hrFooter">
 
   <footer>
-  <div class="d-flex justify-content-between align-items-center px-5 py-1" style="background-color: #845848;">
+  <div class="footer-copyright d-flex justify-content-between align-items-center px-5 py-1" style="background-color: #845848;">
     
     <!-- Left Side -->
     <div class="text-white">
