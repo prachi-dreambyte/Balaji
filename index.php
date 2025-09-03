@@ -1260,7 +1260,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!--</div>-->
     <div class="home-4-service home-2-service service-area" style="padding:0px; ">
         <div class="container-fluid" style="width:100%;">
-            <img src="img\banner\WhatsApp Image 2025-09-03 at 9.45.45 AM.jpeg" alt="trust" style="">
+            <img src="img\banner\owner.png" alt="trust" style="">
         </div>
     </div>
     <!--=====service-end=====-->

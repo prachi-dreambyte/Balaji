@@ -94,7 +94,7 @@ function categoryImagePath($relPath)
     width: 80px;   /* adjust size as needed */
     height: auto;
     border-radius: 2%;  /* optional – makes it round */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
 }
 
 .floating-gem:hover {
