@@ -212,6 +212,15 @@ $cat_sidebar_stmt = $conn->prepare($cat_sidebar_sql);
 $cat_sidebar_stmt->execute();
 $categories = $cat_sidebar_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $cat_sidebar_stmt->close();
+
+// ---------- Price bounds for slider ----------
+$min_price_bound = 0;
+$max_price_bound = 0;
+$bounds_q = $conn->query("SELECT MIN(price) AS min_p, MAX(price) AS max_p FROM products");
+if ($bounds_q && $row = $bounds_q->fetch_assoc()) {
+    $min_price_bound = (float)($row['min_p'] ?? 0);
+    $max_price_bound = (float)($row['max_p'] ?? 0);
+}
 ?>
 
 
@@ -406,6 +415,16 @@ $cat_sidebar_stmt->close();
     .breadcrumbs {
         font-size: 0.9rem;
     }
+
+}
+</style>
+
+<style>
+/* Mobile-only styles for Categories dropdown */
+@media (max-width: 768px) {
+	.cat-toggle { display:block !important; }
+	.cat-list-collapse { display:none; }
+	.cat-list-collapse.open { display:block; }
 }
 </style>
 
@@ -481,7 +500,12 @@ $cat_sidebar_stmt->close();
 							<h3 class="content-box-heading" style="font-size:17px;">
 								Categories
 							</h3>
+							<!-- Mobile-only toggle for Categories -->
+							<button type="button" id="catToggleBtn" class="cat-toggle d-sm-none" style="display:none; width:100%; text-align:left; padding:10px 12px; border:1px solid #ddd; border-radius:8px; background:#fff; font-weight:600; margin-bottom:8px;" onclick="document.getElementById('catList').classList.toggle('open');">
+								Categories <i class="fa fa-chevron-down" style="float:right;"></i>
+							</button>
 
+							<div id="catList" class="cat-list-collapse">
 							<form id="categoryFilterForm" method="GET" action="shop.php#product-list">
 								<ul>
 									<?php foreach ($categories as $cat): ?>
@@ -497,9 +521,9 @@ $cat_sidebar_stmt->close();
 									<?php endforeach; ?>
 								</ul>
 							</form>
-							</ul>
-						</div>
-						<div class="info_widget">
+ 							</div>
+ 						</div>
+ 						<div class="info_widget">
   <h4 class="filter_heading">Price Range</h4>
   <div class="price_filter">
     <!-- Slider -->
@@ -612,6 +636,9 @@ $cat_sidebar_stmt->close();
 								</ul>
 							</div>
 						</div>
+
+						<!-- (mobile-only UI was removed per request) -->
+
 
 						<div class="sort-by">
 							<form method="GET" action="shop.php#product-list" id="sortForm">
@@ -1186,6 +1213,20 @@ var swiper = new Swiper(".mySwiper", {
     },
 });
 </script>
+
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+     var shopToggle = document.getElementById('shopMobileCategoryToggle');
+     var shopPanel = document.getElementById('shopMobileCategoryPanel');
+     if (shopToggle && shopPanel) {
+         shopToggle.addEventListener('click', function(e){
+             e.preventDefault();
+             shopPanel.classList.toggle('d-none');
+         });
+     }
+
+ });
+ </script>
 
 
 	
