@@ -136,10 +136,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <div class="form-group">
                                     <input type="submit" value="Login">
                                 </div>
-                                <div class="LoginAccount">
-                                  <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
-                                     <p><a href="forget-password.php">Forget Password?</a></p>
-                                 </div>
+                               <div class="LoginAccount text-center mt-3">
+  <p class="mb-2">
+    <strong>Don't have an account?</strong>
+    <a href="signup.php" class="fw-bold ms-1">Sign up here</a>
+  </p>
+  <p>
+    <a href="forget-password.php" class="fw-bold text-danger">Forgot Password?</a>
+  </p>
+</div>
+
 
                         </form>
 
@@ -157,10 +163,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div class="form-group">
                                <input type="submit" name = 'submit' value="Login">
                             </div>
-                            <div class="LoginAccount">
-                              <p>Don't have an account? <a href="signup.php">Sign up here</a></p>
-                                <p><a href="forget-password.php">Forget Password?</a></p>
-                              </div>
+                           <div class="LoginAccount text-center mt-3">
+  <p class="mb-2">
+    <strong>Don't have an account?</strong>
+    <a href="signup.php" class="fw-bold ms-1">Sign up here</a>
+  </p>
+  <p>
+    <a href="forget-password.php" class="fw-bold text-danger">Forgot Password?</a>
+  </p>
+</div>
+
 
                         </form>
                     </div>

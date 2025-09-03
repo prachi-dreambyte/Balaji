@@ -63,7 +63,7 @@ include 'connect.php';
                 <div class="row">
                     <!-- Image with left-to-right animation -->
                    <div class="col-md-6 col-sm-6 col-xs-12 wow slideInLeft" data-wow-delay="0.2s">
-                       <img src="img/about small banner.jpg" alt="main slider" title="#htmlcaption1" class="AboutImage"/>
+                       <img src="img/about-second-banner.png" alt="main slider" title="#htmlcaption1" class="AboutImage"/>
                     </div>
 
                     <!-- Text with fade-in animations -->
@@ -98,7 +98,7 @@ include 'connect.php';
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 wow slideInRight" data-wow-delay="1s">
                             <div class="DiscoveringImage">
-                                <img src="img/body/5_2.jpg" class="discoverAboutImg">
+                                <img src="img/body/where-comfot-meet.png" class="discoverAboutImg">
 
                             </div>
                         </div>
@@ -107,16 +107,19 @@ include 'connect.php';
 </div>
 </section>
 
-    <section class="marqu">
-         <div class="row">
+
+ <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="fadeInUp animated">
-                            <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;">
+                            <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;padding-bottom: 15px;">
                                 Licensed And Authorised
+                                <span style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: #c19f66;"></span>
                             </h1>
                         </div>
                     </div>
                 </div>
+    <section class="marqu">
+        
         <h3 class="text-center"> </h3>
         <div class="carousel-wrapper">
             <div class="custom-slick-carousel marq ">
@@ -176,51 +179,75 @@ include 'connect.php';
                 </div>
 
                 <!-- Text Column -->
-                <div class="col-lg-7 col-md-6">
-                    <div class="family-text-content wow fadeInRight" data-wow-delay="0.4s" style="padding: 50px 40px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-                        <div class="logo-label" style="display: inline-block; background: #c19f66; color: white; padding: 8px 20px; border-radius: 30px; font-size: 0.9rem; margin-bottom: 25px; font-weight: 600;">
-                            HAPPY UNIVERSAL 
-                        </div>
-                        
-                        <h2 class="content-title" style="font-size: 2rem; color: #333; margin-bottom: 25px; font-weight: 700; position: relative; padding-bottom: 15px;">
-                            Our Symbol of Joy & Quality
-                            <span style="position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: #c19f66;"></span>
-                        </h2>
-                        
-                        <div class="content-paragraphs" style="position: relative;">
-                            <p class="content-para" style="color: #555; line-height: 1.8; margin-bottom: 20px; font-size: 1.05rem; position: relative; padding-left: 30px;">
-                                <span style="position: absolute; left: 0; top: 0; color: #c19f66; font-weight: bold;">→</span>
-                                At the core of innovation lies the brand 'HAPPY UNIVERSAL'. The logo features a 'happy face', reflecting the founder's hometown name 'HAPPY'. The term 'UNIVERSAL' signifies our commitment to creating products with a luxurious aesthetic for workplaces and enhancing lifestyles with comfort.
-                            </p>
-                            
-                            <p class="content-para" style="color: #555; line-height: 1.8; margin-bottom: 20px; font-size: 1.05rem; position: relative; padding-left: 30px;">
-                                <span style="position: absolute; left: 0; top: 0; color: #c19f66; font-weight: bold;">→</span>
-                                It embodies a philosophy where our product range transcends boundaries, offering a universal appeal. Our products are emotionally intertwined with the people of Uttarakhand and across India, as evidenced by our extensive loyal customer base spanning over 21 years and counting, dedicated to BALAJI FURNITURE.
-                            </p>
-                            
-                            <p class="content-para" style="color: #555; line-height: 1.8; margin-bottom: 20px; font-size: 1.05rem; position: relative; padding-left: 30px;">
-                                <span style="position: absolute; left: 0; top: 0; color: #c19f66; font-weight: bold;">→</span>
-                                HAPPY UNIVERSAL takes pride in crafting universally luxurious products that redefine workplaces and elevate lifestyles. Our brand places a strong emphasis on quality assurance, offering a wide range of office furniture and plastic furniture to meet our customers' needs.
-                            </p>
-                        </div>
-                        
-                        <div class="achievement-badges" style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px;">
-                            <div class="badge" style="background: rgba(193, 159, 102, 0.1); padding: 10px 20px; border-radius: 30px; display: flex; align-items: center;">
-                                <span style="background: #c19f66; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">21</span>
-                                <span style="color: #333; font-weight: 600;">Years of Excellence</span>
-                            </div>
-                            
-                            <div class="badge" style="background: rgba(193, 159, 102, 0.1); padding: 10px 20px; border-radius: 30px; display: flex; align-items: center;">
-                                <span style="background: #c19f66; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">∞</span>
-                                <span style="color: #333; font-weight: 600;">Universal Appeal</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               <div class="col-lg-7 col-md-6">
+  <div class="family-text-content wow fadeInRight" data-wow-delay="0.4s"
+       style="padding: 50px 40px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+
+    <!-- Label -->
+    <div class="logo-label"
+         style="display: inline-block; background: #c19f66; color: white; padding: 8px 20px; border-radius: 30px; font-size: 0.9rem; margin-bottom: 25px; font-weight: 700; letter-spacing: 1px;">
+      HAPPY UNIVERSAL
+    </div>
+
+    <!-- Title -->
+    <h2 class="content-title"
+        style="font-size: 2rem; color: #333; margin-bottom: 25px; font-weight: 700; position: relative; padding-bottom: 15px;">
+      Our Symbol of Joy & Quality
+      <span style="position: absolute; bottom: 0; left: 0; width: 60px; height: 3px; background: #c19f66;"></span>
+    </h2>
+
+    <!-- Paragraphs -->
+    <div class="content-paragraphs">
+      <p class="content-para"
+         style="color: #444; line-height: 1.9; margin-bottom: 20px; font-size: 1.05rem; position: relative; padding-left: 30px;">
+        <span style="position: absolute; left: 0; top: 0; color: #c19f66; font-weight: bold;">→</span>
+        At the core of innovation lies the brand <strong>HAPPY UNIVERSAL</strong>.  
+        The logo features a <strong>happy face</strong>, reflecting the founder's hometown name <strong>HAPPY</strong>.  
+        The term <strong>UNIVERSAL</strong> signifies our commitment to creating products with a luxurious aesthetic 
+        for workplaces and enhancing lifestyles with comfort.
+      </p>
+
+      <p class="content-para"
+         style="color: #444; line-height: 1.9; margin-bottom: 20px; font-size: 1.05rem; position: relative; padding-left: 30px;">
+        <span style="position: absolute; left: 0; top: 0; color: #c19f66; font-weight: bold;">→</span>
+        It embodies a philosophy where our product range transcends boundaries, offering a universal appeal.  
+        Our products are emotionally intertwined with the people of Uttarakhand and across India, as evidenced 
+        by our extensive loyal customer base spanning <strong>over 21 years</strong> and counting, dedicated to 
+        <strong>BALAJI FURNITURE</strong>.
+      </p>
+
+      <p class="content-para"
+         style="color: #444; line-height: 1.9; margin-bottom: 20px; font-size: 1.05rem; position: relative; padding-left: 30px;">
+        <span style="position: absolute; left: 0; top: 0; color: #c19f66; font-weight: bold;">→</span>
+        <strong>HAPPY UNIVERSAL</strong> takes pride in crafting universally luxurious products that redefine 
+        workplaces and elevate lifestyles. Our brand places a strong emphasis on <strong>quality assurance</strong>, 
+        offering a wide range of office furniture and plastic furniture to meet our customers' needs.
+      </p>
+    </div>
+
+    <!-- Badges -->
+    <div class="achievement-badges" style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px;">
+      <div class="badge"
+           style="background: rgba(193, 159, 102, 0.1); padding: 10px 20px; border-radius: 30px; display: flex; align-items: center;">
+        <span style="background: #c19f66; color: white; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">21</span>
+        <span style="color: #333; font-weight: 600;">Years of Excellence</span>
+      </div>
+
+      <div class="badge"
+           style="background: rgba(193, 159, 102, 0.1); padding: 10px 20px; border-radius: 30px; display: flex; align-items: center;">
+        <span style="background: #c19f66; color: white; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">∞</span>
+        <span style="color: #333; font-weight: 600;">Universal Appeal</span>
+      </div>
+    </div>
+  </div>
+</div>
+
             </div>
         </div>
     </div>
-</section>     <!-- testinomanials -->
+</section> 
+
+<!-- testinomanials -->
        
   <section id="testimonials" class="testimonials section">
     <h1>TESTIMONIAL</h1>
@@ -286,54 +313,84 @@ include 'connect.php';
     </div>
   </section>
 
-        <!-- From Our Director's Desk Section -->
-        <section class="directors-desk-section" style="background: #ffffff; padding: 35px 0;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="director-image-wrapper wow fadeInLeft" data-wow-delay="0.3s" style="position: relative; padding-right: 30px;">
-                            <img src="img\dir.jpg" alt="Shubhang Goel - Managing Director" style="width: auto; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                            <div class="director-info" style="position: absolute; bottom: 20px; left: 20px; background: #c1a283; padding: 15px 25px; border-radius: 5px; color: white;">
-                                <h4 style="margin: 0; font-weight: 600;">Shubhang Goel</h4>
-                                <p style="margin: 5px 0 0; font-size: 14px;">Managing Director</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="director-content wow fadeInRight" data-wow-delay="0.5s" style="padding-left: 30px;">
-                            <h2 class="section-title" style="font-size: 32px; color: #333; margin-bottom: 30px; font-weight: 700; position: relative;">
-                                From Our Director's Desk
-                                <div class="title-divider" style="width: 80px; height: 3px; background: #c1a283; margin-top: 15px;"></div>
-                            </h2>
-                            
-                            <div class="mission-vision-box" style="margin-bottom: 30px; padding-top:30px;">
-                                <div class="icon-title" style="display: flex; align-items: center; margin-bottom: 15px;">
-                                    <div class="icon-wrapper" style="font-size: 24px; color: #c1a283; margin-right: 15px;">
-                                        <i class="fa fa-bullseye"></i>
-                                    </div>
-                                    <h3 style="font-size: 22px; color: #333; margin: 0; font-weight: 600;">Mission</h3>
-                                </div>
-                                <p style="font-size:20px; color: #555; line-height: 1.7; font-style: italic; border-left: 3px solid #c1a283; padding-left: 20px; margin-left: 39px;">
-                                    "Elevating Living Standards Through Innovative, Sustainable, and Affordable Furniture Solutions, Inspiring Comfort and Joy in Every Space."
-                                </p>
-                            </div>
-                            
-                            <div class="mission-vision-box">
-                                <div class="icon-title" style="display: flex; align-items: center; margin-bottom: 15px;">
-                                    <div class="icon-wrapper" style="font-size: 24px; color: #c1a283; margin-right: 15px;">
-                                        <i class="fa fa-eye"></i>
-                                    </div>
-                                    <h3 style="font-size: 22px; color: #333; margin: 0; font-weight: 600;">Vision</h3>
-                                </div>
-                                <p style="font-size:20px; color: #555; line-height: 1.7; font-style: italic; border-left: 3px solid #c1a283; padding-left: 20px; margin-left: 39px;">
-                                    "Striving to Lead as a Global Furniture Brand, Redefining Modern Living with Timeless Design, Eco-Conscious Practices, and Customer-Centricity, Crafting Homes of Individuality and Harmony."
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      
+<!-- Mission Section - From Founder -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Founder Image -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="position-relative">
+          <img src="img/father.png" alt="Mr. Naveen Goel - Founder"
+               class="img-fluid rounded shadow">
+          <div class="p-3 bg-dark text-white rounded position-absolute bottom-0 start-0">
+            <h5 class="mb-0 fw-bold">Naveen Goel</h5>
+            <small>Founder, Balaji Furniture & Happy Universal</small>
+          </div>
+        </div>
+      </div>
+      <!-- Founder Content -->
+      <div class="col-md-6">
+        <h3 class="fw-bold mb-3 text-primary">Mission – From the Desk of Our Founder</h3>
+        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
+          “When I started Balaji Furniture back in 2003, my dream was simple — to bring comfort,
+          durability, and beauty into people’s lives. Furniture, to me, has never been just wood,
+          foam, or plastic; it has always been about creating spaces where families laugh together,
+          students learn together, and professionals build their dreams.
+        </p>
+        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
+          My mission has always been to craft products that people can trust — furniture that feels
+          like family, built with honesty, care, and long-lasting strength. For over 21 years, this
+          mission has guided every decision we’ve made at Balaji, and it will continue to do so as
+          long as even one home or one office chooses us to be part of their story.”
+        </p>
+        <p class="fw-bold text-dark mb-0">— Naveen Goel</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision Section - From Managing Director -->
+<section class="py-5">
+  <div class="container">
+    <div class="row align-items-center flex-md-row-reverse">
+      <!-- Director Image -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="position-relative">
+          <img src="img/dir.jpg" alt="Mr. Shubhang Goel - Managing Director"
+               class="img-fluid rounded shadow">
+          <div class="p-3 bg-primary text-white rounded position-absolute bottom-0 start-0">
+            <h5 class="mb-0 fw-bold">Shubhang Goel</h5>
+            <small>Managing Director</small>
+          </div>
+        </div>
+      </div>
+      <!-- Director Content -->
+      <div class="col-md-6">
+        <h3 class="fw-bold mb-3 text-primary">🚀 Vision – From the Next Generation</h3>
+        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
+          “I have grown up watching Balaji Furniture touch lives, from the classrooms of schools
+          to the halls of government institutions and the comfort of family homes. For me, the vision
+          is to take this legacy beyond borders — to combine our tradition of trust with modern design,
+          innovation, and sustainability.
+        </p>
+        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
+          The future I see for Balaji is bold: furniture that not only fills a space but transforms it,
+          products that are proudly ‘Made in Dehradun’ yet celebrated across India and beyond. I want
+          Happy Universal to stand for more than just a brand — it should be an emotion, a symbol of
+          timeless comfort, and a universal language of design.
+        </p>
+        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
+          My vision is to carry forward what my father built with dedication, and reimagine it for a
+          new generation — where Balaji Furniture is not just chosen, but cherished.”
+        </p>
+        <p class="fw-bold text-dark mb-0">— Shubhang Goel</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
         <!--Why choose us  -->
          <section class="why-choose-us-section" style="background-color: #f8f9fa; padding: 80px 0;">
