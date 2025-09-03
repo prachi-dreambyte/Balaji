@@ -577,7 +577,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                         }
 
                         echo '
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-4 text-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-4 mb-4 text-center">
                         <a href="shop.php?category=' . urlencode($name) . '#product-list" class="category-circle">
                             <div class="circle-img">
                                 <img src="' . $imagePath . '" alt="' . $name . '">
@@ -805,12 +805,27 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         <!-- Authorised Distributors & Dealers Section -->
         <div id="distributers" style="padding:60px 0; background:#fff;">
             <div class="container">
+                <style>
+                /* Mobile-only improvements for Licensed and Authorised section */
+                @media (max-width: 768px) {
+                    #distributers .services_h { font-size: 24px !important; margin-bottom: 22px !important; }
+                    /* Hide carousel on mobile; show horizontal strip instead */
+                    #distributers .brand-carousel { display: none !important; }
+                    #distributers .brand-strip-mobile { display:flex !important; gap:16px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:4px 4px 12px; scroll-snap-type:x mandatory; align-items:center; }
+                    #distributers .brand-strip-mobile::-webkit-scrollbar { height: 6px; }
+                    #distributers .brand-strip-mobile::-webkit-scrollbar-thumb { background:#ddd; border-radius:4px; }
+                    #distributers .brand-strip-mobile .brand-item { flex:0 0 auto; width:120px; height:68px; display:flex; align-items:center; justify-content:center; border:1px solid #eee; border-radius:10px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.04); scroll-snap-align:center; }
+                    #distributers .brand-strip-mobile img { max-width: 90%; max-height: 42px; object-fit: contain; }
+                }
+                /* Desktop keeps carousel; hide grid */
+                @media (min-width: 769px) { #distributers .brand-strip-mobile { display: none; } }
+                </style>
                 <!-- Section Heading -->
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="fadeInUp animated">
                             <h1 class="services_h" style="font-size:32px; font-weight:700; margin-bottom:40px;">
-                                Licensed And Authorised
+                                Licensed And Certifications.
                             </h1>
                         </div>
                     </div>
@@ -853,6 +868,15 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 </div>
 
                             </div>
+                            <!-- Mobile horizontal strip (one line, scrollable) -->
+                            <div class="brand-strip-mobile" aria-hidden="true">
+                                <div class="brand-item"><img src="img/brand/logo1.jpg" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo2.png" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo3.webp" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo4.webp" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo5.webp" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo6.png" alt=""></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -884,7 +908,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                         <!-- Scrollable Row -->
                                         <div class="row" id="newarrival-row">
                                             <?php foreach ($newArrivalProducts as $product): ?>
-                                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
+                                                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
                                                     <div class="single-product">
     <div class="product-img" style="position: relative; overflow: hidden;">
         <a href="product-details.php?id=<?= $product['id'] ?>">
@@ -983,7 +1007,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 <div class="tab-pane" id="onsale">
                                     <div class="row">
                                         <?php foreach ($onsaleProducts as $product): ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-6">
                                                 <div class="single-product">
     <div class="product-img" style="position: relative; overflow: hidden;">
         <a href="product-details.php?id=<?= $product['id'] ?>">
@@ -1084,7 +1108,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                 <div class="tab-pane" id="bestseller">
                                     <div class="row">
                                         <?php foreach ($bestsellerProducts as $product): ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6 col-6">
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-6">
                                                 <div class="single-product">
                                                     <div class="product-img" style="position: relative; overflow: hidden;">
     <a href="product-details.php?id=<?= $product['id'] ?>">
@@ -1236,7 +1260,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!--</div>-->
     <div class="home-4-service home-2-service service-area" style="padding:0px; ">
         <div class="container-fluid" style="width:100%;">
-            <img src="./img/banner/trust banner.png" alt="trust" style="">
+            <img src="img\banner\WhatsApp Image 2025-09-03 at 9.45.45 AM.jpeg" alt="trust" style="">
         </div>
     </div>
     <!--=====service-end=====-->
@@ -1257,7 +1281,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
 
                 <!-- Moving Carousel for Rest Logos -->
-                <div class="col-md-10 col-8">
+                <div class="col-lg-10 col-md-10 col-8">
                     <div class="brand-carousels owl-carousel">
 
                         <div class="single-brands">
@@ -1298,7 +1322,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <div class="row">
                 <?php if (!empty($featuredProducts)): ?>
                     <?php foreach ($featuredProducts as $product): ?>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
                             <div class="single-product">
 
                                 <div class="product-img" style="position: relative; overflow: hidden;">

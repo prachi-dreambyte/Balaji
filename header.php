@@ -287,7 +287,7 @@ function categoryImagePath($relPath)
         left: 0;
         width: 100%;
         z-index: 1050;
-        padding: 10px 0px !important;
+        /* padding: 10px 0px !important; */
         background-color: #F5F6F2 !important;
         border: none;
         color: #363636 !important;
@@ -795,9 +795,18 @@ html.preloading, body.preloading {
         <!-- Mobile Nav -->
         <div class="mobile-nav d-xl-none mt-3 d-none" id="mobileNav">
             <nav class="nav flex-column">
+                <div id="mobileMenuLinks">
                 <a href="index.php" class="nav-link ">HOME</a>
-                <a href="shop.php" class="nav-link ">CATEGORY</a>
+                <a href="#" class="nav-link " id="mobileCategoryToggle">CATEGORY</a>
+                </div>
 
+                <div id="mobileCategoryPanel" class="d-none">
+                <div style="display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid #eee; border-radius:8px; margin-bottom:10px; background:#f9f9f9;">
+                    <button id="mobileCategoryBack" class="btn btn-link p-0" style="text-decoration:none;">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <span style="font-weight:600;">Categories</span>
+                </div>
                 <?php if (!empty($groups)): ?>
                     <?php foreach ($groups as $mainTitle => $items): ?>
                         <div class="mt-2" style="padding:8px 0;">
@@ -808,25 +817,28 @@ html.preloading, body.preloading {
                                 $name = htmlspecialchars($it['name']);
                                 $imagePath = categoryImagePath($it['image']);
                                 ?>
-                                <a class="nav-link" href="shop.php?category=<?php echo urlencode($name); ?>#product-list"
-                                    style="display:flex; align-items:center; gap:10px;">
-                                    <span class="img-bg" style="width:28px; height:28px; border-radius:6px; overflow:hidden;">
-                                        <img src="<?php echo htmlspecialchars($imagePath); ?>" alt="<?php echo $name; ?>"
-                                            style="width:100%; height:100%; object-fit:cover;">
-                                    </span>
-                                    <span style="font-size:14px;"><?php echo $name; ?></span>
-                                </a>
+                            <a class="nav-link" href="shop.php?category=<?php echo urlencode($name); ?>#product-list"
+                                style="display:flex; align-items:center; gap:10px;">
+                                <span class="img-bg" style="width:28px; height:28px; border-radius:6px; overflow:hidden;">
+                                    <img src="<?php echo htmlspecialchars($imagePath); ?>" alt="<?php echo $name; ?>"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </span>
+                                <span style="font-size:14px;">&nbsp;<?php echo $name; ?></span>
+                            </a>
                             <?php endforeach; ?>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <span class="nav-link">No categories found.</span>
                 <?php endif; ?>
+                </div>
 
+                <div id="mobileMenuLinksTail">
                 <a href="index.php#deals" class="nav-link ">OFFER</a>
                 <a href="contact.php" class="nav-link ">CONTACT</a>
                 <a href="about-us.php" class="nav-link ">ABOUT US</a>
                 <a href="blog.php" class="nav-link ">BLOG</a>
+                </div>
             </nav>
         </div>
     </div>
@@ -881,93 +893,7 @@ html.preloading, body.preloading {
     width: 52px;
     height: 52px;
     right: 14px;
-    bottom: 14px;
-    animation: wapp-pulse 2.5s infinite;
-  }
-  .whatsapp-float svg { width: 26px; height: 26px; }
-}
-
-@keyframes wapp-pulse {
-  0%, 100% { box-shadow: 0 8px 20px rgba(37,211,102,0.35); }
-  50%      { box-shadow: 0 8px 28px rgba(37,211,102,0.55); }
-}
-</style>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Mobile menu toggle
-        const mobileToggle = document.getElementById('mobileToggle');
-        const mobileNav = document.getElementById('mobileNav');
-        if (mobileToggle && mobileNav) {
-            mobileToggle.addEventListener('click', function () {
-                mobileNav.classList.toggle('d-none');
-            });
-        }
-
-
-        // Preloader
-        window.addEventListener("load", function () {
-            const preloader = document.getElementById("preloader");
-            preloader.classList.add("hidden");
-        });
-    });
-</script>
-
-
-
-
-<!-- Floating WhatsApp Button -->
-<a
-  href="https://wa.me/918979892185"
-
-  class="whatsapp-float"
-  target="_blank"
-  rel="noopener"
-  aria-label="Chat on WhatsApp"
->
-  <!-- Inline WhatsApp SVG (no external icons needed) -->
-  <svg viewBox="0 0 32 32" aria-hidden="true">
-    <path d="M19.11 17.19c-.27-.14-1.58-.78-1.83-.87-.25-.09-.44-.14-.62.14-.18.27-.71.87-.87 1.05-.16.18-.32.2-.59.07-.27-.14-1.12-.41-2.13-1.3-.79-.7-1.33-1.56-1.49-1.82-.16-.27-.02-.41.12-.54.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.62-1.49-.85-2.05-.22-.53-.44-.46-.62-.46-.16-.02-.34-.02-.52-.02-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29s.99 2.65 1.13 2.83c.14.18 1.95 2.98 4.73 4.06.66.27 1.18.43 1.58.55.66.21 1.26.18 1.73.11.53-.08 1.58-.64 1.8-1.25.22-.62.22-1.15.16-1.25-.05-.11-.23-.18-.5-.32zM16.01 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.6 4.37 1.66 6.2L3.2 28.8l6.77-1.63c1.76.96 3.78 1.51 5.94 1.51 7.07 0 12.8-5.73 12.8-12.8s-5.73-12.8-12.8-12.8zm0 22.98c-1.93 0-3.72-.58-5.22-1.58l-.37-.24-4.02.97.98-3.92-.25-.4a9.98 9.98 0 0 1-1.6-5.34c0-5.53 4.5-10.02 10.02-10.02S26.03 9.14 26.03 14.67 21.54 26.18 16.01 26.18z"/>
-  </svg>
-</a>
-
-<style>
-.whatsapp-float {
-  position: fixed;
-  right: 18px;          /* distance from right edge */
-  bottom: 88px;         /* distance from bottom */
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #25D366;  /* WhatsApp green */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  z-index: 9999;
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-
-.whatsapp-float svg {
-  width: 28px;
-  height: 28px;
-  fill: #fff;
-}
-
-.whatsapp-float:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 26px rgba(0,0,0,0.3);
-}
-
-/* Optional subtle pulse on mobile to draw attention */
-@media (max-width: 576px) {
-  .whatsapp-float {
-    width: 52px;
-    height: 52px;
-    right: 14px;
-    bottom: 14px;
+    bottom: 14px; /* lowest */
     animation: wapp-pulse 2.5s infinite;
   }
   .whatsapp-float svg { width: 26px; height: 26px; }
@@ -1063,7 +989,7 @@ html.preloading, body.preloading {
     width: 52px;
     height: 52px;
     right: 14px;
-    bottom: 80px; /* keep above WhatsApp button */
+    bottom: 76px; /* above WhatsApp */
     animation: insta-pulse 2.5s infinite;
   }
   .instagram-float svg { width: 26px; height: 26px; }

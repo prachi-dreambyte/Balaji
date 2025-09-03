@@ -317,7 +317,9 @@ include 'connect.php';
 <!-- Mission Section - From Founder -->
 <section class="py-5 bg-light">
   <div class="container">
-    <div class="row align-items-center">
+    <!-- Align items to top -->
+    <div class="row align-items-start">
+      
       <!-- Founder Image -->
       <div class="col-md-6 mb-4 mb-md-0">
         <div class="position-relative">
@@ -329,23 +331,29 @@ include 'connect.php';
           </div>
         </div>
       </div>
+
       <!-- Founder Content -->
       <div class="col-md-6">
-        <h3 class="fw-bold mb-3 text-primary">Mission – From the Desk of Our Founder</h3>
-        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
-          “When I started Balaji Furniture back in 2003, my dream was simple — to bring comfort,
-          durability, and beauty into people’s lives. Furniture, to me, has never been just wood,
-          foam, or plastic; it has always been about creating spaces where families laugh together,
-          students learn together, and professionals build their dreams.
+        <h3 class="fw-bold mb-3 text-dark">Mission – From the Desk of Our Founder</h3>
+
+        <p class="fst-italic text-muted" style="font-size: 1.35rem;">
+          “When I started Balaji Furniture back in <strong>2003</strong>, my dream was simple — to bring 
+          <strong>comfort</strong>, <strong>durability</strong>, and <strong>beauty</strong> into people’s lives. 
+          Furniture, to me, has never been just <strong>wood</strong>, <strong>foam</strong>, or <strong>plastic</strong>; 
+          it has always been about creating spaces where families laugh together, students learn together, 
+          and professionals build their dreams.
         </p>
-        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
+
+        <p class="fst-italic text-muted" style="font-size: 1.35rem;">
           My mission has always been to craft products that people can trust — furniture that feels
-          like family, built with honesty, care, and long-lasting strength. For over 21 years, this
-          mission has guided every decision we’ve made at Balaji, and it will continue to do so as
+          like family, built with honesty, care, and long-lasting strength. For <strong>over 21 years</strong>, 
+          this mission has guided every decision we’ve made at Balaji, and it will continue to do so as
           long as even one home or one office chooses us to be part of their story.”
         </p>
-        <p class="fw-bold text-dark mb-0">— Naveen Goel</p>
+
+        <p class="fw-bold text-dark mb-0" style="font-size: 1.35rem;">— Naveen Goel</p>
       </div>
+
     </div>
   </div>
 </section>
@@ -353,42 +361,51 @@ include 'connect.php';
 <!-- Vision Section - From Managing Director -->
 <section class="py-5">
   <div class="container">
-    <div class="row align-items-center flex-md-row-reverse">
+    <!-- Align items to top -->
+    <div class="row align-items-start flex-md-row-reverse">
+
       <!-- Director Image -->
       <div class="col-md-6 mb-4 mb-md-0">
         <div class="position-relative">
           <img src="img/dir.jpg" alt="Mr. Shubhang Goel - Managing Director"
                class="img-fluid rounded shadow">
-          <div class="p-3 bg-primary text-white rounded position-absolute bottom-0 start-0">
+          <div class="p-3 bg-dark text-white rounded position-absolute bottom-0 start-0">
             <h5 class="mb-0 fw-bold">Shubhang Goel</h5>
             <small>Managing Director</small>
           </div>
         </div>
       </div>
+
       <!-- Director Content -->
       <div class="col-md-6">
-        <h3 class="fw-bold mb-3 text-primary">🚀 Vision – From the Next Generation</h3>
-        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
-          “I have grown up watching Balaji Furniture touch lives, from the classrooms of schools
-          to the halls of government institutions and the comfort of family homes. For me, the vision
-          is to take this legacy beyond borders — to combine our tradition of trust with modern design,
-          innovation, and sustainability.
+        <h3 class="fw-bold mb-3 text-dark">🚀 Vision – From the Next Generation</h3>
+
+        <p class="fst-italic text-muted" style="font-size: 1.35rem;">
+          “I have grown up watching Balaji Furniture touch lives, from the classrooms of 
+          <strong>schools</strong> to the halls of <strong>government institutions</strong> and the comfort of family homes. 
+          For me, the vision is to take this legacy beyond borders — to combine our tradition of 
+          <strong>trust</strong> with <strong>modern design</strong>, <strong>innovation</strong>, and <strong>sustainability</strong>.
         </p>
-        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
-          The future I see for Balaji is bold: furniture that not only fills a space but transforms it,
-          products that are proudly ‘Made in Dehradun’ yet celebrated across India and beyond. I want
-          Happy Universal to stand for more than just a brand — it should be an emotion, a symbol of
-          timeless comfort, and a universal language of design.
+
+        <p class="fst-italic text-muted" style="font-size: 1.35rem;">
+          The future I see for Balaji is <strong>bold</strong>: furniture that not only fills a space but transforms it,
+          products that are proudly <strong>‘Made in Dehradun’</strong> yet celebrated across <strong>India</strong> and beyond. 
+          I want <strong>Happy Universal</strong> to stand for more than just a brand — it should be an emotion, 
+          a symbol of timeless <strong>comfort</strong>, and a <strong>universal language of design</strong>.
         </p>
-        <p class="fst-italic text-muted" style="font-size: 1.05rem;">
+
+        <p class="fst-italic text-muted" style="font-size: 1.35rem;">
           My vision is to carry forward what my father built with dedication, and reimagine it for a
-          new generation — where Balaji Furniture is not just chosen, but cherished.”
+          <strong>new generation</strong> — where Balaji Furniture is not just chosen, but <strong>cherished</strong>.”
         </p>
-        <p class="fw-bold text-dark mb-0">— Shubhang Goel</p>
+
+        <p class="fw-bold text-dark mb-0" style="font-size: 1.35rem;">— Shubhang Goel</p>
       </div>
+
     </div>
   </div>
 </section>
+
 
 
 
