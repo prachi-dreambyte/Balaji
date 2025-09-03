@@ -8,18 +8,19 @@
     }
 
     .slogan-text {
-        font-size: 42px;
+        font-size: clamp(18px, 5vw, 36px);
         font-weight: 700;
-        line-height: 1.4;
+        line-height: 1.2;
         font-family: 'Poppins', sans-serif;
         animation: fadeInZoom 2s ease forwards;
         opacity: 0;
         padding-top: 10px;
-        display: flex;
-        flex-wrap: wrap;
+        display: inline-flex;
+        white-space: nowrap;
+        flex-wrap: nowrap;
         justify-content: center;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
     }
 
     /* Gradient effect for first part */
@@ -34,7 +35,7 @@
     .slogan-text .highlight {
         color: #333;
         display: inline-block;
-        border-right: 3px solid #845848; /* cursor */
+        border-right: 2px solid #845848; /* cursor */
         overflow: hidden;
         white-space: nowrap;
         animation: typing 4s steps(14, end) infinite, blink 0.7s step-end infinite;
@@ -60,32 +61,7 @@
     }
 
     /* ================= Responsive Breakpoints ================= */
-
-    @media (max-width: 1200px) {
-        .slogan-text { font-size: 38px; }
-    }
-
-    @media (max-width: 992px) {
-        .slogan-text {
-            font-size: 32px;
-            flex-direction: column;
-            gap: 5px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .slogan-text { font-size: 28px; }
-    }
-
-    @media (max-width: 576px) {
-        .slogan-text { font-size: 24px; }
-        .slogan-text .highlight { font-size: 24px; }
-    }
-
-    @media (max-width: 400px) {
-        .slogan-text { font-size: 20px; }
-        .slogan-text .highlight { font-size: 20px; }
-    }
+    /* No additional breakpoint overrides needed; clamp() covers sizes */
 </style>
 
 <body>

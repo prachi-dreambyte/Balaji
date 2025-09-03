@@ -805,6 +805,21 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
         <!-- Authorised Distributors & Dealers Section -->
         <div id="distributers" style="padding:60px 0; background:#fff;">
             <div class="container">
+                <style>
+                /* Mobile-only improvements for Licensed and Authorised section */
+                @media (max-width: 768px) {
+                    #distributers .services_h { font-size: 24px !important; margin-bottom: 22px !important; }
+                    /* Hide carousel on mobile; show horizontal strip instead */
+                    #distributers .brand-carousel { display: none !important; }
+                    #distributers .brand-strip-mobile { display:flex !important; gap:16px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:4px 4px 12px; scroll-snap-type:x mandatory; align-items:center; }
+                    #distributers .brand-strip-mobile::-webkit-scrollbar { height: 6px; }
+                    #distributers .brand-strip-mobile::-webkit-scrollbar-thumb { background:#ddd; border-radius:4px; }
+                    #distributers .brand-strip-mobile .brand-item { flex:0 0 auto; width:120px; height:68px; display:flex; align-items:center; justify-content:center; border:1px solid #eee; border-radius:10px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.04); scroll-snap-align:center; }
+                    #distributers .brand-strip-mobile img { max-width: 90%; max-height: 42px; object-fit: contain; }
+                }
+                /* Desktop keeps carousel; hide grid */
+                @media (min-width: 769px) { #distributers .brand-strip-mobile { display: none; } }
+                </style>
                 <!-- Section Heading -->
                 <div class="row">
                     <div class="col-md-12 text-center">
@@ -852,6 +867,15 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                                     <a href="#"><img src="img/brand/logo6.png" alt=""></a>
                                 </div>
 
+                            </div>
+                            <!-- Mobile horizontal strip (one line, scrollable) -->
+                            <div class="brand-strip-mobile" aria-hidden="true">
+                                <div class="brand-item"><img src="img/brand/logo1.jpg" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo2.png" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo3.webp" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo4.webp" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo5.webp" alt=""></div>
+                                <div class="brand-item"><img src="img/brand/logo6.png" alt=""></div>
                             </div>
                         </div>
                     </div>

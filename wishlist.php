@@ -375,6 +375,7 @@ setTimeout(() => {
             </div>
         </div>
     </div>
+     <?php include 'brand.php'; ?>
     <?php include 'footer.php'; ?>
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
