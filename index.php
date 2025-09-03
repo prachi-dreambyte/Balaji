@@ -1236,7 +1236,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
     <!--</div>-->
     <div class="home-4-service home-2-service service-area" style="padding:0px; ">
         <div class="container-fluid" style="width:100%;">
-            <img src="./img/banner/trust banner.png" alt="trust" style="">
+            <img src="img\banner\WhatsApp Image 2025-09-03 at 9.45.45 AM.jpeg" alt="trust" style="">
         </div>
     </div>
     <!--=====service-end=====-->
@@ -1247,7 +1247,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
             <div class="row align-items-center">
 
                 <!-- Fixed Brand Logo -->
-                <div class="col-md-2 col-2 text-center">
+                <div class="col-md-2 col-4 text-center">
                     <div class="single-brand">
                         <a href="#">
                             <img src="img\balaji\balaji logo.png" alt="Fixed Brand"
@@ -1257,7 +1257,7 @@ $featuredProducts = getProductsByTag($conn, "FEATURED PRODUCTS");
                 </div>
 
                 <!-- Moving Carousel for Rest Logos -->
-                <div class="col-lg-10 col-md-10 col-10">
+                <div class="col-lg-10 col-md-10 col-8">
                     <div class="brand-carousels owl-carousel">
 
                         <div class="single-brands">

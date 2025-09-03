@@ -83,7 +83,7 @@ $totalPages = ceil($totalProducts / $limit);
 		<!-- blog-area-start -->
 		 <section class="AboutSection">
   <div class="image-wrapper">
-    <img src="img\balaji\f29223411f5783a2e17276e9da95c140.jpg" class="AboutwrapperImage" />
+    <img src="img\banner\blog banner balaji.jpg" class="AboutwrapperImage" />
   </div>
 </section>
 		<div class="shop-2-area">
